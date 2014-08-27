@@ -14,6 +14,6 @@
         "yiisoft/yii2": "dev-master"
     },
     "autoload": {
-        "psr-4": {"bedezign\\yii2\\audit": ""}
+        "psr-4": {"bedezign\\yii2\\audit\\": ""}
     }
 }
