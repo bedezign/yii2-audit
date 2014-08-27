@@ -1,0 +1,19 @@
+{
+    "name": "bedezign/yii2-audit",
+    "description": "Auditing component for Yii2",
+    "keywords": ["yii2", "audit", "module"],
+    "type": "yii2-extension",
+    "license": "BSD 3-Clause",
+    "authors": [
+        {
+            "name": "Steve Guns",
+            "homepage": "http://bedezign.com/"
+        }
+    ],
+    "require": {
+        "yiisoft/yii2": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {"bedezign\\yii2\\audit": ""}
+    }
+}
