@@ -9,11 +9,11 @@
  */
 
 
-namespace bedezign\yii2\audit\components\web;
+namespace bedezign\yii2\audit\components\console;
 
 use bedezign\yii2\audit\components\base\ErrorHandlerTrait;
 
-class ErrorHandler extends \yii\web\ErrorHandler
+class ErrorHandler extends \yii\console\ErrorHandler
 {
     use ErrorHandlerTrait;
 }

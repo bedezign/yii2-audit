@@ -1,13 +1,13 @@
 <?php
 /**
- *
+ * This serves as both the Module for the MVC part of the auditing and the configuration/entry point for the actual
+ * auditing process.
  *
  * @author    Steve Guns <steve@bedezign.com>
  * @package   com.bedezign.yii2.audit
  * @category
  * @copyright 2014 B&E DeZign
  */
-
 
 namespace bedezign\yii2\audit;
 
@@ -34,29 +34,29 @@ use bedezign\yii2\audit;
  * - If you want to auto track actions, be sure to add the module to the application bootstrapping:
  *    'bootstrap' => ['auditing'],
  *
-
  */
 class Auditing extends \yii\base\Module
 {
-    /** @var string         name of the component to use for database access */
+    /** @var string         name of the component to use for database access  */
     public $db              = 'db';
 
     /** @var string[]       List of actions to track. '*' is allowed as the last character to use as wildcard. */
     public $trackActions    = ['*'];
 
-    /** @var string[]       Actions to ignore. '*' is allowed as the last character to use as wildcard. */
+    /** @var string[]       Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*'). */
     public $ignoreActions   = [];
 
-    /** @var int            Chance in % that the truncate will run, false to not run at all */
+    /** @var int            Chance in % that the truncate operation will run, false to not run at all */
     public $truncateChance  = false;
 
     /** @var int            Maximum age (in days) of the audit entries before they are truncated */
-    public $maxAuditAge     = null;
+    public $maxAge          = null;
 
+    /** @var static         The current instance */
     private static $current = null;
 
-    /** @var audit\models\AuditEntry */
-    private $entry = null;
+    /** @var audit\models\AuditEntry If activated this is the active entry*/
+    private $entry          = null;
 
     public function init()
     {
@@ -64,16 +64,14 @@ class Auditing extends \yii\base\Module
 
         parent::init();
 
-        if ($this->truncateChance !== false && $this->maxAuditAge !== null) {
-            if (rand(1, 100) <= $this->truncateChance)
-                $this->truncate();
-        }
-
+        // Allow the users to specify a simple string if there is only 1 entry
         $this->trackActions  = \yii\helpers\ArrayHelper::toArray($this->trackActions);
         $this->ignoreActions = \yii\helpers\ArrayHelper::toArray($this->ignoreActions);
 
-        //  Subscribe to event
+        // Before action triggers a new audit entry
         \Yii::$app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onApplicationAction']);
+        // After request finalizes the audit entry and optionally does truncating
+        \Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
     }
 
     public function onApplicationAction($event)
@@ -90,18 +88,34 @@ class Auditing extends \yii\base\Module
         $this->getEntry(true);
     }
 
+    /**
+     * If the action was execute
+     */
+    public function onAfterRequest()
+    {
+        if ($this->entry)
+            $this->entry->finalize();
+
+        if ($this->truncateChance !== false && $this->maxAuditAge !== null) {
+            if (rand(1, 100) <= $this->truncateChance)
+                $this->truncate();
+        }
+    }
 
     /**
      * Associate extra data with the current entry (if any)
-     * @param $data
+     * @param string    $name
+     * @param mixed     $data       The data to associate with the current entry
+     * @param string    $type       Optional type argument
+     * @return \bedezign\yii2\audit\models\AuditData
      */
-    public function data($data)
+    public function data($name, $data, $type = null)
     {
         $entry = $this->getEntry(false);
         if (!$entry)
-            return;
+            return null;
 
-        $data = audit\components\Helper::compact($data);
+        return $entry->addData($name, $data, $type);
     }
 
     /**
@@ -120,15 +134,12 @@ class Auditing extends \yii\base\Module
         return static::$current;
     }
 
-    protected function getEntry($create = false)
+    public function getEntry($create = false)
     {
         if ($create && !$this->entry) {
 
             $this->entry = audit\models\AuditEntry::create(true);
             $this->entry->save(false);
-
-            // We've started an entry, register a shutdown call to finalize it
-            register_shutdown_function([$this, 'finalizeEntry']);
         }
 
         return $this->entry;
@@ -138,17 +149,9 @@ class Auditing extends \yii\base\Module
      * Clean up the audit data according to the settings.
      * Can be handy if you are offloading the data somewhere and want to keep only the most recent entries readily available
      */
-    protected function truncate()
+    public function truncate()
     {
 
-    }
-
-    public function finalizeEntry()
-    {
-        if (!$this->entry)
-            return true;
-
-        return $this->entry->finalize();
     }
 
     /**

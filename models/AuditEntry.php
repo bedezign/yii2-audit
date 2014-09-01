@@ -2,7 +2,7 @@
 /**
  *
  * @author    Steve Guns <steve@bedezign.com>
- * @package
+ * @package   com.bedezign.yii2.audit
  * @category
  * @copyright 2014 B&E DeZign
  */
@@ -10,10 +10,7 @@
 
 namespace bedezign\yii2\audit\models;
 
-use bedezign\yii2\audit\Auditing;
 use bedezign\yii2\audit\components\Helper;
-use yii\db\ActiveRecord;
-use yii\db\Expression;
 
 /**
  * Class AuditEntry
@@ -28,38 +25,17 @@ use yii\db\Expression;
  * @property string $ip
  * @property string $referrer
  * @property string $origin
- * @property string $session
  * @property string $url
  * @property string $route
  * @property string $data           Compressed data collection of everything incoming
  * @property int    $memory
  * @property int    $memory_max
  */
-class AuditEntry extends ActiveRecord
+class AuditEntry extends AuditModel
 {
-    public static function getDb()
-    {
-        return Auditing::current() ? Auditing::current()->getDb() : parent::getDb();
-    }
-
     public static function tableName()
     {
         return '{{%audit_entry}}';
-    }
-
-    public function beforeSave($insert)
-    {
-        if ($insert)
-            $this->created = new Expression('NOW()');
-
-        $this->data = Helper::serialize($this->data, false);
-        return parent::beforeSave($insert);
-    }
-
-    public function afterSave($insert, $changedAttributes)
-    {
-        parent::afterSave($insert, $changedAttributes);
-        $this->data = Helper::unserialize($this->data);
     }
 
     public static function create($initialise = true)
@@ -72,31 +48,51 @@ class AuditEntry extends ActiveRecord
     }
 
     /**
+     * Returns all linked AuditData instances
+     * @return AuditData[]
+     */
+    public function getData()
+    {
+        return static::hasMany(AuditData::className(), ['audit_id' => 'id']);
+    }
+
+    public function addData($name, $data, $type = null)
+    {
+        if ($this->isNewRecord)
+            return null;
+
+        $auditData = new AuditData($this);
+        $auditData->name = $name;
+        $auditData->data = $data;
+        $auditData->type = $type;
+
+        return $auditData->save() ? $auditData : null;
+    }
+
+
+    /**
      * Records the current application state into the instance.
      */
     public function record()
     {
-        $dataMap = ['get' => $_GET, 'post' => $_POST,
-            'cookies' => $_COOKIE, 'env' => $_SERVER, 'files' => $_FILES];
+        $dataMap = ['get' => $_GET, 'post' => $_POST, 'cookies' => $_COOKIE, 'env' => $_SERVER, 'files' => $_FILES];
 
         $app                = \Yii::$app;
-        $user               = $app->user;
         $request            = $app->request;
 
-        $this->user_id      = $user->isGuest ? 0 : $app->user->id;
         $this->route        = $app->requestedAction ? $app->requestedAction->uniqueId : null;
         $this->start_time   = YII_BEGIN_TIME;
 
         if ($request instanceof \yii\web\Request) {
+            $user           = $app->user;
+            $this->user_id  = $user->isGuest ? 0 : $app->user->id;
             $this->url      = $request->url;
             $this->ip       = $request->userIP;
             $this->referrer = $request->referrer;
             $this->origin   = $request->headers->get('location');
 
-            if ($app->has('session')) {
-                $this->session  = $app->session->id;
+            if (isset($_SESSION))
                 $dataMap['session'] = $_SESSION;
-            }
         }
         else if ($request instanceof \yii\console\Request) {
             // Add extra link, makes it easier to detect
