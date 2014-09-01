@@ -31,7 +31,7 @@ class m140829_000001_create_audit_entry extends \yii\db\Migration
 
         ], $tableOptions);
 
-        $this->createIndex('idx_user_id', self::TABLE, ['user_id'], true);
+        $this->createIndex('idx_user_id', self::TABLE, ['user_id']);
     }
 
     public function down()
