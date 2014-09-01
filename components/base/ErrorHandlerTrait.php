@@ -16,14 +16,17 @@ trait ErrorHandlerTrait
 {
     protected function logException($exception)
     {
-        $auditing = Auditing::current();
-        if ($auditing) {
-            $entry = $auditing->getEntry(true);
-            if ($entry) {
-                AuditError::log($entry, $exception);
-                $entry->finalize();
+        try {
+            $auditing = Auditing::current();
+            if ($auditing) {
+                $entry = $auditing->getEntry(true);
+                if ($entry) {
+                    AuditError::log($entry, $exception);
+                    $entry->finalize();
+                }
             }
         }
+        catch (\Exception $e) {}
 
         parent::logException($exception);
     }
