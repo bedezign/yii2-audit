@@ -7,7 +7,8 @@
     "authors": [
         {
             "name": "Steve Guns",
-            "homepage": "http://bedezign.com/"
+            "homepage": "http://bedezign.com/",
+            "email": "Steve@bedezign",
         }
     ],
     "require": {
