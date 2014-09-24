@@ -13,14 +13,16 @@ Installs as a simple module so it can be added without too much hassle.
 
 Once added, this module tracks all incoming pageviews witht he ability to add custom data to a view.
 
-It logs the IP, superglobals ($_GET/$_POST/$_REQUEST
+It logs the user-id (if any), IP, superglobals ($_GET/$_POST/$_SERVER/$_FILES/$_COOKIES), memory usage, referrer and origin.
 
 
 ## Installing
 
 * Add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`
 * Run the migrations from the `migrations` folder.
-* Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootrap:
+* Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootrap.
+
+Example: 
 
     'bootstrap' => ['log', 'auditing', ...],
     'controllerNamespace' => 'frontend\controllers',
@@ -33,4 +35,3 @@ It logs the IP, superglobals ($_GET/$_POST/$_REQUEST
     ],
  
 This installs the module with auto loading, instructing it to not log anything debug related.
-
