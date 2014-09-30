@@ -69,7 +69,6 @@ class AuditEntry extends AuditModel
         return $auditData->save() ? $auditData : null;
     }
 
-
     /**
      * Records the current application state into the instance.
      */
@@ -117,4 +116,21 @@ class AuditEntry extends AuditModel
 
         return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max']);
     }
+
+    public function attributeLabels()
+    {
+        return
+        [
+            'id'            => 'Entry Id',
+            'created'       => 'Added at',
+            'start_time'    => 'Start Time',
+            'end_time'      => 'End Time',
+            'duration'      => 'Request Duration',
+            'user_id'       => 'User',
+            'memory'        => 'Memory Usage',
+            'memory_max'    => 'Max. Memory Usage',
+        ];
+    }
+
+
 }

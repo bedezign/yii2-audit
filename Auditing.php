@@ -52,6 +52,12 @@ class Auditing extends \yii\base\Module
     /** @var int            Maximum age (in days) of the audit entries before they are truncated */
     public $maxAge          = null;
 
+    /** @var int[]          List of user IDs with access */
+    public $accessUsers     = [];
+
+    /** @var string[]       List of roles that have access */
+    public $accessRoles     = ['admin'];
+
     /** @var static         The current instance */
     private static $current = null;
 
