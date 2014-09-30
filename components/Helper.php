@@ -117,4 +117,14 @@ class Helper extends Object
         }
         return $args;
     }
+
+    /**
+     * Converts a value to a string to output. This was taken from the Yii2 Debug component
+     * @param mixed $value
+     * @return string
+     */
+    public static function formatValue($value)
+    {
+        return htmlspecialchars(\yii\helpers\VarDumper::dumpAsString($value), ENT_QUOTES|ENT_SUBSTITUTE, \Yii::$app->charset, true);
+    }
 }

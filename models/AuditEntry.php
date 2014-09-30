@@ -51,9 +51,18 @@ class AuditEntry extends AuditModel
      * Returns all linked AuditData instances
      * @return AuditData[]
      */
-    public function getData()
+    public function getExtraData()
     {
         return static::hasMany(AuditData::className(), ['audit_id' => 'id']);
+    }
+
+    /**
+     * Returns all linked AuditError instances
+     * @return AuditError[]
+     */
+    public function getErrors()
+    {
+        return static::hasMany(AuditError::className(), ['audit_id' => 'id']);
     }
 
     public function addData($name, $data, $type = null)
@@ -61,10 +70,11 @@ class AuditEntry extends AuditModel
         if ($this->isNewRecord)
             return null;
 
-        $auditData = new AuditData($this);
-        $auditData->name = $name;
-        $auditData->data = $data;
-        $auditData->type = $type;
+        $auditData = new AuditData();
+        $auditData->entry = $this;
+        $auditData->name  = $name;
+        $auditData->data  = $data;
+        $auditData->type  = $type;
 
         return $auditData->save() ? $auditData : null;
     }
@@ -131,6 +141,4 @@ class AuditEntry extends AuditModel
             'memory_max'    => 'Max. Memory Usage',
         ];
     }
-
-
 }

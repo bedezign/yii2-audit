@@ -27,16 +27,17 @@ use bedezign\yii2\audit\components\Helper;
  */
 class AuditError extends AuditModel
 {
-    public function __construct(AuditEntry $entry, $config = [])
+    protected $serializeAttributes = ['trace'];
+
+    public function setEntry(AuditEntry $entry)
     {
-        parent::__construct($config);
         $this->audit_id = $entry->id;
-        $this->serializeAttributes = ['trace'];
     }
 
     public static function log(AuditEntry $entry, $exception)
     {
-        $error = new static($entry);
+        $error = new static();
+        $error->entry = $entry;
         $error->record($exception);
         return $error->save(false) ? $error : null;
     }
@@ -49,4 +50,14 @@ class AuditError extends AuditModel
         $this->line     = $exception->getLine();
         $this->trace    = Helper::cleanupTrace($exception->getTrace());
     }
+
+    public function attributeLabels()
+    {
+        return
+        [
+            'code'  => 'Error Code'
+        ];
+    }
+
+
 }

@@ -24,11 +24,11 @@ namespace bedezign\yii2\audit\models;
  */
 class AuditData extends AuditModel
 {
+    // By default we do not serialise values (unless they are complex)
     protected $autoSerialize = false;
 
-    public function __construct(AuditEntry $entry, $config = [])
+    public function setEntry(AuditEntry $entry)
     {
-        parent::__construct($config);
         $this->audit_id = $entry->id;
     }
 

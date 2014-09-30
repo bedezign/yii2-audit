@@ -1,7 +1,9 @@
 <?php
 
+    /** @var \yii\web\View $this */
     /** @var bedezign\yii2\audit\models\AuditEntry $entry */
     use yii\helpers\Html;
+    use \bedezign\yii2\audit\components\Helper;
 
     echo Html::tag('h2', 'Request');
     echo \yii\widgets\DetailView::widget(
@@ -38,6 +40,25 @@
         'post'      => '$_POST',
     ];
 
+    if (count($entry->extraData)) {
+        echo Html::tag('h2', 'Extra Data');
+        $attributes = [];
+        foreach ($entry->extraData as $data) {
+            $attributes[] =
+            [
+                'label'     => $data->name,
+                'value'     => Helper::formatValue($data->data),
+                'format'    => 'raw',
+            ];
+        }
+        echo \yii\widgets\DetailView::widget(['model' => $entry, 'attributes' => $attributes]);
+
+    }
+
+    if (count($entry->errors))
+        foreach ($entry->errors as $error)
+            echo $this->render('error', ['error' => $error]);
+
     foreach ($entry->data as $type => $values)
     {
         echo Html::tag('h2', $types[$type]);
@@ -46,9 +67,8 @@
             $attributes[] =
             [
                 'label'     => $name,
-                'value'     => htmlspecialchars(\yii\helpers\VarDumper::dumpAsString($value), ENT_QUOTES|ENT_SUBSTITUTE, \Yii::$app->charset, true),
+                'value'     => Helper::formatValue($value),
                 'format'    => 'raw',
             ];
-        echo \yii\widgets\DetailView::widget(['model' => (object)$values, 'attributes' => $attributes]);
+        echo \yii\widgets\DetailView::widget(['model' => $entry, 'attributes' => $attributes]);
     }
-
