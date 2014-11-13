@@ -18,7 +18,8 @@ trait ErrorHandlerTrait
     {
         try {
             $auditing = Auditing::current();
-            if ($auditing) {
+            // Make sure not to interfere with out of memory errors, there's not enough spare room to load everything
+            if ($auditing && strncmp($exception->getMessage(), 'Allowed memory size of', 22)) {
                 $entry = $auditing->getEntry(true);
                 if ($entry) {
                     AuditError::log($entry, $exception);
