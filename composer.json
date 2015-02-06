@@ -1,7 +1,7 @@
 {
     "name": "bedezign/yii2-audit",
     "description": "Auditing component for Yii2",
-    "keywords": ["yii2", "audit", "module"],
+    "keywords": ["yii2", "audit", "trail", "module"],
     "type": "yii2-extension",
     "license": "BSD 3-Clause",
     "authors": [
@@ -12,7 +12,7 @@
         }
     ],
     "require": {
-        "yiisoft/yii2": "dev-master"
+        "yiisoft/yii2": "2.0.*"
     },
     "autoload": {
         "psr-4": {"bedezign\\yii2\\audit\\": ""}
