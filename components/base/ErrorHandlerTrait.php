@@ -14,7 +14,7 @@ use bedezign\yii2\audit\models\AuditError;
 
 trait ErrorHandlerTrait
 {
-    protected function logException($exception)
+    public function logException($exception)
     {
         try {
             $auditing = Auditing::current();
