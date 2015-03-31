@@ -13,6 +13,7 @@ namespace bedezign\yii2\audit;
 
 use yii\base\Application;
 use bedezign\yii2\audit;
+use bedezign\yii2\audit\models;
 
 /**
  * Class Auditing
@@ -157,7 +158,21 @@ class Auditing extends \yii\base\Module
      */
     public function truncate()
     {
+        if ($this->maxAge === null)
+            return;
 
+        $entry  = models\AuditEntry::tableName();
+        $errors = models\AuditError::tableName();
+        $data   = models\AuditData::tableName();
+
+        $threshold = time() - ($this->maxAge * 86400);
+
+        models\AuditEntry::getDb()->createCommand(<<<SQL
+DELETE FROM $entry, $errors, $data USING $entry
+  INNER JOIN $errors ON $errors.audit_id = $entry.id INNER JOIN $data ON $data.audit_id = $entry.id
+  WHERE $entry.created < FROM_UNIXTIME($threshold)
+SQL
+        )->execute();
     }
 
     /**

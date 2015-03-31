@@ -42,6 +42,14 @@ class AuditError extends AuditModel
         return $error->save(false) ? $error : null;
     }
 
+    public static function logMessage(AuditEntry $entry, $message, $code = 0, $file = '', $line = 0, $trace = [])
+    {
+        $error = new static();
+        $error->entry = $entry;
+        $error->recordMessage($message, $code, $file, $line, $trace);
+        return $error->save(false) ? $error : null;
+    }
+
     public function record(\Exception $exception)
     {
         $this->message  = $exception->getMessage();
@@ -49,6 +57,15 @@ class AuditError extends AuditModel
         $this->file     = $exception->getFile();
         $this->line     = $exception->getLine();
         $this->trace    = Helper::cleanupTrace($exception->getTrace());
+    }
+
+    public function recordMessage($message, $code = 0, $file = '', $line = 0, $trace = [])
+    {
+        $this->message  = $message;
+        $this->code     = $code;
+        $this->file     = $file;
+        $this->line     = $line;
+        $this->trace    = Helper::cleanupTrace($trace);
     }
 
     public function attributeLabels()

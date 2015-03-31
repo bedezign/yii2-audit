@@ -35,3 +35,13 @@ Example:
     ],
  
 This installs the module with auto loading, instructing it to not log anything debug related.
+
+### Error Logging
+
+If you also want errors to be logged, you have to register the included errorhandler as well in you configuration:
+
+    'errorHandler' => [
+       'class'       => '\bedezign\yii2\audit\components\web\ErrorHandler',
+       'errorAction' => 'site/error',
+    ],
+
