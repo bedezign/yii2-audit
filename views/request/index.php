@@ -1,0 +1,57 @@
+<?php
+
+use yii\helpers\Html;
+use yii\grid\GridView;
+use yii\web\View;
+
+use bedezign\yii2\audit\models\AuditEntrySearch;
+
+/* @var $this yii\web\View */
+/* @var $dataProvider yii\data\ActiveDataProvider */
+
+$this->title = Yii::t('auditEntry', 'Audit Entries');
+$this->params['breadcrumbs'][] = $this->title;
+?>
+<div class="audit-entry-index">
+
+    <h1><?= Html::encode($this->title) ?></h1>
+
+    <?= GridView::widget([
+        'dataProvider' => $dataProvider,
+        'filterModel' => $searchModel,
+        'columns' => [
+            ['class' => 'yii\grid\SerialColumn'],
+            [
+                'attribute' => 'user_id',
+                'label' => Yii::t('audit', 'User ID'),
+                'class' => 'yii\grid\DataColumn',
+            ],
+            [
+                'label' => Yii::t('audit', 'Request method'),
+                'class' => 'yii\grid\DataColumn',
+                'value' => function ($data) {
+                    return $data->data['env']['REQUEST_METHOD'];
+                },
+            ],
+            'created',
+            [
+                'class' => 'yii\grid\DataColumn',
+                'attribute' => 'route',
+                'filter' => AuditEntrySearch::routeFilter(),
+                'format' => 'html',
+                'value' => function ($data) {
+
+
+                    return HTML::tag('span', '', [
+                        'title' => $data->url,
+                        'class' => 'glyphicon glyphicon-link'
+                    ]).' '.$data->route;
+                },
+            ],
+            ['attribute' => 'duration', 'format' => 'decimal'],
+            ['attribute' => 'memory', 'format' => 'shortsize'],
+            ['attribute' => 'memory_max', 'format' => 'shortsize'],
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+        ],
+    ]); ?>
+</div>
