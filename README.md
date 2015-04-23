@@ -7,8 +7,6 @@ This is based on a couple of other projects out there:
  * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
  * [Cordernote Audit Module](https://github.com/cornernote/yii-audit-module)
 
-Please note that due to time constraints I haven't been able to add a viewer yet. I have no idea when that will happen, I haven't had more use for the module yet besides it actually logging the data.
-
 ## Features
 Installs as a simple module so it can be added without too much hassle.
 

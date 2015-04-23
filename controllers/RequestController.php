@@ -4,7 +4,6 @@
  *
  * @author    Steve Guns <steve@bedezign.com>
  * @package   com.bedezign.sa-portal.inet.telenet.be
- * @category
  * @copyright 2014 B&E DeZign
  */
 
@@ -18,6 +17,31 @@ class RequestController extends \yii\web\Controller
 {
     use \bedezign\yii2\audit\components\ControllerTrait;
 
+    public function behaviors()
+    {
+        if ($this->module->accessUsers === null && $this->module->accessRoles === null)
+            // No user authentication active, skip adding the filter
+            return [];
+
+        $rule = ['allow' => 'allow'];
+        if ($this->module->accessRoles) {
+            $rule['roles'] = $this->module->accessRoles;
+        }
+        if ($this->module->accessUsers) {
+            $rule['matchCallback'] = function ($rule, $action) {
+                return in_array(\Yii::$app->user->id, $action->controller->module->accessUsers);
+            };
+        }
+
+        return [
+            'access' => [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => [
+                    $rule
+                ],
+            ],
+        ];
+    }
 
     /**
      * Lists all AuditEntry models.

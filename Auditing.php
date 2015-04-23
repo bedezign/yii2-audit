@@ -5,13 +5,13 @@
  *
  * @author    Steve Guns <steve@bedezign.com>
  * @package   com.bedezign.yii2.audit
- * @category
  * @copyright 2014 B&E DeZign
  */
 
 namespace bedezign\yii2\audit;
 
 use yii\base\Application;
+use yii\helpers\ArrayHelper;
 use bedezign\yii2\audit;
 use bedezign\yii2\audit\models;
 
@@ -53,11 +53,11 @@ class Auditing extends \yii\base\Module
     /** @var int            Maximum age (in days) of the audit entries before they are truncated */
     public $maxAge          = null;
 
-    /** @var int[]          List of user IDs with access */
-    public $accessUsers     = [];
+    /** @var int[]          (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches) */
+    public $accessUsers     = null;
 
-    /** @var string[]       List of roles that have access */
-    public $accessRoles     = ['admin'];
+    /** @var string[]       (List of) role(s) with access to the viewer, null for everyone (if the user matches) */
+    public $accessRoles     = 'admin';
 
     /** @var static         The current instance */
     private static $current = null;
@@ -72,8 +72,14 @@ class Auditing extends \yii\base\Module
         parent::init();
 
         // Allow the users to specify a simple string if there is only 1 entry
-        $this->trackActions  = \yii\helpers\ArrayHelper::toArray($this->trackActions);
-        $this->ignoreActions = \yii\helpers\ArrayHelper::toArray($this->ignoreActions);
+        $this->trackActions  = ArrayHelper::toArray($this->trackActions);
+        $this->ignoreActions = ArrayHelper::toArray($this->ignoreActions);
+
+        if ($this->accessRoles)
+            $this->accessRoles = ArrayHelper::toArray($this->accessRoles);
+
+        if ($this->accessUsers)
+            $this->accessUsers = ArrayHelper::toArray($this->accessUsers);
 
         // Before action triggers a new audit entry
         \Yii::$app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onApplicationAction']);

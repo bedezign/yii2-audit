@@ -40,12 +40,10 @@ $this->params['breadcrumbs'][] = $this->title;
                 'filter' => AuditEntrySearch::routeFilter(),
                 'format' => 'html',
                 'value' => function ($data) {
-
-
                     return HTML::tag('span', '', [
                         'title' => $data->url,
                         'class' => 'glyphicon glyphicon-link'
-                    ]).' '.$data->route;
+                    ]) . ' ' . $data->route;
                 },
             ],
             ['attribute' => 'duration', 'format' => 'decimal'],
