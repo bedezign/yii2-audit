@@ -43,7 +43,10 @@ class AuditEntrySearch extends AuditEntry
         }
 
         // adjust the query by adding the filters
-        $query->andFilterWhere(['user_id' => $this->user_id]);
+        $userId = $this->user_id;
+        if (strlen($this->user_id))
+            $userId = intval($this->user_id) ?: 0;
+        $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['route' => $this->route]);
         $query->andFilterWhere(['like', 'created', $this->created]);
 

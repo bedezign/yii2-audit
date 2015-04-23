@@ -1,16 +1,16 @@
 <?php
 
-use yii\helpers\Html;
-use yii\grid\GridView;
-use yii\web\View;
+    use yii\helpers\Html;
+    use yii\grid\GridView;
+    use yii\web\View;
 
-use bedezign\yii2\audit\models\AuditEntrySearch;
+    use bedezign\yii2\audit\models\AuditEntrySearch;
 
-/* @var $this yii\web\View */
-/* @var $dataProvider yii\data\ActiveDataProvider */
+    /* @var $this yii\web\View */
+    /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('auditEntry', 'Audit Entries');
-$this->params['breadcrumbs'][] = $this->title;
+    $this->title = Yii::t('audit', 'Audit Entries');
+    $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="audit-entry-index">
 
@@ -25,6 +25,9 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'user_id',
                 'label' => Yii::t('audit', 'User ID'),
                 'class' => 'yii\grid\DataColumn',
+                'value' => function ($data) {
+                    return $data->user_id ?: Yii::t('audit', 'Guest');
+                }
             ],
             [
                 'label' => Yii::t('audit', 'Request method'),

@@ -5,7 +5,12 @@
     use yii\helpers\Html;
     use \bedezign\yii2\audit\components\Helper;
 
-    echo Html::tag('h2', 'Request');
+    $this->title = Yii::t('audit', 'Audit Entry #{entry}', ['entry' => $entry->id]);
+    $this->params['breadcrumbs'][] = $this->title;
+
+    echo Html::tag('h1', $this->title);
+
+    echo Html::tag('h2', Yii::t('audit', 'Request'));
     echo \yii\widgets\DetailView::widget(
     [
         'model' => $entry,
@@ -14,7 +19,7 @@
             'id',
             [
                 'label' => $entry->getAttributeLabel('user_id'),
-                'value' => $entry->user_id ? $entry->user_id : 'Guest',
+                'value' => intval($entry->user_id) ? $entry->user_id : 'Guest',
             ],
             'ip',
             'created',
@@ -41,7 +46,7 @@
     ];
 
     if (count($entry->extraData)) {
-        echo Html::tag('h2', 'Extra Data');
+        echo Html::tag('h2', Yii::t('audit', 'Extra Data'));
         $attributes = [];
         foreach ($entry->extraData as $data) {
             $attributes[] =
