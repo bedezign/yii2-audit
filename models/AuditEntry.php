@@ -51,6 +51,15 @@ class AuditEntry extends AuditModel
      * Returns all linked AuditData instances
      * @return AuditData[]
      */
+    public function getUser()
+    {
+        return static::hasOne(User::className(), ['user_id' => 'id']);
+    }
+
+    /**
+     * Returns all linked AuditData instances
+     * @return AuditData[]
+     */
     public function getExtraData()
     {
         return static::hasMany(AuditData::className(), ['audit_id' => 'id']);
