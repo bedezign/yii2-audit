@@ -13,7 +13,7 @@ use Yii;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditEntrySearch;
 
-class RequestController extends \yii\web\Controller
+class DefaultController extends \yii\web\Controller
 {
     use \bedezign\yii2\audit\components\ControllerTrait;
 
