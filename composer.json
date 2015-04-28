@@ -9,6 +9,11 @@
             "name": "Steve Guns",
             "homepage": "http://bedezign.com/",
             "email": "Steve@bedezign.com"
+        },
+        {
+            "name": "Marc Hollander",
+            "homepage": "http://maruc.nl/",
+            "email": "marchollander@gmail.com"
         }
     ],
     "require": {
