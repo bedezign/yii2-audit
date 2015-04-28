@@ -16,8 +16,8 @@ It logs the user-id (if any), IP, superglobals ($_GET/$_POST/$_SERVER/$_FILES/$_
 
 ## Installing
 
-* Add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`
-* Run the migrations from the `migrations` folder.
+* Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`
+* Run the migrations from the `migrations` folder. `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
 * Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootrap.
 
 Example:
