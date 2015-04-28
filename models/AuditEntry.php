@@ -74,12 +74,21 @@ class AuditEntry extends AuditModel
         return static::hasMany(AuditError::className(), ['audit_id' => 'id']);
     }
 
+    /**
+     * Returns all linked AuditError instances
+     * @return AuditError[]
+     */
+    public function getTrail()
+    {
+        return static::hasMany(AuditTrail::className(), ['audit_id' => 'id']);
+    }
+
     public function addData($name, $data, $type = null)
     {
         if ($this->isNewRecord)
             return null;
 
-        $auditData = new AuditData();
+        $auditData = new AuditData;
         $auditData->entry = $this;
         $auditData->name  = $name;
         $auditData->data  = $data;
