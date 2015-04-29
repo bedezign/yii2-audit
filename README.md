@@ -91,9 +91,14 @@ If you want database changes to be logged, you have to add the `AuditingBehavior
 
 You can then access the auditing module through the following URL:
 
-http://localhost/path/to/index.php?r=auditing/request/index
+    http://localhost/path/to/index.php?r=auditing
+
+You can add extra data to an entry by calling:
+
+    \bedezign\yii2\audit\Auditing::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
 ### Screenshots
 
 ![Index example](docs/screenshots/audit-index.png?raw=true)
 ![View example](docs/screenshots/audit-view.png?raw=true)
+![Diff example](docs/screenshots/audit-diff.png?raw=true)
