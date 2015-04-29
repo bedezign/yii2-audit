@@ -151,7 +151,7 @@ class Auditing extends \yii\base\Module
     {
         if ($create && !$this->entry) {
 
-            $this->entry = audit\models\AuditEntry::create(true);
+            $this->entry = models\AuditEntry::create(true);
             $this->entry->save(false);
         }
 
