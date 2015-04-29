@@ -47,6 +47,13 @@ class DefaultController extends \yii\web\Controller
         ];
     }
 
+    public function init()
+    {
+        \bedezign\yii2\audit\assets\AuditingAsset::register($this->view);
+
+        parent::init();
+    }
+
     /**
      * Lists all AuditEntry models.
      * @return mixed
