@@ -1,13 +1,7 @@
 <?php
 /**
- *
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category  components.console
- * @copyright 2014 B&E DeZign
+ * Console compatible error handler
  */
-
 
 namespace bedezign\yii2\audit\components\console;
 

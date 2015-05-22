@@ -2,11 +2,6 @@
 /**
  * Extra custom data associated with a specific auditing line. There are currently no guidelines concerning what the name/type
  * needs to be, this is at your own discretion.
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category
- * @copyright 2014 B&E DeZign
  */
 
 namespace bedezign\yii2\audit\models;

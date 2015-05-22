@@ -1,15 +1,10 @@
 <?php
-/**
- * Auditing assets
- *
- * @author    Steve Guns <steve@bedezign.com>
- */
 
 namespace bedezign\yii2\audit\assets;
 
 use yii\web\AssetBundle;
 
-class AuditingAsset extends AssetBundle
+class ViewerAsset extends AssetBundle
 {
     /**
      * @inheritdoc
@@ -22,6 +17,7 @@ class AuditingAsset extends AssetBundle
     public $css = [
         'css/auditing.css',
     ];
+
     public $depends = [
         'yii\bootstrap\BootstrapAsset',
     ];

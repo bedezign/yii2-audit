@@ -1,12 +1,4 @@
 <?php
-/**
- * Model to store error information
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category
- * @copyright 2014 B&E DeZign
- */
 
 namespace bedezign\yii2\audit\models;
 

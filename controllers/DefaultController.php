@@ -1,11 +1,4 @@
 <?php
-/**
- *
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.sa-portal.inet.telenet.be
- * @copyright 2014 B&E DeZign
- */
 
 namespace bedezign\yii2\audit\controllers;
 
@@ -21,37 +14,10 @@ class DefaultController extends \yii\web\Controller
 {
     use \bedezign\yii2\audit\components\ControllerTrait;
 
-    public function behaviors()
+    public function beforeAction($action)
     {
-        if ($this->module->accessUsers === null && $this->module->accessRoles === null)
-            // No user authentication active, skip adding the filter
-            return [];
-
-        $rule = ['allow' => 'allow'];
-        if ($this->module->accessRoles) {
-            $rule['roles'] = $this->module->accessRoles;
-        }
-        if ($this->module->accessUsers) {
-            $rule['matchCallback'] = function ($rule, $action) {
-                return in_array(\Yii::$app->user->id, $action->controller->module->accessUsers);
-            };
-        }
-
-        return [
-            'access' => [
-                'class' => AccessControl::className(),
-                'rules' => [
-                    $rule
-                ],
-            ],
-        ];
-    }
-
-    public function init()
-    {
-        \bedezign\yii2\audit\assets\AuditingAsset::register($this->view);
-
-        parent::init();
+        \bedezign\yii2\audit\assets\ViewerAsset::register($this->view);
+        return parent::beforeAction($action);
     }
 
     /**

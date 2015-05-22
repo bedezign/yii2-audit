@@ -1,13 +1,7 @@
 <?php
 /**
- * Base implementation to be used in the controllers, mainly security wise
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category
- * @copyright 2014 B&E DeZign
+ * Base implementation to be used in all user interaction controllers, mainly security wise
  */
-
 
 namespace bedezign\yii2\audit\components;
 
@@ -25,41 +19,30 @@ trait ControllerTrait
 
     public function getAccessControlFilter()
     {
-        return
-        [
-            'access' =>
-            [
-                'class' => \yii\filters\AccessControl::className(),
-                'rules' =>
-                [
-                    [
-                        'allow'         => true,
-                        'roles'         => ['@'],
-                        'matchCallback' => [$this, 'checkAccess']
-                    ]
-                ]
-            ]
+        if ($this->module->accessUsers === null && $this->module->accessRoles === null)
+            // No user authentication active, skip adding the filter
+            return [];
+
+        $rule = ['allow' => 'allow'];
+        if ($this->module->accessRoles) {
+            // Add allowed roles
+            $rule['roles'] = $this->module->accessRoles;
+        }
+
+        if ($this->module->accessUsers) {
+            // Specific users only? Use callback
+            $rule['matchCallback'] = function ($rule, $action) {
+                return in_array(\Yii::$app->user->id, $action->controller->module->accessUsers);
+            };
+        }
+
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'rules' => [
+                    $rule
+                ],
+            ],
         ];
-    }
-
-    public function checkAccess()
-    {
-        $user = \Yii::$app->user;
-        if ($user->isGuest)
-            return false;
-
-        $module = \Yii::$app->getModule('auditing');
-        if (!$module)
-            return false;
-
-        if (is_array($module->accessUsers) && in_array($user->id, $module->accessUsers))
-            return true;
-
-        if (is_array($module->accessRoles))
-            foreach ($module->accessRoles as $role)
-                if ($user->can($role))
-                    return true;
-
-        return false;
     }
 }

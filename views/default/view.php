@@ -19,12 +19,12 @@ $this->params['breadcrumbs'][] = $this->title;
 
 ?>
 
-<?= Html::tag('h1', $this->title, ['id' => 'entry', 'class' => 'hashtag']) ?>
+<?= Html::tag('h1', $this->title) ?>
 
 <div class="row">
     <div class="col-md-10">
-        <?php
-
+<?php
+        echo Html::tag('h2', Yii::t('audit', 'Request'), ['id' => 'entry', 'class' => 'hashtag']);
         echo DetailView::widget([
             'model' => $entry,
             'attributes' =>
@@ -121,13 +121,31 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         }
 
+        if (count($entry->javascript)) {
+            echo Html::tag('h2', Yii::t('audit', 'Javascript ({i})', ['i' => count($entry->javascript)]), ['id' => 'javascript', 'class' => 'hashtag']);
+
+            foreach ($entry->javascript as $i => $javascript) {
+                echo Html::tag('h3', Yii::t('audit', 'Entry #{i}', ['i' => $i + 1]));
+                echo DetailView::widget(['model' => $javascript, 'attributes' => [
+                    'type',
+                    'message',
+                    'origin',
+                    [
+                        'attribute' => 'data',
+                        'value'     => Helper::formatValue($javascript->data),
+                        'format'    => 'raw',
+                    ]
+                ]]);
+            }
+        }
+
         $types = [
-            'env' => '$_SERVER',
+            'env'     => '$_SERVER',
             'session' => '$_SESSION',
             'cookies' => '$_COOKIES',
-            'files' => '$_FILES',
-            'get' => '$_GET',
-            'post' => '$_POST',
+            'files'   => '$_FILES',
+            'get'     => '$_GET',
+            'post'    => '$_POST',
         ];
 
         foreach ($entry->data as $type => $values) {
@@ -147,26 +165,30 @@ $this->params['breadcrumbs'][] = $this->title;
                 'template' => '<tr><th>{label}</th><td style="word-break:break-word;">{value}</td></tr>'
             ]);
         }
-        ?>
+?>
     </div>
     <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked affix">
-          <li><a href="#entry">Entry</a></li>
+          <li><a href="#entry"><?= Yii::t('auditing', 'Request') ?></a></li>
 
-          <?php if (count($entry->extraData)) : ?>
-              <li><a href="#extra-data">Extra data (<?= count($entry->extraData) ?>)</a></li>
+          <?php if (count($entry->extraData)): ?>
+              <li><a href="#extra-data"><?= Yii::t('auditing', 'Extra data ({i})', ['i' => count($entry->extraData)]) ?></a></li>
           <?php endif ?>
 
-          <?php if (count($entry->trail)) : ?>
-              <li><a href="#trail">Trail (<?= count($entry->trail) ?>)</a></li>
+          <?php if (count($entry->trail)): ?>
+              <li><a href="#trail"><?= Yii::t('audit', 'Trail ({i})', ['i' => count($entry->trail)]) ?></a></li>
           <?php endif ?>
 
-          <?php if (count($entry->errors)) : ?>
-              <li><a href="#errors">Errors (<?= count($entry->trail) ?>)</a></li>
+          <?php if (count($entry->errors)): ?>
+              <li><a href="#errors"><?= Yii::t('audit', 'Errors ({i})', ['i' => count($entry->errors)]) ?></a></li>
           <?php endif ?>
 
-          <?php foreach ($entry->data as $type => $values) : ?>
-              <li><a href="#<?= $type ?>"><?= $types[$type] ?></a></li>
+          <?php if (count($entry->javascript)): ?>
+              <li><a href="#javascript"><?= Yii::t('audit', 'Javascript ({i})', ['i' => count($entry->javascript)]) ?></a></li>
+          <?php endif ?>
+
+          <?php foreach ($entry->data as $type => $values): ?>
+              <li><a href="#<?= $type ?>"><?= $types[$type] . ' (' . count($entry->data[$type]) . ')' ?></a></li>
           <?php endforeach ?>
         </ul>
     </div>

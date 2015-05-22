@@ -1,11 +1,7 @@
 <?php
 /**
- * Base model for the audit classes
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category
- * @copyright 2014 B&E DeZign
+ * Base model for the audit classes containing some helper functions to auto serialize/unserialize the
+ * raw data attributes.
  */
 
 namespace bedezign\yii2\audit\models;

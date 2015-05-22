@@ -1,12 +1,4 @@
 <?php
-/**
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category
- * @copyright 2014 B&E DeZign
- */
-
 
 namespace bedezign\yii2\audit\models;
 
@@ -81,6 +73,15 @@ class AuditEntry extends AuditModel
     public function getTrail()
     {
         return static::hasMany(AuditTrail::className(), ['audit_id' => 'id']);
+    }
+
+    /**
+     * Returns all linked AuditJavascript instances
+     * @return AuditJavascript[]
+     */
+    public function getJavascript()
+    {
+        return static::hasMany(AuditJavascript::className(), ['audit_id' => 'id']);
     }
 
     public function addData($name, $data, $type = null)

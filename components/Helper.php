@@ -1,13 +1,7 @@
 <?php
 /**
  * Provides a number of helper functions for the auditing component
- *
- * @author    Steve Guns <steve@bedezign.com>
- * @package   com.bedezign.yii2.audit
- * @category  components
- * @copyright 2014 B&E DeZign
  */
-
 
 namespace bedezign\yii2\audit\components;
 

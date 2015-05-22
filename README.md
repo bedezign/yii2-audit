@@ -10,11 +10,14 @@ This is based on a couple of other projects out there:
 ## Features
 Installs as a simple module so it can be added without too much hassle.
 
-Once added, this module tracks all incoming pageviews with the ability to add custom data to a view.
+* Tracks all incoming pageviews with the ability to add custom data to a view.  
+  It logs the user-id (if any), IP, superglobals ($_GET/$_POST/$_SERVER/$_FILES/$_COOKIES), memory usage, referrer and origin. You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
 
-It logs the user-id (if any), IP, superglobals ($_GET/$_POST/$_SERVER/$_FILES/$_COOKIES), memory usage, referrer and origin.
+* Track database changes. By implementing the `AuditingBehavior` this is easily realized thanks to a modified version of [Sammayes Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail).
 
-Additionally it can save database changes thanks to a modified version of [Sammayes Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail).
+* Automatically log javascript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
+
+* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality.
 
 ## Installing
 
@@ -53,7 +56,7 @@ This installs the module with auto loading, instructing it to not log anything d
 
 ### Error Logging
 
-If you also want errors to be logged, you have to register the included errorhandler as well in you configuration:
+If you want errors to be logged, you have to register the included errorhandler as well in you configuration:
 
     'errorHandler' => [
        'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
@@ -86,16 +89,43 @@ If you want database changes to be logged, you have to add the `AuditingBehavior
             ]
         ];
     }
+    
+    
+### Javascript Logging
 
-## Usage
+The module also supports logging of javascript errors, warnings and even regular log entries.
+To activate, register the `assets\JSLoggingAsset` in any of your views:
 
-You can then access the auditing module through the following URL:
+     \bedezign\yii2\audit\assets\JSLoggingAsset::register($this);
+     
+This will activate the logger automatically. By default all warnings and errors are transmitted to the backend. 
+
+The default configuration assumes that the module was added as "auditing" (so the log url would be "*/auditing/javascript/log*"). If that is not the case, please make sure to update the setting somewhere in your javascript:
+
+    window.jsLogger.logUrl = '/mymodulename/javascript/log';        
+
+All javascript logging will be linked to the entry associated with the page entry created when you performed the initial request. This is accomplished by adding the ID of that entry in the `window`-object (`window.auditEntry`). 
+
+Beware: If you use ajax or related technologies to load data from the backend, these requests might generate their own auditing entries. If those cause backend errors they will be linked to that new entry. This might be a bit weird with the javascript logging being linked to the older entry. 
+
+### Extra Data
+
+It is possible to add extra custom data to the current audit entry by simply calling:
+
+    \bedezign\yii2\audit\Auditing::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+    
+Or if you prefer:
+   
+    \Yii::$app->auditing->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');    
+
+
+## Viewing the audit data
+
+Assuming you named the module "auditing" you can then access the auditing module through the following URL:
 
     http://localhost/path/to/index.php?r=auditing
 
-You can add extra data to an entry by calling:
 
-    \bedezign\yii2\audit\Auditing::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
 ### Screenshots
 

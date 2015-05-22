@@ -5,7 +5,7 @@
  *
  * @author    Steve Guns <steve@bedezign.com>
  * @package   com.bedezign.yii2.audit
- * @copyright 2014 B&E DeZign
+ * @copyright 2014-2015 B&E DeZign
  */
 
 namespace bedezign\yii2\audit;
@@ -38,36 +38,36 @@ use bedezign\yii2\audit\models;
  */
 class Auditing extends \yii\base\Module
 {
-    /** @var string         name of the component to use for database access  */
-    public $db              = 'db';
+    /** @var string             name of the component to use for database access  */
+    public $db                  = 'db';
 
-    /** @var string[]       List of actions to track. '*' is allowed as the last character to use as wildcard. */
-    public $trackActions    = ['*'];
+    /** @var string[]           List of actions to track. '*' is allowed as the last character to use as wildcard. */
+    public $trackActions        = ['*'];
 
-    /** @var string[]       Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*'). */
-    public $ignoreActions   = [];
+    /** @var string[]           Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*'). */
+    public $ignoreActions       = [];
 
-    /** @var int            Chance in % that the truncate operation will run, false to not run at all */
-    public $truncateChance  = false;
+    /** @var int                Chance in % that the truncate operation will run, false to not run at all */
+    public $truncateChance      = false;
 
-    /** @var int            Maximum age (in days) of the audit entries before they are truncated */
-    public $maxAge          = null;
+    /** @var int                Maximum age (in days) of the audit entries before they are truncated */
+    public $maxAge              = null;
 
-    /** @var int[]          (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches) */
-    public $accessUsers     = null;
+    /** @var int[]              (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches) */
+    public $accessUsers         = null;
 
-    /** @var string[]       (List of) role(s) with access to the viewer, null for everyone (if the user matches) */
-    public $accessRoles     = 'admin';
+    /** @var string[]           (List of) role(s) with access to the viewer, null for everyone (if the user matches) */
+    public $accessRoles         = 'admin';
 
-    /** @var static         The current instance */
-    private static $current = null;
+    /** @var static             The current instance */
+    private static $_current    = null;
 
     /** @var audit\models\AuditEntry If activated this is the active entry*/
-    private $entry          = null;
+    private $_entry             = null;
 
     public function init()
     {
-        static::$current = $this;
+        static::$_current = $this;
 
         parent::init();
 
@@ -87,6 +87,10 @@ class Auditing extends \yii\base\Module
         \Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
     }
 
+    /**
+     * Called to evaluate if the current request should be logged
+     * @param \yii\base\Event $event
+     */
     public function onApplicationAction($event)
     {
         $actionId = $event->action->uniqueId;
@@ -107,7 +111,7 @@ class Auditing extends \yii\base\Module
     public function onAfterRequest()
     {
         if ($this->entry)
-            $this->entry->finalize();
+            $this->_entry->finalize();
 
         if ($this->truncateChance !== false && $this->maxAuditAge !== null) {
             if (rand(1, 100) <= $this->truncateChance)
@@ -140,22 +144,24 @@ class Auditing extends \yii\base\Module
     }
 
     /**
+     * Returns the current module instance.
+     * Since we don't know how the module was linked into the application, this function allows us to retrieve
+     * the instance without that information. As soon as an instance was initialized, it is linked.
      * @return static
      */
     public static function current()
     {
-        return static::$current;
+        return static::$_current;
     }
 
     public function getEntry($create = false)
     {
-        if ($create && !$this->entry) {
-
-            $this->entry = models\AuditEntry::create(true);
-            $this->entry->save(false);
+        if (!$this->_entry && $create) {
+            $this->_entry = models\AuditEntry::create(true);
+            $this->_entry->save(false);
         }
 
-        return $this->entry;
+        return $this->_entry;
     }
 
     /**
