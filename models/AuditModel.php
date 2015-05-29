@@ -26,7 +26,6 @@ class AuditModel extends \yii\db\ActiveRecord
         if ($insert && $this->hasAttribute('created'))
             $this->created = new Expression('NOW()');
 
-
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
                 if ($this->hasAttribute($attribute))

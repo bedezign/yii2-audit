@@ -52,7 +52,7 @@
             ['attribute' => 'duration', 'format' => 'decimal'],
             ['attribute' => 'memory', 'format' => 'shortsize'],
             ['attribute' => 'memory_max', 'format' => 'shortsize'],
-            ['attribute' => 'errors', 'value' => function($data) { return is_array($data->errors) ? count($data->errors) : 0; }],
+            ['attribute' => 'errors', 'value' => function($data) { return is_array($data->linkedErrors) ? count($data->linkedErrors) : 0; }],
             ['attribute' => 'javascript', 'value' => function($data) { return is_array($data->javascript) ? count($data->javascript) : 0; }],
             ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
         ],

@@ -102,10 +102,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
         }
 
-        if (count($entry->errors)) {
+        if (count($entry->linkedErrors)) {
             echo Html::tag('h2', Yii::t('audit', 'Errors ({i})', ['i' => count($entry->errors)]), ['id' => 'errors', 'class' => 'hashtag']);
 
-            foreach ($entry->errors as $i => $error) {
+            foreach ($entry->linkedErrors as $i => $error) {
                 echo Html::tag('h3', Yii::t('audit', 'Error #{i}', ['i' => $i + 1]));
                 echo DetailView::widget([
                     'model' => $error,
@@ -179,8 +179,8 @@ $this->params['breadcrumbs'][] = $this->title;
               <li><a href="#trail"><?= Yii::t('audit', 'Trail ({i})', ['i' => count($entry->trail)]) ?></a></li>
           <?php endif ?>
 
-          <?php if (count($entry->errors)): ?>
-              <li><a href="#errors"><?= Yii::t('audit', 'Errors ({i})', ['i' => count($entry->errors)]) ?></a></li>
+          <?php if (count($entry->linkedErrors)): ?>
+              <li><a href="#errors"><?= Yii::t('audit', 'Errors ({i})', ['i' => count($entry->linkedErrors)]) ?></a></li>
           <?php endif ?>
 
           <?php if (count($entry->javascript)): ?>
