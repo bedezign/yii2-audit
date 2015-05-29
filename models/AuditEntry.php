@@ -61,7 +61,7 @@ class AuditEntry extends AuditModel
      * Returns all linked AuditError instances
      * @return AuditError[]
      */
-    public function getErrors()
+    public function getErrors($attribute = NULL)
     {
         return static::hasMany(AuditError::className(), ['audit_id' => 'id']);
     }
