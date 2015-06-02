@@ -103,7 +103,7 @@ $this->params['breadcrumbs'][] = $this->title;
         }
 
         if (count($entry->linkedErrors)) {
-            echo Html::tag('h2', Yii::t('audit', 'Errors ({i})', ['i' => count($entry->errors)]), ['id' => 'errors', 'class' => 'hashtag']);
+            echo Html::tag('h2', Yii::t('audit', 'Errors ({i})', ['i' => count($entry->linkedErrors)]), ['id' => 'errors', 'class' => 'hashtag']);
 
             foreach ($entry->linkedErrors as $i => $error) {
                 echo Html::tag('h3', Yii::t('audit', 'Error #{i}', ['i' => $i + 1]));
