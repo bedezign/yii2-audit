@@ -151,7 +151,7 @@ class AuditingBehavior extends Behavior
     {
         if ($this->active) {
             $log = new AuditTrail;
-            $log->audit_id = Auditing::current()->getEntry()->id;
+            $log->audit_id = Auditing::current()->getEntry(true)->id;
             $log->old_value = $old_value;
             $log->new_value = $value;
             $log->action = $action;

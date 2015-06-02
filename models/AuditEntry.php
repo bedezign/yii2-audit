@@ -150,14 +150,14 @@ class AuditEntry extends AuditModel
     {
         return
         [
-            'id'            => 'Entry Id',
-            'created'       => 'Added at',
-            'start_time'    => 'Start Time',
-            'end_time'      => 'End Time',
-            'duration'      => 'Request Duration',
-            'user_id'       => 'User',
-            'memory'        => 'Memory Usage',
-            'memory_max'    => 'Max. Memory Usage',
+            'id'            => \Yii::t('audit', 'Entry Id'),
+            'created'       => \Yii::t('audit', 'Added at'),
+            'start_time'    => \Yii::t('audit', 'Start Time'),
+            'end_time'      => \Yii::t('audit', 'End Time'),
+            'duration'      => \Yii::t('audit', 'Request Duration'),
+            'user_id'       => \Yii::t('audit', 'User'),
+            'memory'        => \Yii::t('audit', 'Memory Usage'),
+            'memory_max'    => \Yii::t('audit', 'Max. Memory Usage'),
         ];
     }
 }

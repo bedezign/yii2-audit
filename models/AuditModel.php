@@ -8,7 +8,6 @@ namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\Auditing;
 use bedezign\yii2\audit\components\Helper;
-use yii\db\Expression;
 
 class AuditModel extends \yii\db\ActiveRecord
 {
@@ -24,7 +23,7 @@ class AuditModel extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if ($insert && $this->hasAttribute('created'))
-            $this->created = new Expression('NOW()');
+            $this->created = new \yii\db\Expression('NOW()');
 
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)

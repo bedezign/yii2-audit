@@ -85,6 +85,16 @@ class Auditing extends \yii\base\Module
         \Yii::$app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onApplicationAction']);
         // After request finalizes the audit entry and optionally does truncating
         \Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
+
+        // Register translation
+        $app = \Yii::$app;
+        if ($app->has('i18n')) {
+            $app->i18n->translations['audit'] = [
+                'class'          => 'yii\i18n\PhpMessageSource',
+                'sourceLanguage' => 'en',
+                'basePath'       => '@bedezign/yii2/audit/messages',
+            ];
+        }
     }
 
     /**

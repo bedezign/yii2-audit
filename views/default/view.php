@@ -169,10 +169,10 @@ $this->params['breadcrumbs'][] = $this->title;
     </div>
     <div class="col-md-2">
         <ul class="nav nav-pills nav-stacked affix">
-          <li><a href="#entry"><?= Yii::t('auditing', 'Request') ?></a></li>
+          <li><a href="#entry"><?= Yii::t('audit', 'Request') ?></a></li>
 
           <?php if (count($entry->extraData)): ?>
-              <li><a href="#extra-data"><?= Yii::t('auditing', 'Extra data ({i})', ['i' => count($entry->extraData)]) ?></a></li>
+              <li><a href="#extra-data"><?= Yii::t('audit', 'Extra data ({i})', ['i' => count($entry->extraData)]) ?></a></li>
           <?php endif ?>
 
           <?php if (count($entry->trail)): ?>
