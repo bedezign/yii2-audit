@@ -183,15 +183,18 @@ class Auditing extends \yii\base\Module
         if ($this->maxAge === null)
             return;
 
-        $entry  = models\AuditEntry::tableName();
-        $errors = models\AuditError::tableName();
-        $data   = models\AuditData::tableName();
+        $entry      = models\AuditEntry::tableName();
+        $errors     = models\AuditError::tableName();
+        $data       = models\AuditData::tableName();
+        $javascript = models\AuditJavascript::tableName();
 
         $threshold = time() - ($this->maxAge * 86400);
 
         models\AuditEntry::getDb()->createCommand(<<<SQL
-DELETE FROM $entry, $errors, $data USING $entry
-  INNER JOIN $errors ON $errors.audit_id = $entry.id INNER JOIN $data ON $data.audit_id = $entry.id
+DELETE FROM $entry, $errors, $data, $javascript USING $entry
+  INNER JOIN $errors ON $errors.audit_id = $entry.id
+  INNER JOIN $data ON $data.audit_id = $entry.id
+  INNER JOIN $javascript ON $javascript.audit_id = $entry.id
   WHERE $entry.created < FROM_UNIXTIME($threshold)
 SQL
         )->execute();

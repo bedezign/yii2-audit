@@ -113,7 +113,7 @@ class AuditEntry extends AuditModel
 
         if ($request instanceof \yii\web\Request) {
             $user           = $app->user;
-            $this->user_id  = $user->isGuest ? 0 : $app->user->id;
+            $this->user_id  = $user->isGuest ? 0 : $user->id;
             $this->url      = $request->url;
             $this->ip       = $request->userIP;
             $this->referrer = $request->referrer;

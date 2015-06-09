@@ -1,14 +1,11 @@
 <?php
 namespace bedezign\yii2\audit;
 
-use Yii;
-use yii\base\Behavior;
 use yii\db\ActiveRecord;
-use yii\db\Expression;
 
 use bedezign\yii2\audit\models\AuditTrail;
 
-class AuditingBehavior extends Behavior
+class AuditingBehavior extends \yii\base\Behavior
 {
 
     private $_oldattributes = [];
@@ -43,7 +40,7 @@ class AuditingBehavior extends Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_FIND => 'afterFind',
+            ActiveRecord::EVENT_AFTER_FIND   => 'afterFind',
             ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
             ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
             ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
@@ -72,7 +69,6 @@ class AuditingBehavior extends Behavior
 
     public function audit($insert)
     {
-
         $allowedFields = $this->allowed;
         $ignoredFields = $this->ignored;
         $ignoredClasses = $this->ignoredClasses;
@@ -82,41 +78,46 @@ class AuditingBehavior extends Behavior
 
         // Lets check if the whole class should be ignored
         if (sizeof($ignoredClasses) > 0) {
-            if (array_search(get_class($this->owner), $ignoredClasses) !== false)
+            if (array_search(get_class($this->owner), $ignoredClasses) !== false) {
                 return;
+            }
         }
 
         // Lets unset fields which are not allowed
         if (sizeof($allowedFields) > 0) {
             foreach ($newattributes as $f => $v) {
-                if (array_search($f, $allowedFields) === false)
+                if (array_search($f, $allowedFields) === false) {
                     unset($newattributes[$f]);
+                }
             }
 
             foreach ($oldattributes as $f => $v) {
-                if (array_search($f, $allowedFields) === false)
+                if (array_search($f, $allowedFields) === false) {
                     unset($oldattributes[$f]);
+                }
             }
         }
 
         // Lets unset fields which are ignored
         if (sizeof($ignoredFields) > 0) {
             foreach ($newattributes as $f => $v) {
-                if (array_search($f, $ignoredFields) !== false)
+                if (array_search($f, $ignoredFields) !== false) {
                     unset($newattributes[$f]);
+                }
             }
 
             foreach ($oldattributes as $f => $v) {
-                if (array_search($f, $ignoredFields) !== false)
+                if (array_search($f, $ignoredFields) !== false) {
                     unset($oldattributes[$f]);
+                }
             }
         }
 
-
         // If no difference then WHY?
         // There is some kind of problem here that means "0" and 1 do not diff for array_diff so beware: stackoverflow.com/questions/12004231/php-array-diff-weirdness :S
-        if (count(array_diff_assoc($newattributes, $oldattributes)) <= 0)
+        if (count(array_diff_assoc($newattributes, $oldattributes)) <= 0) {
             return;
+        }
 
         // If this is a new record lets add a CREATE notification
         if ($insert) {
@@ -150,15 +151,19 @@ class AuditingBehavior extends Behavior
     public function leaveTrail($action, $name = null, $value = null, $old_value = null)
     {
         if ($this->active) {
+            $entry = Auditing::current()->getEntry();
+            $user = \Yii::$app->has('user') ? \Yii::$app->user : null;
+
             $log = new AuditTrail;
-            $log->audit_id = Auditing::current()->getEntry(true)->id;
+            $log->audit_id = $entry ? $entry->id : null;
+            $log->user_id = $user ? $user->id : null;
             $log->old_value = $old_value;
             $log->new_value = $value;
             $log->action = $action;
             $log->model = $this->owner->className(); // Gets a plain text version of the model name
-            $log->model_id = (string) $this->getNormalizedPk();
+            $log->model_id = (string)$this->getNormalizedPk();
             $log->field = $name;
-            $log->stamp = new Expression('NOW()');
+            $log->stamp = new \yii\db\Expression('NOW()');
 
             return $log->save();
         }

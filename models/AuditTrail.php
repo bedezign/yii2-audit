@@ -8,15 +8,16 @@ use yii\db\ActiveRecord;
 /**
  * The followings are the available columns in table 'tbl_audit_trail':
  *
- * @var integer $id
- * @var string  $new_value
- * @var string  $old_value
- * @var string  $action
- * @var string  $model
- * @var string  $field
- * @var string  $stamp
- * @var integer $user_id
- * @var string  $model_id
+ * @property integer $id
+ * @property integer $audit_it
+ * @property integer $user_id
+ * @property string  $new_value
+ * @property string  $old_value
+ * @property string  $action
+ * @property string  $model
+ * @property string  $field
+ * @property string  $stamp
+ * @property string  $model_id
  */
 class AuditTrail extends AuditModel
 {
@@ -70,5 +71,10 @@ class AuditTrail extends AuditModel
     public function getParent()
     {
         return new $this->model;
+    }
+
+    public function getEntry()
+    {
+        return $this->hasOne(AuditEntry::className(), ['id' => 'audit_id']);
     }
 }
