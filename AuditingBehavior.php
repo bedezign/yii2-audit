@@ -151,7 +151,7 @@ class AuditingBehavior extends \yii\base\Behavior
     public function leaveTrail($action, $name = null, $value = null, $old_value = null)
     {
         if ($this->active) {
-            $entry = Auditing::current()->getEntry();
+            $entry = Auditing::current() ? Auditing::current()->getEntry() : null;
             $user = \Yii::$app->has('user') ? \Yii::$app->user : null;
 
             $log = new AuditTrail;

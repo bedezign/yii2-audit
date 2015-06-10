@@ -54,8 +54,8 @@ class AuditTrail extends AuditModel
     public function rules()
     {
         return [
-            [['audit_id', 'action', 'model', 'stamp', 'model_id'], 'required'],
-            ['audit_id', 'integer', 'integerOnly' => true],
+            [['action', 'model', 'stamp', 'model_id'], 'required'],
+            [['audit_id', 'user_id'], 'integer', 'integerOnly' => true],
             ['action', 'string', 'max' => 255],
             ['model', 'string', 'max' => 255],
             ['field', 'string', 'max' => 255],
