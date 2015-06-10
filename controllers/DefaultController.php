@@ -9,6 +9,7 @@ use yii\filters\VerbFilter;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditEntrySearch;
 use bedezign\yii2\audit\models\AuditTrail;
+use bedezign\yii2\audit\models\AuditTrailSearch;
 
 class DefaultController extends \yii\web\Controller
 {
@@ -77,5 +78,20 @@ class DefaultController extends \yii\web\Controller
             'model' => $model,
             'diff' => $diff->render(new \Diff_Renderer_Html_Inline)]
         );
+    }
+
+    /**
+     * Lists all AuditTrail models.
+     * @return mixed
+     */
+    public function actionTrail()
+    {
+        $searchModel = new AuditTrailSearch;
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        return $this->render('trail', [
+            'dataProvider' => $dataProvider,
+            'searchModel' => $searchModel,
+        ]);
     }
 }

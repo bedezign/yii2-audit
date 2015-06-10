@@ -7,8 +7,12 @@ use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 $this->title = Yii::t('audit', 'Audit Trail #{id}', ['id' => $model->id]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entries'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entry #{id}', ['id' => $model->audit_id]), 'url' => ['view', 'id' => $model->audit_id]];
+if (Yii::$app->request->get('referrer') === 'trail') {
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Trail'), 'url' => ['trail']];
+} else {
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entries'), 'url' => ['index']];
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entry #{id}', ['id' => $model->audit_id]), 'url' => ['view', 'id' => $model->audit_id]];
+}
 $this->params['breadcrumbs'][] = $this->title;
 
 echo Html::tag('h1', $this->title);
