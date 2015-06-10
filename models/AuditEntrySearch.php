@@ -49,7 +49,7 @@ class AuditEntrySearch extends AuditEntry
         $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['route' => $this->route]);
         $query->andFilterWhere(['like', 'created', $this->created]);
-        $query->with(['errors', 'javascript']);
+        $query->with(['linkedErrors', 'javascript']);
 
         return $dataProvider;
     }
