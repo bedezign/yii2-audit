@@ -51,7 +51,7 @@ class Auditing extends \yii\base\Module
     public $truncateChance      = false;
 
     /** @var int                Maximum age (in days) of the audit entries before they are truncated */
-    public $maxAge         = null;
+    public $maxAge              = null;
 
     /** @var int[]              (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches) */
     public $accessUsers         = null;
