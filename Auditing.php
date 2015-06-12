@@ -51,7 +51,7 @@ class Auditing extends \yii\base\Module
     public $truncateChance      = false;
 
     /** @var int                Maximum age (in days) of the audit entries before they are truncated */
-    public $maxAge              = null;
+    public $maxAge         = null;
 
     /** @var int[]              (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches) */
     public $accessUsers         = null;
@@ -123,7 +123,7 @@ class Auditing extends \yii\base\Module
         if ($this->entry)
             $this->_entry->finalize();
 
-        if ($this->truncateChance !== false && $this->maxAuditAge !== null) {
+        if ($this->truncateChance !== false && $this->maxAge !== null) {
             if (rand(1, 100) <= $this->truncateChance)
                 $this->truncate();
         }
