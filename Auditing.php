@@ -59,6 +59,9 @@ class Auditing extends \yii\base\Module
     /** @var string[]           (List of) role(s) with access to the viewer, null for everyone (if the user matches) */
     public $accessRoles         = 'admin';
 
+    /** @var bool               Compress extra data generated or just keep in text? For people who don't like binary data in the DB */
+    public $compressData        = true;
+
     /** @var static             The current instance */
     private static $_current    = null;
 

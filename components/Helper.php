@@ -5,10 +5,10 @@
 
 namespace bedezign\yii2\audit\components;
 
-use yii\base\Object;
+use bedezign\yii2\audit\Auditing;
 use yii\helpers\ArrayHelper;
 
-class Helper extends Object
+class Helper extends \yii\base\Object
 {
     /**
      * Convert the given value into a gzip compressed blob so it can be stored in the database
@@ -21,7 +21,11 @@ class Helper extends Object
         if ($compact)
             $data = static::compact($data);
 
-        return gzcompress(serialize($data));
+        $data = serialize($data);
+        if (Auditing::current()->compressData)
+            $data = gzcompress($data);
+
+        return $data;
     }
 
     /**
@@ -31,7 +35,10 @@ class Helper extends Object
      */
     public static function unserialize($data)
     {
-        return unserialize(gzuncompress($data));
+        if (Auditing::current()->compressData)
+            $data = gzuncompress($data);
+
+        return unserialize($data);
     }
 
     /**
