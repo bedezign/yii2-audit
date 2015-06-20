@@ -5,7 +5,7 @@ Yet another auditing module.
 This is based on a couple of other projects out there:
 
  * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
- * [Cordernote Audit Module](https://github.com/cornernote/yii-audit-module)
+ * [Cornernote Audit Module](https://github.com/cornernote/yii-audit-module)
 
 ## Features
 Installs as a simple module so it can be added without too much hassle.
