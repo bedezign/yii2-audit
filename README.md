@@ -21,9 +21,24 @@ Installs as a simple module so it can be added without too much hassle.
 
 ## Installing
 
+### Download
+
 * Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`
 * Run the migrations from the `migrations` folder. `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
 * Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootrap.
+
+### Database
+
+Update your database schema by applying the migrations:
+
+```
+$ php yii migrate/up --migrationPath=@vendor/bedezign/yii2-audit/migrations
+```
+
+
+### Configuration
+
+Add the following to your yii configuration file:
 
 Example:
 
