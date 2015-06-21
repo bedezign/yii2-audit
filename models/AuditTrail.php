@@ -78,4 +78,21 @@ class AuditTrail extends AuditModel
     {
         return $this->hasOne(AuditEntry::className(), ['id' => 'audit_id']);
     }
+    
+    public function getDiffHtml()
+    {
+        $old = explode("\n", $this->old_value);
+        $new = explode("\n", $this->new_value);
+
+        foreach ($old as $i => $line) {
+            $old[$i] = rtrim($line, "\r\n");
+        }
+        foreach ($new as $i => $line) {
+            $new[$i] = rtrim($line, "\r\n");
+        }
+
+        $diff = new \Diff($old, $new);
+        return $diff->render(new \Diff_Renderer_Html_Inline);
+    }
+    
 }
