@@ -1,7 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var bedezign\yii2\audit\models\AuditEntry $model */
+/** @var bedezign\yii2\audit\models\AuditTrail $model */
 
 use yii\helpers\Html;
 use yii\widgets\DetailView;
@@ -30,4 +30,4 @@ echo DetailView::widget([
 ]);
 
 echo Html::tag('h2', Yii::t('audit', 'Difference'));
-echo $diff;
+echo $model->getDiffHtml();
