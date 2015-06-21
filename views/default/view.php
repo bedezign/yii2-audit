@@ -79,6 +79,8 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model',
                     'model_id',
                     'field',
+                    'old_value:ntext',
+                    'new_value:ntext',
                     'stamp',
                     [
                         'class' => 'yii\grid\ActionColumn',
