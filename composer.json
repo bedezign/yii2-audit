@@ -22,5 +22,8 @@
     },
     "autoload": {
         "psr-4": {"bedezign\\yii2\\audit\\": ""}
+    },
+    "extra": {
+        "bootstrap": "bedezign\\yii2\\audit\\Bootstrap"
     }
 }
