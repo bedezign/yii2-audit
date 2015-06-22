@@ -123,9 +123,9 @@ class AuditingBehavior extends \yii\base\Behavior
                     'action'    => 'DELETE',
                     'audit_id'  => $this->getAuditEntryId(),
                     'user_id'   => $this->getUserId(),
-                    'stamp'     => date($this->dateFormat),
                     'model'     => $this->owner->className(),
                     'model_id'  => $this->getNormalizedPk(),
+                    'stamp'     => date($this->dateFormat),
                 ])->execute();
             }
             return;
