@@ -10,12 +10,14 @@ use yii\widgets\Pjax;
  * @var View $this
  * @var BaseActiveRecord $model
  * @var yii\bootstrap\ActiveForm $form
+ * @var array $params
  */
 
+$params = !empty($params) ? $params : Yii::$app->request->get();
 ?>
 <?php
 $auditTrailSearch = new AuditTrailSearch();
-$auditTrailDataProvider = $auditTrailSearch->search(Yii::$app->request->get(), $model->getAuditTrails());
+$auditTrailDataProvider = $auditTrailSearch->search($params, $model->getAuditTrails());
 $auditTrailDataProvider->pagination = ['pageSize' => 20, 'pageParam' => 'page-auditTrails'];
 $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
 ?>
