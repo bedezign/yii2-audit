@@ -41,6 +41,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 [ 'attribute' => 'duration', 'format' => 'decimal' ],
                 'referrer',
                 'origin',
+                'redirect',
                 'url',
                 'route',
                 [ 'attribute' => 'memory', 'format' => 'shortsize' ],
