@@ -186,6 +186,13 @@ class AuditingBehavior extends \yii\base\Behavior
             return;
         }
 
+        // Setup values outside loop
+        $audit_id = $this->getAuditEntryId();
+        $user_id = $this->getUserId();
+        $model = $this->owner->className();
+        $model_id = $this->getNormalizedPk();
+        $stamp = date($this->dateFormat);
+
         // Build a list of fields to log
         $rows = array();
         foreach ($newAttributes as $name => $new) {
@@ -198,15 +205,15 @@ class AuditingBehavior extends \yii\base\Behavior
             // If they are not the same lets write an audit log
             if ($new != $old) {
                 $rows[] = [
-                    $this->getAuditEntryId(),
-                    $this->getUserId(),
+                    $audit_id,
+                    $user_id,
                     $old,
                     $new,
                     $action,
-                    $this->owner->className(),
-                    $this->getNormalizedPk(),
+                    $model,
+                    $model_id,
                     $name,
-                    date($this->dateFormat),
+                    $stamp,
                 ];
             }
         }
