@@ -105,6 +105,45 @@ There is a grid for only database changes available at:
 
 http://localhost/path/to/index.php?r=auditing/default/trail
 
+#### Render Audit Log for a Model
+
+Model:
+```php
+    /** get trails for this record */
+    public function getAuditTrails()
+    {
+        return $this->hasMany(AuditTrail::className(), ['model_id' => 'id'])
+          ->andOnCondition(['model' => get_class($this)]);
+    }
+    /** get trails for all this model and all related comment models */
+    public function getAuditTrails()
+    {
+        return AuditTrail::find()
+            ->orOnCondition([
+                'audit_trail.model_id' => $this->id, 
+                'audit_trail.model' => get_class($this),
+              ])
+            ->orOnCondition([
+                'audit_trail.model_id' => ArrayHelper::map($this->getComments()->all(), 'id', 'id'), 
+                'audit_trail.model' => 'app\models\Comment',
+            ]);
+    }
+```
+
+Controller:
+```php
+    public function actionLog($id)
+    {
+        $model = $this->findModel($id);
+        return $this->render('view', ['model' => $model]);
+    }
+```
+
+View
+```php
+<?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_fields', ['model' => $model]) ?>
+```
+
 ### Javascript Logging
 
 The module also supports logging of javascript errors, warnings and even regular log entries.
