@@ -11,8 +11,7 @@ class m150622_000001_update_audit_entry extends \yii\db\Migration
         $this->addColumn(self::TABLE, 'request_method', 'varchar(255) NULL AFTER memory_max');
         $this->createIndex('idx_audit_entry_request_method', self::TABLE, ['request_method']);
 
-        $query = \bedezign\yii2\audit\models\AuditEntry::find();
-        foreach ($query->batch() as $auditEntries) {
+        foreach (\bedezign\yii2\audit\models\AuditEntry::find()->batch() as $auditEntries) {
             foreach ($auditEntries as $auditEntry) {
                 $auditEntry->request_method = \yii\helpers\ArrayHelper::getValue($auditEntry->data, 'env.REQUEST_METHOD');
                 if (!$auditEntry->request_method) {
