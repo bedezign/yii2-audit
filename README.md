@@ -182,6 +182,31 @@ Or if you prefer:
 
     \Yii::$app->auditing->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
+### Emailing Errors
+
+A command is available to email errors which can be added to your cron. 
+
+```
+php yii auditing/error-email
+```
+
+You should ensure you have setup a `mailer` component and have a `scriptUrl` property in the `urlManager` component in your console configuration.  For example:
+
+```php
+$console = [
+    'components' => [
+        'mailer' => [
+            // see http://www.yiiframework.com/doc-2.0/guide-tutorial-mailing.html
+            'class' => 'yii\swiftmailer\Mailer',
+        ],
+        'urlManager' => [
+            // required because the CLI script doesn't know the URL
+            'scriptUrl' => 'http://example.com/',
+        ],
+    ],
+]
+```
+
 ### Render AuditEntry.id in Layout
 
 It is often useful for users to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
