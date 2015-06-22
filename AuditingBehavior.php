@@ -191,7 +191,7 @@ class AuditingBehavior extends \yii\base\Behavior
         foreach ($newAttributes as $name => $new) {
             $old = isset($oldAttributes[$name]) ? $oldAttributes[$name] : '';
             // If we are skipping nulls then lets see if both sides are null
-            if ($this->skipNulls && empty($old) && empty($value)) {
+            if ($this->skipNulls && empty($old) && empty($new)) {
                 continue;
             }
 
