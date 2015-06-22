@@ -19,6 +19,7 @@ use bedezign\yii2\audit\components\Helper;
  * @property string $origin
  * @property string $url
  * @property string $route
+ * @property string $redirect
  * @property string $data           Compressed data collection of everything incoming
  * @property int    $memory
  * @property int    $memory_max
@@ -121,6 +122,8 @@ class AuditEntry extends AuditModel
 
             if (isset($_SESSION))
                 $dataMap['session'] = $_SESSION;
+                
+            $dataMap['request_headers'] = $request->headers;
         }
         else if ($request instanceof \yii\console\Request) {
             // Add extra link, makes it easier to detect
@@ -143,7 +146,16 @@ class AuditEntry extends AuditModel
         $this->memory = memory_get_usage();
         $this->memory_max = memory_get_peak_usage();
 
-        return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max']);
+        $app      = \Yii::$app;
+        $response = $app->response;
+        if ($response instanceof \yii\web\Response) {
+            $data = $this->data;
+            $data['response_headers'] = Helper::compact($response->headers);
+            $this->data = $data;
+            $this->redirect = $response->headers->get('location');
+        }
+
+        return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max', 'redirect', 'data']);
     }
 
     public function attributeLabels()
