@@ -109,13 +109,13 @@ http://localhost/path/to/index.php?r=auditing/default/trail
 
 Model:
 ```php
-    /** get trails for this record */
+    /** get trails for this model */
     public function getAuditTrails()
     {
         return $this->hasMany(AuditTrail::className(), ['model_id' => 'id'])
           ->andOnCondition(['model' => get_class($this)]);
     }
-    /** get trails for all this model and all related comment models */
+    /** get trails for this model and all related comment models */
     public function getAuditTrails()
     {
         return AuditTrail::find()
