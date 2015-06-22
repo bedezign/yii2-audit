@@ -188,8 +188,8 @@ class AuditingBehavior extends \yii\base\Behavior
 
         // Build a list of fields to log
         $rows = array();
-        foreach ($oldAttributes as $name => $old) {
-            $new = isset($newAttributes[$name]) ? $newAttributes[$name] : '';
+        foreach ($newAttributes as $name => $new) {
+            $old = isset($oldAttributes[$name]) ? $oldAttributes[$name] : '';
             // If we are skipping nulls then lets see if both sides are null
             if ($this->skipNulls && empty($old) && empty($value)) {
                 continue;
