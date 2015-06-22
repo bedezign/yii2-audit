@@ -182,6 +182,15 @@ Or if you prefer:
 
     \Yii::$app->auditing->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
+### Render AuditEntry.id in Layout
+
+It is often useful for users to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
+
+```php
+<?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_entry_id', [
+  'link' => false, // set to true to render the id as a link
+]); ?>
+```
 
 ## Viewing the audit data
 
