@@ -135,7 +135,7 @@ Controller:
     public function actionLog($id)
     {
         $model = $this->findModel($id);
-        return $this->render('view', ['model' => $model]);
+        return $this->render('log', ['model' => $model]);
     }
 ```
 
