@@ -141,8 +141,7 @@ Controller:
 
 View
 ```php
-<?php
-$this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', [
+echo $this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
     'model' => $model,
     // params for the AuditTrailSearch::search() (optional)
@@ -151,8 +150,7 @@ $this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', [
             'field' => 'status', // in this case we only want to show trails for the "status" field
         ]
     ],
-]) 
-?>
+]);
 ```
 
 ### Javascript Logging
