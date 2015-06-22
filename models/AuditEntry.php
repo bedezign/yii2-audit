@@ -128,7 +128,7 @@ class AuditEntry extends AuditModel
             // Add extra link, makes it easier to detect
             $dataMap['params']    = $request->params;
             $this->url            = $request->scriptFile;
-            $this->request_method = 'CONSOLE';
+            $this->request_method = 'CLI';
         }
 
         // Record the incoming data
