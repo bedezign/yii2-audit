@@ -132,7 +132,7 @@ Or if you prefer:
 
     \Yii::$app->auditing->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
-### Render AuditEntry.id on Footer
+### Render AuditEntry.id in Layout
 
 It is often useful for clients to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
 
