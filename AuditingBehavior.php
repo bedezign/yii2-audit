@@ -188,20 +188,20 @@ class AuditingBehavior extends \yii\base\Behavior
 
         // Build a list of fields to log
         $rows = array();
-        foreach ($newAttributes as $name => $value) {
-            $old = isset($oldAttributes[$name]) ? $oldAttributes[$name] : '';
+        foreach ($oldAttributes as $name => $old) {
+            $new = isset($newAttributes[$name]) ? $newAttributes[$name] : '';
             // If we are skipping nulls then lets see if both sides are null
             if ($this->skipNulls && empty($old) && empty($value)) {
                 continue;
             }
 
             // If they are not the same lets write an audit log
-            if ($value != $old) {
+            if ($new != $old) {
                 $rows[] = [
                     $this->getAuditEntryId(),
                     $this->getUserId(),
                     $old,
-                    $value,
+                    $new,
                     $action,
                     $this->owner->className(),
                     $this->getNormalizedPk(),
