@@ -161,6 +161,7 @@ class AuditEntry extends AuditModel
             'user_id'       => \Yii::t('audit', 'User'),
             'memory'        => \Yii::t('audit', 'Memory Usage'),
             'memory_max'    => \Yii::t('audit', 'Max. Memory Usage'),
+            'request_method'=> \Yii::t('audit', 'Request Method'),
         ];
     }
 }
