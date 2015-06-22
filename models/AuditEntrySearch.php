@@ -58,15 +58,11 @@ class AuditEntrySearch extends AuditEntry
 
     static public function routeFilter()
     {
-        $entries = AuditEntry::find()->groupBy('route')->orderBy('route ASC')->all();
-
-        $routeFilter = [];
-        foreach ($entries as $entry) {
-            if (!empty($entry->route)) {
-                $routeFilter[$entry->route] = $entry->route;
-            }
-        }
-
-        return $routeFilter;
+        $routes = AuditEntry::getDb()->cache(function($db) {
+            return AuditEntry::find()->distinct(true)
+                ->select('route')->where(['is not', 'route', null])
+                ->groupBy('route')->orderBy('route ASC')->column();
+        }, 30);
+        return array_combine($routes, $routes);
     }
 }
