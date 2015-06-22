@@ -12,7 +12,7 @@ class AuditTrailSearch extends AuditTrail
     {
         // only fields in rules() are searchable
         return [
-            [['user_id', 'action', 'model', 'model_id', 'field', 'stamp'], 'safe'],
+            [['id', 'user_id', 'audit_id', 'action', 'model', 'model_id', 'field', 'stamp'], 'safe'],
         ];
     }
 
@@ -45,6 +45,8 @@ class AuditTrailSearch extends AuditTrail
         if (strlen($this->user_id))
             $userId = intval($this->user_id) ?: 0;
 
+        $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['audit_id' => $this->audit_id]);
         $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['action' => $this->action]);
         $query->andFilterWhere(['like', 'model', $this->model]);
