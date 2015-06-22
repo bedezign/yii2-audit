@@ -157,6 +157,54 @@ class Auditing extends \yii\base\Module
     }
 
     /**
+     * Check if the current user has access to the auditing functionality
+     * @return bool
+     * @throws \yii\base\InvalidConfigException
+     */
+    public function checkAccess()
+    {
+        if ($this->accessUsers === null && $this->accessRoles === null)
+            return true;
+
+        $user = \yii\di\Instance::ensure('user', \yii\web\User::className());
+        if ($this->accessUsers && in_array(\Yii::$app->user->id, $this->accessUsers))
+            return true;
+
+        if ($this->accessRoles) {
+            foreach ($this->accessRoles as $role) {
+                if ($role === '?') { if ($user->getIsGuest()) return true; }
+                elseif ($role === '@') { if (!$user->getIsGuest()) return true; }
+                elseif ($user->can($role)) return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function getAccessControlFilter()
+    {
+        if ($this->accessUsers === null && $this->accessRoles === null)
+            // No user authentication active, skip adding the filter
+            return [];
+
+        $rule = ['allow' => 'allow'];
+        if ($this->accessRoles) {
+            // Add allowed roles
+            $rule['roles'] = $this->accessRoles;
+        }
+
+        if ($this->accessUsers) {
+            $users = $this->accessUsers;
+            // Specific users only? Use callback
+            $rule['matchCallback'] = function ($rule, $action) use ($users) {
+                return in_array(\Yii::$app->user->id, $users);
+            };
+        }
+
+        return [ 'class' => \yii\filters\AccessControl::className(), 'rules' => [ $rule ] ];
+    }
+
+    /**
      * Returns the current module instance.
      * Since we don't know how the module was linked into the application, this function allows us to retrieve
      * the instance without that information. As soon as an instance was initialized, it is linked.

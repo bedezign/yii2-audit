@@ -13,7 +13,10 @@ use bedezign\yii2\audit\models\AuditTrailSearch;
 
 class DefaultController extends \yii\web\Controller
 {
-    use \bedezign\yii2\audit\components\ControllerTrait;
+    public function behaviors()
+    {
+        return [ 'access' => $this->module->getAccessControlFilter() ];
+    }
 
     public function beforeAction($action)
     {
