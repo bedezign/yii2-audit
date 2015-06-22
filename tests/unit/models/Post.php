@@ -9,8 +9,8 @@ use yii\db\ActiveRecord;
  * Post
  *
  * @property integer $id
- * @property string $title
  * @property string $body
+ * @property string $title
  *
  * @mixin AuditingBehavior
  */
