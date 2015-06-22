@@ -134,7 +134,7 @@ Or if you prefer:
 
 ### Render AuditEntry.id in Layout
 
-It is often useful for clients to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
+It is often useful for users to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
 
 ```php
 <?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_entry_id', [
