@@ -141,7 +141,7 @@ Controller:
 
 View
 ```php
-<?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_fields', ['model' => $model]) ?>
+<?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', ['model' => $model]) ?>
 ```
 
 ### Javascript Logging
