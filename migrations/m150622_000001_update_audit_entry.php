@@ -14,6 +14,6 @@ class m150622_000001_update_audit_entry extends \yii\db\Migration
 
     public function down()
     {
-        $this->dropColumn(self::TABLE, 'memory_max');
+        $this->dropColumn(self::TABLE, 'request_method');
     }
 }
