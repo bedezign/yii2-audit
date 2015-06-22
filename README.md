@@ -113,7 +113,7 @@ Model:
     public function getAuditTrails()
     {
         return $this->hasMany(AuditTrail::className(), ['model_id' => 'id'])
-          ->andOnCondition(['model' => get_class($this)]);
+            ->andOnCondition(['model' => get_class($this)]);
     }
     /** get trails for this model and all related comment models */
     public function getAuditTrails()
@@ -141,7 +141,18 @@ Controller:
 
 View
 ```php
-<?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', ['model' => $model]) ?>
+<?php
+$this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', [
+    // model to display audit trais for, must have a getAuditTrails() method
+    'model' => $model,
+    // params for the AuditTrailSearch::search() (optional)
+    'params' => [
+        'AuditTrailSearch' => [
+            'field' => 'status', // in this case we only want to show trails for the "status" field
+        ]
+    ],
+]) 
+?>
 ```
 
 ### Javascript Logging
