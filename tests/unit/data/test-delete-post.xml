@@ -4,6 +4,6 @@
     <post id="1" title="Post title 1" body="Post body 1"/>
     <post id="2" title="Post title 2" body="Post body 2"/>
 
-    <audit_trail id="1" action="DELETE" model="tests\models\Post" model_id="3"/>
+    <audit_trail action="DELETE" model="tests\models\Post" model_id="3"/>
 
 </dataset>
