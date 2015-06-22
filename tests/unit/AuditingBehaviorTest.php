@@ -25,7 +25,7 @@ class AuditingBehaviorTest extends DatabaseTestCase
         //$dataSet = $this->getConnection()->createDataSet(['post', 'audit_entry', 'audit_trail']);
         $dataSet = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
         $dataSet->addTable('post');
-        $dataSet->addTable('audit_trail', 'SELECT id, action, model, model_id, field, old_value, new_value FROM audit_trail');
+        $dataSet->addTable('audit_trail', 'SELECT action, model, model_id, field, old_value, new_value FROM audit_trail ORDER BY field');
         $expectedDataSet = $this->createFlatXMLDataSet(__DIR__ . '/data/test-create-post.xml');
         $this->assertDataSetsEqual($expectedDataSet, $dataSet);
     }
@@ -42,7 +42,7 @@ class AuditingBehaviorTest extends DatabaseTestCase
 
         $dataSet = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
         $dataSet->addTable('post');
-        $dataSet->addTable('audit_trail', 'SELECT id, action, model, model_id, field, old_value, new_value FROM audit_trail');
+        $dataSet->addTable('audit_trail', 'SELECT action, model, model_id, field, old_value, new_value FROM audit_trail ORDER BY field');
         $expectedDataSet = $this->createFlatXMLDataSet(__DIR__ . '/data/test-update-post.xml');
         $this->assertDataSetsEqual($expectedDataSet, $dataSet);
     }
@@ -57,7 +57,7 @@ class AuditingBehaviorTest extends DatabaseTestCase
 
         $dataSet = new PHPUnit_Extensions_Database_DataSet_QueryDataSet($this->getConnection());
         $dataSet->addTable('post');
-        $dataSet->addTable('audit_trail', 'SELECT id, action, model, model_id FROM audit_trail');
+        $dataSet->addTable('audit_trail', 'SELECT action, model, model_id FROM audit_trail');
         $expectedDataSet = $this->createFlatXMLDataSet(__DIR__ . '/data/test-delete-post.xml');
         $this->assertDataSetsEqual($expectedDataSet, $dataSet);
     }
