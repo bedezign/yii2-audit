@@ -17,9 +17,9 @@ use bedezign\yii2\audit\components\Helper;
  * @property string $ip
  * @property string $referrer
  * @property string $origin
+ * @property string $redirect
  * @property string $url
  * @property string $route
- * @property string $redirect
  * @property string $data           Compressed data collection of everything incoming
  * @property int    $memory
  * @property int    $memory_max
