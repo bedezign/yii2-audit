@@ -12,10 +12,7 @@ use Yii;
 class TestTest extends DatabaseTestCase
 {
 
-    /**
-     * Test
-     */
-    public function testTest()
+    public function testAttributeOrder()
     {
         $post = new Post();
         $this->assertEquals($post->attributes(), ['id', 'title', 'body']);
