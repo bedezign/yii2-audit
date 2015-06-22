@@ -79,8 +79,14 @@ $this->params['breadcrumbs'][] = $this->title;
                     'model',
                     'model_id',
                     'field',
-                    'old_value:ntext',
-                    'new_value:ntext',
+                    [
+                        'label' => Yii::t('audit', 'Diff'),
+                        'value' => function ($model) {
+                            /** @var AuditTrail $model */
+                            return $model->getDiffHtml();
+                        },
+                        'format' => 'raw',
+                    ],
                     'stamp',
                     [
                         'class' => 'yii\grid\ActionColumn',

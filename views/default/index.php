@@ -20,7 +20,7 @@
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            'id',
             [
                 'attribute' => 'user_id',
                 'label' => Yii::t('audit', 'User ID'),

@@ -62,22 +62,9 @@ class DefaultController extends \yii\web\Controller
     {
         $model = AuditTrail::findOne($id);
 
-        $old = explode("\n", $model->old_value);
-        $new = explode("\n", $model->new_value);
-
-        foreach ($old as $i => $line) {
-            $old[$i] = rtrim($line, "\r\n");
-        }
-        foreach ($new as $i => $line) {
-            $new[$i] = rtrim($line, "\r\n");
-        }
-
-        $diff = new \Diff($old, $new);
-
         return $this->render('diff', [
             'model' => $model,
-            'diff' => $diff->render(new \Diff_Renderer_Html_Inline)]
-        );
+        ]);
     }
 
     /**

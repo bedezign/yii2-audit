@@ -17,13 +17,13 @@ Installs as a simple module so it can be added without too much hassle.
 
 * Automatically log javascript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
 
-* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality.
+* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality, both by roles or by user-id.
 
 ## Installing
 
-* Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`
-* Run the migrations from the `migrations` folder. `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
-* Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootrap.
+* Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`.
+* Run the migrations from the `migrations` folder to create the relevant tables:  `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
+* Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootstrap:
 
 Example:
 
@@ -53,6 +53,8 @@ This installs the module with auto loading, instructing it to not log anything d
             'accessRoles' => ['admin'], // (List of) role(s) with access to the viewer, null for everyone (if the user matches)
         ],
     ],
+
+Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating the `accessUsers`-option, you don't want to give everyone access to your auditing data!
 
 ### Error Logging
 
