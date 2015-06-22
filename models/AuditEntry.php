@@ -22,6 +22,7 @@ use bedezign\yii2\audit\components\Helper;
  * @property string $data           Compressed data collection of everything incoming
  * @property int    $memory
  * @property int    $memory_max
+ * @property string $request_method
  */
 class AuditEntry extends AuditModel
 {
@@ -112,20 +113,22 @@ class AuditEntry extends AuditModel
         $this->start_time   = YII_BEGIN_TIME;
 
         if ($request instanceof \yii\web\Request) {
-            $user           = $app->user;
-            $this->user_id  = $user->isGuest ? 0 : $user->id;
-            $this->url      = $request->url;
-            $this->ip       = $request->userIP;
-            $this->referrer = $request->referrer;
-            $this->origin   = $request->headers->get('location');
+            $user                 = $app->user;
+            $this->user_id        = $user->isGuest ? 0 : $user->id;
+            $this->url            = $request->url;
+            $this->ip             = $request->userIP;
+            $this->referrer       = $request->referrer;
+            $this->origin         = $request->headers->get('location');
+            $this->request_method = $_SERVER['REQUEST_METHOD'];
 
             if (isset($_SESSION))
                 $dataMap['session'] = $_SESSION;
         }
         else if ($request instanceof \yii\console\Request) {
             // Add extra link, makes it easier to detect
-            $dataMap['params'] = $request->params;
-            $this->url         = $request->scriptFile;
+            $dataMap['params']    = $request->params;
+            $this->url            = $request->scriptFile;
+            $this->request_method = 'CLI';
         }
 
         // Record the incoming data
@@ -158,6 +161,7 @@ class AuditEntry extends AuditModel
             'user_id'       => \Yii::t('audit', 'User'),
             'memory'        => \Yii::t('audit', 'Memory Usage'),
             'memory_max'    => \Yii::t('audit', 'Max. Memory Usage'),
+            'request_method'=> \Yii::t('audit', 'Request Method'),
         ];
     }
 }
