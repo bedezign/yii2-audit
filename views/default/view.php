@@ -49,18 +49,22 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]);
 
-        if (count($entry->extraData)) {
+        foreach ($entry->extraData as $data) {
             $attributes = [];
-            foreach ($entry->extraData as $data) {
+            foreach ($data->data as $name => $value) {
                 $attributes[] = [
-                    'label'     => $data->name,
-                    'value'     => Helper::formatValue($data->data),
-                    'format'    => 'raw',
+                    'label' => $name,
+                    'value' => Helper::formatValue($value),
+                    'format' => 'raw',
                 ];
             }
 
-            echo Html::tag('h2', Yii::t('audit', 'Extra data ({i})', ['i' => count($entry->extraData)]), ['id' => 'extra-data', 'class' => 'hashtag']);
-            echo DetailView::widget(['model' => $entry, 'attributes' => $attributes]);
+            echo Html::tag('h2', $data->name . ' (' . count($attributes) . ')', ['id' => $data->type, 'class' => 'hashtag']);
+            echo DetailView::widget([
+                'model' => $data,
+                'attributes' => $attributes,
+                'template' => '<tr><th>{label}</th><td style="word-break:break-word;">{value}</td></tr>'
+            ]);
         }
 
         if (count($entry->trail)) {
@@ -157,22 +161,25 @@ $this->params['breadcrumbs'][] = $this->title;
             'post'    => '$_POST',
         ];
 
-        foreach ($entry->data as $type => $values) {
-            $attributes = [];
-            foreach ($values as $name => $value) {
-                $attributes[] = [
-                    'label'     => $name,
-                    'value'     => Helper::formatValue($value),
-                    'format'    => 'raw',
-                ];
+        // display depricated data
+        if ($entry->data) {
+            foreach ($entry->data as $type => $values) {
+                $attributes = [];
+                foreach ($values as $name => $value) {
+                    $attributes[] = [
+                        'label'     => $name,
+                        'value'     => Helper::formatValue($value),
+                        'format'    => 'raw',
+                    ];
+                }
+    
+                echo Html::tag('h2', $types[$type], ['id' => $type, 'class' => 'hashtag']);
+                echo DetailView::widget([
+                    'model' => $entry,
+                    'attributes' => $attributes,
+                    'template' => '<tr><th>{label}</th><td style="word-break:break-word;">{value}</td></tr>'
+                ]);
             }
-
-            echo Html::tag('h2', $types[$type], ['id' => $type, 'class' => 'hashtag']);
-            echo DetailView::widget([
-                'model' => $entry,
-                'attributes' => $attributes,
-                'template' => '<tr><th>{label}</th><td style="word-break:break-word;">{value}</td></tr>'
-            ]);
         }
 ?>
     </div>
@@ -180,9 +187,9 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="nav nav-pills nav-stacked affix">
           <li><a href="#entry"><?= Yii::t('audit', 'Request') ?></a></li>
 
-          <?php if (count($entry->extraData)): ?>
-              <li><a href="#extra-data"><?= Yii::t('audit', 'Extra data ({i})', ['i' => count($entry->extraData)]) ?></a></li>
-          <?php endif ?>
+          <?php foreach ($entry->extraData as $extraData): ?>
+              <li><a href="#<?= $extraData->type ?>"><?= $extraData->name . ' (' . count($extraData->data) . ')' ?></a></li>
+          <?php endforeach ?>
 
           <?php if (count($entry->trail)): ?>
               <li><a href="#trail"><?= Yii::t('audit', 'Trail ({i})', ['i' => count($entry->trail)]) ?></a></li>
@@ -196,9 +203,9 @@ $this->params['breadcrumbs'][] = $this->title;
               <li><a href="#javascript"><?= Yii::t('audit', 'Javascript ({i})', ['i' => count($entry->javascript)]) ?></a></li>
           <?php endif ?>
 
-          <?php foreach ($entry->data as $type => $values): ?>
+          <?php if ($entry->data): foreach ($entry->data as $type => $values): ?>
               <li><a href="#<?= $type ?>"><?= $types[$type] . ' (' . count($entry->data[$type]) . ')' ?></a></li>
-          <?php endforeach ?>
+          <?php endforeach; endif; ?>
         </ul>
     </div>
 </div>

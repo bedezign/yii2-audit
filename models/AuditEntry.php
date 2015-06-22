@@ -105,8 +105,15 @@ class AuditEntry extends AuditModel
      */
     public function record()
     {
-        $dataMap = ['get' => $_GET, 'post' => $_POST, 'cookies' => $_COOKIE, 'env' => $_SERVER, 'files' => $_FILES];
-
+        $dataMap = [
+            //'type'    => ['name'      => 'data'],
+            'get'       => ['$_GET'     => $_GET],
+            'post'      => ['$_POST'    => $_POST],
+            'cookies'   => ['$_COOKIE'  => $_COOKIE],
+            'env'       => ['$_SERVER'  => $_SERVER],
+            'files'     => ['$_FILES'   => $_FILES],
+        ];
+        
         $app                = \Yii::$app;
         $request            = $app->request;
 
@@ -122,8 +129,9 @@ class AuditEntry extends AuditModel
             $this->origin         = $request->headers->get('location');
             $this->request_method = $_SERVER['REQUEST_METHOD'];
 
-            if (isset($_SESSION))
-                $dataMap['session'] = $_SESSION;
+            if (!empty($_SESSION))
+                $dataMap['session'] = ['$_SESSION' => $_SESSION];
+            $dataMap['request_headers'] = ['Request Headers' => $request->headers];
         }
         else if ($request instanceof \yii\console\Request) {
             // Add extra link, makes it easier to detect
@@ -132,12 +140,14 @@ class AuditEntry extends AuditModel
             $this->request_method = 'CLI';
         }
 
+        $this->save(false);
+
         // Record the incoming data
-        $data = [];
-        foreach ($dataMap as $index => $values)
-            if (count($values))
-                $data[$index] = Helper::compact($values);
-        $this->data = $data;
+        foreach ($dataMap as $type => $values) {
+            foreach ($values as $name => $value) {
+                $this->addData($name, $value, $type);
+            }
+        }
     }
 
     public function finalize()
@@ -146,8 +156,11 @@ class AuditEntry extends AuditModel
         $this->duration = $this->end_time - $this->start_time;
         $this->memory = memory_get_usage();
         $this->memory_max = memory_get_peak_usage();
-        if (\Yii::$app->response instanceof \yii\web\Response) {
-            $this->redirect = \Yii::$app->response->headers->get('location');
+        
+        $response = \Yii::$app->response;
+        if ($response instanceof \yii\web\Response) {
+            $this->redirect = $response->headers->get('location');
+            $this->addData('Response Headers', $response->headers, 'response_headers');
         }
 
         return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max', 'redirect']);
