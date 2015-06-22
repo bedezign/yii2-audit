@@ -119,7 +119,7 @@ class AuditEntry extends AuditModel
             $this->ip             = $request->userIP;
             $this->referrer       = $request->referrer;
             $this->origin         = $request->headers->get('location');
-            $this->request_method = $_SERVER['env']['REQUEST_METHOD'];
+            $this->request_method = $_SERVER['REQUEST_METHOD'];
 
             if (isset($_SESSION))
                 $dataMap['session'] = $_SESSION;
