@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+
+    <post id="1" title="Post title 1" body="Post body 1"/>
+    <post id="2" title="Updated post title" body="Updated post body"/>
+    <post id="3" title="Post title 3" body="Post body 3"/>
+
+    <audit_trail id="1" action="UPDATE" model="tests\models\Post" model_id="2" field="title" old_value="Post title 2" new_value="Updated post title"/>
+    <audit_trail id="2" action="UPDATE" model="tests\models\Post" model_id="2" field="body" old_value="Post body 2" new_value="Updated post body"/>
+
+</dataset>

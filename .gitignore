@@ -1,0 +1,13 @@
+# ignore IDE specific files and dirs
+.idea
+.settings
+.project
+.buildpath
+
+# ignore test data files and dirs
+coverage.clover
+build/
+vendor/
+
+# ignore temporary files
+*~

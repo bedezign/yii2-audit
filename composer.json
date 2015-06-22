@@ -14,11 +14,21 @@
             "name": "Marc Hollander",
             "homepage": "http://maruc.nl/",
             "email": "marchollander@gmail.com"
+        },
+        {
+            "name": "Brett O'Donnell",
+            "homepage": "https://mrphp.com.au/",
+            "email": "cornernote@gmail.com"
         }
     ],
     "require": {
         "php": ">=5.4.0",
-        "yiisoft/yii2": "2.0.*"
+        "yiisoft/yii2": "2.*"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.*",
+        "phpunit/dbunit": "~1.0",
+        "scrutinizer/ocular": "~1.1"
     },
     "autoload": {
         "psr-4": {"bedezign\\yii2\\audit\\": ""}
