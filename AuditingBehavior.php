@@ -212,6 +212,7 @@ class AuditingBehavior extends \yii\base\Behavior
         }
         // Record the field changes with a batch insert
         if ($rows) {
+            print_r($rows);
             $columns = ['audit_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
             Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
