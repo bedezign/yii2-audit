@@ -16,6 +16,7 @@ use bedezign\yii2\audit\components\Helper;
  * @property string $file
  * @property int    $line
  * @property mixed  $trace
+ * @property int    $emailed
  */
 class AuditError extends AuditModel
 {
