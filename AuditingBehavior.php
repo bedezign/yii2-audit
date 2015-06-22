@@ -1,141 +1,188 @@
 <?php
 namespace bedezign\yii2\audit;
 
+use Yii;
+use yii\base\Exception;
 use yii\db\ActiveRecord;
 
 use bedezign\yii2\audit\models\AuditTrail;
 
+/**
+ * Class AuditingBehavior
+ * @package bedezign\yii2\audit
+ *
+ * @property \yii\db\ActiveRecord $owner
+ */
 class AuditingBehavior extends \yii\base\Behavior
 {
 
-    private $_oldattributes = [];
     /**
      * Array with fields to save
      * You don't need to configure both `allowed` and `ignored`
      * @var array
      */
     public $allowed = [];
+
     /**
      * Array with fields to ignore
      * You don't need to configure both `allowed` and `ignored`
      * @var array
      */
     public $ignored = [];
+
     /**
      * Array with classes to ignore
      * @var array
      */
     public $ignoredClasses = [];
+
     /**
      * Skip fields where bouth old and new values are NULL
      * @var boolean
      */
     public $skipNulls = true;
+
     /**
      * Is the behavior is active or not
      * @var boolean
      */
     public $active = true;
 
+    /**
+     * Get the user_id from an attribute in the owner model
+     * @var string|null
+     */
+    public $userAttribute;
+    
+    /**
+     * Date format to use in stamp - set to "Y-m-d H:i:s" for datetime or "U" for timestamp
+     * @var string
+     */
+    public $dateFormat = 'Y-m-d H:i:s';
+
+    /**
+     * @var array
+     */
+    private $_oldAttributes = [];
+
+    /**
+     * @inheritdoc
+     */
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_FIND   => 'afterFind',
+            ActiveRecord::EVENT_AFTER_FIND => 'afterFind',
             ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
             ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
             ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
         ];
     }
 
-    public function afterDelete($event)
-    {
-        $this->leaveTrail('DELETE');
-    }
-
+    /**
+     * @param $event
+     */
     public function afterFind($event)
     {
         $this->setOldAttributes($this->owner->getAttributes());
     }
 
+    /**
+     * @param $event
+     */
     public function afterInsert($event)
     {
-        $this->audit(true);
+        $this->audit('CREATE');
     }
 
+    /**
+     * @param $event
+     */
     public function afterUpdate($event)
     {
-        $this->audit(false);
+        $this->audit('UPDATE');
     }
 
-    public function audit($insert)
+    /**
+     * @param $event
+     */
+    public function afterDelete($event)
     {
-        $allowedFields = $this->allowed;
-        $ignoredFields = $this->ignored;
-        $ignoredClasses = $this->ignoredClasses;
+        $this->audit('DELETE');
+    }
 
-        $newattributes = $this->owner->getAttributes();
-        $oldattributes = $this->getOldAttributes();
-
+    /**
+     * @param $action
+     * @throws \yii\db\Exception
+     */
+    public function audit($action)
+    {
+        // If this is a delete then just write the row and get out of here
+        if ($action == 'DELETE') {
+            if ($this->active) {
+                Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), ['action' => 'DELETE'])->execute();
+            }
+            return;
+        }
+        // Get the new and old attributes
+        $newAttributes = $this->owner->getAttributes();
+        $oldAttributes = $this->getOldAttributes();
         // Lets check if the whole class should be ignored
-        if (sizeof($ignoredClasses) > 0) {
-            if (array_search(get_class($this->owner), $ignoredClasses) !== false) {
+        if (sizeof($this->ignoredClasses) > 0) {
+            if (array_search(get_class($this->owner), $this->ignoredClasses) !== false) {
                 return;
             }
         }
-
         // Lets unset fields which are not allowed
-        if (sizeof($allowedFields) > 0) {
-            foreach ($newattributes as $f => $v) {
-                if (array_search($f, $allowedFields) === false) {
-                    unset($newattributes[$f]);
+        if (sizeof($this->allowed) > 0) {
+            foreach ($newAttributes as $f => $v) {
+                if (array_search($f, $this->allowed) === false) {
+                    unset($newAttributes[$f]);
                 }
             }
-
-            foreach ($oldattributes as $f => $v) {
-                if (array_search($f, $allowedFields) === false) {
-                    unset($oldattributes[$f]);
+            foreach ($oldAttributes as $f => $v) {
+                if (array_search($f, $this->allowed) === false) {
+                    unset($oldAttributes[$f]);
                 }
             }
         }
-
         // Lets unset fields which are ignored
-        if (sizeof($ignoredFields) > 0) {
-            foreach ($newattributes as $f => $v) {
-                if (array_search($f, $ignoredFields) !== false) {
-                    unset($newattributes[$f]);
-                }
+        if (sizeof($this->ignored) > 0) {
+            foreach ($newAttributes as $f => $v) {
+                if (array_search($f, $this->ignored) !== false)
+                    unset($newAttributes[$f]);
             }
-
-            foreach ($oldattributes as $f => $v) {
-                if (array_search($f, $ignoredFields) !== false) {
-                    unset($oldattributes[$f]);
-                }
+            foreach ($oldAttributes as $f => $v) {
+                if (array_search($f, $this->ignored) !== false)
+                    unset($oldAttributes[$f]);
             }
         }
-
-        // If no difference then WHY?
-        // There is some kind of problem here that means "0" and 1 do not diff for array_diff so beware: stackoverflow.com/questions/12004231/php-array-diff-weirdness :S
-        if (count(array_diff_assoc($newattributes, $oldattributes)) <= 0) {
+        // If no difference then get out of here
+        if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
             return;
         }
-
-        // If this is a new record lets add a CREATE notification
-        if ($insert) {
-            $this->leaveTrail('CREATE');
-        }
-
         // Now lets actually write the attributes
-        $this->auditAttributes($insert, $newattributes, $oldattributes);
-
+        $this->auditAttributes($action, $newAttributes, $oldAttributes);
         // Reset old attributes to handle the case with the same model instance updated multiple times
         $this->setOldAttributes($this->owner->getAttributes());
     }
 
-    public function auditAttributes($insert, $newattributes, $oldattributes = [])
+    /**
+     * @param $action
+     * @param $newAttributes
+     * @param array $oldAttributes
+     * @throws \yii\db\Exception
+     */
+    public function auditAttributes($action, $newAttributes, $oldAttributes = [])
     {
-        foreach ($newattributes as $name => $value) {
-            $old = isset($oldattributes[$name]) ? $oldattributes[$name] : '';
+        // If we are not active the get out of here
+        if (!$this->active) {
+            return;
+        }
 
+        // Build a list of fields to log
+        $rows = array();
+        foreach ($newAttributes as $name => $value) {
+            $old = isset($oldAttributes[$name]) ? $oldAttributes[$name] : '';
             // If we are skipping nulls then lets see if both sides are null
             if ($this->skipNulls && empty($old) && empty($value)) {
                 continue;
@@ -143,46 +190,80 @@ class AuditingBehavior extends \yii\base\Behavior
 
             // If they are not the same lets write an audit log
             if ($value != $old) {
-                $trail = $this->leaveTrail($insert ? 'SET' : 'CHANGE', $name, $value, $old);
+                $rows[] = [
+                    $this->getAuditEntryId(),
+                    $this->getUserId(),
+                    $old,
+                    $value,
+                    $action,
+                    $this->owner->className(),
+                    $this->getNormalizedPk(),
+                    $name,
+                    date($this->dateFormat),
+                ];
             }
         }
-    }
-
-    public function leaveTrail($action, $name = null, $value = null, $old_value = null)
-    {
-        if ($this->active) {
-            $entry = Auditing::current() ? Auditing::current()->getEntry() : null;
-            $user = \Yii::$app->has('user') ? \Yii::$app->user : null;
-
-            $log = new AuditTrail;
-            $log->audit_id = $entry ? $entry->id : null;
-            $log->user_id = $user ? $user->id : null;
-            $log->old_value = $old_value;
-            $log->new_value = $value;
-            $log->action = $action;
-            $log->model = $this->owner->className(); // Gets a plain text version of the model name
-            $log->model_id = (string)$this->getNormalizedPk();
-            $log->field = $name;
-            $log->stamp = new \yii\db\Expression('NOW()');
-
-            return $log->save();
+        // Record the field changes with a batch insert
+        if ($rows) {
+            $columns = ['audit_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
+            Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
-        return true;
     }
 
+    /**
+     * @return array
+     */
     public function getOldAttributes()
     {
-        return $this->_oldattributes;
+        return $this->_oldAttributes;
     }
 
+    /**
+     * @param $value
+     */
     public function setOldAttributes($value)
     {
-        $this->_oldattributes = $value;
+        $this->_oldAttributes = $value;
     }
 
+    /**
+     * @return string
+     */
     protected function getNormalizedPk()
     {
         $pk = $this->owner->getPrimaryKey();
         return is_array($pk) ? json_encode($pk) : $pk;
     }
+
+    /**
+     * @return int|null|string
+     */
+    protected function getUserId()
+    {
+        if (isset($this->userAttribute)) {
+            $data = $this->owner->getAttributes();
+            return isset($data[$this->userAttribute]) ? $data[$this->userAttribute] : null;
+        } else {
+            try {
+                $userid = Yii::$app->user->id;
+                return empty($userid) ? null : $userid;
+            } catch (Exception $e) {
+                //If we have no user object, this must be a command line program
+                return null;
+            }
+        }
+    }
+
+    /**
+     * @return models\AuditEntry|null|static
+     */
+    protected function getAuditEntryId()
+    {
+        $entry = Auditing::current() ? Auditing::current()->getEntry() : null;
+        if ($entry) {
+            return $entry->id;
+        }
+        return null;
+    }
+
 }
