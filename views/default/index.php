@@ -29,13 +29,7 @@
                     return $data->user_id ?: Yii::t('audit', 'Guest');
                 }
             ],
-            [
-                'label' => Yii::t('audit', 'Request method'),
-                'class' => 'yii\grid\DataColumn',
-                'value' => function ($data) {
-                    return $data->data['env']['REQUEST_METHOD'];
-                },
-            ],
+            'request_method',
             'created',
             [
                 'class' => 'yii\grid\DataColumn',
