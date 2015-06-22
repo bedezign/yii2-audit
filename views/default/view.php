@@ -40,7 +40,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 [ 'attribute' => 'end_time', 'format' => 'datetime' ],
                 [ 'attribute' => 'duration', 'format' => 'decimal' ],
                 'referrer',
-                'origin',
                 'redirect',
                 'url',
                 'route',
@@ -172,7 +171,7 @@ $this->params['breadcrumbs'][] = $this->title;
                         'format'    => 'raw',
                     ];
                 }
-    
+
                 echo Html::tag('h2', $types[$type], ['id' => $type, 'class' => 'hashtag']);
                 echo DetailView::widget([
                     'model' => $entry,

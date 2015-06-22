@@ -44,12 +44,15 @@ class Helper extends \yii\base\Object
     /**
      * Enumerate an array and get rid of the values that would exceed the $threshold size when serialized
      * @param array     $data               Non-array data will be converted to an array
+     * @param bool      $simplify           If true, replace single valued arrays by just its value.
      * @param int       $threshold          serialized size to use as maximum
      * @return array
      */
-    public static function compact($data, $threshold = 512)
+    public static function compact($data, $simplify = false, $threshold = 512)
     {
         $data = ArrayHelper::toArray($data);
+        if ($simplify)
+            array_walk($data, function(&$value) { if (is_array($value) && count($value) == 1) $value = reset($value); });
 
         $tooBig = [];
         foreach ($data as $index => $value)

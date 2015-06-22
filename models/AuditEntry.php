@@ -16,7 +16,6 @@ use bedezign\yii2\audit\components\Helper;
  * @property int    $user_id        0 means anonymous
  * @property string $ip
  * @property string $referrer
- * @property string $origin
  * @property string $redirect
  * @property string $url
  * @property string $route
@@ -61,6 +60,7 @@ class AuditEntry extends AuditModel
 
     /**
      * Returns all linked AuditError instances
+     * (Called `linkedErrors()` to avoid confusion with the `getErrors()` method)
      * @return AuditError[]
      */
     public function getLinkedErrors()
@@ -113,7 +113,7 @@ class AuditEntry extends AuditModel
             'env'       => ['$_SERVER'  => $_SERVER],
             'files'     => ['$_FILES'   => $_FILES],
         ];
-        
+
         $app                = \Yii::$app;
         $request            = $app->request;
 
@@ -126,12 +126,11 @@ class AuditEntry extends AuditModel
             $this->url            = $request->url;
             $this->ip             = $request->userIP;
             $this->referrer       = $request->referrer;
-            $this->origin         = $request->headers->get('location');
             $this->request_method = $_SERVER['REQUEST_METHOD'];
 
             if (!empty($_SESSION))
                 $dataMap['session'] = ['$_SESSION' => $_SESSION];
-            $dataMap['request_headers'] = ['Request Headers' => $request->headers];
+            $dataMap['request_headers'] = ['Request Headers' => Helper::compact($request->headers, true)];
         }
         else if ($request instanceof \yii\console\Request) {
             // Add extra link, makes it easier to detect
@@ -156,11 +155,11 @@ class AuditEntry extends AuditModel
         $this->duration = $this->end_time - $this->start_time;
         $this->memory = memory_get_usage();
         $this->memory_max = memory_get_peak_usage();
-        
+
         $response = \Yii::$app->response;
         if ($response instanceof \yii\web\Response) {
             $this->redirect = $response->headers->get('location');
-            $this->addData('Response Headers', $response->headers, 'response_headers');
+            $this->addData('Response Headers', Helper::compact($response->headers, true), 'response_headers');
         }
 
         return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max', 'redirect']);

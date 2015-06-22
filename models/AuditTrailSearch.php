@@ -10,7 +10,7 @@ class AuditTrailSearch extends AuditTrail
 {
     public function rules()
     {
-        // only fields in rules() are searchable
+        // Note: The model is used by both the entry and the trail index pages, hence the separate use of `id` and `audit_id`
         return [
             [['id', 'user_id', 'audit_id', 'action', 'model', 'model_id', 'field', 'stamp'], 'safe'],
         ];
