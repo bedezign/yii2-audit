@@ -20,7 +20,15 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
-            ['class' => 'yii\grid\SerialColumn'],
+            'id',
+            [
+                'attribute' => 'audit_id',
+                'class' => 'yii\grid\DataColumn',
+                'value' => function ($data) {
+                    return $data->audit_id ? Html::a($data->audit_id, ['default/view', 'id' => $data->audit_id]) : '';
+                },
+                'format' => 'raw',
+            ],
             [
                 'attribute' => 'user_id',
                 'label' => Yii::t('audit', 'User ID'),
@@ -36,6 +44,13 @@ $this->params['breadcrumbs'][] = $this->title;
             'model',
             'model_id',
             'field',
+            [
+                'label' => Yii::t('audit', 'Diff'),
+                'value' => function ($model) {
+                    return $model->getDiffHtml();
+                },
+                'format' => 'raw',
+            ],
             'stamp',
             [
                 'class' => 'yii\grid\ActionColumn',
