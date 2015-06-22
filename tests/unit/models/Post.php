@@ -3,7 +3,6 @@
 namespace tests\models;
 
 use bedezign\yii2\audit\AuditingBehavior;
-use yii\db\ActiveQuery;
 use yii\db\ActiveRecord;
 
 /**

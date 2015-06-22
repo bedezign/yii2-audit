@@ -1,10 +1,4 @@
 <?php
- /**
-  * bootstrap.php
-  *
-  * @author Brett O'Donnell <cornernote@gmail.com>
-  * @link https://mrphp.com.au/
-  */
 
 defined('YII_DEBUG') or define('YII_DEBUG', true);
 defined('YII_ENV') or define('YII_ENV', 'test');
