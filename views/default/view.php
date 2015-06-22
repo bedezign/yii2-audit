@@ -43,6 +43,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'origin',
                 'url',
                 'route',
+                'redirect',
                 [ 'attribute' => 'memory', 'format' => 'shortsize' ],
                 [ 'attribute' => 'memory_max', 'format' => 'shortsize' ],
             ]
@@ -154,6 +155,8 @@ $this->params['breadcrumbs'][] = $this->title;
             'files'   => '$_FILES',
             'get'     => '$_GET',
             'post'    => '$_POST',
+            'request_headers'  => 'Request Headers',
+            'response_headers' => 'Response Headers',
         ];
 
         foreach ($entry->data as $type => $values) {
