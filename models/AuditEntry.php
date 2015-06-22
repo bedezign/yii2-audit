@@ -17,6 +17,7 @@ use bedezign\yii2\audit\components\Helper;
  * @property string $ip
  * @property string $referrer
  * @property string $origin
+ * @property string $redirect
  * @property string $url
  * @property string $route
  * @property string $data           Compressed data collection of everything incoming
@@ -142,8 +143,11 @@ class AuditEntry extends AuditModel
         $this->duration = $this->end_time - $this->start_time;
         $this->memory = memory_get_usage();
         $this->memory_max = memory_get_peak_usage();
+        if (\Yii::$app->response instanceof \yii\web\Response) {
+            $this->redirect = \Yii::$app->response->headers->get('location');
+        }
 
-        return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max']);
+        return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max', 'redirect']);
     }
 
     public function attributeLabels()
