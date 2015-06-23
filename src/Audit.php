@@ -282,6 +282,9 @@ class Audit extends Module implements BootstrapInterface
      */
     public static function current()
     {
+        if (!static::$_current) {
+            static::$_current = Yii::$app->getModule('audit');
+        }
         return static::$_current;
     }
 
