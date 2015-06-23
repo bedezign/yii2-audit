@@ -8,7 +8,7 @@ use bedezign\yii2\audit\Provider;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-class SuperGlobalProvider extends Provider
+class RequestProvider extends Provider
 {
 
     public $logVars = [
