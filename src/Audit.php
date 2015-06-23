@@ -12,7 +12,8 @@ namespace bedezign\yii2\audit;
 
 use Yii;
 use yii\base\Application;
-use yii\db\ActiveRecord;
+use yii\base\BootstrapInterface;
+use yii\base\Module;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -36,7 +37,7 @@ use yii\helpers\ArrayHelper;
  *    'bootstrap' => ['audit'],
  *
  */
-class Audit extends \yii\base\Module
+class Audit extends Module implements BootstrapInterface
 {
     /**
      * @var string|boolean the layout that should be applied for views within this module. This refers to a view name
@@ -108,10 +109,15 @@ class Audit extends \yii\base\Module
                 'response',
             ],
         ],
+        'bedezign\yii2\audit\providers\DbProvider',
         //'bedezign\yii2\audit\providers\LogProvider',
-        //'bedezign\yii2\audit\providers\ProfileProvider',
         //'bedezign\yii2\audit\providers\EmailProvider',
     ];
+
+    /**
+     * @var AuditTarget
+     */
+    public $auditTarget;
 
     /**
      * @var array List of initialized providers
@@ -127,6 +133,14 @@ class Audit extends \yii\base\Module
      * @var \bedezign\yii2\audit\models\AuditEntry If activated this is the active entry
      */
     private $_entry = null;
+
+    /**
+     * @inheritdoc
+     */
+    public function bootstrap($app)
+    {
+        $this->auditTarget = Yii::$app->getLog()->targets['audit'] = new AuditTarget($this);
+    }
 
     /**
      *
@@ -337,6 +351,7 @@ class Audit extends \yii\base\Module
         }
         foreach ($this->providers AS $class) {
             $provider = Yii::createObject($class);
+            $provider->module = $this;
             $this->_providers[] = $provider;
             Yii::trace("Initialized audit provider '{" . get_class($provider) . "}'", 'audit');
         }
