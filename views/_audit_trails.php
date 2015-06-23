@@ -5,6 +5,7 @@ use yii\db\BaseActiveRecord;
 use yii\grid\GridView;
 use yii\web\View;
 use yii\widgets\Pjax;
+use Yii;
 
 /**
  * @var View $this
@@ -46,11 +47,14 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
         ],
         [
             'attribute' => 'audit_id',
-            //'value' => function ($model) {
-            //    /** @var AuditTrail $model */
-            //    return Html::a($model->audit, ['/auditing/default/view', 'id' => $model->audit_id]);
-            //},
-            //'format' => 'raw',
+            'value' => function ($model) {
+                /** @var AuditTrail $model */
+                if (Yii::$app->auditing->checkAccess()) {
+                    return Html::a($model->audit, ['/auditing/default/view', 'id' => $model->audit_id]);
+                }
+                return $model->audit_id;
+            },
+            'format' => 'raw',
         ],
         'action',
         [
