@@ -3,7 +3,7 @@
 namespace bedezign\yii2\audit\providers;
 
 
-use bedezign\yii2\audit\Auditing;
+use bedezign\yii2\audit\Audit;
 use Yii;
 use yii\helpers\ArrayHelper;
 
@@ -38,7 +38,7 @@ class SuperGlobalProvider
             $dataMap['_PARAMS'] = Yii::$app->request->params;
         }
 
-        $entry = Auditing::current()->getEntry();
+        $entry = Audit::current()->getEntry();
         if ($entry) {
             $batchData = [];
             foreach ($this->logVars as $type) {

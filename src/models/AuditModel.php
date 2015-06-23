@@ -6,7 +6,7 @@
 
 namespace bedezign\yii2\audit\models;
 
-use bedezign\yii2\audit\Auditing;
+use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\Helper;
 
 class AuditModel extends \yii\db\ActiveRecord
@@ -17,7 +17,7 @@ class AuditModel extends \yii\db\ActiveRecord
 
     public static function getDb()
     {
-        return Auditing::current() ? Auditing::current()->getDb() : parent::getDb();
+        return Audit::current() ? Audit::current()->getDb() : parent::getDb();
     }
 
     public function beforeSave($insert)

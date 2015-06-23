@@ -8,7 +8,7 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 
 /**
- * Task runner commands for Auditing.
+ * Task runner commands for Audit.
  *
  * @package bedezign\yii2\audit\commands
  */
@@ -29,7 +29,7 @@ class AuditController extends \yii\console\Controller
             foreach ($auditErrors as $model) {
 
                 // define params and message
-                $url = ['auditing/default/view', 'id' => $model->audit_id];
+                $url = ['audit/default/view', 'id' => $model->audit_id];
                 $params = [
                     'audit_id' => $model->audit_id,
                     'message' => $model->message,

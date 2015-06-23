@@ -1,11 +1,11 @@
 <?php
 /**
- * Provides a number of helper functions for the auditing component
+ * Provides a number of helper functions for the audit component
  */
 
 namespace bedezign\yii2\audit\components;
 
-use bedezign\yii2\audit\Auditing;
+use bedezign\yii2\audit\Audit;
 use yii\helpers\ArrayHelper;
 
 class Helper extends \yii\base\Object
@@ -22,7 +22,7 @@ class Helper extends \yii\base\Object
             $data = static::compact($data);
 
         $data = serialize($data);
-        if (Auditing::current()->compressData)
+        if (Audit::current()->compressData)
             $data = gzcompress($data);
 
         return $data;
@@ -35,7 +35,7 @@ class Helper extends \yii\base\Object
      */
     public static function unserialize($data)
     {
-        if (Auditing::current()->compressData)
+        if (Audit::current()->compressData)
             $data = gzuncompress($data);
 
         return unserialize($data);

@@ -2,7 +2,7 @@
 
 namespace tests\models;
 
-use bedezign\yii2\audit\AuditingBehavior;
+use bedezign\yii2\audit\AuditTrailBehavior;
 use yii\db\ActiveRecord;
 
 /**
@@ -12,7 +12,7 @@ use yii\db\ActiveRecord;
  * @property string $body
  * @property string $title
  *
- * @mixin AuditingBehavior
+ * @mixin AuditTrailBehavior
  */
 class Post extends ActiveRecord
 {
@@ -30,7 +30,7 @@ class Post extends ActiveRecord
     public function behaviors()
     {
         return [
-            AuditingBehavior::className(),
+            AuditTrailBehavior::className(),
         ];
     }
 

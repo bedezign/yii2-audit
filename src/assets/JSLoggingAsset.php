@@ -22,7 +22,7 @@ class JSLoggingAsset extends \yii\web\AssetBundle
 
     public function publish($assetManager)
     {
-        $module = \bedezign\yii2\audit\Auditing::current();
+        $module = \bedezign\yii2\audit\Audit::current();
         if ($module && $module->entry)
             // We can't be sure that the actual logger was loaded already, so we fallback on the window object
             // to store the associated audit entry id

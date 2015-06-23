@@ -7,9 +7,9 @@ use tests\models\Post;
 use Yii;
 
 /**
- * AuditingBehaviorTest
+ * AuditTrailBehaviorTest
  */
-class AuditingBehaviorTest extends DatabaseTestCase
+class AuditTrailBehaviorTest extends DatabaseTestCase
 {
 
     /**

@@ -49,8 +49,8 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
             'attribute' => 'audit_id',
             'value' => function ($model) {
                 /** @var AuditTrail $model */
-                if (Yii::$app->auditing->checkAccess()) {
-                    return Html::a($model->audit, ['/auditing/default/view', 'id' => $model->audit_id]);
+                if (Yii::$app->audit->checkAccess()) {
+                    return Html::a($model->audit, ['/audit/default/view', 'id' => $model->audit_id]);
                 }
                 return $model->audit_id;
             },

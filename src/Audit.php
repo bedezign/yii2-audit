@@ -1,7 +1,7 @@
 <?php
 /**
- * This serves as both the Module for the MVC part of the auditing and the configuration/entry point for the actual
- * auditing process.
+ * This serves as both the Module for the MVC part of the audit and the configuration/entry point for the actual
+ * audit process.
  *
  * @author    Steve Guns <steve@bedezign.com>
  * @package   com.bedezign.yii2.audit
@@ -13,32 +13,29 @@ namespace bedezign\yii2\audit;
 use Yii;
 use yii\base\Application;
 use yii\helpers\ArrayHelper;
-use bedezign\yii2\audit;
-use bedezign\yii2\audit\models;
-use yii\helpers\Json;
 
 /**
- * Class Auditing
+ * Class Audit
  * @package bedezign\yii2\audit
  *
- * Auditing main module.
- * This module is also responsible for starting the auditing process.
+ * Audit main module.
+ * This module is also responsible for starting the audit process.
  * To configure it you need to do 2 things:
  * - add a module configuration entry:
  *     'modules' => [
- *        'audit' => 'bedezign\yii2\audit\Auditing',
+ *        'audit' => 'bedezign\yii2\audit\Audit',
  *     ]
  *   or optionally with configuration:
  *     'modules' => [
- *        'auditing' => [
- *            'class' => 'bedezign\yii2\audit\Auditing',
+ *        'audit' => [
+ *            'class' => 'bedezign\yii2\audit\Audit',
  *            'ignoreActions' => ['debug/*']
  *     ]
  * - If you want to auto track actions, be sure to add the module to the application bootstrapping:
- *    'bootstrap' => ['auditing'],
+ *    'bootstrap' => ['audit'],
  *
  */
-class Auditing extends \yii\base\Module
+class Audit extends \yii\base\Module
 {
     /** @var string             name of the component to use for database access  */
     public $db                  = 'db';
@@ -96,7 +93,7 @@ class Auditing extends \yii\base\Module
     /** @var static             The current instance */
     private static $_current    = null;
 
-    /** @var audit\models\AuditEntry If activated this is the active entry*/
+    /** @var \bedezign\yii2\audit\models\AuditEntry If activated this is the active entry*/
     private $_entry             = null;
 
     public function init()
@@ -145,7 +142,7 @@ class Auditing extends \yii\base\Module
         if (count($this->ignoreActions) && $this->routeMatches($actionId, $this->ignoreActions))
             return;
 
-        // Still here, start auditing
+        // Still here, start audit
         $this->getEntry(true);
     }
 
@@ -190,7 +187,7 @@ class Auditing extends \yii\base\Module
     }
 
     /**
-     * Check if the current user has access to the auditing functionality
+     * Check if the current user has access to the audit functionality
      * @return bool
      * @throws \yii\base\InvalidConfigException
      */

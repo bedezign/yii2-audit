@@ -19,7 +19,7 @@ class Bootstrap implements BootstrapInterface
     public function bootstrap($app)
     {
         if ($app instanceof Application) {
-            $app->controllerMap['auditing'] = 'bedezign\yii2\audit\commands\AuditController';
+            $app->controllerMap['audit'] = 'bedezign\yii2\audit\commands\AuditController';
         }
     }
 }

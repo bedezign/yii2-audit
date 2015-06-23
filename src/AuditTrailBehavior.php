@@ -8,12 +8,12 @@ use yii\db\ActiveRecord;
 use bedezign\yii2\audit\models\AuditTrail;
 
 /**
- * Class AuditingBehavior
+ * Class AuditTrailBehavior
  * @package bedezign\yii2\audit
  *
  * @property \yii\db\ActiveRecord $owner
  */
-class AuditingBehavior extends \yii\base\Behavior
+class AuditTrailBehavior extends \yii\base\Behavior
 {
 
     /**
@@ -273,7 +273,7 @@ class AuditingBehavior extends \yii\base\Behavior
      */
     protected function getAuditEntryId()
     {
-        $entry = Auditing::current() ? Auditing::current()->getEntry() : null;
+        $entry = Audit::current() ? Audit::current()->getEntry() : null;
         if ($entry) {
             return $entry->id;
         }

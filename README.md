@@ -8,7 +8,7 @@
 [![Quality Score](https://img.shields.io/scrutinizer/g/bedezign/yii2-audit.svg?style=flat-square)](https://scrutinizer-ci.com/g/bedezign/yii2-audit)
 [![Total Downloads](https://img.shields.io/packagist/dt/bedezign/yii2-audit.svg?style=flat-square)](https://packagist.org/packages/bedezign/yii2-audit)
 
-Yet another auditing module.
+Yii2 Audit Module.
 This is based on a couple of other projects out there:
 
  * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
@@ -20,7 +20,7 @@ Installs as a simple module so it can be added without too much hassle.
 * Tracks all incoming pageviews with the ability to add custom data to a view.
   It logs the user-id (if any), IP, superglobals ($_GET/$_POST/$_SERVER/$_FILES/$_COOKIES), memory usage, referrer and origin. You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
 
-* Track database changes. By implementing the `AuditingBehavior` this is easily realized thanks to a modified version of [Sammayes Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail).
+* Track database changes. By implementing the `AuditTrailBehavior` this is easily realized thanks to a modified version of [Sammayes Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail).
 
 * Automatically log javascript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
 
@@ -34,13 +34,13 @@ Installs as a simple module so it can be added without too much hassle.
 
 Example:
 
-    'bootstrap' => ['log', 'auditing', ...],
+    'bootstrap' => ['log', 'audit', ...],
     'controllerNamespace' => 'frontend\controllers',
 
     'modules' => [
-        'auditing' => [
-            'class' => 'bedezign\yii2\audit\Auditing',
-            'ignoreActions' => 'debug/*',
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            'ignoreActions' => ['debug/*', 'audit/*'],
         ],
     ],
 
@@ -49,8 +49,8 @@ This installs the module with auto loading, instructing it to not log anything d
 #### Additional options
 
     'modules' => [
-        'auditing' => [
-            'class' => 'bedezign\yii2\audit\Auditing',
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
             'db' => 'db', // Name of the component to use for database access
             'trackActions' => ['*'], // List of actions to track. '*' is allowed as the last character to use as wildcard
             'ignoreActions' => 'debug/*', // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
@@ -61,7 +61,7 @@ This installs the module with auto loading, instructing it to not log anything d
         ],
     ],
 
-Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating the `accessUsers`-option, you don't want to give everyone access to your auditing data!
+Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating the `accessUsers`-option, you don't want to give everyone access to your audit data!
 
 ### Error Logging
 
@@ -74,12 +74,12 @@ If you want errors to be logged, you have to register the included errorhandler 
 
 ### Database changes
 
-If you want database changes to be logged, you have to add the `AuditingBehavior` to the models you want to log.
+If you want database changes to be logged, you have to add the `AuditTrailBehavior` to the models you want to log.
 
     public function behaviors()
     {
         return [
-            'bedezign\yii2\audit\AuditingBehavior'
+            'bedezign\yii2\audit\AuditTrailBehavior'
         ];
     }
 
@@ -104,15 +104,15 @@ If you want database changes to be logged, you have to add the `AuditingBehavior
 If you only want to log the database changes you should use the following module setting. All pageview logging will be ignored.
 
     'modules' => [
-        'auditing' => [
-            'class' => 'bedezign\yii2\audit\Auditing',
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
             'ignoreActions' => ['*'],
         ],
     ],
 
 There is a grid for only database changes available at:
 
-http://localhost/path/to/index.php?r=auditing/default/trail
+http://localhost/path/to/index.php?r=audit/default/trail
 
 #### Render Audit Log for a Model
 
@@ -171,30 +171,30 @@ To activate, register the `assets\JSLoggingAsset` in any of your views:
 
 This will activate the logger automatically. By default all warnings and errors are transmitted to the backend.
 
-The default configuration assumes that the module was added as "auditing" (so the log url would be "*/auditing/javascript/log*"). If that is not the case, please make sure to update the setting somewhere in your javascript:
+The default configuration assumes that the module was added as "audit" (so the log url would be "*/audit/javascript/log*"). If that is not the case, please make sure to update the setting somewhere in your javascript:
 
     window.jsLogger.logUrl = '/mymodulename/javascript/log';
 
 All javascript logging will be linked to the entry associated with the page entry created when you performed the initial request. This is accomplished by adding the ID of that entry in the `window`-object (`window.auditEntry`).
 
-Beware: If you use ajax or related technologies to load data from the backend, these requests might generate their own auditing entries. If those cause backend errors they will be linked to that new entry. This might be a bit weird with the javascript logging being linked to the older entry.
+Beware: If you use ajax or related technologies to load data from the backend, these requests might generate their own audit entries. If those cause backend errors they will be linked to that new entry. This might be a bit weird with the javascript logging being linked to the older entry.
 
 ### Extra Data
 
 It is possible to add extra custom data to the current audit entry by simply calling:
 
-    \bedezign\yii2\audit\Auditing::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+    \bedezign\yii2\audit\Audit::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
 Or if you prefer:
 
-    \Yii::$app->auditing->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+    \Yii::$app->audit->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
 
 ### Emailing Errors
 
 A command is available to email errors which can be added to your cron. 
 
 ```
-php yii auditing/error-email
+php yii audit/error-email
 ```
 
 You should ensure you have setup a `mailer` component and have a `scriptUrl` property in the `urlManager` component in your console configuration.  For example:
@@ -226,13 +226,13 @@ It is often useful for users to be able to report the AuditEntry.id to the devel
 
 ## Viewing the audit data
 
-Assuming you named the module "auditing" you can then access the auditing module through the following URL:
+Assuming you named the module "audit" you can then access the audit module through the following URL:
 
-    http://localhost/path/to/index.php?r=auditing
+    http://localhost/path/to/index.php?r=audit
 
 If you would like to see all database changes individually you can access:
 
-    http://localhost/path/to/index.php?r=auditing/default/trail
+    http://localhost/path/to/index.php?r=audit/default/trail
 
 
 ### Screenshots

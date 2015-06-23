@@ -15,7 +15,7 @@ class ViewerAsset extends AssetBundle
      * @inheritdoc
      */
     public $css = [
-        'css/auditing.css',
+        'css/audit.css',
     ];
 
     public $depends = [
