@@ -37,7 +37,7 @@ class AuditEntrySearch extends AuditEntry
             ]
         ]);
 
-        // load the seach form data and validate
+        // load the search form data and validate
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }

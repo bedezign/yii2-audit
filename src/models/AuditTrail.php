@@ -9,7 +9,7 @@ use yii\db\ActiveRecord;
  * The followings are the available columns in table 'tbl_audit_trail':
  *
  * @property integer $id
- * @property integer $audit_it
+ * @property integer $entry_it
  * @property integer $user_id
  * @property string  $new_value
  * @property string  $old_value

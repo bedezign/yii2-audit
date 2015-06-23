@@ -22,6 +22,11 @@ class AuditError extends AuditModel
 {
     protected $serializeAttributes = ['trace'];
 
+    public static function tableName()
+    {
+        return '{{%audit_error}}';
+    }
+
     public function setEntry(AuditEntry $entry)
     {
         $this->entry_id = $entry->id;

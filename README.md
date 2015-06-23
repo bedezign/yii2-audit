@@ -28,38 +28,50 @@ Installs as a simple module so it can be added without too much hassle.
 
 ## Installing
 
-* Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`.
-* Run the migrations from the `migrations` folder to create the relevant tables:  `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
-* Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootstrap:
+### Download
+
+Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`.
+
+### Migrations
+
+Run the migrations from the `migrations` folder to create the relevant tables:  `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
+
+### Configuration
+
+Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootstrap:
 
 Example:
 
-    'bootstrap' => ['log', 'audit', ...],
-    'controllerNamespace' => 'frontend\controllers',
+```php
+'bootstrap' => ['log', 'audit', ...],
+'controllerNamespace' => 'frontend\controllers',
 
-    'modules' => [
-        'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
-            'ignoreActions' => ['debug/*', 'audit/*'],
-        ],
+'modules' => [
+    'audit' => [
+        'class' => 'bedezign\yii2\audit\Audit',
+        'ignoreActions' => ['debug/*', 'audit/*'],
     ],
+],
+```
 
 This installs the module with auto loading, instructing it to not log anything debug related.
 
 #### Additional options
 
-    'modules' => [
-        'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
-            'db' => 'db', // Name of the component to use for database access
-            'trackActions' => ['*'], // List of actions to track. '*' is allowed as the last character to use as wildcard
-            'ignoreActions' => 'debug/*', // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
-            'truncateChance' => 75, // Chance in % that the truncate operation will run, false to not run at all
-            'maxAge' => 'debug', // Maximum age (in days) of the audit entries before they are truncated
-            'accessUsers' => [1, 2], // (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches)
-            'accessRoles' => ['admin'], // (List of) role(s) with access to the viewer, null for everyone (if the user matches)
-        ],
+```php
+'modules' => [
+    'audit' => [
+        'class' => 'bedezign\yii2\audit\Audit',
+        'db' => 'db', // Name of the component to use for database access
+        'trackActions' => ['*'], // List of actions to track. '*' is allowed as the last character to use as wildcard
+        'ignoreActions' => 'debug/*', // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
+        'truncateChance' => 75, // Chance in % that the truncate operation will run, false to not run at all
+        'maxAge' => 'debug', // Maximum age (in days) of the audit entries before they are truncated
+        'accessUsers' => [1, 2], // (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches)
+        'accessRoles' => ['admin'], // (List of) role(s) with access to the viewer, null for everyone (if the user matches)
     ],
+],
+```
 
 Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating the `accessUsers`-option, you don't want to give everyone access to your audit data!
 
@@ -67,52 +79,56 @@ Word of caution: The module is configured by default to only allow viewing acces
 
 If you want errors to be logged, you have to register the included errorhandler as well in you configuration:
 
-    'errorHandler' => [
-       'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
-       'errorAction' => 'site/error',
-    ],
+```php
+'errorHandler' => [
+   'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+   'errorAction' => 'site/error',
+],
+```
 
 ### Database changes
 
 If you want database changes to be logged, you have to add the `AuditTrailBehavior` to the models you want to log.
 
-    public function behaviors()
-    {
-        return [
-            'bedezign\yii2\audit\AuditTrailBehavior'
-        ];
-    }
+```php
+public function behaviors()
+{
+    return [
+        'bedezign\yii2\audit\AuditTrailBehavior'
+    ];
+}
+```
 
 #### Additional options
 
-    public function behaviors()
-    {
-        return [
-            'LoggableBehavior' => [
-                'class' => 'sammaye\audittrail\LoggableBehavior',
-                'allowed' => ['some_field'], // Array with fields to save. You don't need to configure both `allowed` and `ignored`
-                'ignored' => ['another_field'], // Array with fields to ignore. You don't need to configure both `allowed` and `ignored`
-                'ignoredClasses' => ['common\models\Model'], // Array with classes to ignore
-                'skipNulls' => false, // Skip fields where bouth old and new values are NULL
-                'active' => true // Is the behavior is active or not
-            ]
-        ];
-    }
+```php
+public function behaviors()
+{
+    return [
+        'LoggableBehavior' => [
+            'class' => 'bedezign\yii2\audit\AuditTrailBehavior',
+            'allowed' => ['some_field'], // Array with fields to save. You don't need to configure both `allowed` and `ignored`
+            'ignored' => ['another_field'], // Array with fields to ignore. You don't need to configure both `allowed` and `ignored`
+            'ignoredClasses' => ['common\models\Model'], // Array with classes to ignore
+            'skipNulls' => false, // Skip fields where bouth old and new values are NULL
+            'active' => true // Is the behavior is active or not
+        ]
+    ];
+}
+```
 
-#### Only log database changes
+#### Only log database changes and errors
 
-If you only want to log the database changes you should use the following module setting. All pageview logging will be ignored.
+If you only want to log the database changes and errors you should use the following module setting. All pageview logging will be ignored.
 
-    'modules' => [
-        'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
-            'ignoreActions' => ['*'],
-        ],
+```php
+'modules' => [
+    'audit' => [
+        'class' => 'bedezign\yii2\audit\Audit',
+        'ignoreActions' => ['*'],
     ],
-
-There is a grid for only database changes available at:
-
-http://localhost/path/to/index.php?r=audit/default/trail
+],
+```
 
 #### Render Audit Log for a Model
 
@@ -167,13 +183,17 @@ echo $this->render('@vendor/bedezign/yii2-audit/src/views/_audit_trails', [
 The module also supports logging of javascript errors, warnings and even regular log entries.
 To activate, register the `assets\JSLoggingAsset` in any of your views:
 
-     \bedezign\yii2\audit\assets\JSLoggingAsset::register($this);
+```php
+\bedezign\yii2\audit\assets\JSLoggingAsset::register($this);
+```
 
 This will activate the logger automatically. By default all warnings and errors are transmitted to the backend.
 
 The default configuration assumes that the module was added as "audit" (so the log url would be "*/audit/javascript/log*"). If that is not the case, please make sure to update the setting somewhere in your javascript:
 
-    window.jsLogger.logUrl = '/mymodulename/javascript/log';
+```javascript
+window.jsLogger.logUrl = '/mymodulename/javascript/log';
+```
 
 All javascript logging will be linked to the entry associated with the page entry created when you performed the initial request. This is accomplished by adding the ID of that entry in the `window`-object (`window.auditEntry`).
 
@@ -183,11 +203,15 @@ Beware: If you use ajax or related technologies to load data from the backend, t
 
 It is possible to add extra custom data to the current audit entry by simply calling:
 
-    \bedezign\yii2\audit\Audit::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+```php
+\bedezign\yii2\audit\Audit::current()->data('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+```
 
 Or if you prefer:
 
-    \Yii::$app->audit->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+```php
+\Yii::$app->audit->data(('name', 'extra data can be an integer, string, array, object or whatever', 'optional type');
+```
 
 ### Emailing Errors
 
@@ -228,11 +252,15 @@ It is often useful for users to be able to report the AuditEntry.id to the devel
 
 Assuming you named the module "audit" you can then access the audit module through the following URL:
 
-    http://localhost/path/to/index.php?r=audit
+```
+http://localhost/path/to/index.php?r=audit
+```
 
 If you would like to see all database changes individually you can access:
 
-    http://localhost/path/to/index.php?r=audit/default/trail
+```
+http://localhost/path/to/index.php?r=audit/default/trail
+```
 
 
 ### Screenshots

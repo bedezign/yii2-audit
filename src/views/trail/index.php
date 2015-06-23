@@ -9,7 +9,8 @@ use bedezign\yii2\audit\models\AuditTrailSearch;
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
 
-$this->title = Yii::t('audit', 'Audit Trail');
+$this->title = Yii::t('audit', 'Trails');
+$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
 <div class="audit-trail">
@@ -20,6 +21,7 @@ $this->params['breadcrumbs'][] = $this->title;
         'dataProvider' => $dataProvider,
         'filterModel' => $searchModel,
         'columns' => [
+            ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
             'id',
             [
                 'attribute' => 'entry_id',
@@ -52,24 +54,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
             'stamp',
-            [
-                'class' => 'yii\grid\ActionColumn',
-                'template' => '{view}',
-                'buttons' => [
-                    'view' => function ($url, $model, $key) {
-                        return Html::a(
-                            Html::tag('span', '', ['class' => 'glyphicon glyphicon-eye-open']),
-                            ['diff', 'id' => $model->id, 'referrer' => 'trail'],
-                            [
-                                'class' => '',
-                                'data' => [
-                                    'toggle' => 'modal',
-                                ]
-                            ]
-                        );
-                    }
-                ]
-            ]
         ],
     ]); ?>
 </div>

@@ -1,7 +1,7 @@
 <?php
 
 /** @var yii\web\View $this */
-/** @var bedezign\yii2\audit\models\AuditEntry $entry */
+/** @var bedezign\yii2\audit\models\AuditEntry $model */
 
 use yii\bootstrap\Modal;
 use yii\bootstrap\Tabs;
@@ -13,9 +13,10 @@ use yii\widgets\DetailView;
 use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\models\AuditTrail;
 
-$this->title = Yii::t('audit', 'Audit Entry #{entry}', ['entry' => $entry->id]);
-$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entries'), 'url' => ['index']];
-$this->params['breadcrumbs'][] = $this->title;
+$this->title = Yii::t('audit', 'Entry #{id}', ['id' => $model->id]);
+$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Entries'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = '#' . $model->id;
 
 ?>
 
@@ -26,13 +27,13 @@ $this->params['breadcrumbs'][] = $this->title;
 <?php
         echo Html::tag('h2', Yii::t('audit', 'Request'), ['id' => 'entry', 'class' => 'hashtag']);
         echo DetailView::widget([
-            'model' => $entry,
+            'model' => $model,
             'attributes' =>
             [
                 'id',
                 [
-                    'label' => $entry->getAttributeLabel('user_id'),
-                    'value' => intval($entry->user_id) ? $entry->user_id : Yii::t('audit', 'Guest'),
+                    'label' => $model->getAttributeLabel('user_id'),
+                    'value' => intval($model->user_id) ? $model->user_id : Yii::t('audit', 'Guest'),
                 ],
                 'ip',
                 'created',
@@ -48,7 +49,7 @@ $this->params['breadcrumbs'][] = $this->title;
             ]
         ]);
 
-        foreach ($entry->extraData as $data) {
+        foreach ($model->extraData as $data) {
             $attributes = [];
             foreach ($data->data as $name => $value) {
                 $attributes[] = [
@@ -66,15 +67,15 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
         }
 
-        if (count($entry->trail)) {
+        if (count($model->trail)) {
             $dataProvider = new ActiveDataProvider([
-                'query' => AuditTrail::find()->where(['entry_id' => $entry->id]),
+                'query' => AuditTrail::find()->where(['entry_id' => $model->id]),
                 'pagination' => [
                     'pageSize' => 1000,
                 ],
             ]);
 
-            echo Html::tag('h2', Yii::t('audit', 'Trail ({i})', ['i' => count($entry->trail)]), ['id' => 'trail', 'class' => 'hashtag']);
+            echo Html::tag('h2', Yii::t('audit', 'Trail ({i})', ['i' => count($model->trail)]), ['id' => 'trail', 'class' => 'hashtag']);
             echo GridView::widget([
                 'dataProvider' => $dataProvider,
                 'columns' => [
@@ -114,10 +115,10 @@ $this->params['breadcrumbs'][] = $this->title;
             ]);
         }
 
-        if (count($entry->linkedErrors)) {
-            echo Html::tag('h2', Yii::t('audit', 'Errors ({i})', ['i' => count($entry->linkedErrors)]), ['id' => 'errors', 'class' => 'hashtag']);
+        if (count($model->linkedErrors)) {
+            echo Html::tag('h2', Yii::t('audit', 'Errors ({i})', ['i' => count($model->linkedErrors)]), ['id' => 'errors', 'class' => 'hashtag']);
 
-            foreach ($entry->linkedErrors as $i => $error) {
+            foreach ($model->linkedErrors as $i => $error) {
                 echo Html::tag('h3', Yii::t('audit', 'Error #{i}', ['i' => $i + 1]));
                 echo DetailView::widget([
                     'model' => $error,
@@ -133,10 +134,10 @@ $this->params['breadcrumbs'][] = $this->title;
             }
         }
 
-        if (count($entry->javascript)) {
-            echo Html::tag('h2', Yii::t('audit', 'Javascript ({i})', ['i' => count($entry->javascript)]), ['id' => 'javascript', 'class' => 'hashtag']);
+        if (count($model->javascript)) {
+            echo Html::tag('h2', Yii::t('audit', 'Javascript ({i})', ['i' => count($model->javascript)]), ['id' => 'javascript', 'class' => 'hashtag']);
 
-            foreach ($entry->javascript as $i => $javascript) {
+            foreach ($model->javascript as $i => $javascript) {
                 echo Html::tag('h3', Yii::t('audit', 'Entry #{i}', ['i' => $i + 1]));
                 echo DetailView::widget(['model' => $javascript, 'attributes' => [
                     'type',
@@ -161,8 +162,8 @@ $this->params['breadcrumbs'][] = $this->title;
         ];
 
         // display depricated data
-        if ($entry->data) {
-            foreach ($entry->data as $type => $values) {
+        if ($model->data) {
+            foreach ($model->data as $type => $values) {
                 $attributes = [];
                 foreach ($values as $name => $value) {
                     $attributes[] = [
@@ -174,7 +175,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
                 echo Html::tag('h2', $types[$type], ['id' => $type, 'class' => 'hashtag']);
                 echo DetailView::widget([
-                    'model' => $entry,
+                    'model' => $model,
                     'attributes' => $attributes,
                     'template' => '<tr><th>{label}</th><td style="word-break:break-word;">{value}</td></tr>'
                 ]);
@@ -186,24 +187,24 @@ $this->params['breadcrumbs'][] = $this->title;
         <ul class="nav nav-pills nav-stacked affix">
           <li><a href="#entry"><?= Yii::t('audit', 'Request') ?></a></li>
 
-          <?php foreach ($entry->extraData as $extraData): ?>
+          <?php foreach ($model->extraData as $extraData): ?>
               <li><a href="#<?= $extraData->type ?>"><?= $extraData->type . ' (' . count($extraData->data) . ')' ?></a></li>
           <?php endforeach ?>
 
-          <?php if (count($entry->trail)): ?>
-              <li><a href="#trail"><?= Yii::t('audit', 'Trail ({i})', ['i' => count($entry->trail)]) ?></a></li>
+          <?php if (count($model->trail)): ?>
+              <li><a href="#trail"><?= Yii::t('audit', 'Trail ({i})', ['i' => count($model->trail)]) ?></a></li>
           <?php endif ?>
 
-          <?php if (count($entry->linkedErrors)): ?>
-              <li><a href="#errors"><?= Yii::t('audit', 'Errors ({i})', ['i' => count($entry->linkedErrors)]) ?></a></li>
+          <?php if (count($model->linkedErrors)): ?>
+              <li><a href="#errors"><?= Yii::t('audit', 'Errors ({i})', ['i' => count($model->linkedErrors)]) ?></a></li>
           <?php endif ?>
 
-          <?php if (count($entry->javascript)): ?>
-              <li><a href="#javascript"><?= Yii::t('audit', 'Javascript ({i})', ['i' => count($entry->javascript)]) ?></a></li>
+          <?php if (count($model->javascript)): ?>
+              <li><a href="#javascript"><?= Yii::t('audit', 'Javascript ({i})', ['i' => count($model->javascript)]) ?></a></li>
           <?php endif ?>
 
-          <?php if ($entry->data): foreach ($entry->data as $type => $values): ?>
-              <li><a href="#<?= $type ?>"><?= $types[$type] . ' (' . count($entry->data[$type]) . ')' ?></a></li>
+          <?php if ($model->data): foreach ($model->data as $type => $values): ?>
+              <li><a href="#<?= $type ?>"><?= $types[$type] . ' (' . count($model->data[$type]) . ')' ?></a></li>
           <?php endforeach; endif; ?>
         </ul>
     </div>
