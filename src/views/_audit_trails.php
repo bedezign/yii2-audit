@@ -1,11 +1,12 @@
 <?php
 
+use bedezign\yii2\audit\models\AuditTrail;
 use bedezign\yii2\audit\models\AuditTrailSearch;
 use yii\db\BaseActiveRecord;
 use yii\grid\GridView;
+use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\Pjax;
-use Yii;
 
 /**
  * @var View $this
@@ -49,8 +50,8 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
             'attribute' => 'audit_id',
             'value' => function ($model) {
                 /** @var AuditTrail $model */
-                if (Yii::$app->audit->checkAccess()) {
-                    return Html::a($model->audit, ['/audit/default/view', 'id' => $model->audit_id]);
+                if (Yii::$app->getModule('audit')->checkAccess()) {
+                    return Html::a($model->audit_id, ['/audit/default/view', 'id' => $model->audit_id]);
                 }
                 return $model->audit_id;
             },

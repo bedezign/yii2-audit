@@ -150,7 +150,7 @@ Controller:
 
 View
 ```php
-echo $this->render('@vendor/bedezign/yii2-audit/views/_audit_trails', [
+echo $this->render('@vendor/bedezign/yii2-audit/src/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
     'model' => $model,
     // params for the AuditTrailSearch::search() (optional)
@@ -219,7 +219,7 @@ $console = [
 It is often useful for users to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
 
 ```php
-<?= $this->render('@vendor/bedezign/yii2-audit/views/_audit_entry_id', [
+<?= $this->render('@vendor/bedezign/yii2-audit/src/views/_audit_entry_id', [
   'link' => false, // set to true to render the id as a link
 ]); ?>
 ```
