@@ -21,5 +21,12 @@ class Bootstrap implements BootstrapInterface
         if ($app instanceof Application) {
             $app->controllerMap['audit'] = 'bedezign\yii2\audit\commands\AuditController';
         }
+        if ($app->has('i18n')) {
+            $app->i18n->translations['audit'] = [
+                'class' => 'yii\i18n\PhpMessageSource',
+                'sourceLanguage' => 'en',
+                'basePath' => '@bedezign/yii2/audit/messages',
+            ];
+        }
     }
 }
