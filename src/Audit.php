@@ -53,9 +53,6 @@ class Audit extends \yii\base\Module
     /** @var string[]           Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*'). */
     public $ignoreActions       = [];
 
-    /** @var int                Chance in % that the truncate operation will run, false to not run at all */
-    public $truncateChance      = false;
-
     /** @var int                Maximum age (in days) of the audit entries before they are truncated */
     public $maxAge              = null;
 
@@ -152,11 +149,6 @@ class Audit extends \yii\base\Module
             $this->_entry->finalize();
             $this->callProviderQueue('finalize');
         }
-
-        if ($this->truncateChance !== false && $this->maxAge !== null) {
-            if (rand(1, 100) <= $this->truncateChance)
-                $this->truncate();
-        }
     }
 
     /**
@@ -169,10 +161,11 @@ class Audit extends \yii\base\Module
     public function data($name, $data, $type = null)
     {
         $entry = $this->getEntry(false);
-        if (!$entry)
-            return null;
+        if (!$entry) {
+            return;
+        }
 
-        return $entry->addData($name, $data, $type);
+        $entry->addData($name, $data, $type);
     }
 
     /**
@@ -249,32 +242,6 @@ class Audit extends \yii\base\Module
             $this->callProviderQueue('record');
         }
         return $this->_entry;
-    }
-
-    /**
-     * Clean up the audit data according to the settings.
-     * Can be handy if you are offloading the data somewhere and want to keep only the most recent entries readily available
-     */
-    public function truncate()
-    {
-        if ($this->maxAge === null)
-            return;
-
-        $entry      = models\AuditEntry::tableName();
-        $errors     = models\AuditError::tableName();
-        $data       = models\AuditData::tableName();
-        $javascript = models\AuditJavascript::tableName();
-
-        $threshold = time() - ($this->maxAge * 86400);
-
-        models\AuditEntry::getDb()->createCommand(<<<SQL
-DELETE FROM $entry, $errors, $data, $javascript USING $entry
-  INNER JOIN $errors ON $errors.entry_id = $entry.id
-  INNER JOIN $data ON $data.entry_id = $entry.id
-  INNER JOIN $javascript ON $javascript.entry_id = $entry.id
-  WHERE $entry.created < FROM_UNIXTIME($threshold)
-SQL
-        )->execute();
     }
 
     /**
