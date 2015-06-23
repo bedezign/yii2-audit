@@ -58,7 +58,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 ];
             }
 
-            echo Html::tag('h2', $data->name . ' (' . count($attributes) . ')', ['id' => $data->type, 'class' => 'hashtag']);
+            echo Html::tag('h2', $data->type . ' (' . count($attributes) . ')', ['id' => $data->type, 'class' => 'hashtag']);
             echo DetailView::widget([
                 'model' => $data,
                 'attributes' => $attributes,
@@ -187,7 +187,7 @@ $this->params['breadcrumbs'][] = $this->title;
           <li><a href="#entry"><?= Yii::t('audit', 'Request') ?></a></li>
 
           <?php foreach ($entry->extraData as $extraData): ?>
-              <li><a href="#<?= $extraData->type ?>"><?= $extraData->name . ' (' . count($extraData->data) . ')' ?></a></li>
+              <li><a href="#<?= $extraData->type ?>"><?= $extraData->type . ' (' . count($extraData->data) . ')' ?></a></li>
           <?php endforeach ?>
 
           <?php if (count($entry->trail)): ?>

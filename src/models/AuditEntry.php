@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\components\Helper;
+use Yii;
 
 /**
  * Class AuditEntry
@@ -86,18 +87,19 @@ class AuditEntry extends AuditModel
         return static::hasMany(AuditJavascript::className(), ['audit_id' => 'id']);
     }
 
-    public function addData($name, $data, $type = null)
+    public function addData($type, $data)
     {
-        if ($this->isNewRecord)
-            return null;
+        $this->addBatchData([$type => $data]);
+    }
 
-        $auditData = new AuditData;
-        $auditData->entry = $this;
-        $auditData->name  = $name;
-        $auditData->data  = $data;
-        $auditData->type  = $type;
-
-        return $auditData->save() ? $auditData : null;
+    public function addBatchData($batchData)
+    {
+        $columns = ['audit_id', 'type', 'data', 'packed'];
+        $rows = [];
+        foreach ($batchData as $type => $data) {
+            $rows[] = [$this->id, $type, Helper::serialize($data), 1];
+        }
+        Yii::$app->db->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
 
     /**
@@ -105,16 +107,7 @@ class AuditEntry extends AuditModel
      */
     public function record()
     {
-        $dataMap = [
-            //'type'    => ['name'      => 'data'],
-            'get'       => ['$_GET'     => $_GET],
-            'post'      => ['$_POST'    => $_POST],
-            'cookies'   => ['$_COOKIE'  => $_COOKIE],
-            'env'       => ['$_SERVER'  => $_SERVER],
-            'files'     => ['$_FILES'   => $_FILES],
-        ];
-
-        $app                = \Yii::$app;
+        $app                = Yii::$app;
         $request            = $app->request;
 
         $this->route        = $app->requestedAction ? $app->requestedAction->uniqueId : null;
@@ -127,26 +120,13 @@ class AuditEntry extends AuditModel
             $this->ip             = $request->userIP;
             $this->referrer       = $request->referrer;
             $this->request_method = $_SERVER['REQUEST_METHOD'];
-
-            if (!empty($_SESSION))
-                $dataMap['session'] = ['$_SESSION' => $_SESSION];
-            $dataMap['request_headers'] = ['Request Headers' => Helper::compact($request->headers, true)];
         }
         else if ($request instanceof \yii\console\Request) {
-            // Add extra link, makes it easier to detect
-            $dataMap['params']    = $request->params;
             $this->url            = $request->scriptFile;
             $this->request_method = 'CLI';
         }
 
         $this->save(false);
-
-        // Record the incoming data
-        foreach ($dataMap as $type => $values) {
-            foreach ($values as $name => $value) {
-                $this->addData($name, $value, $type);
-            }
-        }
     }
 
     public function finalize()
@@ -156,10 +136,9 @@ class AuditEntry extends AuditModel
         $this->memory = memory_get_usage();
         $this->memory_max = memory_get_peak_usage();
 
-        $response = \Yii::$app->response;
+        $response = Yii::$app->response;
         if ($response instanceof \yii\web\Response) {
             $this->redirect = $response->headers->get('location');
-            $this->addData('Response Headers', Helper::compact($response->headers, true), 'response_headers');
         }
 
         return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max', 'redirect']);
@@ -169,15 +148,15 @@ class AuditEntry extends AuditModel
     {
         return
         [
-            'id'             => \Yii::t('audit', 'Entry Id'),
-            'created'        => \Yii::t('audit', 'Added at'),
-            'start_time'     => \Yii::t('audit', 'Start Time'),
-            'end_time'       => \Yii::t('audit', 'End Time'),
-            'duration'       => \Yii::t('audit', 'Request Duration'),
-            'user_id'        => \Yii::t('audit', 'User'),
-            'memory'         => \Yii::t('audit', 'Memory Usage'),
-            'memory_max'     => \Yii::t('audit', 'Max. Memory Usage'),
-            'request_method' => \Yii::t('audit', 'Request Method'),
+            'id'             => Yii::t('audit', 'Entry Id'),
+            'created'        => Yii::t('audit', 'Added at'),
+            'start_time'     => Yii::t('audit', 'Start Time'),
+            'end_time'       => Yii::t('audit', 'End Time'),
+            'duration'       => Yii::t('audit', 'Request Duration'),
+            'user_id'        => Yii::t('audit', 'User'),
+            'memory'         => Yii::t('audit', 'Memory Usage'),
+            'memory_max'     => Yii::t('audit', 'Max. Memory Usage'),
+            'request_method' => Yii::t('audit', 'Request Method'),
         ];
     }
 }

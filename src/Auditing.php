@@ -10,10 +10,12 @@
 
 namespace bedezign\yii2\audit;
 
+use Yii;
 use yii\base\Application;
 use yii\helpers\ArrayHelper;
 use bedezign\yii2\audit;
 use bedezign\yii2\audit\models;
+use yii\helpers\Json;
 
 /**
  * Class Auditing
@@ -62,6 +64,35 @@ class Auditing extends \yii\base\Module
     /** @var bool               Compress extra data generated or just keep in text? For people who don't like binary data in the DB */
     public $compressData        = true;
 
+    /** @var array              List of providers that will capture and display data */
+    public $providers           = [
+        [
+            'class' => 'bedezign\yii2\audit\providers\SuperGlobalProvider',
+            'logVars' => [
+                '_GET',
+                '_POST',
+                '_FILES',
+                '_SESSION',
+                '_COOKIE',
+                '_SERVER',
+                '_PARAMS',
+            ],
+        ],
+        [
+            'class' => 'bedezign\yii2\audit\providers\HeaderProvider',
+            'logVars' => [
+                'request',
+                'response',
+            ],
+        ],
+        //'bedezign\yii2\audit\providers\LogProvider',
+        //'bedezign\yii2\audit\providers\ProfileProvider',
+        //'bedezign\yii2\audit\providers\EmailProvider',
+    ];
+
+    /** @var array              List of initialized providers */
+    private $_providers         = [];
+
     /** @var static             The current instance */
     private static $_current    = null;
 
@@ -85,12 +116,12 @@ class Auditing extends \yii\base\Module
             $this->accessUsers = ArrayHelper::toArray($this->accessUsers);
 
         // Before action triggers a new audit entry
-        \Yii::$app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onApplicationAction']);
+        Yii::$app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onApplicationAction']);
         // After request finalizes the audit entry and optionally does truncating
-        \Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
+        Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
 
         // Register translation
-        $app = \Yii::$app;
+        $app = Yii::$app;
         if ($app->has('i18n')) {
             $app->i18n->translations['audit'] = [
                 'class'          => 'yii\i18n\PhpMessageSource',
@@ -123,8 +154,10 @@ class Auditing extends \yii\base\Module
      */
     public function onAfterRequest()
     {
-        if ($this->entry)
+        if ($this->entry) {
             $this->_entry->finalize();
+            $this->callProviderQueue('finalize');
+        }
 
         if ($this->truncateChance !== false && $this->maxAge !== null) {
             if (rand(1, 100) <= $this->truncateChance)
@@ -153,7 +186,7 @@ class Auditing extends \yii\base\Module
      */
     public function getDb()
     {
-        return \Yii::$app->{$this->db};
+        return Yii::$app->{$this->db};
     }
 
     /**
@@ -167,7 +200,7 @@ class Auditing extends \yii\base\Module
             return true;
 
         $user = \yii\di\Instance::ensure('user', \yii\web\User::className());
-        if ($this->accessUsers && in_array(\Yii::$app->user->id, $this->accessUsers))
+        if ($this->accessUsers && in_array(Yii::$app->user->id, $this->accessUsers))
             return true;
 
         if ($this->accessRoles) {
@@ -197,7 +230,7 @@ class Auditing extends \yii\base\Module
             $users = $this->accessUsers;
             // Specific users only? Use callback
             $rule['matchCallback'] = function ($rule, $action) use ($users) {
-                return in_array(\Yii::$app->user->id, $users);
+                return in_array(Yii::$app->user->id, $users);
             };
         }
 
@@ -219,8 +252,8 @@ class Auditing extends \yii\base\Module
     {
         if (!$this->_entry && $create) {
             $this->_entry = models\AuditEntry::create(true);
+            $this->callProviderQueue('record');
         }
-
         return $this->_entry;
     }
 
@@ -274,4 +307,34 @@ SQL
         }
         return false;
     }
+
+    /**
+     *
+     */
+    protected function initializeProviders()
+    {
+        if ($this->_providers || !$this->providers) {
+            return;
+        }
+        foreach ($this->providers AS $class) {
+            $provider           = Yii::createObject($class);
+            $this->_providers[] = $provider;
+            Yii::trace("Initialized audit provider '{" . get_class($provider) . "}'", 'audit');
+        }
+    }
+
+    /**
+     * @param string $func
+     */
+    protected function callProviderQueue($func)
+    {
+        $this->initializeProviders(); // TODO: should be done on init
+        foreach ($this->_providers AS $provider) {
+            if (method_exists($provider, $func)) {
+                Yii::trace('Running audit provider ' . get_class($provider) . '::' . $func, 'audit');
+                call_user_func(array(&$provider, $func));
+            }
+        }
+    }
+
 }
