@@ -15,9 +15,9 @@ $this->params['breadcrumbs'][] = $this->title;
 
     <?= Nav::widget([
         'items' => [
-            ['label' => 'Entries', 'url' => ['entry/index']],
-            ['label' => 'Trails', 'url' => ['trail/index']],
-            ['label' => 'Errors', 'url' => ['error/index']],
+            ['label' => Yii::t('audit', 'Entries'), 'url' => ['entry/index']],
+            ['label' => Yii::t('audit', 'Trails'), 'url' => ['trail/index']],
+            ['label' => Yii::t('audit', 'Errors'), 'url' => ['error/index']],
         ],
         'options' => ['class' => 'nav-pills'],
     ]); ?>

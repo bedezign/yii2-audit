@@ -37,6 +37,13 @@ use yii\helpers\ArrayHelper;
  */
 class Audit extends \yii\base\Module
 {
+    /**
+     * @var string|boolean the layout that should be applied for views within this module. This refers to a view name
+     * relative to [[layoutPath]]. If this is not set, it means the layout value of the [[module|parent module]]
+     * will be taken. If this is false, layout will be disabled within this module.
+     */
+    public $layout = 'main';
+
     /** @var string             name of the component to use for database access  */
     public $db                  = 'db';
 
