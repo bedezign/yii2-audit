@@ -15,7 +15,9 @@ class DefaultController extends \yii\web\Controller
 {
     public function behaviors()
     {
-        return [ 'access' => $this->module->getAccessControlFilter() ];
+        return [
+            'access' => $this->module->getAccessControlFilter()
+        ];
     }
 
     public function beforeAction($action)
@@ -43,6 +45,7 @@ class DefaultController extends \yii\web\Controller
      * Displays a single AuditEntry model.
      * @param integer $id
      * @return mixed
+     * @throws \HttpInvalidParamException
      */
     public function actionView($id)
     {
@@ -52,8 +55,6 @@ class DefaultController extends \yii\web\Controller
         } else {
             throw new \HttpInvalidParamException('Invalid request number specified');
         }
-
-        $this->redirect(['index']);
     }
 
     /**
