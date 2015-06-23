@@ -27,6 +27,24 @@ class AuditData extends AuditModel
         $this->entry_id = $entry->id;
     }
 
+    /**
+     * @return AuditEntry
+     */
+    public function getEntry()
+    {
+        return static::hasOne(AuditEntry::className(), ['id' => 'entry_id']);
+    }
+
+    public static function findEntryTypes($entry_id)
+    {
+        return static::find()->select('type')->where(['entry_id' => $entry_id])->column();
+    }
+
+    public static function findForEntry($entry_id, $type)
+    {
+        return static::find()->where(['entry_id' => $entry_id, 'type' => $type])->one();
+    }
+
     public function beforeSave($insert)
     {
         // Only serialize complex values
@@ -47,13 +65,5 @@ class AuditData extends AuditModel
     public static function tableName()
     {
         return '{{%audit_data}}';
-    }
-
-    /**
-     * @return AuditEntry
-     */
-    public function getEntry()
-    {
-        return static::hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
 }

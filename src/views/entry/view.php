@@ -34,22 +34,39 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                 'id',
                 [
                     'label' => $model->getAttributeLabel('user_id'),
-                    'value' => Audit::current()->getUsername($model->user_id),
+                    'value' => Audit::current()->getUserIdentifier($model->user_id),
                 ],
                 'ip',
                 'created',
-                [ 'attribute' => 'start_time', 'format' => 'datetime' ],
-                [ 'attribute' => 'end_time', 'format' => 'datetime' ],
                 [ 'attribute' => 'duration', 'format' => 'decimal' ],
                 'referrer',
                 'redirect',
                 'url',
                 'route',
-                [ 'attribute' => 'memory', 'format' => 'shortsize' ],
                 [ 'attribute' => 'memory_max', 'format' => 'shortsize' ],
             ]
         ]);
 
+?>
+            <div class="row">
+                <div class="col-md-2">
+                    <div class="list-group">
+                        <?php
+                        foreach ($panels as $id => $panel) {
+                            $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($panel->getName());
+                            echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
+                                'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
+                            ]);
+                        }
+                        ?>
+                    </div>
+                </div>
+                <div class="col-md-10">
+                    <?= $activePanel->getDetail() ?>
+                </div>
+
+<?php
+__halt_compiler();
         foreach ($model->extraData as $data) {
             $attributes = [];
             foreach ($data->data as $name => $value) {
@@ -153,35 +170,6 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             }
         }
 
-        $types = [
-            'env'     => '$_SERVER',
-            'session' => '$_SESSION',
-            'cookies' => '$_COOKIES',
-            'files'   => '$_FILES',
-            'get'     => '$_GET',
-            'post'    => '$_POST',
-        ];
-
-        // display depricated data
-        if ($model->data) {
-            foreach ($model->data as $type => $values) {
-                $attributes = [];
-                foreach ($values as $name => $value) {
-                    $attributes[] = [
-                        'label'     => $name,
-                        'value'     => Helper::formatValue($value),
-                        'format'    => 'raw',
-                    ];
-                }
-
-                echo Html::tag('h2', $types[$type], ['id' => $type, 'class' => 'hashtag']);
-                echo DetailView::widget([
-                    'model' => $model,
-                    'attributes' => $attributes,
-                    'template' => '<tr><th>{label}</th><td style="word-break:break-word;">{value}</td></tr>'
-                ]);
-            }
-        }
 ?>
     </div>
     <div class="col-md-2">
@@ -203,10 +191,6 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
           <?php if (count($model->javascript)): ?>
               <li><a href="#javascript"><?= Yii::t('audit', 'Javascript ({i})', ['i' => count($model->javascript)]) ?></a></li>
           <?php endif ?>
-
-          <?php if ($model->data): foreach ($model->data as $type => $values): ?>
-              <li><a href="#<?= $type ?>"><?= $types[$type] . ' (' . count($model->data[$type]) . ')' ?></a></li>
-          <?php endforeach; endif; ?>
         </ul>
     </div>
 </div>

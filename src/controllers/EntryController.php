@@ -14,6 +14,11 @@ use Yii;
 class EntryController extends Controller
 {
     /**
+     * @var array fake summary data so the debug panels work
+     */
+    public $summary = ['tag' => ''];
+
+    /**
      * Lists all AuditEntry models.
      * @return mixed
      */
@@ -34,14 +39,36 @@ class EntryController extends Controller
      * @return mixed
      * @throws \HttpInvalidParamException
      */
-    public function actionView($id)
+    public function actionView($id, $panel = '')
     {
         $model = AuditEntry::findOne($id);
         if (!$model) {
             throw new \HttpInvalidParamException('Invalid request number specified');
         }
+
+        $module = $this->module;
+
+        // Make sure the view-only panels are active as well
+        $module->initPanels(true);
+        $storedPanels = $model->associatedPanels;
+        $panels = array_intersect_key($module->panels, array_flip($storedPanels));
+
+        if (isset($panels[$panel]))
+            $activePanel = $panel;
+        else {
+            reset($panels);
+            $activePanel = key($panels);
+        }
+
+        $panels[$activePanel]->load($model->typeData($activePanel));
+
+        // @TODO: Add unknown panels as "generic data"
+
         return $this->render('view', [
+            'id' => $id,
             'model' => $model,
+            'activePanel' => $panels[$activePanel],
+            'panels' => $panels,
         ]);
     }
 }

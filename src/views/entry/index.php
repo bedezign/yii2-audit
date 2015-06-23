@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('audit', 'User'),
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
-                    return Audit::current()->getUsername($data->user_id);
+                    return Audit::current()->getUserIdentifier($data->user_id);
                 }
             ],
             'request_method',
@@ -46,7 +46,6 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
             ],
             ['attribute' => 'duration', 'format' => 'decimal'],
-            ['attribute' => 'memory', 'format' => 'shortsize'],
             ['attribute' => 'memory_max', 'format' => 'shortsize'],
             ['attribute' => 'errors', 'value' => function ($data) {
                 return is_array($data->linkedErrors) ? count($data->linkedErrors) : 0;

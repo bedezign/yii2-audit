@@ -14,7 +14,7 @@ class AuditErrorSearch extends AuditError
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'file', 'line'], 'safe'],
+            [['id', 'entry_id', 'file', 'line'], 'safe'],
         ];
     }
 
@@ -44,9 +44,21 @@ class AuditErrorSearch extends AuditError
 
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
+        $query->andFilterWhere(['entry_id' => $this->entry_id]);
         $query->andFilterWhere(['like', 'file', $this->file]);
         $query->andFilterWhere(['line' => $this->line]);
 
         return $dataProvider;
     }
+
+    static public function fileFilter()
+    {
+        $files = AuditEntry::getDb()->cache(function($db) {
+            return AuditError::find()->distinct(true)
+                ->select('file')->where(['is not', 'file', null])
+                ->groupBy('file')->orderBy('file ASC')->column();
+        }, 30);
+        return array_combine($files, $files);
+    }
+
 }

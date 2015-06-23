@@ -30,7 +30,12 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            'file',
+            [
+                'class' => 'yii\grid\DataColumn',
+                'attribute' => 'file',
+                'filter' => AuditErrorSearch::fileFilter(),
+                'format' => 'html',
+            ],
             'line',
         ],
     ]); ?>

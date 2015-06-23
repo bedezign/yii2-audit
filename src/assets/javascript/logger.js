@@ -1,8 +1,7 @@
 (function (window, document) {
     if (!window.jsLogger) {
         window.jsLogger = new function() {
-            // The url to post captured log entries to (default assumes the audit module was added as "audit").
-            this.logUrl = '/audit/javascript/log';
+            this.logUrl = window.auditUrl || '/audit/javascript/log';
 
             // The types that should be sent to the backend.
             this.captureTypes = ['warn', 'error', 'onerror'];

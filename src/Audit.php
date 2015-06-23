@@ -37,7 +37,7 @@ use yii\helpers\ArrayHelper;
  *    'bootstrap' => ['audit'],
  *
  */
-class Audit extends Module implements BootstrapInterface
+class Audit extends Module
 {
     /**
      * @var string|boolean the layout that should be applied for views within this module. This refers to a view name
@@ -82,47 +82,21 @@ class Audit extends Module implements BootstrapInterface
     public $compressData = true;
 
     /**
-     * @var string|bool The callback of the user model and username attribute to use when displaying usernames
+     * @var string The callback to use to convert a user id into an identifier (username, email, ...). Can also be html.
      */
-    public $usernameCallback = ['app\models\User', 'username'];
+    public $userIdentifierCallback = false;
 
     /**
-     * @var array List of providers that will capture and display data
+     * @var array list of panels. If the value is a simple string, it is the identifier of a corePanel to activate (with default settings)
+     * If the entry is a '<key>' => '<string>|<array>' it is a new panel that will override the core one.
+     * Avialable panels: 'request'
      */
-    public $providers = [
-        [
-            'class' => 'bedezign\yii2\audit\providers\RequestProvider',
-            'logVars' => [
-                '_GET',
-                '_POST',
-                '_FILES',
-                '_SESSION',
-                '_COOKIE',
-                '_SERVER',
-                '_PARAMS',
-            ],
-        ],
-        [
-            'class' => 'bedezign\yii2\audit\providers\HeaderProvider',
-            'logVars' => [
-                'request',
-                'response',
-            ],
-        ],
-        'bedezign\yii2\audit\providers\DbProvider',
-        //'bedezign\yii2\audit\providers\LogProvider',
-        //'bedezign\yii2\audit\providers\EmailProvider',
-    ];
+    public $panels = ['request', 'db'];
 
     /**
-     * @var AuditTarget
+     * @var LogTarget
      */
-    public $auditTarget;
-
-    /**
-     * @var array List of initialized providers
-     */
-    private $_providers = [];
+    public $logTarget;
 
     /**
      * @var static The current instance
@@ -134,22 +108,12 @@ class Audit extends Module implements BootstrapInterface
      */
     private $_entry = null;
 
-    /**
-     * @inheritdoc
-     */
-    public function bootstrap($app)
-    {
-        $this->auditTarget = Yii::$app->getLog()->targets['audit'] = new AuditTarget($this);
-    }
-
-    /**
-     *
-     */
     public function init()
     {
         static::$_current = $this;
-
         parent::init();
+
+        $app = Yii::$app;
 
         // Allow the users to specify a simple string if there is only 1 entry
         $this->trackActions = ArrayHelper::toArray($this->trackActions);
@@ -162,16 +126,22 @@ class Audit extends Module implements BootstrapInterface
             $this->accessUsers = ArrayHelper::toArray($this->accessUsers);
 
         // Before action triggers a new audit entry
-        Yii::$app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onApplicationAction']);
-        // After request finalizes the audit entry and optionally does truncating
-        Yii::$app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
+        $app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onBeforeAction']);
+
+        // After request finalizes the audit entry.
+        $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
+
+        // Activate the logging target
+        $this->logTarget = $app->getLog()->targets['audit'] = new AuditTarget($this);
+
+        $this->initPanels();
     }
 
     /**
      * Called to evaluate if the current request should be logged
      * @param \yii\base\Event $event
      */
-    public function onApplicationAction($event)
+    public function onBeforeAction($event)
     {
         $actionId = $event->action->uniqueId;
 
@@ -185,14 +155,10 @@ class Audit extends Module implements BootstrapInterface
         $this->getEntry(true);
     }
 
-    /**
-     * If the action was execute
-     */
     public function onAfterRequest()
     {
         if ($this->entry) {
             $this->_entry->finalize();
-            $this->callProviderQueue('finalize');
         }
     }
 
@@ -276,14 +242,12 @@ class Audit extends Module implements BootstrapInterface
 
     /**
      * Returns the current module instance.
-     * Since we don't know how the module was linked into the application, this function allows us to retrieve
-     * the instance without that information. As soon as an instance was initialized, it is linked.
      * @return static
      */
     public static function current()
     {
         if (!static::$_current) {
-            static::$_current = Yii::$app->getModule('audit');
+            static::$_current = Yii::$app->getModule(Audit::findModuleIdentifier());
         }
         return static::$_current;
     }
@@ -296,27 +260,86 @@ class Audit extends Module implements BootstrapInterface
     {
         if (!$this->_entry && $create) {
             $this->_entry = models\AuditEntry::create(true);
-            $this->callProviderQueue('record');
         }
         return $this->_entry;
     }
 
-    public function getUsername($user_id)
+    public function getUserIdentifier($user_id)
     {
         if (!$user_id) {
             return Yii::t('audit', 'Guest');
         }
-        if (!$this->usernameCallback) {
-            return $user_id;
-        }
+
         try {
-            /** @var \app\models\User $class */
-            $class = $this->usernameCallback[0];
-            $user = $class::findOne($user_id);
-            return $user->{$this->usernameCallback[1]};
+            if ($this->userIdentifierCallback && is_callable($this->userIdentifierCallback))
+                return $this->userIdentifierCallback($user_id);
         } catch (\Exception $e) {
-            return $user_id;
         }
+        return $user_id;
+    }
+
+    public function initPanels($all = false)
+    {
+        $panels = [];
+        $corePanels = $this->corePanels();
+
+        foreach ($this->panels as $key => $value) {
+            $identifier = $config = null;
+            if (is_numeric($key)) {
+                // The config a panel name
+                if (!isset($corePanels[$value]))
+                    throw new \yii\base\InvalidConfigException("'$value' is not a valid panel name");
+
+                $identifier = $value;
+                $config = $corePanels[$value];
+            }
+            elseif (is_string($key)) {
+                $identifier = $key;
+                $config = is_string($value) ? ['class' => $value] : $value;
+            }
+
+            if (is_array($config)) {
+                $config['module'] = $this;
+                $config['id'] = $identifier;
+                $panels[$identifier] = Yii::createObject($config);
+            }
+            else
+                $panels[$identifier] = $config;
+        }
+
+        if ($all) {
+            $viewOnlyPanels = [
+                'errors'        => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+                'javascript'    => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+                'trail'         => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+            ];
+
+            foreach ($viewOnlyPanels as $identifier => $config)
+                if (!isset($panels[$identifier]))
+                    $panels[$identifier] = Yii::createObject($config);
+        }
+
+        $this->panels = $panels;
+    }
+
+    public static function findModuleIdentifier()
+    {
+        foreach (Yii::$app->modules as $name => $module) {
+            $class = null;
+            if (is_string($module))
+                $class = $module;
+            elseif (is_array($module)) {
+                if (isset($module['class']) )
+                    $class = $module['class'];
+            }
+            else
+                $class = $module::className();
+
+            $parts = explode('\\', $class);
+            if ($class && strtolower(end($parts)) == 'audit')
+                return $name;
+        }
+        return null;
     }
 
     /**
@@ -344,34 +367,12 @@ class Audit extends Module implements BootstrapInterface
         return false;
     }
 
-    /**
-     *
-     */
-    protected function initializeProviders()
+    protected function corePanels()
     {
-        if ($this->_providers || !$this->providers) {
-            return;
-        }
-        foreach ($this->providers AS $class) {
-            $provider = Yii::createObject($class);
-            $provider->module = $this;
-            $this->_providers[] = $provider;
-            Yii::trace("Initialized audit provider '{" . get_class($provider) . "}'", 'audit');
-        }
-    }
-
-    /**
-     * @param string $func
-     */
-    protected function callProviderQueue($func)
-    {
-        $this->initializeProviders(); // TODO: should be done on init
-        foreach ($this->_providers AS $provider) {
-            if (method_exists($provider, $func)) {
-                Yii::trace('Running audit provider ' . get_class($provider) . '::' . $func, 'audit');
-                call_user_func(array(&$provider, $func));
-            }
-        }
+        return [
+            'request'       => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+            'db'            => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+        ];
     }
 
 }

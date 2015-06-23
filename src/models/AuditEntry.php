@@ -11,8 +11,6 @@ use Yii;
  *
  * @property int    $id
  * @property string $created
- * @property float  $start_time
- * @property float  $end_time
  * @property float  $duration
  * @property int    $user_id        0 means anonymous
  * @property string $ip
@@ -20,13 +18,14 @@ use Yii;
  * @property string $redirect
  * @property string $url
  * @property string $route
- * @property string $data           Compressed data collection of everything incoming
- * @property int    $memory
  * @property int    $memory_max
  * @property string $request_method
  */
 class AuditEntry extends AuditModel
 {
+    protected $start_time;
+    protected $autoSerialize = false;
+
     public static function tableName()
     {
         return '{{%audit_entry}}';
@@ -41,13 +40,25 @@ class AuditEntry extends AuditModel
         return $entry;
     }
 
-    /**
-     * Returns all linked AuditData instances
-     * @return AuditData[]
-     */
-    public function getUser()
+    public function getAssociatedPanels()
     {
-        return static::hasOne(User::className(), ['user_id' => 'id']);
+        $panels = AuditData::findEntryTypes($this->id);
+        if (count($this->linkedErrors))
+            $panels[] = 'errors';
+
+        if (count($this->javascript))
+            $panels[] = 'javascript';
+
+        if (count($this->trail))
+            $panels[] = 'trail';
+
+        return $panels;
+    }
+
+    public function typeData($type)
+    {
+        $record = AuditData::findForEntry($this->id, $type);
+        return $record ? $record->data : null;
     }
 
     /**
@@ -87,17 +98,17 @@ class AuditEntry extends AuditModel
         return static::hasMany(AuditJavascript::className(), ['entry_id' => 'id']);
     }
 
-    public function addData($type, $data)
+    public function addData($type, $data, $compact = true)
     {
-        $this->addBatchData([$type => $data]);
+        $this->addBatchData([$type => $data], $compact);
     }
 
-    public function addBatchData($batchData)
+    public function addBatchData($batchData, $compact = true)
     {
         $columns = ['entry_id', 'type', 'data', 'packed'];
         $rows = [];
         foreach ($batchData as $type => $data) {
-            $rows[] = [$this->id, $type, Helper::serialize($data), 1];
+            $rows[] = [$this->id, $type, Helper::serialize($data, $compact), 1];
         }
         Yii::$app->db->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
@@ -131,9 +142,7 @@ class AuditEntry extends AuditModel
 
     public function finalize()
     {
-        $this->end_time = microtime(true);
-        $this->duration = $this->end_time - $this->start_time;
-        $this->memory = memory_get_usage();
+        $this->duration = microtime(true) - $this->start_time;
         $this->memory_max = memory_get_peak_usage();
 
         $response = Yii::$app->response;
@@ -141,7 +150,7 @@ class AuditEntry extends AuditModel
             $this->redirect = $response->headers->get('location');
         }
 
-        return $this->save(false, ['end_time', 'duration', 'memory', 'memory_max', 'redirect']);
+        return $this->save(false, ['duration', 'memory_max', 'redirect']);
     }
 
     public function attributeLabels()
@@ -150,11 +159,8 @@ class AuditEntry extends AuditModel
         [
             'id'             => Yii::t('audit', 'Entry Id'),
             'created'        => Yii::t('audit', 'Added at'),
-            'start_time'     => Yii::t('audit', 'Start Time'),
-            'end_time'       => Yii::t('audit', 'End Time'),
             'duration'       => Yii::t('audit', 'Request Duration'),
             'user_id'        => Yii::t('audit', 'User'),
-            'memory'         => Yii::t('audit', 'Memory Usage'),
             'memory_max'     => Yii::t('audit', 'Max. Memory Usage'),
             'request_method' => Yii::t('audit', 'Request Method'),
         ];
