@@ -36,7 +36,7 @@ class AuditTrail extends AuditModel
     {
         return [
             'id'        => Yii::t('audit', 'ID'),
-            'audit_id'  => Yii::t('audit', 'Entry ID'),
+            'entry_id'  => Yii::t('audit', 'Entry ID'),
             'user_id'   => Yii::t('audit', 'User ID'),
             'old_value' => Yii::t('audit', 'Old Value'),
             'new_value' => Yii::t('audit', 'New Value'),
@@ -55,7 +55,7 @@ class AuditTrail extends AuditModel
     {
         return [
             [['action', 'model', 'stamp', 'model_id'], 'required'],
-            [['audit_id', 'user_id'], 'integer', 'integerOnly' => true],
+            [['entry_id', 'user_id'], 'integer', 'integerOnly' => true],
             ['action', 'string', 'max' => 255],
             ['model', 'string', 'max' => 255],
             ['field', 'string', 'max' => 255],
@@ -76,7 +76,7 @@ class AuditTrail extends AuditModel
 
     public function getEntry()
     {
-        return $this->hasOne(AuditEntry::className(), ['id' => 'audit_id']);
+        return $this->hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
     
     public function getDiffHtml()

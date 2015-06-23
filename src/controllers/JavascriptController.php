@@ -25,7 +25,7 @@ class JavascriptController extends \yii\web\Controller
         // Convert data into the loggable object
         $javascript = new models\AuditJavascript();
         $map = [
-            'auditEntry' => 'audit_id',
+            'auditEntry' => 'entry_id',
             'message'    => 'message',
             'type'       => 'type',
             'file'       => 'origin',

@@ -11,7 +11,7 @@ namespace bedezign\yii2\audit\models;
  * @package bedezign\yii2\audit\models
  *
  * @property int    $id
- * @property int    $audit_id
+ * @property int    $entry_id
  * @property string $name
  * @property string $type
  * @property bool   $packed         true if the associated data has been serialized
@@ -24,7 +24,7 @@ class AuditData extends AuditModel
 
     public function setEntry(AuditEntry $entry)
     {
-        $this->audit_id = $entry->id;
+        $this->entry_id = $entry->id;
     }
 
     public function beforeSave($insert)
@@ -54,6 +54,6 @@ class AuditData extends AuditModel
      */
     public function getEntry()
     {
-        return static::hasOne(AuditEntry::className(), ['id' => 'audit_id']);
+        return static::hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
 }

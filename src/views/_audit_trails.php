@@ -47,13 +47,13 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
             //'format' => 'raw',
         ],
         [
-            'attribute' => 'audit_id',
+            'attribute' => 'entry_id',
             'value' => function ($model) {
                 /** @var AuditTrail $model */
                 if (Yii::$app->getModule('audit')->checkAccess()) {
-                    return Html::a($model->audit_id, ['/audit/default/view', 'id' => $model->audit_id]);
+                    return Html::a($model->entry_id, ['/audit/default/view', 'id' => $model->entry_id]);
                 }
-                return $model->audit_id;
+                return $model->entry_id;
             },
             'format' => 'raw',
         ],
@@ -88,7 +88,7 @@ ob_start();
 ?>
     <script>
         var gridview_id = "#pjax-AuditTrails .grid-view"; // specific gridview
-        var columns = [1, 2]; // index column that will grouping, (user_id, audit_id)
+        var columns = [1, 2]; // index column that will grouping, (user_id, entry_id)
 
         var column_data = [];
         column_start = [];

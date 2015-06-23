@@ -10,9 +10,9 @@ class AuditTrailSearch extends AuditTrail
 {
     public function rules()
     {
-        // Note: The model is used by both the entry and the trail index pages, hence the separate use of `id` and `audit_id`
+        // Note: The model is used by both the entry and the trail index pages, hence the separate use of `id` and `entry_id`
         return [
-            [['id', 'user_id', 'audit_id', 'action', 'model', 'model_id', 'field', 'stamp'], 'safe'],
+            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'stamp'], 'safe'],
         ];
     }
 
@@ -46,7 +46,7 @@ class AuditTrailSearch extends AuditTrail
             $userId = intval($this->user_id) ?: 0;
 
         $query->andFilterWhere(['id' => $this->id]);
-        $query->andFilterWhere(['audit_id' => $this->audit_id]);
+        $query->andFilterWhere(['entry_id' => $this->entry_id]);
         $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['action' => $this->action]);
         $query->andFilterWhere(['like', 'model', $this->model]);

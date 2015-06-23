@@ -11,7 +11,7 @@ use bedezign\yii2\audit\components\Helper;
  * Class AuditJavascript
  * @package bedezign\yii2\audit\models
  * @property int    $id
- * @property int    $audit_id
+ * @property int    $entry_id
  * @property string $created
  * @property string $message
  * @property string $origin
@@ -21,13 +21,13 @@ class AuditJavascript extends AuditModel
 {
     public function setEntry(AuditEntry $entry)
     {
-        $this->audit_id = $entry->id;
+        $this->entry_id = $entry->id;
     }
 
     public function rules()
     {
         return [
-            [['audit_id', 'message'], 'required']
+            [['entry_id', 'message'], 'required']
         ];
     }
 }

@@ -121,7 +121,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
             if ($this->active) {
                 Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
                     'action'    => 'DELETE',
-                    'audit_id'  => $this->getAuditEntryId(),
+                    'entry_id'  => $this->getAuditEntryId(),
                     'user_id'   => $this->getUserId(),
                     'model'     => $this->owner->className(),
                     'model_id'  => $this->getNormalizedPk(),
@@ -187,7 +187,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
         }
 
         // Setup values outside loop
-        $audit_id = $this->getAuditEntryId();
+        $entry_id = $this->getAuditEntryId();
         $user_id = $this->getUserId();
         $model = $this->owner->className();
         $model_id = $this->getNormalizedPk();
@@ -205,7 +205,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
             // If they are not the same lets write an audit log
             if ($new != $old) {
                 $rows[] = [
-                    $audit_id,
+                    $entry_id,
                     $user_id,
                     $old,
                     $new,
@@ -219,7 +219,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
         }
         // Record the field changes with a batch insert
         if ($rows) {
-            $columns = ['audit_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
+            $columns = ['entry_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
             Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
     }

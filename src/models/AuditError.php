@@ -9,7 +9,7 @@ use bedezign\yii2\audit\components\Helper;
  * @package bedezign\yii2\audit\models
  *
  * @property int    $id
- * @property int    $audit_id
+ * @property int    $entry_id
  * @property string $created
  * @property string $message
  * @property int    $code
@@ -24,7 +24,7 @@ class AuditError extends AuditModel
 
     public function setEntry(AuditEntry $entry)
     {
-        $this->audit_id = $entry->id;
+        $this->entry_id = $entry->id;
     }
 
     public static function log(AuditEntry $entry, $exception)

@@ -22,10 +22,10 @@ $this->params['breadcrumbs'][] = $this->title;
         'columns' => [
             'id',
             [
-                'attribute' => 'audit_id',
+                'attribute' => 'entry_id',
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
-                    return $data->audit_id ? Html::a($data->audit_id, ['default/view', 'id' => $data->audit_id]) : '';
+                    return $data->entry_id ? Html::a($data->entry_id, ['default/view', 'id' => $data->entry_id]) : '';
                 },
                 'format' => 'raw',
             ],

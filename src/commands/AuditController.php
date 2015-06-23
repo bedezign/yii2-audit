@@ -29,9 +29,9 @@ class AuditController extends \yii\console\Controller
             foreach ($auditErrors as $model) {
 
                 // define params and message
-                $url = ['audit/default/view', 'id' => $model->audit_id];
+                $url = ['audit/default/view', 'id' => $model->entry_id];
                 $params = [
-                    'audit_id' => $model->audit_id,
+                    'entry_id' => $model->entry_id,
                     'message' => $model->message,
                     'file' => $model->file,
                     'line' => $model->line,
@@ -39,7 +39,7 @@ class AuditController extends \yii\console\Controller
                     'link' => Html::a(Yii::t('audit', 'view audit entry'), $url),
                 ];
                 $message = [
-                    'subject' => Yii::t('audit', 'Audit Error in Audit Entry #{audit_id}', $params),
+                    'subject' => Yii::t('audit', 'Audit Error in Audit Entry #{entry_id}', $params),
                     'text' => Yii::t('audit', '{message}' . "\n" . 'in {file} on line {line}.' . "\n" . '{url}.', $params),
                     'html' => Yii::t('audit', '<b>{message}</b><br />in <i>{file}</i> on line <i>{line}</i>.<br/>{link}.', $params),
                 ];

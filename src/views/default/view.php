@@ -68,7 +68,7 @@ $this->params['breadcrumbs'][] = $this->title;
 
         if (count($entry->trail)) {
             $dataProvider = new ActiveDataProvider([
-                'query' => AuditTrail::find()->where(['audit_id' => $entry->id]),
+                'query' => AuditTrail::find()->where(['entry_id' => $entry->id]),
                 'pagination' => [
                     'pageSize' => 1000,
                 ],

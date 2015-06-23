@@ -56,7 +56,7 @@ class AuditEntry extends AuditModel
      */
     public function getExtraData()
     {
-        return static::hasMany(AuditData::className(), ['audit_id' => 'id']);
+        return static::hasMany(AuditData::className(), ['entry_id' => 'id']);
     }
 
     /**
@@ -66,7 +66,7 @@ class AuditEntry extends AuditModel
      */
     public function getLinkedErrors()
     {
-        return static::hasMany(AuditError::className(), ['audit_id' => 'id']);
+        return static::hasMany(AuditError::className(), ['entry_id' => 'id']);
     }
 
     /**
@@ -75,7 +75,7 @@ class AuditEntry extends AuditModel
      */
     public function getTrail()
     {
-        return static::hasMany(AuditTrail::className(), ['audit_id' => 'id']);
+        return static::hasMany(AuditTrail::className(), ['entry_id' => 'id']);
     }
 
     /**
@@ -84,7 +84,7 @@ class AuditEntry extends AuditModel
      */
     public function getJavascript()
     {
-        return static::hasMany(AuditJavascript::className(), ['audit_id' => 'id']);
+        return static::hasMany(AuditJavascript::className(), ['entry_id' => 'id']);
     }
 
     public function addData($type, $data)
@@ -94,7 +94,7 @@ class AuditEntry extends AuditModel
 
     public function addBatchData($batchData)
     {
-        $columns = ['audit_id', 'type', 'data', 'packed'];
+        $columns = ['entry_id', 'type', 'data', 'packed'];
         $rows = [];
         foreach ($batchData as $type => $data) {
             $rows[] = [$this->id, $type, Helper::serialize($data), 1];

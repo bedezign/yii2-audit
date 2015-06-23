@@ -12,7 +12,7 @@ CREATE TABLE "post" (
 DROP TABLE IF EXISTS "audit_data";
 CREATE TABLE "audit_data" (
   "id"  INTEGER NOT NULL PRIMARY KEY,
-  "audit_id"  INTEGER(11) NOT NULL,
+  "entry_id"  INTEGER(11) NOT NULL,
   "name"  TEXT(255) NOT NULL,
   "type"  TEXT(255),
   "packed"  INTEGER(1) NOT NULL,
@@ -42,7 +42,7 @@ CREATE TABLE "audit_entry" (
 DROP TABLE IF EXISTS "audit_error";
 CREATE TABLE "audit_error" (
   "id"  INTEGER NOT NULL PRIMARY KEY,
-  "audit_id"  INTEGER(11) NOT NULL,
+  "entry_id"  INTEGER(11) NOT NULL,
   "created"  TEXT NOT NULL,
   "message"  TEXT(512) NOT NULL,
   "code"  INTEGER(11),
@@ -55,7 +55,7 @@ CREATE TABLE "audit_error" (
 DROP TABLE IF EXISTS "audit_javascript";
 CREATE TABLE "audit_javascript" (
   "id"  INTEGER NOT NULL PRIMARY KEY,
-  "audit_id"  INTEGER(11) NOT NULL,
+  "entry_id"  INTEGER(11) NOT NULL,
   "created"  TEXT NOT NULL,
   "type"  TEXT(20) NOT NULL,
   "message"  TEXT NOT NULL,
@@ -66,7 +66,7 @@ CREATE TABLE "audit_javascript" (
 DROP TABLE IF EXISTS "audit_trail";
 CREATE TABLE "audit_trail" (
   "id"  INTEGER NOT NULL PRIMARY KEY,
-  "audit_id"  INTEGER(11),
+  "entry_id"  INTEGER(11),
   "user_id"  INTEGER(11),
   "old_value"  TEXT,
   "new_value"  TEXT,

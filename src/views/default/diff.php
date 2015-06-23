@@ -11,7 +11,7 @@ if (Yii::$app->request->get('referrer') === 'trail') {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Trail'), 'url' => ['trail']];
 } else {
     $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entries'), 'url' => ['index']];
-    $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entry #{id}', ['id' => $model->audit_id]), 'url' => ['view', 'id' => $model->audit_id]];
+    $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit Entry #{id}', ['id' => $model->entry_id]), 'url' => ['view', 'id' => $model->entry_id]];
 }
 $this->params['breadcrumbs'][] = $this->title;
 
