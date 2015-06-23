@@ -53,7 +53,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * @var string|null
      */
     public $userAttribute;
-    
+
     /**
      * Date format to use in stamp - set to "Y-m-d H:i:s" for datetime or "U" for timestamp
      * @var string
@@ -120,12 +120,12 @@ class AuditTrailBehavior extends \yii\base\Behavior
         if ($action == 'DELETE') {
             if ($this->active) {
                 Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
-                    'action'    => 'DELETE',
-                    'entry_id'  => $this->getAuditEntryId(),
-                    'user_id'   => $this->getUserId(),
-                    'model'     => $this->owner->className(),
-                    'model_id'  => $this->getNormalizedPk(),
-                    'stamp'     => date($this->dateFormat),
+                    'action' => 'DELETE',
+                    'entry_id' => $this->getAuditEntryId(),
+                    'user_id' => $this->getUserId(),
+                    'model' => $this->owner->className(),
+                    'model_id' => $this->getNormalizedPk(),
+                    'stamp' => date($this->dateFormat),
                 ])->execute();
             }
             return;
@@ -273,7 +273,9 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     protected function getAuditEntryId()
     {
-        $entry = Audit::current() ? Audit::current()->getEntry() : null;
+        /** @var Audit $audit */
+        $audit = Yii::$app->getModule('audit');
+        $entry = $audit->getEntry(true);
         if ($entry) {
             return $entry->id;
         }
