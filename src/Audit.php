@@ -90,7 +90,7 @@ class Audit extends \yii\base\Module
      */
     public $providers = [
         [
-            'class' => 'bedezign\yii2\audit\providers\SuperGlobalProvider',
+            'class' => 'bedezign\yii2\audit\providers\RequestProvider',
             'logVars' => [
                 '_GET',
                 '_POST',
