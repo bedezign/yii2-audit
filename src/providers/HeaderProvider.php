@@ -5,10 +5,11 @@ namespace bedezign\yii2\audit\providers;
 
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\Helper;
+use bedezign\yii2\audit\Provider;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-class HeaderProvider
+class HeaderProvider extends Provider
 {
 
     public $logVars = [

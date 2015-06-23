@@ -4,10 +4,11 @@ namespace bedezign\yii2\audit\providers;
 
 
 use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\Provider;
 use Yii;
 use yii\helpers\ArrayHelper;
 
-class SuperGlobalProvider
+class SuperGlobalProvider extends Provider
 {
 
     public $logVars = [
