@@ -4,6 +4,7 @@
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
+use yii\widgets\Breadcrumbs;
 
 yii\debug\DebugAsset::register($this);
 ?>
@@ -45,6 +46,13 @@ NavBar::end();
 ?>
 
 <div class="container-fluid">
+    <?php if (isset($this->params['breadcrumbs'])) { ?>
+        <div class="breadcrumbs">
+            <?= Breadcrumbs::widget([
+                'links' => $this->params['breadcrumbs'],
+            ]) ?>
+        </div>
+    <?php } ?>
     <?= $content ?>
 </div>
 
