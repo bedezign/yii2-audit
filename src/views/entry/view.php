@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 /** @var bedezign\yii2\audit\models\AuditEntry $model */
 
+use bedezign\yii2\audit\Audit;
 use yii\bootstrap\Modal;
 use yii\bootstrap\Tabs;
 use yii\data\ActiveDataProvider;
@@ -33,7 +34,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                 'id',
                 [
                     'label' => $model->getAttributeLabel('user_id'),
-                    'value' => intval($model->user_id) ? $model->user_id : Yii::t('audit', 'Guest'),
+                    'value' => Audit::current()->getUsername($model->user_id),
                 ],
                 'ip',
                 'created',

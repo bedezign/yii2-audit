@@ -12,6 +12,7 @@ namespace bedezign\yii2\audit;
 
 use Yii;
 use yii\base\Application;
+use yii\db\ActiveRecord;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -80,6 +81,16 @@ class Audit extends \yii\base\Module
     public $compressData = true;
 
     /**
+     * @var string|bool The model name (including namespace) of the user model to use when displaying usernames
+     */
+    public $userModel = 'app\models\User';
+
+    /**
+     * @var string The attribute name of the username attribute to use when displaying usernames
+     */
+    public $usernameAttribute = 'username';
+
+    /**
      * @var array List of providers that will capture and display data
      */
     public $providers = [
@@ -122,6 +133,9 @@ class Audit extends \yii\base\Module
      */
     private $_entry = null;
 
+    /**
+     *
+     */
     public function init()
     {
         static::$_current = $this;
@@ -225,6 +239,9 @@ class Audit extends \yii\base\Module
         return false;
     }
 
+    /**
+     * @return array
+     */
     public function getAccessControlFilter()
     {
         if ($this->accessUsers === null && $this->accessRoles === null)
@@ -259,6 +276,10 @@ class Audit extends \yii\base\Module
         return static::$_current;
     }
 
+    /**
+     * @param bool $create
+     * @return models\AuditEntry|static
+     */
     public function getEntry($create = false)
     {
         if (!$this->_entry && $create) {
@@ -266,6 +287,24 @@ class Audit extends \yii\base\Module
             $this->callProviderQueue('record');
         }
         return $this->_entry;
+    }
+
+    public function getUsername($user_id)
+    {
+        if (!$user_id) {
+            return Yii::t('audit', 'Guest');
+        }
+        if (!$this->userModel || !$this->usernameAttribute) {
+            return $user_id;
+        }
+        try {
+            /** @var \app\models\User $class */
+            $class = $this->userModel;
+            $user = $class::findOne($user_id);
+            return $user->{$this->usernameAttribute};
+        } catch (\Exception $e) {
+            return $user_id;
+        }
     }
 
     /**

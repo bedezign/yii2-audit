@@ -1,8 +1,8 @@
 <?php
 
+use bedezign\yii2\audit\Audit;
 use yii\helpers\Html;
 use yii\grid\GridView;
-use yii\web\View;
 
 use bedezign\yii2\audit\models\AuditEntrySearch;
 
@@ -25,10 +25,10 @@ $this->params['breadcrumbs'][] = $this->title;
             'id',
             [
                 'attribute' => 'user_id',
-                'label' => Yii::t('audit', 'User ID'),
+                'label' => Yii::t('audit', 'User'),
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
-                    return $data->user_id ?: Yii::t('audit', 'Guest');
+                    return Audit::current()->getUsername($data->user_id);
                 }
             ],
             'request_method',

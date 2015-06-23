@@ -1,5 +1,6 @@
 <?php
 
+use bedezign\yii2\audit\Audit;
 use yii\helpers\Html;
 use yii\grid\GridView;
 use yii\web\View;
@@ -36,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('audit', 'User ID'),
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
-                    return $data->user_id ?: Yii::t('audit', 'Guest');
+                    return Audit::current()->getUsername($data->user_id);
                 }
             ],
             [

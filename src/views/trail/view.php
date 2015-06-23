@@ -3,6 +3,7 @@
 /** @var yii\web\View $this */
 /** @var bedezign\yii2\audit\models\AuditTrail $model */
 
+use bedezign\yii2\audit\Audit;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
@@ -16,6 +17,11 @@ echo Html::tag('h1', $this->title);
 echo DetailView::widget([
     'model' => $model,
     'attributes' => [
+        'id',
+        [
+            'label' => $model->getAttributeLabel('user_id'),
+            'value' => Audit::current()->getUsername($model->user_id),
+        ],
         'action',
         'model',
         'model_id',
