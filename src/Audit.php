@@ -81,14 +81,9 @@ class Audit extends \yii\base\Module
     public $compressData = true;
 
     /**
-     * @var string|bool The model name (including namespace) of the user model to use when displaying usernames
+     * @var string|bool The callback of the user model and username attribute to use when displaying usernames
      */
-    public $userModel = 'app\models\User';
-
-    /**
-     * @var string The attribute name of the username attribute to use when displaying usernames
-     */
-    public $usernameAttribute = 'username';
+    public $usernameCallback = ['app\models\User', 'username'];
 
     /**
      * @var array List of providers that will capture and display data
@@ -294,14 +289,14 @@ class Audit extends \yii\base\Module
         if (!$user_id) {
             return Yii::t('audit', 'Guest');
         }
-        if (!$this->userModel || !$this->usernameAttribute) {
+        if (!$this->usernameCallback) {
             return $user_id;
         }
         try {
             /** @var \app\models\User $class */
-            $class = $this->userModel;
+            $class = $this->usernameCallback[0];
             $user = $class::findOne($user_id);
-            return $user->{$this->usernameAttribute};
+            return $user->{$this->usernameCallback[1]};
         } catch (\Exception $e) {
             return $user_id;
         }
