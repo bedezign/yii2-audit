@@ -12,7 +12,8 @@ $config = [
         '@vendor' => VENDOR_DIR,
         '@bower' => VENDOR_DIR . '/bower',
         '@tests' => realpath(__DIR__ . '/../../..'),
-        '@tests/codeception/config' => '@tests/codeception/_config'
+        '@tests/codeception/config' => '@tests/codeception/_config',
+        '@yii/debug' => VENDOR_DIR . '/yiisoft/yii2-debug', // needed for hhvm
     ],
     'modules' => [
         'audit' => [
