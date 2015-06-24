@@ -6,6 +6,7 @@ use yii\base\Exception;
 use yii\db\ActiveRecord;
 
 use bedezign\yii2\audit\models\AuditTrail;
+use yii\web\Application;
 
 /**
  * Class AuditTrailBehavior
@@ -258,7 +259,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
             $data = $this->owner->getAttributes();
             return isset($data[$this->userAttribute]) ? $data[$this->userAttribute] : null;
         }
-        return Yii::$app->user ? Yii::$app->user->id : null;
+        return (Yii::$app instanceof Application && Yii::$app->user) ? Yii::$app->user->id : null;
     }
 
     /**
