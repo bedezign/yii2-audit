@@ -25,7 +25,8 @@ We accept contributions via Pull Requests on [Github](https://github.com/bedezig
 ## Running Tests
 
 ``` bash
-$ phpunit
+$ cd tests
+$ codecept run
 ```
 
 
