@@ -52,12 +52,12 @@ class Audit extends Module
     public $db = 'db';
 
     /**
-     * @var string|string[] List of actions to track. '*' is allowed as the last character to use as wildcard.
+     * @var string[] Action or list of actions to track. '*' is allowed as the last character to use as wildcard.
      */
     public $trackActions = ['*'];
 
     /**
-     * @var string|string[] Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*').
+     * @var string[] Action or list of actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*').
      */
     public $ignoreActions = [];
 
@@ -67,14 +67,14 @@ class Audit extends Module
     public $maxAge = null;
 
     /**
-     * @var int|int[] (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches)
+     * @var int[] User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
      */
     public $accessUsers = null;
 
     /**
-     * @var string|string[] (List of) role(s) with access to the viewer, null for everyone (if the user matches)
+     * @var string[] Role or list of roles with access to the viewer, null for everyone (if the user matches)
      */
-    public $accessRoles = 'admin';
+    public $accessRoles = ['admin'];
 
     /**
      * @var bool Compress extra data generated or just keep in text? For people who don't like binary data in the DB
@@ -89,7 +89,7 @@ class Audit extends Module
     /**
      * @var array list of panels. If the value is a simple string, it is the identifier of a corePanel to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel that will override the core one.
-     * Avialable panels: 'request'
+     * Available panels: 'request'
      */
     public $panels = ['request', 'db', 'log', 'asset', 'config', 'mail', 'profiling'];
 
