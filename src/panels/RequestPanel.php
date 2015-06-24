@@ -17,12 +17,9 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
      */
     public function save()
     {
+        // handle CLI requests
         $request = Yii::$app->request;
-        if ($request instanceof \yii\web\Request) {
-            parent::save();
-        } elseif ($request instanceof \yii\console\Request) {
-
-            // handle CLI requests
+        if ($request instanceof \yii\console\Request) {
             if (Yii::$app->requestedAction) {
                 if (Yii::$app->requestedAction instanceof InlineAction) {
                     $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
@@ -49,7 +46,7 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
                 'SESSION' => empty($_SESSION) ? [] : $_SESSION,
             ];
         }
-
-        return [];
+        // handle other requests
+        return parent::save();
     }
 }
