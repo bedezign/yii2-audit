@@ -257,15 +257,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
         if (isset($this->userAttribute)) {
             $data = $this->owner->getAttributes();
             return isset($data[$this->userAttribute]) ? $data[$this->userAttribute] : null;
-        } else {
-            try {
-                $userid = Yii::$app->user->id;
-            } catch (Exception $e) {
-                //If we have no user object, this must be a command line program
-                return null;
-            }
-            return empty($userid) ? null : $userid;
         }
+        return Yii::$app->user ? Yii::$app->user->id : null;
     }
 
     /**
