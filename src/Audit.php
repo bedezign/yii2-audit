@@ -249,9 +249,13 @@ class Audit extends Module
      */
     public function getAccessControlFilter()
     {
-        if ($this->accessUsers === null && $this->accessRoles === null)
+        if ($this->accessUsers === null && $this->accessRoles === null) {
             // No user authentication active, skip adding the filter
-            return [];
+            return [
+                'class' => \yii\filters\AccessControl::className(),
+                'rules' => [['allow' => true]]
+            ];
+        }
 
         $rule = ['allow' => 'allow'];
         if (!empty($this->accessRoles)) {
