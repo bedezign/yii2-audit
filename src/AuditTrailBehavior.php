@@ -259,7 +259,10 @@ class AuditTrailBehavior extends \yii\base\Behavior
             $data = $this->owner->getAttributes();
             return isset($data[$this->userAttribute]) ? $data[$this->userAttribute] : null;
         }
-        return (Yii::$app instanceof Application && Yii::$app->user) ? Yii::$app->user->id : null;
+        if (Yii::$app instanceof Application && Yii::$app->user) {
+            return Yii::$app->user->id;
+        }
+        return null;
     }
 
     /**
