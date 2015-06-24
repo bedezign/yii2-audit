@@ -20,7 +20,8 @@ $params = !empty($params) ? $params : Yii::$app->request->get();
 ?>
 <?php
 $auditTrailSearch = new AuditTrailSearch();
-$auditTrailDataProvider = $auditTrailSearch->search($params, $model->getAuditTrails());
+//$auditTrailDataProvider = $auditTrailSearch->search($params, $model->getAuditTrails());
+$auditTrailDataProvider = $auditTrailSearch->search($params);
 $auditTrailDataProvider->pagination = ['pageSize' => 20, 'pageParam' => 'page-auditTrails'];
 $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
 ?>
