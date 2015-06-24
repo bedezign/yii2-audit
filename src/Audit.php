@@ -162,7 +162,7 @@ class Audit extends Module
      */
     public function onAfterRequest()
     {
-        if ($this->entry) {
+        if ($this->_entry) {
             $this->_entry->finalize();
         }
     }
