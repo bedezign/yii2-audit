@@ -260,11 +260,11 @@ class AuditTrailBehavior extends \yii\base\Behavior
         } else {
             try {
                 $userid = Yii::$app->user->id;
-                return empty($userid) ? null : $userid;
             } catch (Exception $e) {
                 //If we have no user object, this must be a command line program
                 return null;
             }
+            return empty($userid) ? null : $userid;
         }
     }
 
