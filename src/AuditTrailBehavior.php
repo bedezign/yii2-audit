@@ -119,16 +119,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     {
         // If this is a delete then just write one row and get out of here
         if ($action == 'DELETE') {
-            if ($this->active) {
-                Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
-                    'action'   => 'DELETE',
-                    'entry_id' => $this->getAuditEntryId(),
-                    'user_id'  => $this->getUserId(),
-                    'model'    => $this->owner->className(),
-                    'model_id' => $this->getNormalizedPk(),
-                    'stamp'    => date($this->dateFormat),
-                ])->execute();
-            }
+            $this->saveAuditTrailDelete();
             return;
         }
         // Get the new and old attributes
@@ -226,6 +217,24 @@ class AuditTrailBehavior extends \yii\base\Behavior
             $columns = ['entry_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
             Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
+    }
+
+    /**
+     * @throws \yii\db\Exception
+     */
+    protected function saveAuditTrailDelete()
+    {
+        if (!$this->active) {
+            return;
+        }
+        Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
+            'action'   => 'DELETE',
+            'entry_id' => $this->getAuditEntryId(),
+            'user_id'  => $this->getUserId(),
+            'model'    => $this->owner->className(),
+            'model_id' => $this->getNormalizedPk(),
+            'stamp'    => date($this->dateFormat),
+        ])->execute();
     }
 
     /**
