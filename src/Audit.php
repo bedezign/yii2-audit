@@ -13,6 +13,7 @@ namespace bedezign\yii2\audit;
 use bedezign\yii2\audit\models\AuditEntry;
 use Yii;
 use yii\base\Application;
+use yii\base\InvalidConfigException;
 use yii\base\Module;
 use yii\helpers\ArrayHelper;
 
@@ -109,7 +110,7 @@ class Audit extends Module
     private $_entry = null;
 
     /**
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function init()
     {
@@ -196,27 +197,50 @@ class Audit extends Module
     /**
      * Check if the current user has access to the audit functionality
      * @return bool
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function checkAccess()
     {
-        if ($this->accessUsers === null && $this->accessRoles === null)
+        if ($this->accessUsers === null && $this->accessRoles === null) {
             return true;
+        }
+        if ($this->checkAccessUsers()) {
+            return true;
+        }
+        if ($this->checkAccessRoles()) {
+            return true;
+        }
+        return false;
+    }
 
-        $user = \yii\di\Instance::ensure('user', \yii\web\User::className());
+    /**
+     * @return bool
+     */
+    private function checkAccessUsers()
+    {
         if (!empty($this->accessUsers) && in_array(Yii::$app->user->id, $this->accessUsers))
             return true;
+        return false;
+    }
 
-        if (!empty($this->accessRoles)) {
-            foreach ($this->accessRoles as $role) {
-                if ($role === '?') {
-                    if ($user->getIsGuest()) return true;
-                } elseif ($role === '@') {
-                    if (!$user->getIsGuest()) return true;
-                } elseif ($user->can($role)) return true;
+    /**
+     * @return bool
+     */
+    private function checkAccessRoles()
+    {
+        $user = \yii\di\Instance::ensure('user', \yii\web\User::className());
+        if (empty($this->accessRoles)) {
+            return false;
+        }
+        foreach ($this->accessRoles as $role) {
+            if ($role === '?' && $user->getIsGuest()) {
+                return true;
+            } elseif ($role === '@' && !$user->getIsGuest()) {
+                return true;
+            } elseif ($user->can($role)) {
+                return true;
             }
         }
-
         return false;
     }
 
@@ -291,7 +315,7 @@ class Audit extends Module
 
     /**
      * @param bool $all
-     * @throws \yii\base\InvalidConfigException
+     * @throws InvalidConfigException
      */
     public function initPanels($all = false)
     {
@@ -303,8 +327,7 @@ class Audit extends Module
             if (is_numeric($key)) {
                 // The config a panel name
                 if (!isset($corePanels[$value]))
-                    throw new \yii\base\InvalidConfigException("'$value' is not a valid panel name");
-
+                    throw new InvalidConfigException("'$value' is not a valid panel name");
                 $identifier = $value;
                 $config = $corePanels[$value];
             } elseif (is_string($key)) {
