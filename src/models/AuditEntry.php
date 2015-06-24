@@ -20,6 +20,7 @@ use Yii;
  * @property string $route
  * @property int    $memory_max
  * @property string $request_method
+ * @property string $ajax
  */
 class AuditEntry extends AuditModel
 {
@@ -130,6 +131,7 @@ class AuditEntry extends AuditModel
             $this->url            = $request->url;
             $this->ip             = $request->userIP;
             $this->referrer       = $request->referrer;
+            $this->ajax           = $request->isAjax;
             $this->request_method = $_SERVER['REQUEST_METHOD'];
         }
         else if ($request instanceof \yii\console\Request) {

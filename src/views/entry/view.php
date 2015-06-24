@@ -38,6 +38,8 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                 ],
                 'ip',
                 'route',
+                'request_method',
+                'ajax',
                 'url',
                 'referrer',
                 'redirect',

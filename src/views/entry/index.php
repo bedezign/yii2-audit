@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 }
             ],
             'request_method',
+            'ajax',
             'created',
             [
                 'class' => 'yii\grid\DataColumn',

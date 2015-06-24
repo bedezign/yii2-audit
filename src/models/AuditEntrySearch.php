@@ -14,7 +14,7 @@ class AuditEntrySearch extends AuditEntry
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'user_id', 'created', 'route', 'request_method'], 'safe'],
+            [['id', 'user_id', 'created', 'route', 'request_method', 'ajax'], 'safe'],
         ];
     }
 
@@ -50,6 +50,7 @@ class AuditEntrySearch extends AuditEntry
         $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['route' => $this->route]);
         $query->andFilterWhere(['request_method' => $this->request_method]);
+        $query->andFilterWhere(['ajax' => $this->ajax]);
         $query->andFilterWhere(['like', 'created', $this->created]);
         $query->with(['linkedErrors', 'javascript']);
 
