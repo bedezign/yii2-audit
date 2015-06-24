@@ -20,3 +20,11 @@ script:
 
 after_script:
   - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+
+notifications:
+  webhooks:
+    urls:
+      - https://webhooks.gitter.im/e/b8a97760936530897759
+    on_success: change
+    on_failure: always
+    on_start: false
