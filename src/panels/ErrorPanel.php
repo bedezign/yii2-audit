@@ -3,8 +3,9 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\models\AuditErrorSearch;
+use yii\debug\Panel;
 
-class ErrorPanel extends \yii\debug\Panel
+class ErrorPanel extends Panel
 {
     public function getName()
     {

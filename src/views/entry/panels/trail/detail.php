@@ -3,11 +3,13 @@
 /* @var $searchModel yii\debug\models\search\Log */
 /* @var $dataProvider yii\data\ArrayDataProvider */
 
+use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\models\AuditTrailSearch;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
 ?>
-    <h1>Errors</h1>
+    <h1>Trails</h1>
 <?php
 
 echo GridView::widget([
@@ -23,7 +25,7 @@ echo GridView::widget([
                 'view' => function ($url, $model, $key) {
                     return Html::a(
                         Html::tag('span', '', ['class' => 'glyphicon glyphicon-eye-open']),
-                        ['error/view', 'id' => $model->id],
+                        ['trail/view', 'id' => $model->id],
                         [
                             'class' => '',
                             'data' => [
@@ -43,19 +45,53 @@ echo GridView::widget([
                 'width' => '80px',
             ],
         ],
-        'message',
         [
-            'attribute' => 'code',
+            'attribute' => 'user_id',
+            'label' => Yii::t('audit', 'User ID'),
+            'class' => 'yii\grid\DataColumn',
+            'value' => function ($data) {
+                return Audit::current()->getUserIdentifier($data->user_id);
+            },
+            'options' => [
+                'width' => '150px',
+            ],
+        ],
+        [
+            'attribute' => 'action',
+            'filter' => AuditTrailSearch::actionFilter(),
+            'options' => [
+                'width' => '150px',
+            ],
+        ],
+        [
+            'attribute' => 'model',
+            'options' => [
+                'width' => '150px',
+            ],
+        ],
+        [
+            'attribute' => 'model_id',
             'options' => [
                 'width' => '80px',
             ],
         ],
-        'file',
-        'message',
         [
-            'attribute' => 'line',
+            'attribute' => 'field',
             'options' => [
-                'width' => '80px',
+                'width' => '100px',
+            ],
+        ],
+        [
+            'label' => Yii::t('audit', 'Diff'),
+            'value' => function ($data) {
+                return $data->getDiffHtml();
+            },
+            'format' => 'raw',
+        ],
+        [
+            'attribute' => 'stamp',
+            'options' => [
+                'width' => '150px',
             ],
         ],
     ],
