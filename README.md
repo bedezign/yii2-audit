@@ -181,10 +181,10 @@ echo $this->render('@vendor/bedezign/yii2-audit/src/views/_audit_trails', [
 ### Javascript Logging
 
 The module also supports logging of javascript errors, warnings and even regular log entries.
-To activate, register the `assets\JSLoggingAsset` in any of your views:
+To activate, register the `\bedezign\yii2\audit\web\JSLoggingAsset` in any of your views:
 
 ```php
-\bedezign\yii2\audit\assets\JSLoggingAsset::register($this);
+\bedezign\yii2\audit\web\JSLoggingAsset::register($this);
 ```
 
 This will activate the logger automatically. By default all warnings and errors are transmitted to the backend.

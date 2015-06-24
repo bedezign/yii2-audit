@@ -1,6 +1,6 @@
 <?php
 
-namespace bedezign\yii2\audit\assets;
+namespace bedezign\yii2\audit\web;
 
 use yii\web\AssetBundle;
 
@@ -13,7 +13,7 @@ class AuditAsset extends AssetBundle
     /**
      * @inheritdoc
      */
-    public $sourcePath = '@bedezign/yii2/audit/assets';
+    public $sourcePath = '@bedezign/yii2/audit/web/assets';
 
     /**
      * @inheritdoc
