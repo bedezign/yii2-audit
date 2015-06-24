@@ -21,7 +21,12 @@ $this->params['breadcrumbs'][] = $this->title;
         'filterModel' => $searchModel,
         'columns' => [
             ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
-            'id',
+            [
+                'attribute' => 'id',
+                'options' => [
+                    'width' => '80px',
+                ],
+            ],
             [
                 'attribute' => 'entry_id',
                 'class' => 'yii\grid\DataColumn',
@@ -30,13 +35,20 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
+            'message',
             [
-                'class' => 'yii\grid\DataColumn',
-                'attribute' => 'file',
-                'filter' => AuditErrorSearch::fileFilter(),
-                'format' => 'html',
+                'attribute' => 'code',
+                'options' => [
+                    'width' => '80px',
+                ],
             ],
-            'line',
+            'file',
+            [
+                'attribute' => 'line',
+                'options' => [
+                    'width' => '80px',
+                ],
+            ],
         ],
     ]); ?>
 </div>
