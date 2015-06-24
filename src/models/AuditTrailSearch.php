@@ -38,7 +38,7 @@ class AuditTrailSearch extends AuditTrail
      */
     public function search($params)
     {
-        $query = parent::find();
+        $query = $this->find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -77,7 +77,7 @@ class AuditTrailSearch extends AuditTrail
     static public function actionFilter()
     {
         return \yii\helpers\ArrayHelper::map(
-            parent::find()->select('action')->groupBy('action')->orderBy('action ASC')->all(),
+            self::find()->select('action')->groupBy('action')->orderBy('action ASC')->all(),
             'action',
             'action'
         );

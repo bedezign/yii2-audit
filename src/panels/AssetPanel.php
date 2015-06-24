@@ -26,7 +26,8 @@ class AssetPanel extends \yii\debug\panels\AssetPanel
     public function save()
     {
         if (\Yii::$app->request instanceof \yii\web\Request) {
-            parent::save();
+            return parent::save();
         }
+        return null;
     }
 }
