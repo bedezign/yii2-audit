@@ -35,3 +35,4 @@ php -S 0.0.0.0:88 -t codeception/_app/web/
 - https://github.com/yiisoft/yii2-codeception
 - https://github.com/yiisoft/yii2-app-basic/tree/master/tests
 - https://github.com/dektrium/yii2-user/tree/master/tests
+- https://github.com/bcdennis/laravel-ci-configs/blob/master/codeception-travis-scrutinizer/
