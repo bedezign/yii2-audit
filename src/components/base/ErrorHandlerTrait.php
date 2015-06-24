@@ -29,7 +29,7 @@ trait ErrorHandlerTrait
             }
 
             /** @var Audit $audit */
-            $audit = Yii::$app->getModule('audit');
+            $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
             if ($audit) {
                 $entry = $audit->getEntry(true);
                 if ($entry) {
