@@ -137,7 +137,7 @@ class AuditEntry extends AuditModel
             $this->ip             = $request->userIP;
             $this->referrer       = $request->referrer;
             $this->ajax           = $request->isAjax;
-            $this->request_method = $_SERVER['REQUEST_METHOD'];
+            $this->request_method = $request->method;
         }
         else if ($request instanceof \yii\console\Request) {
             $this->url            = $request->scriptFile;
