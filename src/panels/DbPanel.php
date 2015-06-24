@@ -23,7 +23,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
             'panel'        => $this,
             'dataProvider' => $dataProvider,
             'searchModel'  => $searchModel,
-            //'hasExplain' => $this->hasExplain(),
+            'hasExplain'   => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
         ]);
     }
 }
