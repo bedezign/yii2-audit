@@ -24,36 +24,46 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
      */
     public function save()
     {
-        // handle CLI requests
-        $request = Yii::$app->request;
-        if ($request instanceof \yii\console\Request) {
-            if (Yii::$app->requestedAction) {
-                if (Yii::$app->requestedAction instanceof InlineAction) {
-                    $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
-                } else {
-                    $action = get_class(Yii::$app->requestedAction) . '::run()';
-                }
-            } else {
-                $action = null;
-            }
-            return [
-                'flashes'         => $this->getFlashes(),
-                'statusCode'      => 0,
-                'requestHeaders'  => [],
-                'responseHeaders' => [],
-                'route'           => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
-                'action'          => $action,
-                'actionParams'    => $request->params,
-                'requestBody'     => [],
-                'SERVER'          => empty($_SERVER) ? [] : $_SERVER,
-                'GET'             => empty($_GET) ? [] : $_GET,
-                'POST'            => empty($_POST) ? [] : $_POST,
-                'COOKIE'          => empty($_COOKIE) ? [] : $_COOKIE,
-                'FILES'           => empty($_FILES) ? [] : $_FILES,
-                'SESSION'         => empty($_SESSION) ? [] : $_SESSION,
-            ];
+        if (Yii::$app->request instanceof \yii\console\Request) {
+            return $this->saveCliRequest();
         }
-        // handle other requests
         return parent::save();
+    }
+
+    /**
+     * @return array
+     */
+    protected function saveCliRequest()
+    {
+        return [
+            'flashes'         => $this->getFlashes(),
+            'statusCode'      => 0,
+            'requestHeaders'  => [],
+            'responseHeaders' => [],
+            'route'           => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+            'action'          => $this->getAction(),
+            'actionParams'    => Yii::$app->request->params,
+            'requestBody'     => [],
+            'SERVER'          => empty($_SERVER) ? [] : $_SERVER,
+            'GET'             => empty($_GET) ? [] : $_GET,
+            'POST'            => empty($_POST) ? [] : $_POST,
+            'COOKIE'          => empty($_COOKIE) ? [] : $_COOKIE,
+            'FILES'           => empty($_FILES) ? [] : $_FILES,
+            'SESSION'         => empty($_SESSION) ? [] : $_SESSION,
+        ];
+    }
+
+    /**
+     * @return null|string
+     */
+    protected function getAction()
+    {
+        if (Yii::$app->requestedAction) {
+            if (Yii::$app->requestedAction instanceof InlineAction) {
+                return get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
+            }
+            return get_class(Yii::$app->requestedAction) . '::run()';
+        }
+        return null;
     }
 }
