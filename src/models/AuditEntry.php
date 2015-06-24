@@ -141,6 +141,11 @@ class AuditEntry extends AuditModel
         }
         else if ($request instanceof \yii\console\Request) {
             $this->url            = $request->scriptFile;
+            foreach ($request->params as $k => $param) {
+                if ($k) {
+                    $this->url       .= ' ' . $param;
+                }
+            }
             $this->request_method = 'CLI';
         }
 

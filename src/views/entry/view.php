@@ -37,6 +37,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                 ],
                 'route',
                 'request_method',
+                'url',
                 ['attribute' => 'duration', 'format' => 'decimal'],
                 ['attribute' => 'memory_max', 'format' => 'shortsize'],
                 'created',
