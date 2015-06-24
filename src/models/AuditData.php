@@ -17,11 +17,21 @@ namespace bedezign\yii2\audit\models;
  * @property bool   $packed         true if the associated data has been serialized
  * @property string $data
  */
+/**
+ * Class AuditData
+ * @package bedezign\yii2\audit\models
+ */
 class AuditData extends AuditModel
 {
     // By default we do not serialise values (unless they are complex)
+    /**
+     * @var bool
+     */
     protected $autoSerialize = false;
 
+    /**
+     * @param AuditEntry $entry
+     */
     public function setEntry(AuditEntry $entry)
     {
         $this->entry_id = $entry->id;
@@ -35,16 +45,29 @@ class AuditData extends AuditModel
         return static::hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
 
+    /**
+     * @param $entry_id
+     * @return array
+     */
     public static function findEntryTypes($entry_id)
     {
         return static::find()->select('type')->where(['entry_id' => $entry_id])->column();
     }
 
+    /**
+     * @param $entry_id
+     * @param $type
+     * @return array|null|\yii\db\ActiveRecord
+     */
     public static function findForEntry($entry_id, $type)
     {
         return static::find()->where(['entry_id' => $entry_id, 'type' => $type])->one();
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
         // Only serialize complex values
@@ -56,12 +79,18 @@ class AuditData extends AuditModel
         return parent::beforeSave($insert);
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         $this->autoSerialize = $this->packed;
         parent::afterFind();
     }
 
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return '{{%audit_data}}';

@@ -1,8 +1,8 @@
 <?php
 /**
- * @link http://www.yiiframework.com/
+ * @link      http://www.yiiframework.com/
  * @copyright Copyright (c) 2008 Yii Software LLC
- * @license http://www.yiiframework.com/license/
+ * @license   http://www.yiiframework.com/license/
  */
 
 namespace bedezign\yii2\audit;
@@ -10,6 +10,10 @@ namespace bedezign\yii2\audit;
 use Yii;
 use yii\log\Target;
 
+/**
+ * Class AuditTarget
+ * @package bedezign\yii2\audit
+ */
 class AuditTarget extends Target
 {
     /**
@@ -27,6 +31,9 @@ class AuditTarget extends Target
         $this->module = $module;
     }
 
+    /**
+     *
+     */
     public function export()
     {
         if (!$this->module->entry || !$this->module->panels)
@@ -42,6 +49,10 @@ class AuditTarget extends Target
             $this->module->entry->addBatchData($records, false);
     }
 
+    /**
+     * @param array $messages
+     * @param bool  $final
+     */
     public function collect($messages, $final)
     {
         $this->messages = array_merge($this->messages, $messages);

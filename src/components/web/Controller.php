@@ -5,12 +5,14 @@ namespace bedezign\yii2\audit\components\web;
 use bedezign\yii2\audit\assets\ViewerAsset;
 use bedezign\yii2\audit\Audit;
 use Yii;
+use yii\web\View;
 
 /**
  * Base Controller
  * @package bedezign\yii2\audit\components\web
  *
  * @property Audit $module
+ * @property View  $view
  */
 class Controller extends \yii\web\Controller
 {

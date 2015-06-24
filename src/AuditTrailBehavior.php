@@ -71,7 +71,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_FIND => 'afterFind',
+            ActiveRecord::EVENT_AFTER_FIND   => 'afterFind',
             ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
             ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
             ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
@@ -120,12 +120,12 @@ class AuditTrailBehavior extends \yii\base\Behavior
         if ($action == 'DELETE') {
             if ($this->active) {
                 Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
-                    'action' => 'DELETE',
+                    'action'   => 'DELETE',
                     'entry_id' => $this->getAuditEntryId(),
-                    'user_id' => $this->getUserId(),
-                    'model' => $this->owner->className(),
+                    'user_id'  => $this->getUserId(),
+                    'model'    => $this->owner->className(),
                     'model_id' => $this->getNormalizedPk(),
-                    'stamp' => date($this->dateFormat),
+                    'stamp'    => date($this->dateFormat),
                 ])->execute();
             }
             return;
@@ -174,8 +174,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
     }
 
     /**
-     * @param $action
-     * @param $newAttributes
+     * @param       $action
+     * @param       $newAttributes
      * @param array $oldAttributes
      * @throws \yii\db\Exception
      */

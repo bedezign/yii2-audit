@@ -8,7 +8,8 @@ namespace bedezign\yii2\audit\models;
 use bedezign\yii2\audit\components\Helper;
 
 /**
- * Class AuditJavascript
+ * AuditJavascript
+ *
  * @package bedezign\yii2\audit\models
  * @property int    $id
  * @property int    $entry_id
@@ -19,11 +20,17 @@ use bedezign\yii2\audit\components\Helper;
  */
 class AuditJavascript extends AuditModel
 {
+    /**
+     * @param AuditEntry $entry
+     */
     public function setEntry(AuditEntry $entry)
     {
         $this->entry_id = $entry->id;
     }
 
+    /**
+     * @return array
+     */
     public function rules()
     {
         return [

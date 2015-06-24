@@ -41,9 +41,15 @@ class JavascriptController extends \yii\web\Controller
             'message'    => 'message',
             'type'       => 'type',
             'file'       => 'origin',
-            'line'       => function($value) use ($javascript) { $javascript->origin .= ':' . $value; },
-            'col'        => function($value) use ($javascript) { $javascript->origin .= ':' . $value; },
-            'data'       => function($value) use ($javascript) { if (count($value)) $javascript->data = $value; },
+            'line'       => function ($value) use ($javascript) {
+                $javascript->origin .= ':' . $value;
+            },
+            'col'        => function ($value) use ($javascript) {
+                $javascript->origin .= ':' . $value;
+            },
+            'data'       => function ($value) use ($javascript) {
+                if (count($value)) $javascript->data = $value;
+            },
         ];
 
         foreach ($map as $key => $target)

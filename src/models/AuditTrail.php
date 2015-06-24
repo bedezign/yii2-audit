@@ -64,21 +64,33 @@ class AuditTrail extends AuditModel
         ];
     }
 
+    /**
+     * @param $query
+     */
     public static function recently($query)
     {
         $query->orderBy(['[[stamp]]' => SORT_DESC]);
     }
 
+    /**
+     * @return mixed
+     */
     public function getParent()
     {
         return new $this->model;
     }
 
+    /**
+     * @return \yii\db\ActiveQuery
+     */
     public function getEntry()
     {
         return $this->hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
-    
+
+    /**
+     * @return mixed
+     */
     public function getDiffHtml()
     {
         $old = explode("\n", $this->old_value);
@@ -94,5 +106,5 @@ class AuditTrail extends AuditModel
         $diff = new \Diff($old, $new);
         return $diff->render(new \Diff_Renderer_Html_Inline);
     }
-    
+
 }

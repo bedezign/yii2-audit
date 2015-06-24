@@ -8,12 +8,16 @@ namespace bedezign\yii2\audit\components;
 use bedezign\yii2\audit\Audit;
 use yii\helpers\ArrayHelper;
 
+/**
+ * Helper
+ * @package bedezign\yii2\audit\components
+ */
 class Helper extends \yii\base\Object
 {
     /**
      * Convert the given value into a gzip compressed blob so it can be stored in the database
      * @param mixed $data
-     * @param bool  $compact        true to call the {@link compact()} function first
+     * @param bool  $compact true to call the {@link compact()} function first
      * @return string               binary blob of data
      */
     public static function serialize($data, $compact = true)
@@ -43,16 +47,18 @@ class Helper extends \yii\base\Object
 
     /**
      * Enumerate an array and get rid of the values that would exceed the $threshold size when serialized
-     * @param array     $data               Non-array data will be converted to an array
-     * @param bool      $simplify           If true, replace single valued arrays by just its value.
-     * @param int       $threshold          serialized size to use as maximum
+     * @param array $data      Non-array data will be converted to an array
+     * @param bool  $simplify  If true, replace single valued arrays by just its value.
+     * @param int   $threshold serialized size to use as maximum
      * @return array
      */
     public static function compact($data, $simplify = false, $threshold = 512)
     {
         $data = ArrayHelper::toArray($data);
         if ($simplify)
-            array_walk($data, function(&$value) { if (is_array($value) && count($value) == 1) $value = reset($value); });
+            array_walk($data, function (&$value) {
+                if (is_array($value) && count($value) == 1) $value = reset($value);
+            });
 
         $tooBig = [];
         foreach ($data as $index => $value)
@@ -70,7 +76,7 @@ class Helper extends \yii\base\Object
     /**
      * Normalize a stack trace so that all entries have the same keys and cleanup the arguments (removes anything that
      * cannot be serialized).
-     * @param array     $trace
+     * @param array $trace
      * @return array
      */
     public static function cleanupTrace($trace)
@@ -93,8 +99,8 @@ class Helper extends \yii\base\Object
 
     /**
      * Cleans up the given data so it can be serialized
-     * @param $args
-     * @param int $recurseDepth     Amount of recursion cycles before we start replacing data with "Array" etc
+     * @param     $args
+     * @param int $recurseDepth Amount of recursion cycles before we start replacing data with "Array" etc
      * @return mixed
      */
     public static function cleanupTraceArguments($args, $recurseDepth = 3)
@@ -111,8 +117,7 @@ class Helper extends \yii\base\Object
                     $object['__class'] = $class;
                     $args[$name] = $object;
                 }
-            }
-            else if (is_array($value)) {
+            } else if (is_array($value)) {
                 if ($recurseDepth > 0)
                     $args[$name] = static::cleanupTraceArguments($value, $recurseDepth - 1);
                 else
@@ -129,6 +134,6 @@ class Helper extends \yii\base\Object
      */
     public static function formatValue($value)
     {
-        return htmlspecialchars(\yii\helpers\VarDumper::dumpAsString($value), ENT_QUOTES|ENT_SUBSTITUTE, \Yii::$app->charset, true);
+        return htmlspecialchars(\yii\helpers\VarDumper::dumpAsString($value), ENT_QUOTES | ENT_SUBSTITUTE, \Yii::$app->charset, true);
     }
 }

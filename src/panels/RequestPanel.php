@@ -5,8 +5,15 @@ namespace bedezign\yii2\audit\panels;
 use Yii;
 use yii\base\InlineAction;
 
+/**
+ * RequestPanel
+ * @package bedezign\yii2\audit\panels
+ */
 class RequestPanel extends \yii\debug\panels\RequestPanel
 {
+    /**
+     * @return string
+     */
     public function getDetail()
     {
         return \Yii::$app->view->render('@yii/debug/views/default/panels/request/detail', ['panel' => $this]);
@@ -30,20 +37,20 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
                 $action = null;
             }
             return [
-                'flashes' => $this->getFlashes(),
-                'statusCode' => 0,
-                'requestHeaders' => [],
+                'flashes'         => $this->getFlashes(),
+                'statusCode'      => 0,
+                'requestHeaders'  => [],
                 'responseHeaders' => [],
-                'route' => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
-                'action' => $action,
-                'actionParams' => $request->params,
-                'requestBody' => [],
-                'SERVER' => empty($_SERVER) ? [] : $_SERVER,
-                'GET' => empty($_GET) ? [] : $_GET,
-                'POST' => empty($_POST) ? [] : $_POST,
-                'COOKIE' => empty($_COOKIE) ? [] : $_COOKIE,
-                'FILES' => empty($_FILES) ? [] : $_FILES,
-                'SESSION' => empty($_SESSION) ? [] : $_SESSION,
+                'route'           => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+                'action'          => $action,
+                'actionParams'    => $request->params,
+                'requestBody'     => [],
+                'SERVER'          => empty($_SERVER) ? [] : $_SERVER,
+                'GET'             => empty($_GET) ? [] : $_GET,
+                'POST'            => empty($_POST) ? [] : $_POST,
+                'COOKIE'          => empty($_COOKIE) ? [] : $_COOKIE,
+                'FILES'           => empty($_FILES) ? [] : $_FILES,
+                'SESSION'         => empty($_SESSION) ? [] : $_SESSION,
             ];
         }
         // handle other requests

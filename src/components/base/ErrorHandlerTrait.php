@@ -39,6 +39,7 @@ trait ErrorHandlerTrait
             }
 
         } catch (\Exception $e) {
+            // if we catch an exception here, let it slide, we don't want recursive errors killing the script
         }
 
         parent::logException($exception);

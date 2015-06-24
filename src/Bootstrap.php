@@ -4,6 +4,7 @@ namespace bedezign\yii2\audit;
 
 /**
  * Bootstrap
+ * @package bedezign\yii2\audit
  */
 class Bootstrap implements \yii\base\BootstrapInterface
 {
@@ -30,9 +31,9 @@ class Bootstrap implements \yii\base\BootstrapInterface
 
         if ($app->has('i18n')) {
             $app->i18n->translations['audit'] = [
-                'class' => 'yii\i18n\PhpMessageSource',
+                'class'          => 'yii\i18n\PhpMessageSource',
                 'sourceLanguage' => 'en',
-                'basePath' => '@bedezign/yii2/audit/messages',
+                'basePath'       => '@bedezign/yii2/audit/messages',
             ];
         }
     }

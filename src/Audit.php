@@ -170,7 +170,7 @@ class Audit extends Module
     /**
      * Associate extra data with the current entry (if any)
      * @param string $name
-     * @param mixed $data The data to associate with the current entry
+     * @param mixed  $data The data to associate with the current entry
      * @param string $type Optional type argument
      * @return \bedezign\yii2\audit\models\AuditData
      */
@@ -306,8 +306,7 @@ class Audit extends Module
 
                 $identifier = $value;
                 $config = $corePanels[$value];
-            }
-            elseif (is_string($key)) {
+            } elseif (is_string($key)) {
                 $identifier = $key;
                 $config = is_string($value) ? ['class' => $value] : $value;
             }
@@ -316,16 +315,15 @@ class Audit extends Module
                 $config['module'] = $this;
                 $config['id'] = $identifier;
                 $panels[$identifier] = Yii::createObject($config);
-            }
-            else
+            } else
                 $panels[$identifier] = $config;
         }
 
         if ($all) {
             $viewOnlyPanels = [
-                'errors'        => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-                'javascript'    => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-                'trail'         => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+                'errors'     => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+                'javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+                'trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
             ];
 
             foreach ($viewOnlyPanels as $identifier => $config)
@@ -346,10 +344,9 @@ class Audit extends Module
             if (is_string($module))
                 $class = $module;
             elseif (is_array($module)) {
-                if (isset($module['class']) )
+                if (isset($module['class']))
                     $class = $module['class'];
-            }
-            else
+            } else
                 $class = $module::className();
 
             $parts = explode('\\', $class);
@@ -364,8 +361,8 @@ class Audit extends Module
      * Entries in the list are allowed to end with a '*', which means that a substring will be used for the match
      * instead of a full compare.
      *
-     * @param string $route An application rout
-     * @param string[] $list List of routes to compare against.
+     * @param string   $route An application rout
+     * @param string[] $list  List of routes to compare against.
      * @return bool
      */
     protected function routeMatches($route, $list)
@@ -390,13 +387,13 @@ class Audit extends Module
     protected function corePanels()
     {
         return [
-            'request'       => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-            'db'            => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-            'log'           => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-            'asset'         => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-            'config'        => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-            'mail'          => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-            'profiling'     => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+            'request'   => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+            'db'        => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+            'log'       => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
+            'asset'     => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+            'config'    => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
+            'mail'      => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+            'profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
         ];
     }
 

@@ -9,17 +9,31 @@ namespace bedezign\yii2\audit\models;
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\Helper;
 
+/**
+ * AuditModel
+ * @package bedezign\yii2\audit\models
+ */
 class AuditModel extends \yii\db\ActiveRecord
 {
     /** @var bool                   If true, automatically pack and unpack the data attribute */
-    protected $autoSerialize        = true;
-    protected $serializeAttributes  = ['data'];
+    protected $autoSerialize = true;
+    /**
+     * @var array
+     */
+    protected $serializeAttributes = ['data'];
 
+    /**
+     * @return \yii\db\Connection
+     */
     public static function getDb()
     {
         return Audit::current() ? Audit::current()->getDb() : parent::getDb();
     }
 
+    /**
+     * @param bool $insert
+     * @return bool
+     */
     public function beforeSave($insert)
     {
         if ($insert && $this->hasAttribute('created'))
@@ -28,11 +42,15 @@ class AuditModel extends \yii\db\ActiveRecord
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
                 if ($this->hasAttribute($attribute))
-                    $this->$attribute= Helper::serialize($this->$attribute, false);
+                    $this->$attribute = Helper::serialize($this->$attribute, false);
 
         return parent::beforeSave($insert);
     }
 
+    /**
+     * @param bool  $insert
+     * @param array $changedAttributes
+     */
     public function afterSave($insert, $changedAttributes)
     {
         parent::afterSave($insert, $changedAttributes);
@@ -43,6 +61,9 @@ class AuditModel extends \yii\db\ActiveRecord
                     $this->$attribute = Helper::unserialize($this->$attribute);
     }
 
+    /**
+     *
+     */
     public function afterFind()
     {
         parent::afterFind();
