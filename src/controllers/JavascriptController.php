@@ -3,23 +3,35 @@
 namespace bedezign\yii2\audit\controllers;
 
 use bedezign\yii2\audit\models;
+use Yii;
+use yii\helpers\Json;
+use yii\web\Response;
 
+/**
+ * JavascriptController
+ * @package bedezign\yii2\audit\controllers
+ */
 class JavascriptController extends \yii\web\Controller
 {
+    /**
+     * @param \yii\base\Action $action
+     * @return bool
+     * @throws \yii\web\BadRequestHttpException
+     */
     public function beforeAction($action)
     {
         $this->enableCsrfValidation = false;
         return parent::beforeAction($action);
     }
 
+    /**
+     * @return array
+     */
     public function actionLog()
     {
-        \Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
-        $data = \yii\helpers\Json::decode(\Yii::$app->request->post('data'));
-        $entry = null;
-        if (isset($data['auditEntry']))
-            $entry = models\AuditEntry::findOne($data['auditEntry']);
-        else
+        Yii::$app->response->format = Response::FORMAT_JSON;
+        $data = Json::decode(Yii::$app->request->post('data'));
+        if (!isset($data['auditEntry']))
             return ['result' => 'error', 'message' => 'No audit entry to attach to'];
 
         // Convert data into the loggable object
