@@ -90,7 +90,7 @@ class Audit extends Module
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel that will override the core one.
      * Avialable panels: 'request'
      */
-    public $panels = ['request', 'db', 'log', 'asset', 'config', 'mail'];
+    public $panels = ['request', 'db', 'log', 'asset', 'config', 'mail', 'profiling'];
 
     /**
      * @var AuditTarget
@@ -375,6 +375,7 @@ class Audit extends Module
             'asset'         => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
             'config'        => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
             'mail'          => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+            'profiling'     => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
         ];
     }
 
