@@ -8,8 +8,15 @@ use yii\data\ActiveDataProvider;
 
 use bedezign\yii2\audit\models\AuditEntry;
 
+/**
+ * Class AuditEntrySearch
+ * @package bedezign\yii2\audit\models
+ */
 class AuditEntrySearch extends AuditEntry
 {
+    /**
+     * @return array
+     */
     public function rules()
     {
         // only fields in rules() are searchable
@@ -18,12 +25,19 @@ class AuditEntrySearch extends AuditEntry
         ];
     }
 
+    /**
+     * @return array
+     */
     public function scenarios()
     {
         // bypass scenarios() implementation in the parent class
         return Model::scenarios();
     }
 
+    /**
+     * @param $params
+     * @return ActiveDataProvider
+     */
     public function search($params)
     {
         $query = AuditEntry::find();
@@ -59,9 +73,12 @@ class AuditEntrySearch extends AuditEntry
         return $dataProvider;
     }
 
+    /**
+     * @return array
+     */
     static public function routeFilter()
     {
-        $routes = AuditEntry::getDb()->cache(function($db) {
+        $routes = AuditEntry::getDb()->cache(function () {
             return AuditEntry::find()->distinct(true)
                 ->select('route')->where(['is not', 'route', null])
                 ->groupBy('route')->orderBy('route ASC')->column();

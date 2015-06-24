@@ -237,7 +237,7 @@ class Audit extends Module
         if ($this->accessUsers) {
             $users = $this->accessUsers;
             // Specific users only? Use callback
-            $rule['matchCallback'] = function ($rule, $action) use ($users) {
+            $rule['matchCallback'] = function () use ($users) {
                 return in_array(Yii::$app->user->id, $users);
             };
         }
