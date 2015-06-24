@@ -93,7 +93,7 @@ class Audit extends Module
     public $panels = ['request', 'db'];
 
     /**
-     * @var LogTarget
+     * @var AuditTarget
      */
     public $logTarget;
 
