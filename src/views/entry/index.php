@@ -49,12 +49,12 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'duration',
                 'format' => 'decimal',
-                'contentOptions' => ['class' => 'text-right'],
+                'contentOptions' => ['class' => 'text-right', 'width' => '100px'],
             ],
             [
                 'attribute' => 'memory_max',
                 'format' => 'shortsize',
-                'contentOptions' => ['class' => 'text-right'],
+                'contentOptions' => ['class' => 'text-right', 'width' => '100px'],
             ],
             [
                 'attribute' => 'trails',
