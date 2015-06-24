@@ -1,14 +1,11 @@
 <?php
-/**
- * Extra custom data associated with a specific audit line. There are currently no guidelines concerning what the name/type
- * needs to be, this is at your own discretion.
- */
 
 namespace bedezign\yii2\audit\models;
 
 /**
- * Class AuditData
- * @package bedezign\yii2\audit\models
+ * AuditData
+ * Extra custom data associated with a specific audit line. There are currently no guidelines concerning what the name/type
+ * needs to be, this is at your own discretion.
  *
  * @property int    $id
  * @property int    $entry_id
@@ -16,9 +13,7 @@ namespace bedezign\yii2\audit\models;
  * @property string $type
  * @property bool   $packed         true if the associated data has been serialized
  * @property string $data
- */
-/**
- * Class AuditData
+ *
  * @package bedezign\yii2\audit\models
  */
 class AuditData extends AuditModel
