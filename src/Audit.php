@@ -107,9 +107,12 @@ class Audit extends Module
      */
     private $_entry = null;
 
+    /**
+     * @throws \yii\base\InvalidConfigException
+     */
     public function init()
     {
-        static::$_current = $this;
+        self::$_current = $this;
         parent::init();
 
         $app = Yii::$app;
@@ -154,6 +157,9 @@ class Audit extends Module
         $this->getEntry(true);
     }
 
+    /**
+     *
+     */
     public function onAfterRequest()
     {
         if ($this->entry) {
@@ -245,10 +251,10 @@ class Audit extends Module
      */
     public static function current()
     {
-        if (!static::$_current) {
-            static::$_current = Yii::$app->getModule(Audit::findModuleIdentifier());
+        if (!self::$_current) {
+            self::$_current = Yii::$app->getModule(Audit::findModuleIdentifier());
         }
-        return static::$_current;
+        return self::$_current;
     }
 
     /**
@@ -263,6 +269,10 @@ class Audit extends Module
         return $this->_entry;
     }
 
+    /**
+     * @param $user_id
+     * @return string
+     */
     public function getUserIdentifier($user_id)
     {
         if (!$user_id) {
@@ -273,10 +283,15 @@ class Audit extends Module
             if ($this->userIdentifierCallback && is_callable($this->userIdentifierCallback))
                 return $this->userIdentifierCallback($user_id);
         } catch (\Exception $e) {
+            // if exception then just let it slide, we'll just return the user_id
         }
         return $user_id;
     }
 
+    /**
+     * @param bool $all
+     * @throws \yii\base\InvalidConfigException
+     */
     public function initPanels($all = false)
     {
         $panels = [];
@@ -321,6 +336,9 @@ class Audit extends Module
         $this->panels = $panels;
     }
 
+    /**
+     * @return int|null|string
+     */
     public static function findModuleIdentifier()
     {
         foreach (Yii::$app->modules as $name => $module) {
@@ -366,6 +384,9 @@ class Audit extends Module
         return false;
     }
 
+    /**
+     * @return array
+     */
     protected function corePanels()
     {
         return [
