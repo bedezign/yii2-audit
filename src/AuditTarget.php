@@ -57,7 +57,7 @@ class AuditTarget extends Target
     {
         $this->messages = array_merge($this->messages, $messages);
         if ($final) {
-            $this->export($this->messages);
+            $this->export();
         }
     }
 
