@@ -23,8 +23,6 @@ DROP TABLE IF EXISTS "audit_entry";
 CREATE TABLE "audit_entry" (
   "id"  INTEGER NOT NULL PRIMARY KEY,
   "created"  TEXT NOT NULL,
-  "start_time"  REAL,
-  "end_time"  REAL,
   "duration"  REAL,
   "user_id"  INTEGER(11),
   "ip"  TEXT(45),
@@ -33,8 +31,6 @@ CREATE TABLE "audit_entry" (
   "redirect"  TEXT(255),
   "url"  TEXT(512),
   "route"  TEXT(255),
-  "data"  BLOB,
-  "memory"  INTEGER(11),
   "memory_max"  INTEGER(11),
   "request_method"  TEXT(255)
 );

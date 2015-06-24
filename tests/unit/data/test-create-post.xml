@@ -6,8 +6,8 @@
     <post id="3" title="Post title 3" body="Post body 3"/>
     <post id="4" title="New post title" body="New post body"/>
 
-    <audit_trail action="CREATE" model="tests\models\Post" model_id="4" field="body" old_value="" new_value="New post body"/>
-    <audit_trail action="CREATE" model="tests\models\Post" model_id="4" field="id" old_value="" new_value="4"/>
-    <audit_trail action="CREATE" model="tests\models\Post" model_id="4" field="title" old_value="" new_value="New post title"/>
+    <audit_trail entry_id="1" action="CREATE" model="tests\models\Post" model_id="4" field="body" old_value="" new_value="New post body"/>
+    <audit_trail entry_id="1" action="CREATE" model="tests\models\Post" model_id="4" field="id" old_value="" new_value="4"/>
+    <audit_trail entry_id="1" action="CREATE" model="tests\models\Post" model_id="4" field="title" old_value="" new_value="New post title"/>
 
 </dataset>

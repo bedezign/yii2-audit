@@ -11,4 +11,9 @@ Yii::setAlias('@tests', __DIR__);
 new \yii\console\Application([
     'id' => 'unit',
     'basePath' => __DIR__,
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+        ],
+    ],
 ]);
