@@ -1,6 +1,6 @@
 <?php
 
-namespace tests\models;
+namespace app\models;
 
 use bedezign\yii2\audit\AuditTrailBehavior;
 use yii\db\ActiveRecord;
