@@ -21,6 +21,11 @@ use Yii;
  * @property int    $memory_max
  * @property string $request_method
  * @property string $ajax
+ *
+ * @property AuditError[] $linkedErrors
+ * @property AuditJavascript[] $javascript
+ * @property AuditTrail[] $trail
+ * @property AuditData[] $associatedPanels
  */
 class AuditEntry extends AuditModel
 {

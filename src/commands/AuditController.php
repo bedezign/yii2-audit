@@ -74,8 +74,8 @@ SQL
                 ];
                 $message = [
                     'subject' => Yii::t('audit', 'Audit Error in Audit Entry #{entry_id}', $params),
-                    'text' => Yii::t('audit', '{message}' . "\n" . 'in {file} on line {line}.' . "\n" . '{url}.', $params),
-                    'html' => Yii::t('audit', '<b>{message}</b><br />in <i>{file}</i> on line <i>{line}</i>.<br/>{link}.', $params),
+                    'text' => Yii::t('audit', '{message}' . "\n" . 'in {file} on line {line}.' . "\n" . '-- {url}', $params),
+                    'html' => Yii::t('audit', '<b>{message}</b><br />in <i>{file}</i> on line <i>{line}</i>.<br/>-- {link}', $params),
                 ];
 
                 // send email

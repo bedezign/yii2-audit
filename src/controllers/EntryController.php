@@ -6,6 +6,7 @@ use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditEntrySearch;
 use Yii;
+use yii\web\NotFoundHttpException;
 
 /**
  * EntryController
@@ -36,8 +37,10 @@ class EntryController extends Controller
     /**
      * Displays a single AuditEntry model.
      * @param integer $id
+     * @param string $panel
      * @return mixed
      * @throws \HttpInvalidParamException
+     * @throws \yii\base\InvalidConfigException
      */
     public function actionView($id, $panel = '')
     {
@@ -73,4 +76,16 @@ class EntryController extends Controller
             'panels' => $panels,
         ]);
     }
+
+    public function actionDownloadMail($file)
+    {
+        $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);
+
+        if ((mb_strpos($file, '\\') !== false || mb_strpos($file, '/') !== false) || !is_file($filePath)) {
+            throw new NotFoundHttpException('Mail file not found');
+        }
+
+        Yii::$app->response->sendFile($filePath);
+    }
+
 }
