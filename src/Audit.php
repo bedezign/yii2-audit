@@ -122,10 +122,10 @@ class Audit extends Module
         $this->trackActions = ArrayHelper::toArray($this->trackActions);
         $this->ignoreActions = ArrayHelper::toArray($this->ignoreActions);
 
-        if ($this->accessRoles)
+        if (!empty($this->accessRoles))
             $this->accessRoles = ArrayHelper::toArray($this->accessRoles);
 
-        if ($this->accessUsers)
+        if (!empty($this->accessUsers))
             $this->accessUsers = ArrayHelper::toArray($this->accessUsers);
 
         // Before action triggers a new audit entry
@@ -204,10 +204,10 @@ class Audit extends Module
             return true;
 
         $user = \yii\di\Instance::ensure('user', \yii\web\User::className());
-        if ($this->accessUsers && in_array(Yii::$app->user->id, $this->accessUsers))
+        if (!empty($this->accessUsers) && in_array(Yii::$app->user->id, $this->accessUsers))
             return true;
 
-        if ($this->accessRoles) {
+        if (!empty($this->accessRoles)) {
             foreach ($this->accessRoles as $role) {
                 if ($role === '?') {
                     if ($user->getIsGuest()) return true;
@@ -230,12 +230,12 @@ class Audit extends Module
             return [];
 
         $rule = ['allow' => 'allow'];
-        if ($this->accessRoles) {
+        if (!empty($this->accessRoles)) {
             // Add allowed roles
             $rule['roles'] = $this->accessRoles;
         }
 
-        if ($this->accessUsers) {
+        if (!empty($this->accessUsers)) {
             $users = $this->accessUsers;
             // Specific users only? Use callback
             $rule['matchCallback'] = function () use ($users) {
