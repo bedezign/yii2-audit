@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
 <?= Html::tag('h1', $this->title) ?>
 
 <div class="row">
-    <div class="col-md-10">
+    <div class="col-md-12">
 <?php
         echo Html::tag('h2', Yii::t('audit', 'Request'), ['id' => 'entry', 'class' => 'hashtag']);
         echo DetailView::widget([

@@ -12,7 +12,6 @@ namespace bedezign\yii2\audit;
 
 use Yii;
 use yii\base\Application;
-use yii\base\BootstrapInterface;
 use yii\base\Module;
 use yii\helpers\ArrayHelper;
 

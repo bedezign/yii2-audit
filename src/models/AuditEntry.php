@@ -157,11 +157,12 @@ class AuditEntry extends AuditModel
     {
         return
         [
-            'id'             => Yii::t('audit', 'Entry Id'),
-            'created'        => Yii::t('audit', 'Added at'),
-            'duration'       => Yii::t('audit', 'Request Duration'),
+            'id'             => Yii::t('audit', 'Entry ID'),
+            'created'        => Yii::t('audit', 'Added'),
+            'ip'             => Yii::t('audit', 'IP'),
+            'duration'       => Yii::t('audit', 'Duration'),
             'user_id'        => Yii::t('audit', 'User'),
-            'memory_max'     => Yii::t('audit', 'Max. Memory Usage'),
+            'memory_max'     => Yii::t('audit', 'Memory'),
             'request_method' => Yii::t('audit', 'Request Method'),
         ];
     }
