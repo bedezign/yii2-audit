@@ -40,7 +40,7 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
             'statusCode'      => 0,
             'requestHeaders'  => [],
             'responseHeaders' => [],
-            'route'           => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+            'route'           => $this->getRoute(),
             'action'          => $this->getAction(),
             'actionParams'    => Yii::$app->request->params,
             'requestBody'     => [],
@@ -65,5 +65,16 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
             return get_class(Yii::$app->requestedAction) . '::run()';
         }
         return null;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getRoute()
+    {
+        if (Yii::$app->requestedAction) {
+            return Yii::$app->requestedAction->getUniqueId();
+        }
+        return Yii::$app->requestedRoute;
     }
 }
