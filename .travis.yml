@@ -1,25 +1,41 @@
 language: php
 
 php:
-  - 5.4
-  - 5.5
-  - 5.6
   - hhvm
+  - 5.6
+  - 5.5
+  - 5.4
+
+env:
+  - DB=mysql
+#  - DB=pgsql
 
 install:
-  - composer self-update
-  - composer global require "fxp/composer-asset-plugin:1.0.0"
-  - composer install
+  - travis_retry composer self-update
+  - travis_retry composer global require "fxp/composer-asset-plugin:1.0.*"
+  - travis_retry composer global require "codeception/codeception:2.0.*"
+  - travis_retry composer install --no-interaction --prefer-dist
+  - ln -s `pwd`/vendor/bower-asset `pwd`/vendor/bower
 
 before_script:
-  - travis_retry composer self-update
-  - travis_retry composer install --no-interaction --prefer-source --dev
+  - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then echo 'xdebug.enable = On' >> /etc/hhvm/php.ini; fi
+  - if [[ "$DB" == "mysql" ]]; then mysql -e "create database IF NOT EXISTS audit_test;" -uroot; fi
+#  - if [[ "$DB" == "pgsql" ]]; then psql -c "DROP DATABASE IF EXISTS audit_test;" -U postgres; fi
+#  - if [[ "$DB" == "pgsql" ]]; then psql -c "create database audit_test;" -U postgres; fi
+  - cd tests
+  - php codeception/_app/yii migrate/up --interactive=0
+  - php codeception/_app/yii migrate/up --migrationPath=../src/migrations --interactive=0
+  - ~/.composer/vendor/bin/codecept build
 
 script:
-  - phpunit --coverage-text --coverage-clover=coverage.clover
+  - ~/.composer/vendor/bin/codecept run --coverage-html --coverage-xml
 
 after_script:
-  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.clover
+  - php vendor/bin/ocular code-coverage:upload --format=php-clover codeception/_output/coverage.xml
+
+after_failure:
+  - cat codeception/_app/runtime/logs/*
+  - cat codeception/_output/*
 
 notifications:
   webhooks:

@@ -1,6 +1,6 @@
 <?php
 
-class m150624_000001_add_audit_entry_ajax extends \yii\db\Migration
+class m150623_000003_add_audit_entry_ajax extends \yii\db\Migration
 {
     const TABLE = '{{%audit_entry}}';
 
