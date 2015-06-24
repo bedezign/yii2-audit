@@ -182,40 +182,43 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     public function auditAttributes($action, $newAttributes, $oldAttributes = [])
     {
-        // If we are not active the get out of here
         if (!$this->active) {
             return;
         }
 
-        // Setup values outside loop
         $entry_id = $this->getAuditEntryId();
         $user_id = $this->getUserId();
         $model = $this->owner->className();
         $model_id = $this->getNormalizedPk();
         $stamp = date($this->dateFormat);
 
+        $this->saveAuditTrail($action, $newAttributes, $oldAttributes, $entry_id, $user_id, $model, $model_id, $stamp);
+    }
+
+    /**
+     * @param $action
+     * @param $newAttributes
+     * @param $oldAttributes
+     * @param $entry_id
+     * @param $user_id
+     * @param $model
+     * @param $model_id
+     * @param $stamp
+     * @throws \yii\db\Exception
+     */
+    protected function saveAuditTrail($action, $newAttributes, $oldAttributes, $entry_id, $user_id, $model, $model_id, $stamp)
+    {
         // Build a list of fields to log
         $rows = array();
-        foreach ($newAttributes as $name => $new) {
-            $old = isset($oldAttributes[$name]) ? $oldAttributes[$name] : '';
+        foreach ($newAttributes as $field => $new) {
+            $old = isset($oldAttributes[$field]) ? $oldAttributes[$field] : '';
             // If we are skipping nulls then lets see if both sides are null
             if ($this->skipNulls && empty($old) && empty($new)) {
                 continue;
             }
-
             // If they are not the same lets write an audit log
             if ($new != $old) {
-                $rows[] = [
-                    $entry_id,
-                    $user_id,
-                    $old,
-                    $new,
-                    $action,
-                    $model,
-                    $model_id,
-                    $name,
-                    $stamp,
-                ];
+                $rows[] = [$entry_id, $user_id, $old, $new, $action, $model, $model_id, $field, $stamp];
             }
         }
         // Record the field changes with a batch insert
