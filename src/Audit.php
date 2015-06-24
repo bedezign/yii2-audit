@@ -233,7 +233,9 @@ class Audit extends Module
             return false;
         }
         foreach ($this->accessRoles as $role) {
-            if ($role === '?' && $user->getIsGuest()) {
+            if ($role === '*') {
+                return true;
+            } elseif ($role === '?' && $user->getIsGuest()) {
                 return true;
             } elseif ($role === '@' && !$user->getIsGuest()) {
                 return true;
