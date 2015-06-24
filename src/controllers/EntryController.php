@@ -30,20 +30,21 @@ class EntryController extends Controller
 
         return $this->render('index', [
             'dataProvider' => $dataProvider,
-            'searchModel' => $searchModel,
+            'searchModel'  => $searchModel,
         ]);
     }
 
     /**
      * Displays a single AuditEntry model.
      * @param integer $id
-     * @param string $panel
+     * @param string  $panel
      * @return mixed
      * @throws \HttpInvalidParamException
      * @throws \yii\base\InvalidConfigException
      */
     public function actionView($id, $panel = '')
     {
+        /** @var AuditEntry $model */
         $model = AuditEntry::findOne($id);
         if (!$model) {
             throw new \HttpInvalidParamException('Invalid request number specified');
@@ -70,13 +71,17 @@ class EntryController extends Controller
         // @TODO: Add unknown panels as "generic data"
 
         return $this->render('view', [
-            'id' => $id,
-            'model' => $model,
+            'id'          => $id,
+            'model'       => $model,
             'activePanel' => $activePanel ? $panels[$activePanel] : false,
-            'panels' => $panels,
+            'panels'      => $panels,
         ]);
     }
 
+    /**
+     * @param $file
+     * @throws NotFoundHttpException
+     */
     public function actionDownloadMail($file)
     {
         $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);
