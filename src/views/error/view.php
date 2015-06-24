@@ -49,9 +49,24 @@ echo GridView::widget([
         [
             'header' => Yii::t('audit', 'Args'),
             'value' => function ($data) {
-                return \yii\helpers\VarDumper::dumpAsString($data['args']);
-            }
+                $out = '<a class="args-toggle glyphicon glyphicon-plus" href="javascript:void(0);"></a>';
+                $out .= '<pre style="display:none;">';
+                $out .= \yii\helpers\VarDumper::dumpAsString($data['args']);
+                $out .= '</pre>';
+                return $out;
+            },
+            'format' => 'raw',
         ],
     ],
 ]);
+
+$js = <<<JS
+\$('.args-toggle').click(function(){
+    if ($(this).hasClass("glyphicon-plus"))
+        $(this).removeClass("glyphicon-plus").addClass("glyphicon-minus").next("pre").show();
+    else
+        $(this).removeClass("glyphicon-minus").addClass("glyphicon-plus").next("pre").hide();
+});
+JS;
+$this->registerJs($js);
 
