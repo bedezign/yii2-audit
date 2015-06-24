@@ -42,7 +42,6 @@ echo GridView::widget([
             ],
         ],
         'file',
-        'message',
         [
             'attribute' => 'line',
             'options' => [
