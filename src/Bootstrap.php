@@ -1,6 +1,7 @@
 <?php
 
 namespace bedezign\yii2\audit;
+use yii\base\Application;
 
 /**
  * Bootstrap
@@ -15,12 +16,12 @@ class Bootstrap implements \yii\base\BootstrapInterface
      */
     public function bootstrap($app)
     {
+        // Make sure to register the base folder as alias as well or things like assets won't work anymore
+        \Yii::setAlias('@bedezign/yii2/audit', __DIR__);
+
         if ($app instanceof \yii\console\Application) {
             $app->controllerMap['audit'] = 'bedezign\yii2\audit\commands\AuditController';
         }
-
-        // Make sure to register the base folder as alias as well or things like assets won't work anymore
-        \Yii::setAlias('@bedezign/yii2/audit', __DIR__);
 
         $moduleName = Audit::findModuleIdentifier();
         if ($moduleName) {
