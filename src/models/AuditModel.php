@@ -8,12 +8,14 @@ namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\Helper;
+use yii\db\ActiveRecord;
 
 /**
  * AuditModel
  * @package bedezign\yii2\audit\models
+ * @property string $created
  */
-class AuditModel extends \yii\db\ActiveRecord
+class AuditModel extends ActiveRecord
 {
     /** @var bool                   If true, automatically pack and unpack the data attribute */
     protected $autoSerialize = true;
