@@ -43,7 +43,7 @@ class JSLoggingAsset extends AssetBundle
     public function publish($assetManager)
     {
         $module = Audit::current();
-        if ($module && $module->getEntry()) {
+        if ($module && $module->entry) {
             // We can't be sure that the actual logger was loaded already, so we fallback on the window object
             // to store the associated audit url and entry id
             $url = \yii\helpers\Url::to(["/{$module->id}/javascript/log"]);

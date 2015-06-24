@@ -36,7 +36,7 @@ class AuditTarget extends Target
      */
     public function export()
     {
-        if (!$this->module->entry || !$this->module->panels)
+        if (!$this->module->entry || empty($this->module->panels))
             return;
 
         $records = [];
@@ -45,7 +45,7 @@ class AuditTarget extends Target
         }
 
         array_filter($records);
-        if ($records)
+        if (!empty($records))
             $this->module->entry->addBatchData($records, false);
     }
 

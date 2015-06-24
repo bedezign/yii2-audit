@@ -10,16 +10,15 @@
 
 namespace bedezign\yii2\audit;
 
+use bedezign\yii2\audit\models\AuditEntry;
 use Yii;
 use yii\base\Application;
 use yii\base\Module;
 use yii\helpers\ArrayHelper;
 
 /**
- * Class Audit
- * @package bedezign\yii2\audit
- *
  * Audit main module.
+ *
  * This module is also responsible for starting the audit process.
  * To configure it you need to do 2 things:
  * - add a module configuration entry:
@@ -35,6 +34,8 @@ use yii\helpers\ArrayHelper;
  * - If you want to auto track actions, be sure to add the module to the application bootstrapping:
  *    'bootstrap' => ['audit'],
  *
+ * @package bedezign\yii2\audit
+ * @property AuditEntry $entry
  */
 class Audit extends Module
 {
