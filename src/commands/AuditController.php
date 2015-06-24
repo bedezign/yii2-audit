@@ -34,14 +34,16 @@ class AuditController extends \yii\console\Controller
         $errors = AuditError::tableName();
         $data = AuditData::tableName();
         $javascript = AuditJavascript::tableName();
+        $trail = AuditTrail::tableName();
 
         $threshold = time() - ($audit->maxAge * 86400);
 
         AuditEntry::getDb()->createCommand(<<<SQL
-DELETE FROM $entry, $errors, $data, $javascript USING $entry
+DELETE FROM $entry, $errors, $data, $javascript, $trail USING $entry
   INNER JOIN $errors ON $errors.entry_id = $entry.id
   INNER JOIN $data ON $data.entry_id = $entry.id
   INNER JOIN $javascript ON $javascript.entry_id = $entry.id
+  INNER JOIN $trail ON $trail.entry_id = $entry.id
   WHERE $entry.created < FROM_UNIXTIME($threshold)
 SQL
         )->execute();
