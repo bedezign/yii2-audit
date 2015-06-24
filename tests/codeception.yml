@@ -9,3 +9,12 @@ settings:
     bootstrap: _bootstrap.php
     colors: true
     memory_limit: 1024M
+coverage:
+    enabled: true
+    white_list:
+        include:
+            - ../src/*
+    blacklist:
+        include:
+            - ../src/migrations/*
+            - ../src/web/assets/*

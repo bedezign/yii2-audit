@@ -31,7 +31,11 @@ script:
   - ~/.composer/vendor/bin/codecept run --coverage-html --coverage-xml
 
 after_script:
-  - php vendor/bin/ocular code-coverage:upload --format=php-clover coverage.xml
+  - php vendor/bin/ocular code-coverage:upload --format=php-clover codeception/_output/coverage.xml
+
+after_failure:
+  - cat codeception/_app/runtime/logs/*
+  - cat codeception/_output/*
 
 notifications:
   webhooks:
