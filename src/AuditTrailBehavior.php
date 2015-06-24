@@ -79,33 +79,33 @@ class AuditTrailBehavior extends \yii\base\Behavior
     }
 
     /**
-     * @param $event
+     *
      */
-    public function afterFind($event)
+    public function afterFind()
     {
         $this->setOldAttributes($this->owner->getAttributes());
     }
 
     /**
-     * @param $event
+     *
      */
-    public function afterInsert($event)
+    public function afterInsert()
     {
         $this->audit('CREATE');
     }
 
     /**
-     * @param $event
+     *
      */
-    public function afterUpdate($event)
+    public function afterUpdate()
     {
         $this->audit('UPDATE');
     }
 
     /**
-     * @param $event
+     *
      */
-    public function afterDelete($event)
+    public function afterDelete()
     {
         $this->audit('DELETE');
     }
@@ -218,7 +218,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
             }
         }
         // Record the field changes with a batch insert
-        if ($rows) {
+        if (!empty($rows)) {
             $columns = ['entry_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
             Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
