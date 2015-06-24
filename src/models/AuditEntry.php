@@ -23,8 +23,8 @@ use Yii;
  * @property string $ajax
  *
  * @property AuditError[] $linkedErrors
- * @property AuditJavascript[] $javascript
- * @property AuditTrail[] $trail
+ * @property AuditJavascript[] $javascripts
+ * @property AuditTrail[] $trails
  * @property AuditData[] $associatedPanels
  */
 class AuditEntry extends AuditModel
@@ -52,10 +52,10 @@ class AuditEntry extends AuditModel
         if (count($this->linkedErrors))
             $panels[] = 'errors';
 
-        if (count($this->javascript))
+        if (count($this->javascripts))
             $panels[] = 'javascript';
 
-        if (count($this->trail))
+        if (count($this->trails))
             $panels[] = 'trail';
 
         return $panels;
@@ -87,10 +87,10 @@ class AuditEntry extends AuditModel
     }
 
     /**
-     * Returns all linked AuditError instances
-     * @return AuditError[]
+     * Returns all linked AuditTrail instances
+     * @return AuditTrail[]
      */
-    public function getTrail()
+    public function getTrails()
     {
         return static::hasMany(AuditTrail::className(), ['entry_id' => 'id']);
     }
@@ -99,7 +99,7 @@ class AuditEntry extends AuditModel
      * Returns all linked AuditJavascript instances
      * @return AuditJavascript[]
      */
-    public function getJavascript()
+    public function getJavascripts()
     {
         return static::hasMany(AuditJavascript::className(), ['entry_id' => 'id']);
     }

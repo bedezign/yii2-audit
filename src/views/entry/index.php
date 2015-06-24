@@ -46,14 +46,37 @@ $this->params['breadcrumbs'][] = $this->title;
                     ]) . ' ' . $data->route;
                 },
             ],
-            ['attribute' => 'duration', 'format' => 'decimal'],
-            ['attribute' => 'memory_max', 'format' => 'shortsize'],
-            ['attribute' => 'errors', 'value' => function ($data) {
-                return is_array($data->linkedErrors) ? count($data->linkedErrors) : 0;
-            }],
-            ['attribute' => 'javascript', 'value' => function ($data) {
-                return is_array($data->javascript) ? count($data->javascript) : 0;
-            }],
+            [
+                'attribute' => 'duration',
+                'format' => 'decimal',
+                'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
+                'attribute' => 'memory_max',
+                'format' => 'shortsize',
+                'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
+                'attribute' => 'trails',
+                'value' => function ($data) {
+                    return $data->trails ? count($data->trails) : '';
+                },
+                'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
+                'attribute' => 'javascripts',
+                'value' => function ($data) {
+                    return $data->javascripts ? count($data->javascripts) : '';
+                },
+                'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
+                'attribute' => 'errors',
+                'value' => function ($data) {
+                    return $data->linkedErrors ? count($data->linkedErrors) : '';
+                },
+                'contentOptions' => ['class' => 'text-right'],
+            ],
         ],
     ]); ?>
 </div>
