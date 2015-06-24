@@ -17,6 +17,7 @@ yii\debug\DebugAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <?php $this->registerCss('body{padding-top: 60px;}'); ?>
     <?php $this->head() ?>
 </head>
 <body>
