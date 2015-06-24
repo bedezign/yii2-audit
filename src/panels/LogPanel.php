@@ -4,19 +4,19 @@ namespace bedezign\yii2\audit\panels;
 
 use Yii;
 use yii\debug\models\search\Db;
+use yii\debug\models\search\Log;
 
-class DbPanel extends \yii\debug\panels\DbPanel
+class LogPanel extends \yii\debug\panels\LogPanel
 {
     public function getDetail()
     {
-        $searchModel = new Db();
+        $searchModel = new Log();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
 
-        return Yii::$app->view->render('@yii/debug/views/default/panels/db/detail', [
-            'panel' => $this,
+        return Yii::$app->view->render('@yii/debug/views/default/panels/log/detail', [
             'dataProvider' => $dataProvider,
+            'panel' => $this,
             'searchModel' => $searchModel,
-            //'hasExplain' => $this->hasExplain(),
         ]);
     }
 }
