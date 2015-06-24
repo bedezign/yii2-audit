@@ -170,19 +170,19 @@ class Audit extends Module
 
     /**
      * Associate extra data with the current entry (if any)
-     * @param string $name
-     * @param mixed  $data The data to associate with the current entry
      * @param string $type Optional type argument
-     * @return \bedezign\yii2\audit\models\AuditData
+     * @param mixed  $data The data to associate with the current entry
+     * @param bool   $compact
+     * @return models\AuditData
      */
-    public function data($name, $data, $type = null)
+    public function data($type, $data, $compact = true)
     {
-        $entry = $this->getEntry(false);
+        $entry = $this->entry;
         if (!$entry) {
             return;
         }
 
-        $entry->addData($name, $data, $type);
+        $entry->addData($type, $data, $compact);
     }
 
     /**
