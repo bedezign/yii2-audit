@@ -6,9 +6,7 @@
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-?>
-    <h1>Errors</h1>
-<?php
+echo '<h1>' . Yii::t('audit', 'Errors') . '</h1>';
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
@@ -22,14 +20,7 @@ echo GridView::widget([
             'buttons' => [
                 'view' => function ($url, $model, $key) {
                     return Html::a(
-                        Html::tag('span', '', ['class' => 'glyphicon glyphicon-eye-open']),
-                        ['error/view', 'id' => $model->id],
-                        [
-                            'class' => '',
-                            'data' => [
-                                'toggle' => 'modal',
-                            ]
-                        ]
+                        Html::tag('span', '', ['class' => 'glyphicon glyphicon-eye-open']), ['error/view', 'id' => $model->id]
                     );
                 }
             ],
