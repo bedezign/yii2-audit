@@ -9,34 +9,48 @@ use Yii;
  * Class AuditEntry
  * @package bedezign\yii2\audit\models
  *
- * @property int    $id
- * @property string $created
- * @property float  $duration
- * @property int    $user_id        0 means anonymous
- * @property string $ip
- * @property string $referrer
- * @property string $redirect
- * @property string $url
- * @property string $route
- * @property int    $memory_max
- * @property string $request_method
- * @property string $ajax
+ * @property int               $id
+ * @property string            $created
+ * @property float             $duration
+ * @property int               $user_id        0 means anonymous
+ * @property string            $ip
+ * @property string            $referrer
+ * @property string            $redirect
+ * @property string            $url
+ * @property string            $route
+ * @property int               $memory_max
+ * @property string            $request_method
+ * @property string            $ajax
  *
- * @property AuditError[] $linkedErrors
+ * @property AuditError[]      $linkedErrors
  * @property AuditJavascript[] $javascripts
- * @property AuditTrail[] $trails
- * @property AuditData[] $associatedPanels
+ * @property AuditTrail[]      $trails
+ * @property AuditData[]       $associatedPanels
  */
 class AuditEntry extends AuditModel
 {
+    /**
+     * @var
+     */
     protected $start_time;
+
+    /**
+     * @var bool
+     */
     protected $autoSerialize = false;
 
+    /**
+     * @return string
+     */
     public static function tableName()
     {
         return '{{%audit_entry}}';
     }
 
+    /**
+     * @param bool $initialise
+     * @return static
+     */
     public static function create($initialise = true)
     {
         $entry = new static;
@@ -46,6 +60,9 @@ class AuditEntry extends AuditModel
         return $entry;
     }
 
+    /**
+     * @return array
+     */
     public function getAssociatedPanels()
     {
         $panels = AuditData::findEntryTypes($this->id);
@@ -61,6 +78,10 @@ class AuditEntry extends AuditModel
         return $panels;
     }
 
+    /**
+     * @param $type
+     * @return mixed|null
+     */
     public function typeData($type)
     {
         $record = AuditData::findForEntry($this->id, $type);
@@ -104,11 +125,21 @@ class AuditEntry extends AuditModel
         return static::hasMany(AuditJavascript::className(), ['entry_id' => 'id']);
     }
 
+    /**
+     * @param      $type
+     * @param      $data
+     * @param bool $compact
+     */
     public function addData($type, $data, $compact = true)
     {
         $this->addBatchData([$type => $data], $compact);
     }
 
+    /**
+     * @param      $batchData
+     * @param bool $compact
+     * @throws \yii\db\Exception
+     */
     public function addBatchData($batchData, $compact = true)
     {
         $columns = ['entry_id', 'type', 'data', 'packed'];
@@ -124,26 +155,25 @@ class AuditEntry extends AuditModel
      */
     public function record()
     {
-        $app                = Yii::$app;
-        $request            = $app->request;
+        $app = Yii::$app;
+        $request = $app->request;
 
-        $this->route        = $app->requestedAction ? $app->requestedAction->uniqueId : null;
-        $this->start_time   = YII_BEGIN_TIME;
+        $this->route = $app->requestedAction ? $app->requestedAction->uniqueId : null;
+        $this->start_time = YII_BEGIN_TIME;
 
         if ($request instanceof \yii\web\Request) {
-            $user                 = $app->user;
-            $this->user_id        = $user->isGuest ? 0 : $user->id;
-            $this->url            = $request->url;
-            $this->ip             = $request->userIP;
-            $this->referrer       = $request->referrer;
-            $this->ajax           = $request->isAjax;
+            $user = $app->user;
+            $this->user_id = $user->isGuest ? 0 : $user->id;
+            $this->url = $request->url;
+            $this->ip = $request->userIP;
+            $this->referrer = $request->referrer;
+            $this->ajax = $request->isAjax;
             $this->request_method = $request->method;
-        }
-        else if ($request instanceof \yii\console\Request) {
-            $this->url            = $request->scriptFile;
+        } else if ($request instanceof \yii\console\Request) {
+            $this->url = $request->scriptFile;
             foreach ($request->params as $k => $param) {
                 if ($k) {
-                    $this->url       .= ' ' . $param;
+                    $this->url .= ' ' . $param;
                 }
             }
             $this->request_method = 'CLI';
@@ -152,6 +182,9 @@ class AuditEntry extends AuditModel
         $this->save(false);
     }
 
+    /**
+     * @return bool
+     */
     public function finalize()
     {
         $this->duration = microtime(true) - $this->start_time;
@@ -165,10 +198,12 @@ class AuditEntry extends AuditModel
         return $this->save(false, ['duration', 'memory_max', 'redirect']);
     }
 
+    /**
+     * @return array
+     */
     public function attributeLabels()
     {
-        return
-        [
+        return [
             'id'             => Yii::t('audit', 'Entry ID'),
             'created'        => Yii::t('audit', 'Added'),
             'ip'             => Yii::t('audit', 'IP'),
