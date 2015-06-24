@@ -64,7 +64,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                     </div>
                 </div>
                 <div class="col-md-10">
-                    <?= $activePanel->getDetail() ?>
+                    <?php if ($activePanel) echo $activePanel->getDetail(); ?>
                 </div>
 
 <?php

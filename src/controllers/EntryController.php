@@ -60,14 +60,16 @@ class EntryController extends Controller
             $activePanel = key($panels);
         }
 
-        $panels[$activePanel]->load($model->typeData($activePanel));
+        if ($activePanel) {
+            $panels[$activePanel]->load($model->typeData($activePanel));
+        }
 
         // @TODO: Add unknown panels as "generic data"
 
         return $this->render('view', [
             'id' => $id,
             'model' => $model,
-            'activePanel' => $panels[$activePanel],
+            'activePanel' => $activePanel ? $panels[$activePanel] : false,
             'panels' => $panels,
         ]);
     }
