@@ -319,9 +319,31 @@ class Audit extends Module
      */
     public function initPanels($all = false)
     {
+        $panels = $this->getPanels();
+
+        if ($all) {
+            $viewOnlyPanels = [
+                'errors'     => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+                'javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+                'trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+            ];
+
+            foreach ($viewOnlyPanels as $identifier => $config)
+                if (!isset($panels[$identifier]))
+                    $panels[$identifier] = Yii::createObject($config);
+        }
+
+        $this->panels = $panels;
+    }
+
+    /**
+     * @return array
+     * @throws InvalidConfigException
+     */
+    protected function getPanels()
+    {
         $panels = [];
         $corePanels = $this->corePanels();
-
         foreach ($this->panels as $key => $value) {
             $identifier = $config = null;
             if (is_numeric($key)) {
@@ -342,20 +364,7 @@ class Audit extends Module
             } else
                 $panels[$identifier] = $config;
         }
-
-        if ($all) {
-            $viewOnlyPanels = [
-                'errors'     => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-                'javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-                'trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
-            ];
-
-            foreach ($viewOnlyPanels as $identifier => $config)
-                if (!isset($panels[$identifier]))
-                    $panels[$identifier] = Yii::createObject($config);
-        }
-
-        $this->panels = $panels;
+        return $panels;
     }
 
     /**
