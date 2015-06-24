@@ -2,6 +2,9 @@
 
 namespace bedezign\yii2\audit\panels;
 
+use Yii;
+use yii\base\InlineAction;
+
 class RequestPanel extends \yii\debug\panels\RequestPanel
 {
     public function getDetail()
@@ -14,8 +17,39 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
      */
     public function save()
     {
-        if (\Yii::$app->request instanceof \yii\web\Request) {
+        $request = Yii::$app->request;
+        if ($request instanceof \yii\web\Request) {
             parent::save();
+        } elseif ($request instanceof \yii\console\Request) {
+
+            // handle CLI requests
+            if (Yii::$app->requestedAction) {
+                if (Yii::$app->requestedAction instanceof InlineAction) {
+                    $action = get_class(Yii::$app->requestedAction->controller) . '::' . Yii::$app->requestedAction->actionMethod . '()';
+                } else {
+                    $action = get_class(Yii::$app->requestedAction) . '::run()';
+                }
+            } else {
+                $action = null;
+            }
+            return [
+                'flashes' => $this->getFlashes(),
+                'statusCode' => 0,
+                'requestHeaders' => [],
+                'responseHeaders' => [],
+                'route' => Yii::$app->requestedAction ? Yii::$app->requestedAction->getUniqueId() : Yii::$app->requestedRoute,
+                'action' => $action,
+                'actionParams' => $request->params,
+                'requestBody' => [],
+                'SERVER' => empty($_SERVER) ? [] : $_SERVER,
+                'GET' => empty($_GET) ? [] : $_GET,
+                'POST' => empty($_POST) ? [] : $_POST,
+                'COOKIE' => empty($_COOKIE) ? [] : $_COOKIE,
+                'FILES' => empty($_FILES) ? [] : $_FILES,
+                'SESSION' => empty($_SESSION) ? [] : $_SESSION,
+            ];
         }
+
+        return [];
     }
 }
