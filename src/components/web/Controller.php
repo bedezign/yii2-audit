@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\components\web;
 
-use bedezign\yii2\audit\assets\ViewerAsset;
+use bedezign\yii2\audit\assets\AuditAsset;
 use bedezign\yii2\audit\Audit;
 use Yii;
 use yii\web\View;
@@ -32,7 +32,7 @@ class Controller extends \yii\web\Controller
      */
     public function beforeAction($action)
     {
-        ViewerAsset::register($this->view);
+        AuditAsset::register($this->view);
         return parent::beforeAction($action);
     }
 
