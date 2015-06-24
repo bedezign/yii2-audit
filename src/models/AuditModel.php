@@ -23,7 +23,7 @@ class AuditModel extends \yii\db\ActiveRecord
     public function beforeSave($insert)
     {
         if ($insert && $this->hasAttribute('created'))
-            $this->created = new \yii\db\Expression('NOW()');
+            $this->created = date('Y-m-d H:i:s');
 
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
