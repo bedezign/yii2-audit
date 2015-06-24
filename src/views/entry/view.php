@@ -37,13 +37,13 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                     'value' => Audit::current()->getUserIdentifier($model->user_id),
                 ],
                 'ip',
-                'created',
-                [ 'attribute' => 'duration', 'format' => 'decimal' ],
+                'route',
+                'url',
                 'referrer',
                 'redirect',
-                'url',
-                'route',
+                [ 'attribute' => 'duration', 'format' => 'decimal' ],
                 [ 'attribute' => 'memory_max', 'format' => 'shortsize' ],
+                'created',
             ]
         ]);
 
