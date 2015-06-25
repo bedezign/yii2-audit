@@ -12,6 +12,8 @@ use yii\debug\models\search\Log;
  */
 class LogPanel extends \yii\debug\panels\LogPanel
 {
+    use PanelHelperTrait;
+
     /**
      * @return string
      */

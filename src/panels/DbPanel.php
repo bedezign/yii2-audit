@@ -11,6 +11,8 @@ use yii\debug\models\search\Db;
  */
 class DbPanel extends \yii\debug\panels\DbPanel
 {
+    use PanelHelperTrait;
+
     /**
      * @return string
      */
