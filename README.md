@@ -7,7 +7,7 @@
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/bedezign/yii2-audit.svg?style=flat-square)](https://scrutinizer-ci.com/g/bedezign/yii2-audit/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/bedezign/yii2-audit.svg?style=flat-square)](https://scrutinizer-ci.com/g/bedezign/yii2-audit)
 [![Total Downloads](https://img.shields.io/packagist/dt/bedezign/yii2-audit.svg?style=flat-square)](https://packagist.org/packages/bedezign/yii2-audit)
-[![Yii2 Framework](https://img.shields.io/badge/Powered_by-Yii2_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/)
+[![Yii2 Framework](https://img.shields.io/badge/powered_by-Yii2_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/)
 
 ## Features
 
