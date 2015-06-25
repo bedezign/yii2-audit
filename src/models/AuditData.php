@@ -9,9 +9,7 @@ namespace bedezign\yii2\audit\models;
  *
  * @property int    $id
  * @property int    $entry_id
- * @property string $name
  * @property string $type
- * @property bool   $packed         true if the associated data has been serialized
  * @property string $data
  *
  * @package bedezign\yii2\audit\models
@@ -67,7 +65,6 @@ class AuditData extends AuditModel
     {
         // Only serialize complex values
         if (is_array($this->data) || is_object($this->data)) {
-            $this->packed = true;
             $this->autoSerialize = true;
             $this->data = \bedezign\yii2\audit\components\Helper::compact($this->data);
         }

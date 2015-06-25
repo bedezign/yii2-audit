@@ -146,10 +146,10 @@ class AuditEntry extends AuditModel
      */
     public function addBatchData($batchData, $compact = true)
     {
-        $columns = ['entry_id', 'type', 'data', 'packed'];
+        $columns = ['entry_id', 'type', 'data'];
         $rows = [];
         foreach ($batchData as $type => $data) {
-            $rows[] = [$this->id, $type, Helper::serialize($data, $compact), 1];
+            $rows[] = [$this->id, $type, Helper::serialize($data, $compact)];
         }
         Yii::$app->db->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
