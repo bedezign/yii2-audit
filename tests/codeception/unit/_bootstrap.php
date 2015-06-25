@@ -1,3 +1,5 @@
 <?php
 
-new yii\web\Application(require(dirname(__DIR__) . '/_config/unit.php'));
+//$config = require(dirname(__DIR__) . '/_config/unit.php');
+//unset($config['class']);
+//new yii\console\Application($config);

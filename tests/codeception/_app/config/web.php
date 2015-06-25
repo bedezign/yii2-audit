@@ -8,26 +8,12 @@ $config = [
     ],
     'extensions' => require(VENDOR_DIR . '/yiisoft/extensions.php'),
     'aliases' => [
-        '@bedezign/yii2/audit' => realpath(__DIR__ . '/../../../../src'),
         '@vendor' => VENDOR_DIR,
         '@bower' => VENDOR_DIR . '/bower',
-        '@tests' => realpath(__DIR__ . '/../../..'),
-        '@tests/codeception/config' => '@tests/codeception/_config',
-        '@yii/debug' => VENDOR_DIR . '/yiisoft/yii2-debug', // needed for hhvm
-    ],
-    'modules' => [
-        'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
-            'accessUsers' => null,
-            'accessRoles' => null,
-        ],
     ],
     'components' => [
         'assetManager' => [
             'basePath' => __DIR__ . '/../web/assets',
-        ],
-        'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
         ],
         'cache' => null,
         'db' => require __DIR__ . '/db.php',

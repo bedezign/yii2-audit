@@ -10,11 +10,11 @@ return yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../_app/config/web.php'),
     [
         'modules' => [
-            'user' => [
-                'mailer' => [
-                    'class' => 'app\components\MailerMock',
-                ],
-            ]
+            'audit' => [
+                'class' => 'bedezign\yii2\audit\Audit',
+                'accessUsers' => null,
+                'accessRoles' => null,
+            ],
         ],
     ]
 );

@@ -1,7 +1,6 @@
 <?php
 
-namespace bedezign\yii2\audit\tests;
-
+use bedezign\yii2\audit\tests\FunctionalTester;
 use Codeception\Scenario;
 use yii\helpers\Url;
 
