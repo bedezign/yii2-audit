@@ -16,6 +16,14 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
     /**
      * @return string
      */
+    public function getName()
+    {
+        return parent::getName();
+    }
+
+    /**
+     * @return string
+     */
     public function getDetail()
     {
         return \Yii::$app->view->render('@yii/debug/views/default/panels/request/detail', ['panel' => $this]);
