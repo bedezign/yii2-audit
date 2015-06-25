@@ -38,4 +38,4 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 
 ## Credits
 
-Thanks to [everyone who has contributed](docs/credits.md)
+Thanks to [everyone who has contributed](CREDITS.md)
