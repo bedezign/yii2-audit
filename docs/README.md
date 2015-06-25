@@ -1,6 +1,6 @@
 # Audit Documentation
 
-- [Installation](installation.md)
+- [Installation and Configuration](installation.md)
 - [Database Logging](database-logging.md)
 - [Javascript Logging](javascript-logging.md)
 - [Error Logging](error-logging.md)
