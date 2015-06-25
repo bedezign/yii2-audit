@@ -136,4 +136,25 @@ class Helper extends \yii\base\Object
     {
         return htmlspecialchars(\yii\helpers\VarDumper::dumpAsString($value), ENT_QUOTES | ENT_SUBSTITUTE, \Yii::$app->charset, true);
     }
+
+
+    /**
+     * Ensures a string is less than a specified length.
+     * If it is longer then it is truncated and a message is sent to the the info log.
+     *
+     * @param $string
+     * @param int $length
+     * @return string
+     */
+    public static function truncate($string, $length = 0)
+    {
+        if ($length) {
+            if (strlen($string) > $length) {
+                \Yii::info('truncate required: ' . $string, 'audit');
+                $string = substr($string, 0, $length);
+            }
+        }
+        return $string;
+    }
+
 }

@@ -168,9 +168,9 @@ class AuditEntry extends AuditModel
         if ($request instanceof \yii\web\Request) {
             $user = $app->user;
             $this->user_id = $user->isGuest ? 0 : $user->id;
-            $this->url = $request->url;
+            $this->url = Helper::truncate($request->url, 512);
             $this->ip = $request->userIP;
-            $this->referrer = $request->referrer;
+            $this->referrer = Helper::truncate($request->referrer, 512);
             $this->ajax = $request->isAjax;
             $this->request_method = $request->method;
         } else if ($request instanceof \yii\console\Request) {
@@ -196,7 +196,8 @@ class AuditEntry extends AuditModel
 
         $response = Yii::$app->response;
         if ($response instanceof \yii\web\Response) {
-            $this->redirect = $response->headers->get('location');
+            $this->redirect = Helper::truncate($response->headers->get('location'), 512);
+
         }
 
         return $this->save(false, ['duration', 'memory_max', 'redirect']);
@@ -217,4 +218,5 @@ class AuditEntry extends AuditModel
             'request_method' => Yii::t('audit', 'Request Method'),
         ];
     }
+
 }
