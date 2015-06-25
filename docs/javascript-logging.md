@@ -9,12 +9,17 @@ To activate, register the `\bedezign\yii2\audit\web\JSLoggingAsset` in any of yo
 
 This will activate the logger automatically. By default all warnings and errors are transmitted to the backend.
 
-The default configuration assumes that the module was added as "audit" (so the log url would be "*/audit/javascript/log*"). If that is not the case, please make sure to update the setting somewhere in your javascript:
+This means that the javascript will need an URL to submit its data to.   
+Usually the module can automatically determine what URL to use. 
+
+Should the auto detection fail you can correct the url by updating the setting somewhere in your javascript:
 
 ```javascript
-window.jsLogger.logUrl = '/mymodulename/javascript/log';
-```
+window.auditUrl = '/mymodulename/javascript/log';
+``` 
 
-All javascript logging will be linked to the entry associated with the page entry created when you performed the initial request. This is accomplished by adding the ID of that entry in the `window`-object (`window.auditEntry`).
+(Please also open an issue so we can figure out why the auto-detection failed and hopefully fix it)
 
-Beware: If you use ajax or related technologies to load data from the backend, these requests might generate their own audit entries. If those cause backend errors they will be linked to that new entry. This might be a bit weird with the javascript logging being linked to the older entry.
+## Remarks
+* All logging you perform that originates from that page load will be linked to the same entry in the database. If you should need the current entry id for other things, it is added to the `window`-object as `window.auditEntry`.
+* If you use ajax or related technologies to load data from the backend, these requests might generate their own audit entries. Any errors that these cause will be linked to that newly created entry. Might be confusing, given that the actual client side logging for these requests will still be linked to the original one.
