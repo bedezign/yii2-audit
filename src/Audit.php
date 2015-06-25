@@ -99,7 +99,16 @@ class Audit extends Module
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel that will override the core one.
      * Available panels: 'request'
      */
-    public $panels = ['request', 'db', 'log', 'asset', 'config', 'mail', 'profiling'];
+    public $panels = [
+        'request',
+        'error',
+        'db',
+        'log',
+        'mail',
+        'profiling',
+        // 'asset',
+        // 'config',
+    ];
 
     /**
      * @var AuditTarget
@@ -182,8 +191,8 @@ class Audit extends Module
     /**
      * Associate extra data with the current entry (if any)
      * @param string $type Optional type argument
-     * @param mixed  $data The data to associate with the current entry
-     * @param bool   $compact
+     * @param mixed $data The data to associate with the current entry
+     * @param bool $compact
      * @return models\AuditData
      */
     public function data($type, $data, $compact = true)
@@ -356,9 +365,9 @@ class Audit extends Module
 
         if ($all) {
             $viewOnlyPanels = [
-                'errors'     => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+                'errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
                 'javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-                'trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+                'trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
             ];
 
             foreach ($viewOnlyPanels as $identifier => $config)
@@ -427,8 +436,8 @@ class Audit extends Module
      * Entries in the list are allowed to end with a '*', which means that a substring will be used for the match
      * instead of a full compare.
      *
-     * @param string   $route An application rout
-     * @param string[] $list  List of routes to compare against.
+     * @param string $route An application rout
+     * @param string[] $list List of routes to compare against.
      * @return bool
      */
     protected function routeMatches($route, $list)
@@ -453,12 +462,13 @@ class Audit extends Module
     protected function corePanels()
     {
         return [
-            'request'   => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-            'db'        => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-            'log'       => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-            'asset'     => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-            'config'    => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-            'mail'      => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+            'request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+            'error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+            'db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+            'log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
+            'asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+            'config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
+            'mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
             'profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
         ];
     }

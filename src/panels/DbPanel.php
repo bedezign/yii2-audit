@@ -16,16 +16,27 @@ class DbPanel extends \yii\debug\panels\DbPanel
     /**
      * @return string
      */
+    public function getName()
+    {
+        $timings = $this->calculateTimings();
+        $queryCount = count($timings);
+        $queryTime = number_format($this->getTotalQueryTime($timings) * 1000) . ' ms';
+        return parent::getName() . ' <small>(' . $queryCount . '/' . $queryTime . ')</small>';
+    }
+
+    /**
+     * @return string
+     */
     public function getDetail()
     {
         $searchModel = new Db();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/db/detail', [
-            'panel'        => $this,
+            'panel' => $this,
             'dataProvider' => $dataProvider,
-            'searchModel'  => $searchModel,
-            'hasExplain'   => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
+            'searchModel' => $searchModel,
+            'hasExplain' => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
         ]);
     }
 }

@@ -16,17 +16,28 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
     /**
      * @return string
      */
+    public function getName()
+    {
+        $memory = sprintf('%.1f MB', $this->data['memory'] / 1048576);
+        $time = number_format($this->data['time'] * 1000) . ' ms';
+        return parent::getName() . ' <small>(' . $memory . ' ' . $time . ')</small>';
+    }
+
+
+    /**
+     * @return string
+     */
     public function getDetail()
     {
         $searchModel = new Profile();
         $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/profile/detail', [
-            'panel'        => $this,
+            'panel' => $this,
             'dataProvider' => $dataProvider,
-            'searchModel'  => $searchModel,
-            'memory'       => sprintf('%.1f MB', $this->data['memory'] / 1048576),
-            'time'         => number_format($this->data['time'] * 1000) . ' ms',
+            'searchModel' => $searchModel,
+            'memory' => sprintf('%.1f MB', $this->data['memory'] / 1048576),
+            'time' => number_format($this->data['time'] * 1000) . ' ms',
         ]);
     }
 }
