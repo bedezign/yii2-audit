@@ -11,6 +11,7 @@
 - [Custom Panels](custom-panels.md)
 
 ## Viewing Data
+- [Module Views](module-views.md)
 - [Application Views](application-views.md)
 
 ## Upgrading
