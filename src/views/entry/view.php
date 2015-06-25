@@ -68,8 +68,8 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
     ]);
 ?>
 
-<?php \yii\widgets\Pjax::begin(['id'=>'audit-debug-panels','formSelector'=>'form']); ?>
-    <input type="hidden" name="panel" value="<?= $id ?>" />
+<?php \yii\widgets\Pjax::begin(['id'=>'audit-debug-panels']); ?>
+<form>
     <div class="row">
         <div class="col-md-2">
             <div class="list-group">
@@ -85,6 +85,8 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
         </div>
         <div class="col-md-10">
             <?php if ($activePanel) echo $activePanel->getDetail(); ?>
+            <input type="hidden" name="panel" value="<?= $activePanel->id ?>" />
         </div>
     </div>
+</form>
 <?php \yii\widgets\Pjax::end(); ?>
