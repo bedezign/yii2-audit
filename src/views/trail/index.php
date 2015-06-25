@@ -54,7 +54,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            'stamp',
+            'created',
         ],
     ]); ?>
 </div>

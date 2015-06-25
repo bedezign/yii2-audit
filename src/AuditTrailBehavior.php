@@ -181,9 +181,9 @@ class AuditTrailBehavior extends \yii\base\Behavior
         $user_id = $this->getUserId();
         $model = $this->owner->className();
         $model_id = $this->getNormalizedPk();
-        $stamp = date($this->dateFormat);
+        $created = date($this->dateFormat);
 
-        $this->saveAuditTrail($action, $newAttributes, $oldAttributes, $entry_id, $user_id, $model, $model_id, $stamp);
+        $this->saveAuditTrail($action, $newAttributes, $oldAttributes, $entry_id, $user_id, $model, $model_id, $created);
     }
 
     /**
@@ -194,10 +194,10 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * @param $user_id
      * @param $model
      * @param $model_id
-     * @param $stamp
+     * @param $created
      * @throws \yii\db\Exception
      */
-    protected function saveAuditTrail($action, $newAttributes, $oldAttributes, $entry_id, $user_id, $model, $model_id, $stamp)
+    protected function saveAuditTrail($action, $newAttributes, $oldAttributes, $entry_id, $user_id, $model, $model_id, $created)
     {
         // Build a list of fields to log
         $rows = array();
@@ -209,12 +209,12 @@ class AuditTrailBehavior extends \yii\base\Behavior
             }
             // If they are not the same lets write an audit log
             if ($new != $old) {
-                $rows[] = [$entry_id, $user_id, $old, $new, $action, $model, $model_id, $field, $stamp];
+                $rows[] = [$entry_id, $user_id, $old, $new, $action, $model, $model_id, $field, $created];
             }
         }
         // Record the field changes with a batch insert
         if (!empty($rows)) {
-            $columns = ['entry_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'stamp'];
+            $columns = ['entry_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'created'];
             Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
     }
@@ -233,7 +233,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
             'user_id'  => $this->getUserId(),
             'model'    => $this->owner->className(),
             'model_id' => $this->getNormalizedPk(),
-            'stamp'    => date($this->dateFormat),
+            'created'  => date($this->dateFormat),
         ])->execute();
     }
 

@@ -12,6 +12,7 @@ class m150626_000004_create_audit_trail extends Migration
         $this->createTable(self::TABLE, [
             'id'        => Schema::TYPE_PK,
             'entry_id'  => Schema::TYPE_INTEGER,
+            'user_id'   => Schema::TYPE_INTEGER . ' NULL',
             'action'    => Schema::TYPE_STRING . ' NOT NULL',
             'model'     => Schema::TYPE_STRING . ' NOT NULL',
             'model_id'  => Schema::TYPE_STRING . ' NOT NULL',
@@ -23,6 +24,7 @@ class m150626_000004_create_audit_trail extends Migration
 
         // Index these bad boys for speedy lookups
         $this->addForeignKey('fk_audit_trail_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id', 'CASCADE');
+        $this->createIndex('idx_audit_user_id', self::TABLE, 'user_id');
         $this->createIndex('idx_audit_trail_field', self::TABLE, ['model', 'model_id', 'field']);
         $this->createIndex('idx_audit_trail_action', self::TABLE, 'action');
     }

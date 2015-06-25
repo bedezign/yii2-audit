@@ -10,6 +10,7 @@ use yii\db\ActiveRecord;
  *
  * @property integer $id
  * @property integer $entry_id
+ * @property integer $user_id
  * @property string  $action
  * @property string  $model
  * @property string  $model_id
@@ -36,6 +37,7 @@ class AuditTrail extends AuditModel
         return [
             'id'        => Yii::t('audit', 'ID'),
             'entry_id'  => Yii::t('audit', 'Entry ID'),
+            'user_id'   => Yii::t('audit', 'User ID'),
             'action'    => Yii::t('audit', 'Action'),
             'model'     => Yii::t('audit', 'Type'),
             'model_id'  => Yii::t('audit', 'ID'),
@@ -53,7 +55,7 @@ class AuditTrail extends AuditModel
     {
         return [
             [['action', 'model', 'created', 'model_id'], 'required'],
-            [['entry_id'], 'integer', 'integerOnly' => true],
+            [['entry_id', 'user_id'], 'integer', 'integerOnly' => true],
             [['action', 'model', 'model_id', 'field'], 'string', 'max' => 255],
             [['old_value', 'new_value'], 'safe']
         ];

@@ -101,12 +101,11 @@ class EntryController extends Controller
         // Make sure the view-only panels are active as well
         $module = $this->module;
         $module->initPanels(true);
-        $storedPanels = $model->associatedPanels;
-        foreach ($module->panels as $panelId => $panel)
-            if (in_array($panelId, $storedPanels)) {
-                $panel->tag = $id;
-                $panel->load($model->typeData($panelId));
-            }
+        foreach ($module->panels as $panelId => $panel) {
+            $panel->tag = $id;
+            $panel->model = $model;
+            $panel->load($model->typeData($panelId));
+        }
 
         return $model;
     }

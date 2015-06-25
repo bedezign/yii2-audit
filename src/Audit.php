@@ -95,9 +95,9 @@ class Audit extends Module
     public $userIdentifierCallback = false;
 
     /**
-     * @var array list of panels. If the value is a simple string, it is the identifier of a corePanel to activate (with default settings)
-     * If the entry is a '<key>' => '<string>|<array>' it is a new panel that will override the core one.
-     * Available panels: 'request'
+     * @var array list of panels.
+     * If the value is a simple string, it is the identifier of an internal to activate (with default settings)
+     * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
      */
     public $panels = [
         'request',
@@ -365,9 +365,9 @@ class Audit extends Module
 
         if ($all) {
             $viewOnlyPanels = [
-                'errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-                'javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-                'trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+                'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+                'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+                'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
             ];
 
             foreach ($viewOnlyPanels as $identifier => $config)
@@ -390,6 +390,7 @@ class Audit extends Module
             $identifier = $config = null;
             if (is_numeric($key)) {
                 // The config a panel name
+                if (strpos($value, '/') === false) $value = 'audit/' . $value;
                 if (!isset($corePanels[$value]))
                     throw new InvalidConfigException("'$value' is not a valid panel name");
                 $identifier = $value;
@@ -462,14 +463,14 @@ class Audit extends Module
     protected function corePanels()
     {
         return [
-            'request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-            'error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-            'db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-            'log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-            'asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-            'config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-            'mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-            'profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+            'audit/request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+            'audit/error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+            'audit/db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+            'audit/log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
+            'audit/asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+            'audit/config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
+            'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+            'audit/profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
         ];
     }
 

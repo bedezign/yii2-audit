@@ -68,13 +68,13 @@ class AuditEntry extends AuditModel
         if (!$this->isRelationPopulated('associatedPanels')) {
             $panels = AuditData::findEntryTypes($this->id);
             if (count($this->linkedErrors))
-                $panels[] = 'errors';
+                $panels[] = 'audit/error';
 
             if (count($this->javascripts))
-                $panels[] = 'javascript';
+                $panels[] = 'audit/javascript';
 
             if (count($this->trails))
-                $panels[] = 'trail';
+                $panels[] = 'audit/trail';
 
             $this->populateRelation('associatedPanels', $panels);
         }
