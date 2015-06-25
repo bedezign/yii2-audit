@@ -10,6 +10,8 @@ use Yii;
  */
 class AssetPanel extends \yii\debug\panels\AssetPanel
 {
+    use PanelHelperTrait;
+
     /**
      * @return string
      */

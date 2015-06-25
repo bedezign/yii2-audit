@@ -10,6 +10,8 @@ use Yii;
  */
 class ConfigPanel extends \yii\debug\panels\ConfigPanel
 {
+    use PanelHelperTrait;
+
     /**
      * @return string
      */

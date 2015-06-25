@@ -44,18 +44,9 @@ class EntryController extends Controller
      */
     public function actionView($id, $panel = '')
     {
-        /** @var AuditEntry $model */
-        $model = AuditEntry::findOne($id);
-        if (!$model) {
-            throw new \HttpInvalidParamException('Invalid request number specified');
-        }
-
-        $module = $this->module;
-
-        // Make sure the view-only panels are active as well
-        $module->initPanels(true);
+        $model = $this->loadData($id);
         $storedPanels = $model->associatedPanels;
-        $panels = array_intersect_key($module->panels, array_flip($storedPanels));
+        $panels = array_intersect_key($this->module->panels, array_flip($storedPanels));
 
         if (isset($panels[$panel]))
             $activePanel = $panel;
@@ -64,10 +55,7 @@ class EntryController extends Controller
             $activePanel = key($panels);
         }
 
-        if ($activePanel) {
-            $panels[$activePanel]->load($model->typeData($activePanel));
-        }
-
+        $this->summary['tag'] = $id;
         // @TODO: Add unknown panels as "generic data"
 
         return $this->render('view', [
@@ -93,4 +81,33 @@ class EntryController extends Controller
         Yii::$app->response->sendFile($filePath);
     }
 
+    public function actions()
+    {
+        $actions = [];
+        foreach ($this->module->panels as $panel) {
+            $actions = array_merge($actions, $panel->actions);
+        }
+        return $actions;
+    }
+
+    public function loadData($id)
+    {
+        /** @var AuditEntry $model */
+        $model = AuditEntry::findOne($id);
+        if (!$model) {
+            throw new \HttpInvalidParamException('Invalid request number specified');
+        }
+
+        // Make sure the view-only panels are active as well
+        $module = $this->module;
+        $module->initPanels(true);
+        $storedPanels = $model->associatedPanels;
+        foreach ($module->panels as $panelId => $panel)
+            if (in_array($panelId, $storedPanels)) {
+                $panel->tag = $id;
+                $panel->load($model->typeData($panelId));
+            }
+
+        return $model;
+    }
 }

@@ -65,17 +65,21 @@ class AuditEntry extends AuditModel
      */
     public function getAssociatedPanels()
     {
-        $panels = AuditData::findEntryTypes($this->id);
-        if (count($this->linkedErrors))
-            $panels[] = 'errors';
+        if (!$this->isRelationPopulated('associatedPanels')) {
+            $panels = AuditData::findEntryTypes($this->id);
+            if (count($this->linkedErrors))
+                $panels[] = 'errors';
 
-        if (count($this->javascripts))
-            $panels[] = 'javascript';
+            if (count($this->javascripts))
+                $panels[] = 'javascript';
 
-        if (count($this->trails))
-            $panels[] = 'trail';
+            if (count($this->trails))
+                $panels[] = 'trail';
 
-        return $panels;
+            $this->populateRelation('associatedPanels', $panels);
+        }
+        $related  = $this->getRelatedRecords();
+        return $related['associatedPanels'];
     }
 
     /**
