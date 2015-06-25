@@ -7,15 +7,11 @@
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/bedezign/yii2-audit.svg?style=flat-square)](https://scrutinizer-ci.com/g/bedezign/yii2-audit/code-structure)
 [![Quality Score](https://img.shields.io/scrutinizer/g/bedezign/yii2-audit.svg?style=flat-square)](https://scrutinizer-ci.com/g/bedezign/yii2-audit)
 [![Total Downloads](https://img.shields.io/packagist/dt/bedezign/yii2-audit.svg?style=flat-square)](https://packagist.org/packages/bedezign/yii2-audit)
-
-Yii2 Audit Module.
-This is based on a couple of other projects out there:
-
- * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
- * [Cornernote Audit Module](https://github.com/cornernote/yii-audit-module)
+[![Yii2 Framework](https://img.shields.io/badge/Powered_by-Yii2_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/)
 
 ## Features
-Installs as a simple module so it can be added without too much hassle.
+
+* Installs as a simple module so it can be added without too much hassle.
 
 * Tracks all incoming pageviews with the ability to add custom data to a view.
   It logs the user-id (if any), IP, URL/route/referrer/redirect, superglobals (`$_GET`/`$_POST`/`$_SERVER`/`$_FILES`/`$_COOKIES`), request/response headers, memory usage and request duration.  You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
@@ -28,12 +24,18 @@ Installs as a simple module so it can be added without too much hassle.
 
 * View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality, both by roles or by user-id.
 
-## Installation and Documentation
+## Documentation
 
-Refer to the [Documentation](docs/)
+For installation, configuration and usage instructions please refer to the [Documentation](docs/).
+
+For changes since the last version see the [Changelog](CHANGELOG.md).
 
 ## Screenshots
 
 ![Index example](docs/screenshots/audit-index.png?raw=true)
 ![View example](docs/screenshots/audit-view.png?raw=true)
 ![Diff example](docs/screenshots/audit-diff.png?raw=true)
+
+## Credits
+
+Thanks to [everyone who has contributed](docs/credits.md)
