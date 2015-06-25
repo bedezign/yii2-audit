@@ -1,7 +1,8 @@
 (function (window, document) {
     if (!window.jsLogger) {
         window.jsLogger = new function() {
-            this.logUrl = window.auditUrl || '/audit/javascript/log';
+            // The url logs should be sent to. Filled in the capture function.
+            this.logUrl = null;
 
             // The types that should be sent to the backend.
             this.captureTypes = ['warn', 'error', 'onerror'];
@@ -45,13 +46,12 @@
                 window.onerror = errorHandler;
             };
 
-            this.attachDojoErrorHandler = function() {
-                /*dojo.connect(console, "error", function(error, trace) {
-                    window.jsLogger.capture('onerror', error.message, {error: error, trace: trace}, error.fileName, error.lineNumber, error.col);
-                });*/
-            }
-
             this.capture = function(type, message, data, file, line, col) {
+                if (!this.logUrl)
+                    this.logUrl = window.auditUrl || '/audit/javascript/log';
+
+                console.debug(this.logUrl, window.auditUrl, window.auditEntry);
+
                 if (window.XMLHttpRequest && this.captureTypes.indexOf(type.toLowerCase()) != -1) {
                     var xhr = new XMLHttpRequest(),
                         log = {type: type, message: message, data: data, file: file, line: line, col: col};

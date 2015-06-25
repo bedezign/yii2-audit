@@ -34,6 +34,7 @@ class JSLoggingAsset extends AssetBundle
     {
         // Activate the logging as soon as we can
         $this->jsOptions['position'] = View::POS_HEAD;
+        $this->publishOptions['forceCopy'] = YII_DEBUG;
         parent::init();
     }
 
