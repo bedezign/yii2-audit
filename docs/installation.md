@@ -1,4 +1,4 @@
-# Installation
+# Installation and Configuration
 
 ## Download
 
@@ -39,7 +39,7 @@ Word of caution: The module is configured by default to only allow viewing acces
         'class' => 'bedezign\yii2\audit\Audit',
         'db' => 'db', // Name of the component to use for database access
         'trackActions' => ['*'], // List of actions to track. '*' is allowed as the last character to use as wildcard
-        'ignoreActions' => 'debug/*', // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
+        'ignoreActions' => ['debug/*'], // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
         'truncateChance' => 75, // Chance in % that the truncate operation will run, false to not run at all
         'maxAge' => 'debug', // Maximum age (in days) of the audit entries before they are truncated
         'accessUsers' => [1, 2], // (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches)
