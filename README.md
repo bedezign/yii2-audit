@@ -9,18 +9,30 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/bedezign/yii2-audit.svg?style=flat-square)](https://packagist.org/packages/bedezign/yii2-audit)
 [![Yii2 Framework](https://img.shields.io/badge/powered_by-Yii2_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/)
 
+Yii2 Audit is a module that records and displays web/cli requests, database changes, php/js errors and associated data.
+
 ## Features
 
-* Installs as a simple module so it can be added without too much hassle.
+* Installs as a simple module so it can be added without any hassle.
 
-* Tracks all incoming pageviews with the ability to add custom data to a view.
-  It logs the user-id (if any), IP, URL/route/referrer/redirect, superglobals (`$_GET`/`$_POST`/`$_SERVER`/`$_FILES`/`$_COOKIES`), request/response headers, memory usage and request duration.  You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
+* Tracks all incoming web and console request data:
+  * The users IP Address and User ID.
+  * URL Information including the route/params, referrer and where they were redirected to.
+  * PHP SuperGlobals `$_GET`, `$_POST`, `$_SERVER`, `$_FILES` and `$_COOKIES`.
+  * Headers from the Request and Response.
+  * Memory Usage and Request Duration.
+  * SQL Queries and Profile information.
+  * Yii Logs
 
-* Track database changes. By implementing the `AuditTrailBehavior` this is easily realized thanks to a modified version of [Sammayes Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail).
+* You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
 
-* Automatically log javascript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
+* Track database changes by implementing the `AuditTrailBehavior`.
 
-* Record all PHP errors and exceptions in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
+* Automatically log JavaScript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
+
+* Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
+
+* Track extra data using a simple method call, or by creating a new Panel.
 
 * View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality, both by roles or by user-id.
 
