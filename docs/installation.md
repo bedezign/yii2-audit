@@ -39,8 +39,7 @@ Word of caution: The module is configured by default to only allow viewing acces
         'class' => 'bedezign\yii2\audit\Audit',
         'db' => 'db', // Name of the component to use for database access
         'trackActions' => ['*'], // List of actions to track. '*' is allowed as the last character to use as wildcard
-        'ignoreActions' => ['debug/*'], // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
-        'truncateChance' => 75, // Chance in % that the truncate operation will run, false to not run at all
+        'ignoreActions' => ['audit/*', 'debug/*'], // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
         'maxAge' => 'debug', // Maximum age (in days) of the audit entries before they are truncated
         'accessIps' => ['127.0.0.1', '192.168.*'], // IP address or list of IP addresses with access to the viewer, null for everyone (if the IP matches)
         'accessRoles' => ['admin'], // Role or list of roles with access to the viewer, null for everyone (if the user matches)
