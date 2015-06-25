@@ -68,12 +68,7 @@ class Audit extends Module
     public $maxAge = null;
 
     /**
-     * @var int[] User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
-     */
-    public $accessUsers = null;
-
-    /**
-     * @var string[] IP address or list of IP addresses with access to the viewer, null for everyone (if the user matches)
+     * @var string[] IP address or list of IP addresses with access to the viewer, null for everyone (if the IP matches)
      * An IP address can contain the wildcard `*` at the end so that it matches IP addresses with the same prefix.
      * For example, '192.168.*' matches all IP addresses in the segment '192.168.'.
      */
@@ -83,6 +78,11 @@ class Audit extends Module
      * @var string[] Role or list of roles with access to the viewer, null for everyone (if the user matches)
      */
     public $accessRoles = ['admin'];
+
+    /**
+     * @var int[] User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
+     */
+    public $accessUsers = null;
 
     /**
      * @var bool Compress extra data generated or just keep in text? For people who don't like binary data in the DB
