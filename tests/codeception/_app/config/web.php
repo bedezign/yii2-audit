@@ -10,6 +10,7 @@ $config = [
     'aliases' => [
         '@vendor' => VENDOR_DIR,
         '@bower' => VENDOR_DIR . '/bower',
+        '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
     ],
     'components' => [
         'assetManager' => [

@@ -5,6 +5,7 @@ return [
     'basePath' => dirname(__DIR__),
     'aliases' => [
         '@vendor' => VENDOR_DIR,
+        '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
     ],
     'components' => [
         'cache' => null,
