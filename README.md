@@ -24,6 +24,8 @@ Installs as a simple module so it can be added without too much hassle.
 
 * Automatically log javascript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
 
+* Record all PHP errors and exceptions in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
+
 * View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality, both by roles or by user-id.
 
 ## Installation and Documentation
