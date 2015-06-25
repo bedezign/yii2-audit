@@ -95,11 +95,20 @@ class Audit extends Module
     public $userIdentifierCallback = false;
 
     /**
-     * @var array list of panels. If the value is a simple string, it is the identifier of a corePanel to activate (with default settings)
-     * If the entry is a '<key>' => '<string>|<array>' it is a new panel that will override the core one.
-     * Available panels: 'request'
+     * @var array list of panels.
+     * If the value is a simple string, it is the identifier of an internal to activate (with default settings)
+     * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
      */
-    public $panels = ['request', 'db', 'log', 'asset', 'config', 'mail', 'profiling'];
+    public $panels = [
+        'request',
+        'error',
+        'db',
+        'log',
+        'mail',
+        'profiling',
+        // 'asset',
+        // 'config',
+    ];
 
     /**
      * @var AuditTarget
@@ -182,8 +191,8 @@ class Audit extends Module
     /**
      * Associate extra data with the current entry (if any)
      * @param string $type Optional type argument
-     * @param mixed  $data The data to associate with the current entry
-     * @param bool   $compact
+     * @param mixed $data The data to associate with the current entry
+     * @param bool $compact
      * @return models\AuditData
      */
     public function data($type, $data, $compact = true)
@@ -356,9 +365,9 @@ class Audit extends Module
 
         if ($all) {
             $viewOnlyPanels = [
-                'errors'     => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-                'javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-                'trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+                'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+                'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+                'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
             ];
 
             foreach ($viewOnlyPanels as $identifier => $config)
@@ -381,6 +390,7 @@ class Audit extends Module
             $identifier = $config = null;
             if (is_numeric($key)) {
                 // The config a panel name
+                if (strpos($value, '/') === false) $value = 'audit/' . $value;
                 if (!isset($corePanels[$value]))
                     throw new InvalidConfigException("'$value' is not a valid panel name");
                 $identifier = $value;
@@ -427,8 +437,8 @@ class Audit extends Module
      * Entries in the list are allowed to end with a '*', which means that a substring will be used for the match
      * instead of a full compare.
      *
-     * @param string   $route An application rout
-     * @param string[] $list  List of routes to compare against.
+     * @param string $route An application rout
+     * @param string[] $list List of routes to compare against.
      * @return bool
      */
     protected function routeMatches($route, $list)
@@ -453,13 +463,14 @@ class Audit extends Module
     protected function corePanels()
     {
         return [
-            'request'   => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-            'db'        => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-            'log'       => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-            'asset'     => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-            'config'    => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-            'mail'      => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-            'profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+            'audit/request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+            'audit/error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+            'audit/db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+            'audit/log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
+            'audit/asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+            'audit/config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
+            'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+            'audit/profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
         ];
     }
 

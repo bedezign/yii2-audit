@@ -17,6 +17,14 @@ class LogPanel extends \yii\debug\panels\LogPanel
     /**
      * @return string
      */
+    public function getLabel()
+    {
+        return parent::getName() . ' <small>(' . count($this->data['messages']) . ')</small>';
+    }
+
+    /**
+     * @return string
+     */
     public function getDetail()
     {
         $searchModel = new Log();
@@ -24,8 +32,8 @@ class LogPanel extends \yii\debug\panels\LogPanel
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/log/detail', [
             'dataProvider' => $dataProvider,
-            'panel'        => $this,
-            'searchModel'  => $searchModel,
+            'panel' => $this,
+            'searchModel' => $searchModel,
         ]);
     }
 }

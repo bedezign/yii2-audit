@@ -69,12 +69,13 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
 ?>
 
 <?php \yii\widgets\Pjax::begin(['id'=>'audit-debug-panels','formSelector'=>'form']); ?>
+    <input type="hidden" name="panel" value="<?= $id ?>" />
     <div class="row">
         <div class="col-md-2">
             <div class="list-group">
                 <?php
                 foreach ($panels as $id => $panel) {
-                    $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . Html::encode($panel->getName());
+                    $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getLabel();
                     echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
                         'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
                     ]);

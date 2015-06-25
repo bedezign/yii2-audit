@@ -11,13 +11,13 @@ use yii\db\ActiveRecord;
  * @property integer $id
  * @property integer $entry_id
  * @property integer $user_id
- * @property string  $new_value
- * @property string  $old_value
  * @property string  $action
  * @property string  $model
- * @property string  $field
- * @property string  $stamp
  * @property string  $model_id
+ * @property string  $field
+ * @property string  $new_value
+ * @property string  $old_value
+ * @property string  $created
  */
 class AuditTrail extends AuditModel
 {
@@ -38,13 +38,13 @@ class AuditTrail extends AuditModel
             'id'        => Yii::t('audit', 'ID'),
             'entry_id'  => Yii::t('audit', 'Entry ID'),
             'user_id'   => Yii::t('audit', 'User ID'),
-            'old_value' => Yii::t('audit', 'Old Value'),
-            'new_value' => Yii::t('audit', 'New Value'),
             'action'    => Yii::t('audit', 'Action'),
             'model'     => Yii::t('audit', 'Type'),
-            'field'     => Yii::t('audit', 'Field'),
-            'stamp'     => Yii::t('audit', 'Stamp'),
             'model_id'  => Yii::t('audit', 'ID'),
+            'field'     => Yii::t('audit', 'Field'),
+            'old_value' => Yii::t('audit', 'Old Value'),
+            'new_value' => Yii::t('audit', 'New Value'),
+            'created'   => Yii::t('audit', 'Created'),
         ];
     }
 
@@ -54,12 +54,9 @@ class AuditTrail extends AuditModel
     public function rules()
     {
         return [
-            [['action', 'model', 'stamp', 'model_id'], 'required'],
+            [['action', 'model', 'created', 'model_id'], 'required'],
             [['entry_id', 'user_id'], 'integer', 'integerOnly' => true],
-            ['action', 'string', 'max' => 255],
-            ['model', 'string', 'max' => 255],
-            ['field', 'string', 'max' => 255],
-            ['model_id', 'string', 'max' => 255],
+            [['action', 'model', 'model_id', 'field'], 'string', 'max' => 255],
             [['old_value', 'new_value'], 'safe']
         ];
     }
@@ -69,7 +66,7 @@ class AuditTrail extends AuditModel
      */
     public static function recently($query)
     {
-        $query->orderBy(['[[stamp]]' => SORT_DESC]);
+        $query->orderBy(['[[id]]' => SORT_DESC]);
     }
 
     /**

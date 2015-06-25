@@ -6,7 +6,7 @@ namespace bedezign\yii2\audit\panels;
  * JavascriptPanel
  * @package bedezign\yii2\audit\panels
  */
-class JavascriptPanel extends \yii\debug\Panel
+class JavascriptPanel extends AuditBasePanel
 {
     /**
      * @return string
@@ -14,5 +14,10 @@ class JavascriptPanel extends \yii\debug\Panel
     public function getName()
     {
         return \Yii::t('audit', 'Javascript');
+    }
+
+    public function getLabel()
+    {
+        return $this->getName() . ' <small>(' . count($this->_model->javascripts) . ')</small>';
     }
 }

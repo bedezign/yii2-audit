@@ -80,7 +80,7 @@ echo GridView::widget([
             'format' => 'raw',
         ],
         [
-            'attribute' => 'stamp',
+            'attribute' => 'created',
             'options'   => [
                 'width' => '150px',
             ],

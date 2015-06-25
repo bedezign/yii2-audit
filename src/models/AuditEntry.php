@@ -68,13 +68,13 @@ class AuditEntry extends AuditModel
         if (!$this->isRelationPopulated('associatedPanels')) {
             $panels = AuditData::findEntryTypes($this->id);
             if (count($this->linkedErrors))
-                $panels[] = 'errors';
+                $panels[] = 'audit/error';
 
             if (count($this->javascripts))
-                $panels[] = 'javascript';
+                $panels[] = 'audit/javascript';
 
             if (count($this->trails))
-                $panels[] = 'trail';
+                $panels[] = 'audit/trail';
 
             $this->populateRelation('associatedPanels', $panels);
         }
@@ -146,10 +146,10 @@ class AuditEntry extends AuditModel
      */
     public function addBatchData($batchData, $compact = true)
     {
-        $columns = ['entry_id', 'type', 'data', 'packed'];
+        $columns = ['entry_id', 'type', 'data'];
         $rows = [];
         foreach ($batchData as $type => $data) {
-            $rows[] = [$this->id, $type, Helper::serialize($data, $compact), 1];
+            $rows[] = [$this->id, $type, Helper::serialize($data, $compact)];
         }
         Yii::$app->db->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }

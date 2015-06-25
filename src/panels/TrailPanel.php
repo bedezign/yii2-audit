@@ -3,13 +3,12 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\models\AuditTrailSearch;
-use yii\debug\Panel;
 
 /**
  * TrailPanel
  * @package bedezign\yii2\audit\panels
  */
-class TrailPanel extends Panel
+class TrailPanel extends AuditBasePanel
 {
     /**
      * @return string
@@ -17,6 +16,11 @@ class TrailPanel extends Panel
     public function getName()
     {
         return \Yii::t('audit', 'Trail');
+    }
+
+    public function getLabel()
+    {
+        return $this->getName() . ' <small>(' . count($this->_model->trails) . ')</small>';
     }
 
     /**

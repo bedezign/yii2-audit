@@ -80,7 +80,7 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
         //    },
         //    'format' => 'raw',
         //],
-        'stamp',
+        'created',
     ]
 ]) . '</div>' ?>
 

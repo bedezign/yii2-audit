@@ -26,7 +26,7 @@ echo DetailView::widget([
         'model',
         'model_id',
         'field',
-        'stamp',
+        'created',
     ],
 ]);
 

@@ -9,7 +9,7 @@ use yii\debug\Panel;
  * ErrorPanel
  * @package bedezign\yii2\audit\panels
  */
-class ErrorPanel extends Panel
+class ErrorPanel extends AuditBasePanel
 {
     /**
      * @return string
@@ -17,6 +17,11 @@ class ErrorPanel extends Panel
     public function getName()
     {
         return \Yii::t('audit', 'Error');
+    }
+
+    public function getLabel()
+    {
+        return $this->getName() . ' <small>(' . count($this->_model->linkedErrors) . ')</small>';
     }
 
     /**

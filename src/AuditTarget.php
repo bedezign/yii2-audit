@@ -44,7 +44,7 @@ class AuditTarget extends Target
             $records[$id] = $panel->save();
         }
 
-        array_filter($records);
+        $records = array_filter($records);
         if (!empty($records))
             $this->module->entry->addBatchData($records, false);
     }
