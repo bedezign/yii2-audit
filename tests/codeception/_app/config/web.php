@@ -41,6 +41,14 @@ $config = [
             'identityClass' => 'app\models\User',
         ],
     ],
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            'accessIps' => null,
+            'accessUsers' => null,
+            'accessRoles' => null,
+        ],
+    ],
 ];
 
 if (defined('YII_APP_BASE_PATH')) {
