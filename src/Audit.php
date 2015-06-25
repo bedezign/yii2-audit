@@ -73,6 +73,13 @@ class Audit extends Module
     public $accessUsers = null;
 
     /**
+     * @var string[] IP address or list of IP addresses with access to the viewer, null for everyone (if the user matches)
+     * An IP address can contain the wildcard `*` at the end so that it matches IP addresses with the same prefix.
+     * For example, '192.168.*' matches all IP addresses in the segment '192.168.'.
+     */
+    public $accessIps = null;
+
+    /**
      * @var string[] Role or list of roles with access to the viewer, null for everyone (if the user matches)
      */
     public $accessRoles = ['admin'];
@@ -128,6 +135,9 @@ class Audit extends Module
 
         if (!empty($this->accessUsers))
             $this->accessUsers = ArrayHelper::toArray($this->accessUsers);
+
+        if (!empty($this->accessIps))
+            $this->accessIps = ArrayHelper::toArray($this->accessIps);
 
         // Before action triggers a new audit entry
         $app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onBeforeAction']);
@@ -201,13 +211,16 @@ class Audit extends Module
      */
     public function checkAccess()
     {
-        if ($this->accessUsers === null && $this->accessRoles === null) {
+        if ($this->accessIps === null && $this->accessRoles === null && $this->accessUsers === null) {
             return true;
         }
-        if ($this->checkAccessUsers()) {
+        if ($this->checkAccessIps()) {
             return true;
         }
         if ($this->checkAccessRoles()) {
+            return true;
+        }
+        if ($this->checkAccessUsers()) {
             return true;
         }
         return false;
@@ -245,11 +258,21 @@ class Audit extends Module
     }
 
     /**
+     * @return bool
+     */
+    private function checkAccessIps()
+    {
+        if (!empty($this->accessIps) && in_array(Yii::$app->request->getUserIP(), $this->accessIps))
+            return true;
+        return false;
+    }
+
+    /**
      * @return array
      */
     public function getAccessControlFilter()
     {
-        if ($this->accessUsers === null && $this->accessRoles === null) {
+        if ($this->accessUsers === null && $this->accessRoles === null && $this->accessIps === null) {
             // No user authentication active, skip adding the filter
             return [
                 'class' => \yii\filters\AccessControl::className(),
@@ -258,6 +281,12 @@ class Audit extends Module
         }
 
         $rule = ['allow' => 'allow'];
+
+        if (!empty($this->accessIps)) {
+            // Add allowed ips
+            $rule['ips'] = $this->accessIps;
+        }
+
         if (!empty($this->accessRoles)) {
             // Add allowed roles
             $rule['roles'] = $this->accessRoles;
