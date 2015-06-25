@@ -16,7 +16,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
     /**
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
         $timings = $this->calculateTimings();
         $queryCount = count($timings);

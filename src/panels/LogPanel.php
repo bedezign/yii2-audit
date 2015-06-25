@@ -17,7 +17,7 @@ class LogPanel extends \yii\debug\panels\LogPanel
     /**
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
         return parent::getName() . ' <small>(' . count($this->data['messages']) . ')</small>';
     }

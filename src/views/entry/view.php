@@ -72,7 +72,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
         <div class="list-group">
             <?php
             foreach ($panels as $id => $panel) {
-                $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getName();
+                $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getLabel();
                 echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
                     'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
                 ]);

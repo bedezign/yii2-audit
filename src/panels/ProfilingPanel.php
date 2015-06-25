@@ -16,7 +16,7 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
     /**
      * @return string
      */
-    public function getName()
+    public function getLabel()
     {
         $memory = sprintf('%.1f MB', $this->data['memory'] / 1048576);
         $time = number_format($this->data['time'] * 1000) . ' ms';

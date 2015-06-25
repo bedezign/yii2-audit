@@ -13,7 +13,7 @@ trait PanelHelperTrait
     /**
      * @inheritdoc
      */
-    public function getName()
+    public function getLabel()
     {
         return parent::getName() . ' <small>(' . count($this->data) . ')</small>';
     }
