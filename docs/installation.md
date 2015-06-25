@@ -42,8 +42,9 @@ Word of caution: The module is configured by default to only allow viewing acces
         'ignoreActions' => ['debug/*'], // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
         'truncateChance' => 75, // Chance in % that the truncate operation will run, false to not run at all
         'maxAge' => 'debug', // Maximum age (in days) of the audit entries before they are truncated
-        'accessUsers' => [1, 2], // (List of) user(s) IDs with access to the viewer, null for everyone (if the role matches)
-        'accessRoles' => ['admin'], // (List of) role(s) with access to the viewer, null for everyone (if the user matches)
+        'accessIps' => ['127.0.0.1', '192.168.*'], // IP address or list of IP addresses with access to the viewer, null for everyone (if the IP matches)
+        'accessRoles' => ['admin'], // Role or list of roles with access to the viewer, null for everyone (if the user matches)
+        'accessUsers' => [1, 2], // User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
     ],
 ],
 ```
