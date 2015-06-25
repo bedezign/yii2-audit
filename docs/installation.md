@@ -68,9 +68,3 @@ Assuming you named the module "audit" you can then access the audit module throu
 ```
 http://localhost/path/to/index.php?r=audit
 ```
-
-If you would like to see all database changes individually you can access:
-
-```
-http://localhost/path/to/index.php?r=audit/default/trail
-```
