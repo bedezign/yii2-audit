@@ -37,4 +37,9 @@ class AuditJavascript extends AuditModel
             [['entry_id', 'message'], 'required']
         ];
     }
+
+    public static function tableName()
+    {
+        return '{{audit_javascript}}';
+    }
 }

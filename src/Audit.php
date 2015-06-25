@@ -192,17 +192,19 @@ class Audit extends Module
      * Associate extra data with the current entry (if any)
      * @param string $type Optional type argument
      * @param mixed $data The data to associate with the current entry
-     * @param bool $compact
      * @return models\AuditData
      */
-    public function data($type, $data, $compact = true)
+    public function data($type, $data)
     {
         $entry = $this->entry;
         if (!$entry) {
             return;
         }
 
-        $entry->addData($type, $data, $compact);
+        if (!isset($this->panels['audit/custom']))
+            $this->panels['audit/custom'] = Yii::createObject(['class' => 'bedezign\yii2\audit\panels\CustomDataPanel']);
+
+        $this->panels['audit/custom']->trackData(['type' => $type, 'data' => $data]);
     }
 
     /**
@@ -368,6 +370,7 @@ class Audit extends Module
                 'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
                 'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
                 'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+                'audit/custom' => ['class' => 'bedezign\yii2\audit\panels\CustomDataPanel'],
             ];
 
             foreach ($viewOnlyPanels as $identifier => $config)

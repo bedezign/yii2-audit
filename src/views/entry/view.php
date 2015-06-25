@@ -52,7 +52,10 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             'ip',
             'route',
             'request_method',
-            'ajax',
+            [
+                'label' => $model->getAttributeLabel('ajax'),
+                'value' => $model->ajax ? Yii::t('audit', 'Yes') : Yii::t('audit', 'No'),
+            ],
             'url',
             'referrer',
             'redirect',

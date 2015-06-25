@@ -39,10 +39,18 @@ class Helper extends \yii\base\Object
      */
     public static function unserialize($data)
     {
+        $originalData = $data;
         if (Audit::current()->compressData)
             $data = gzuncompress($data);
 
-        return unserialize($data);
+        if ($data === false)
+            $data = $originalData;
+
+        $data = @unserialize($data);
+        if ($data === false)
+            $data = $originalData;
+
+        return $data;
     }
 
     /**

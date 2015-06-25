@@ -43,7 +43,10 @@ echo GridView::widget([
         [
             'header' => Yii::t('audit', 'Called'),
             'value' => function ($data) {
-                return (isset($data['class']) ? $data['class'] : '[unknown]') . $data['type'] . $data['function'];
+                return
+                    isset($data['type']) ?
+                        (( isset($data['class']) ? $data['class'] : '[unknown]') . $data['type'] . $data['function']) :
+                        $data['function'];
             }
         ],
         [
