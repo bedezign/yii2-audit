@@ -10,6 +10,6 @@ class m150622_000003_update_audit_entry extends \yii\db\Migration
     }
     public function down()
     {
-        $this->addColumn(self::TABLE, 'redirect', 'varchar(512) NULL AFTER ip');
+        $this->addColumn(self::TABLE, 'origin', 'varchar(512) NULL AFTER ip');
     }
 }
