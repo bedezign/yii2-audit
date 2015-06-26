@@ -55,7 +55,7 @@ $config = [
                 'log',
                 'mail',
                 'profiling',
-                'views' => 'app\panels\ViewsPanel',
+                'app/views' => 'app\panels\ViewsPanel',
                 //'views' => ['class' => 'app\panels\ViewsPanel'],
                 // 'asset',
                 // 'config',
