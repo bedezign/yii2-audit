@@ -44,6 +44,7 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 
 ## Screenshots
 
+![Home Page](https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png)
 ![Index example](docs/screenshots/audit-index.png?raw=true)
 ![View example](docs/screenshots/audit-view.png?raw=true)
 ![Diff example](docs/screenshots/audit-diff.png?raw=true)
@@ -51,3 +52,7 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 ## Credits
 
 Thanks to [everyone who has contributed](CREDITS.md)
+
+## License
+
+BSD-3 - Please refer to the [license](CREDITS.md)
