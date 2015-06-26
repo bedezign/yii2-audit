@@ -41,6 +41,14 @@ class ViewsPanel extends Panel
             $this->_viewFiles[] = $event->sender->getViewFile();
         });
     }
+    
+    /**
+     * @inheritdoc
+     */
+    public function save()
+    {
+        return $this->_viewFiles;
+    }
 
     /**
      * @inheritdoc
@@ -64,14 +72,6 @@ class ViewsPanel extends Panel
     public function getDetail()
     {
         return '<ol><li>' . implode('<li>', $this->data) . '</ol>';
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function save()
-    {
-        return $this->_viewFiles;
     }
 }
 ```
