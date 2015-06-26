@@ -2,11 +2,29 @@
 
 ## Download
 
-Run `composer.phar require --prefer-dist bedezign/yii2-audit "*"` or add a `require` line to your `composer.json`: `'bedezign/yii2-audit: "*"`.
+Download using composer by running the following command:
+
+```
+$ composer require --prefer-dist bedezign/yii2-audit "*"
+```
+
+Or add a `require` line to your `composer.json`: 
+
+```
+{
+    "require": {
+        'bedezign/yii2-audit: "*"
+    }
+}
+```
 
 ## Migrations
 
-Run the migrations from the `migrations` folder to create the relevant tables:  `yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
+Run the migrations from the `migrations` folder to create the relevant tables:  
+
+```
+$ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
+```
 
 ## Configuration
 
