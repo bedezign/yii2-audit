@@ -91,7 +91,7 @@ $config = [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
             'panels' => [
-                'views' => 'app\panels\ViewsPanel',
+                'app/views' => 'app\panels\ViewsPanel',
             ],
         ],
     ],
