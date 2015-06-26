@@ -38,6 +38,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                     [
                         'label' => $model->getAttributeLabel('user_id'),
                         'value' => Audit::current()->getUserIdentifier($model->user_id),
+                        'format' => 'raw',
                     ],
                     'ip',
                     'route',

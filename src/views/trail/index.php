@@ -38,7 +38,8 @@ $this->params['breadcrumbs'][] = $this->title;
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
                     return Audit::current()->getUserIdentifier($data->user_id);
-                }
+                },
+                'format' => 'raw',
             ],
             [
                 'attribute' => 'action',
