@@ -5,7 +5,16 @@ Audit comes with several handy views to display data inside your application.
 
 ## Audit Trail View for one Model
 
-Model:
+### Screenshots
+
+#### One Field
+![Audit Trail Application View](https://cloud.githubusercontent.com/assets/51875/8373348/24c00646-1c2b-11e5-8266-df1b17cdfdb7.png)
+
+#### All Fields
+![Audit Trail Application View](https://cloud.githubusercontent.com/assets/51875/8373390/72c8023a-1c2b-11e5-9589-02fe6974ee45.png)
+
+### Model
+
 ```php
 class Post extends \yii\db\ActiveRecord
 {
@@ -35,7 +44,8 @@ class Post extends \yii\db\ActiveRecord
 }    
 ```
 
-Controller:
+### Controller
+
 ```php
 class PostController extends \yii\web\Controller
 {
@@ -47,12 +57,14 @@ class PostController extends \yii\web\Controller
 }
 ```
 
-View (simple)
+### View
+
+simple:
 ```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', ['model' => $model]);
 ```
 
-View (all options)
+all options:
 ```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
