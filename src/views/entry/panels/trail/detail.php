@@ -46,6 +46,7 @@ echo GridView::widget([
             'options'   => [
                 'width' => '150px',
             ],
+            'format' => 'raw',
         ],
         [
             'attribute' => 'action',
