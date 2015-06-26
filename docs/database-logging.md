@@ -1,8 +1,8 @@
 # Database Logging
 
-## Basic Configuration
-
 If you want database changes to be logged, you have to add the `AuditTrailBehavior` to the models you want to log.
+
+## Basic Configuration
 
 ```php
 public function behaviors()
@@ -19,7 +19,7 @@ public function behaviors()
 public function behaviors()
 {
     return [
-        'LoggableBehavior' => [
+        'AuditTrailBehavior' => [
             'class' => 'bedezign\yii2\audit\AuditTrailBehavior',
             'allowed' => ['some_field'], // Array with fields to save. You don't need to configure both `allowed` and `ignored`
             'ignored' => ['another_field'], // Array with fields to ignore. You don't need to configure both `allowed` and `ignored`
