@@ -34,7 +34,6 @@ Example:
 
 ```php
 $config = [
-    'bootstrap' => ['log', 'audit', ...],
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
