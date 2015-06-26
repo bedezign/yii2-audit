@@ -48,7 +48,7 @@
 
             this.capture = function(type, message, data, file, line, col) {
                 if (!this.logUrl)
-                    this.logUrl = window.auditUrl || '/audit/js-log';
+                    this.logUrl = window.auditUrl || 'index.php?r=audit/js-log/index';
 
                 if (window.XMLHttpRequest && this.captureTypes.indexOf(type.toLowerCase()) != -1) {
                     var xhr = new XMLHttpRequest(),
