@@ -50,7 +50,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public $active = true;
 
     /**
-     * Get the user_id from an attribute in the owner model
+     * Model attribute to use to get the user_id from an attribute in the owner model
+     * Set to null to get the user_id from `Yii::$app->user->id`
      * @var string|null
      */
     public $userAttribute;
