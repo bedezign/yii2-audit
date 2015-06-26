@@ -14,9 +14,6 @@ use Yii;
  * @property float             $duration
  * @property int               $user_id        0 means anonymous
  * @property string            $ip
- * @property string            $referrer
- * @property string            $redirect
- * @property string            $url
  * @property string            $route
  * @property int               $memory_max
  * @property string            $request_method
@@ -168,18 +165,10 @@ class AuditEntry extends AuditModel
         if ($request instanceof \yii\web\Request) {
             $user = $app->user;
             $this->user_id = $user->isGuest ? 0 : $user->id;
-            $this->url = Helper::truncate($request->url, 512);
             $this->ip = $request->userIP;
-            $this->referrer = Helper::truncate($request->referrer, 512);
             $this->ajax = $request->isAjax;
             $this->request_method = $request->method;
         } else if ($request instanceof \yii\console\Request) {
-            $this->url = $request->scriptFile;
-            foreach ($request->params as $k => $param) {
-                if ($k) {
-                    $this->url .= ' ' . $param;
-                }
-            }
             $this->request_method = 'CLI';
         }
 
@@ -193,14 +182,7 @@ class AuditEntry extends AuditModel
     {
         $this->duration = microtime(true) - $this->start_time;
         $this->memory_max = memory_get_peak_usage();
-
-        $response = Yii::$app->response;
-        if ($response instanceof \yii\web\Response) {
-            $this->redirect = Helper::truncate($response->headers->get('location'), 512);
-
-        }
-
-        return $this->save(false, ['duration', 'memory_max', 'redirect']);
+        return $this->save(false, ['duration', 'memory_max']);
     }
 
     /**

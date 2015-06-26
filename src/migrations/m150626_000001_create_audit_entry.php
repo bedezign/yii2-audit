@@ -16,10 +16,7 @@ class m150626_000001_create_audit_entry extends \yii\db\Migration
             'ip'                => Schema::TYPE_STRING . '(45) NULL',
             'request_method'    => Schema::TYPE_STRING . '(16) NULL',
             'ajax'              => Schema::TYPE_INTEGER . '(1) DEFAULT 0 NOT NULL',
-            'url'               => Schema::TYPE_STRING . '(512) NULL',
             'route'             => Schema::TYPE_STRING . '(255) NULL',
-            'referrer'          => Schema::TYPE_STRING . '(512) NULL',
-            'redirect'          => Schema::TYPE_STRING . '(512) NULL',
             'memory_max'        => Schema::TYPE_INTEGER . ' NULL',
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 

@@ -50,8 +50,6 @@
                 if (!this.logUrl)
                     this.logUrl = window.auditUrl || '/audit/js-log';
 
-                console.debug(this.logUrl, window.auditUrl, window.auditEntry);
-
                 if (window.XMLHttpRequest && this.captureTypes.indexOf(type.toLowerCase()) != -1) {
                     var xhr = new XMLHttpRequest(),
                         log = {type: type, message: message, data: data, file: file, line: line, col: col};

@@ -24,7 +24,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
 <?= Html::tag('h1', $this->title) ?>
 
     <div class="row">
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?php
             echo Html::tag('h2', Yii::t('audit', 'Request'), ['id' => 'entry', 'class' => 'hashtag']);
 
@@ -56,29 +56,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             ]);
             ?>
         </div>
-        <div class="col-md-4">
-            <?php
-            echo Html::tag('h2', Yii::t('audit', 'URL'), ['class' => 'hashtag']);
-
-            if ($model->request_method == 'CLI') {
-                $attributes = [
-                    'url',
-                ];
-            } else {
-                $attributes = [
-                    'url',
-                    'referrer',
-                    'redirect',
-                ];
-            }
-
-            echo DetailView::widget([
-                'model' => $model,
-                'attributes' => $attributes
-            ]);
-            ?>
-        </div>
-        <div class="col-md-4">
+        <div class="col-md-6">
             <?php
             echo Html::tag('h2', Yii::t('audit', 'Profiling'), ['id' => 'entry', 'class' => 'hashtag']);
 
