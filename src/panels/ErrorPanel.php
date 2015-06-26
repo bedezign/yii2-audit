@@ -3,14 +3,15 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\models\AuditErrorSearch;
-use yii\debug\Panel;
 
 /**
  * ErrorPanel
  * @package bedezign\yii2\audit\panels
  */
-class ErrorPanel extends AuditBasePanel
+class ErrorPanel extends Panel
 {
+    use PanelTrait;
+
     /**
      * @return string
      */

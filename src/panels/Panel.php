@@ -9,8 +9,8 @@
 
 namespace bedezign\yii2\audit\panels;
 
-class AuditBasePanel extends \yii\debug\Panel
+class Panel extends \yii\debug\Panel
 {
-    use PanelHelperTrait;
+    use PanelTrait;
 
 }

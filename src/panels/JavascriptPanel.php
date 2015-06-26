@@ -8,7 +8,7 @@ use bedezign\yii2\audit\models\AuditJavascriptSearch;
  * JavascriptPanel
  * @package bedezign\yii2\audit\panels
  */
-class JavascriptPanel extends AuditBasePanel
+class JavascriptPanel extends Panel
 {
     /**
      * @return string

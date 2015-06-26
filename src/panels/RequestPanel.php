@@ -11,7 +11,7 @@ use yii\base\InlineAction;
  */
 class RequestPanel extends \yii\debug\panels\RequestPanel
 {
-    use PanelHelperTrait;
+    use PanelTrait;
 
     /**
      * @return string

@@ -3,7 +3,6 @@
 namespace bedezign\yii2\audit\panels;
 
 use Yii;
-use yii\debug\models\search\Db;
 use yii\debug\models\search\Log;
 
 /**
@@ -12,7 +11,7 @@ use yii\debug\models\search\Log;
  */
 class LogPanel extends \yii\debug\panels\LogPanel
 {
-    use PanelHelperTrait;
+    use PanelTrait;
 
     /**
      * @return string

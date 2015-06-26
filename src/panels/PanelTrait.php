@@ -5,10 +5,10 @@ namespace bedezign\yii2\audit\panels;
 use yii\helpers\Url;
 
 /**
- * Class PanelHelperTrait
+ * PanelTrait
  * @package bedezign\yii2\audit\panels
  */
-trait PanelHelperTrait
+trait PanelTrait
 {
     /**
      * @var

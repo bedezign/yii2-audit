@@ -8,7 +8,7 @@ use bedezign\yii2\audit\models\AuditTrailSearch;
  * TrailPanel
  * @package bedezign\yii2\audit\panels
  */
-class TrailPanel extends AuditBasePanel
+class TrailPanel extends Panel
 {
     /**
      * @return string

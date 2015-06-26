@@ -11,7 +11,7 @@ use yii\debug\models\search\Mail;
  */
 class MailPanel extends \yii\debug\panels\MailPanel
 {
-    use PanelHelperTrait;
+    use PanelTrait;
 
     /**
      * @return string

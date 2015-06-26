@@ -2,15 +2,11 @@
 
 namespace bedezign\yii2\audit\panels;
 
-use bedezign\yii2\audit\models\AuditErrorSearch;
-use yii\data\ActiveDataProvider;
-use yii\debug\Panel;
-
 /**
  * CustomDataPanel
  * @package bedezign\yii2\audit\panels
  */
-class CustomDataPanel extends AuditBasePanel
+class CustomDataPanel extends Panel
 {
     /**
      * @return string

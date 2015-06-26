@@ -11,7 +11,7 @@ use yii\debug\models\search\Profile;
  */
 class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
 {
-    use PanelHelperTrait;
+    use PanelTrait;
 
     /**
      * @return string

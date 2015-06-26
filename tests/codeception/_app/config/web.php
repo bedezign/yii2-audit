@@ -48,6 +48,18 @@ $config = [
             'accessIps' => null,
             'accessUsers' => null,
             'accessRoles' => null,
+            'panels' => [
+                'request',
+                'error',
+                'db',
+                'log',
+                'mail',
+                'profiling',
+                'views' => 'app\panels\ViewsPanel',
+                //'views' => ['class' => 'app\panels\ViewsPanel'],
+                // 'asset',
+                // 'config',
+            ],
         ],
     ],
 ];
