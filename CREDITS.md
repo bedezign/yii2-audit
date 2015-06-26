@@ -8,8 +8,7 @@
 
 ## Other Projects
 
-Code was borrowed from the following projects:
-
+ * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
  * [yii2-debug Module](https://github.com/yiisoft/yii2-debug)
  * [cornernote Audit Module](https://github.com/cornernote/yii-audit-module)
- * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
+ * [2amigos ChartJS Widget](https://github.com/2amigos/yii2-chartjs-widget)
