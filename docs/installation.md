@@ -40,7 +40,7 @@ $config = [
 ];
 ```
 
-See [Advanced Options](advanced-options.md) for the all configuration options.
+See [Module Configuration](module-configuration.md) for the all configuration options.
 
 ## Viewing the Audit Data
 
