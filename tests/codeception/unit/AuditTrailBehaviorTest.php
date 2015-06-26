@@ -1,17 +1,16 @@
 <?php
 
-namespace bedezign\yii2\audit\tests;
+namespace tests\codeception\unit;
 
 use app\models\Post;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditTrail;
 use Codeception\Specify;
-use yii\codeception\TestCase;
 
 /**
  * AuditTrailBehaviorTest
  */
-class AuditTrailBehaviorTest extends TestCase
+class AuditTrailBehaviorTest extends \yii\codeception\TestCase
 {
     use Specify;
 
@@ -32,7 +31,7 @@ class AuditTrailBehaviorTest extends TestCase
         $this->assertTrue($post->save());
 
         $newEntyId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
-        $this->assertNotEquals($newEntyId, $oldEntryId, 'I expected a new entry to be added');
+        $this->assertNotEquals($oldEntryId, $newEntyId, 'I expected that a new entry was added');
 
         $this->tester->seeRecord(Post::className(), [
             'id' => $post->id,
@@ -85,7 +84,7 @@ class AuditTrailBehaviorTest extends TestCase
         $this->assertTrue($post->save());
 
         $newEntyId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
-        $this->assertNotEquals($newEntyId, $oldEntryId, 'I expected a new entry to be added');
+        $this->assertNotEquals($oldEntryId, $newEntyId, 'I expected that a new entry was added');
 
         $this->tester->seeRecord(Post::className(), [
             'id' => $post->id,
@@ -126,7 +125,7 @@ class AuditTrailBehaviorTest extends TestCase
         $this->assertSame($post->delete(), 1);
 
         $newEntyId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
-        $this->assertNotEquals($newEntyId, $oldEntryId, 'I expected a new entry to be added');
+        $this->assertNotEquals($oldEntryId, $newEntyId, 'I expected that a new entry was added');
 
         $this->tester->dontSeeRecord(Post::className(), [
             'id' => $post->id,
