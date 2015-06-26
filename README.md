@@ -52,13 +52,13 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 ![Entry View](https://cloud.githubusercontent.com/assets/51875/8369879/857f70b0-1bff-11e5-8373-2d79e3b0c05d.png)
 
 #### Database Panel
-![Database Panel](https://cloud.githubusercontent.com/assets/51875/8370529/efbdccc6-1c07-11e5-997a-ec00df3ac3dd.png)
+![Database Panel](https://cloud.githubusercontent.com/assets/51875/8370713/fd6482ea-1c0a-11e5-9581-96ef717d7e69.png)
 
 #### Log Panel
-![Log Panel](https://cloud.githubusercontent.com/assets/51875/8370482/7987eeba-1c07-11e5-9fc1-cde26ed5cd64.png)
+![Logs Panel](https://cloud.githubusercontent.com/assets/51875/8370717/0e6e9134-1c0b-11e5-9840-17d1ece07b9a.png)
 
 #### Profiling Panel
-![Profiling Panel](https://cloud.githubusercontent.com/assets/51875/8370500/acde027c-1c07-11e5-82d4-6a4aa37afeb2.png)
+![Profile Panel](https://cloud.githubusercontent.com/assets/51875/8370722/20c571f4-1c0b-11e5-99c5-97f4cfb02394.png)
 
 ## Credits
 
