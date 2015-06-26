@@ -44,14 +44,14 @@ foreach (range(-6, 0) as $day) {
 }
 
 //fake data
-foreach ($count as $type => $data) {
-    foreach ($data as $k => $v) {
-        if (!$v) {
-            $v = $type == 'entry' ? rand(100, 1000) : rand(0, 100);
-            $count[$type][$k] = $v;
-        }
-    }
-}
+//foreach ($count as $type => $data) {
+//    foreach ($data as $k => $v) {
+//        if (!$v) {
+//            $v = $type == 'entry' ? rand(100, 1000) : rand(0, 100);
+//            $count[$type][$k] = $v;
+//        }
+//    }
+//}
 
 ?>
 <div class="audit-index">
