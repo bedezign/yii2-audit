@@ -66,4 +66,4 @@ Thanks to [everyone who has contributed](CREDITS.md)
 
 ## License
 
-BSD-3 - Please refer to the [license](CREDITS.md)
+BSD-3 - Please refer to the [license](LICENSE.md)
