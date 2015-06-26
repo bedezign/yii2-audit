@@ -3,19 +3,32 @@
 Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating the `accessUsers`-option, you don't want to give everyone access to your audit data!
 
 
-## Additional options
+## Audit Module Options
 
 ```php
 'modules' => [
     'audit' => [
         'class' => 'bedezign\yii2\audit\Audit',
-        'db' => 'db', // Name of the component to use for database access
-        'trackActions' => ['*'], // List of actions to track. '*' is allowed as the last character to use as wildcard
-        'ignoreActions' => ['audit/*', 'debug/*'], // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
-        'maxAge' => 'debug', // Maximum age (in days) of the audit entries before they are truncated
-        'accessIps' => ['127.0.0.1', '192.168.*'], // IP address or list of IP addresses with access to the viewer, null for everyone (if the IP matches)
-        'accessRoles' => ['admin'], // Role or list of roles with access to the viewer, null for everyone (if the user matches)
-        'accessUsers' => [1, 2], // User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
+        // the layout that should be applied for views within this module
+        'layout' => 'main',
+        // Name of the component to use for database access
+        'db' => 'db', 
+        // List of actions to track. '*' is allowed as the last character to use as wildcard
+        'trackActions' => ['*'], 
+        // Actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*')
+        'ignoreActions' => ['audit/*', 'debug/*'],
+        // Maximum age (in days) of the audit entries before they are truncated
+        'maxAge' => 'debug',
+        // IP address or list of IP addresses with access to the viewer, null for everyone (if the IP matches)
+        'accessIps' => ['127.0.0.1', '192.168.*'], 
+        // Role or list of roles with access to the viewer, null for everyone (if the user matches)
+        'accessRoles' => ['admin'],
+        // User ID or list of user IDs with access to the viewer, null for everyone (if the role matches)
+        'accessUsers' => [1, 2],
+        // Compress extra data generated or just keep in text? For people who don't like binary data in the DB
+        'compressData' => true,
+        // The callback to use to convert a user id into an identifier (username, email, ...). Can also be html.
+        'userIdentifierCallback' => ['app\models\User', 'userIdentifierCallback'],
     ],
 ],
 ```
