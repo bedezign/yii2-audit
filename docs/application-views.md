@@ -7,6 +7,8 @@ Audit comes with several handy views to display data inside your application.
 
 Model:
 ```php
+class Post extends \yii\db\ActiveRecord
+{
     /** get trails for this model */
     public function getAuditTrails()
     {
@@ -26,6 +28,7 @@ Model:
                 'audit_trail.model' => 'app\models\Comment',
             ]);
     }
+}    
 ```
 
 Controller:
