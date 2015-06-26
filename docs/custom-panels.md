@@ -55,7 +55,7 @@ class ViewsPanel extends Panel
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Views');
+        return \Yii::t('app', 'Views');
     }
 
     /**
