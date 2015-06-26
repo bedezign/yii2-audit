@@ -20,7 +20,7 @@ echo DetailView::widget([
         'id',
         [
             'attribute' => 'entry_id',
-            'value' => $model->entry_id ? Html::a($model->entry_id, ['default/view', 'id' => $model->entry_id]) : '',
+            'value' => $model->entry_id ? Html::a($model->entry_id, ['entry/view', 'id' => $model->entry_id]) : '',
             'format' => 'raw',
         ],
         'message',

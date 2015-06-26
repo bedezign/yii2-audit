@@ -22,6 +22,11 @@ echo DetailView::widget([
             'label' => $model->getAttributeLabel('user_id'),
             'value' => Audit::current()->getUserIdentifier($model->user_id),
         ],
+        [
+            'attribute' => 'entry_id',
+            'value' => $model->entry_id ? Html::a($model->entry_id, ['entry/view', 'id' => $model->entry_id]) : '',
+            'format' => 'raw',
+        ],
         'action',
         'model',
         'model_id',
