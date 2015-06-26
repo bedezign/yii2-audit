@@ -42,7 +42,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'html',
                 'value' => function ($data) {
                     return HTML::tag('span', '', [
-                        'title' => $data->url,
+                        'title' => \yii\helpers\Url::to([$data->route]),
                         'class' => 'glyphicon glyphicon-link'
                     ]) . ' ' . $data->route;
                 },

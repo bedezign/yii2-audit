@@ -9,5 +9,6 @@ $_SERVER['SCRIPT_NAME']     = YII_TEST_ENTRY_URL;
 return yii\helpers\ArrayHelper::merge(
     require(__DIR__ . '/../_app/config/web.php'),
     [
+        'class' => 'yii\web\Application'
     ]
 );

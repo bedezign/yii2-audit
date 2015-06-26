@@ -25,11 +25,14 @@ class AuditTrailBehaviorTest extends TestCase
      */
     public function testCreatePost()
     {
+        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
         $post = new Post();
         $post->title = 'New post title';
         $post->body = 'New post body';
         $this->assertTrue($post->save());
 
+        $newEntyId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $this->assertNotEquals($newEntyId, $oldEntryId, 'I expected a new entry to be added');
 
         $this->tester->seeRecord(Post::className(), [
             'id' => $post->id,
@@ -37,11 +40,11 @@ class AuditTrailBehaviorTest extends TestCase
             'body' => 'New post body',
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
-            'id' => 1,
+            'id' => $newEntyId,
             'request_method' => 'CLI',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => 1,
+            'entry_id' => $newEntyId,
             'action' => 'CREATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -50,7 +53,7 @@ class AuditTrailBehaviorTest extends TestCase
             'new_value' => $post->id,
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => 1,
+            'entry_id' => $newEntyId,
             'action' => 'CREATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -59,7 +62,7 @@ class AuditTrailBehaviorTest extends TestCase
             'new_value' => 'New post title',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => 1,
+            'entry_id' => $newEntyId,
             'action' => 'CREATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -74,10 +77,15 @@ class AuditTrailBehaviorTest extends TestCase
      */
     public function testUpdatePost()
     {
+        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+
         $post = Post::findOne(1);
         $post->title = 'Updated post title';
         $post->body = 'Updated post body';
         $this->assertTrue($post->save());
+
+        $newEntyId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $this->assertNotEquals($newEntyId, $oldEntryId, 'I expected a new entry to be added');
 
         $this->tester->seeRecord(Post::className(), [
             'id' => $post->id,
@@ -85,11 +93,11 @@ class AuditTrailBehaviorTest extends TestCase
             'body' => 'Updated post body',
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
-            'id' => 1,
+            'id' => $newEntyId,
             'request_method' => 'CLI',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => 1,
+            'entry_id' => $newEntyId,
             'action' => 'UPDATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -98,7 +106,7 @@ class AuditTrailBehaviorTest extends TestCase
             'new_value' => 'Updated post title',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => 1,
+            'entry_id' => $newEntyId,
             'action' => 'UPDATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -113,18 +121,22 @@ class AuditTrailBehaviorTest extends TestCase
      */
     public function testDeletePost()
     {
+        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
         $post = Post::findOne(1);
         $this->assertSame($post->delete(), 1);
+
+        $newEntyId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $this->assertNotEquals($newEntyId, $oldEntryId, 'I expected a new entry to be added');
 
         $this->tester->dontSeeRecord(Post::className(), [
             'id' => $post->id,
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
-            'id' => 1,
+            'id' => $newEntyId,
             'request_method' => 'CLI',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => 1,
+            'entry_id' => $newEntyId,
             'action' => 'DELETE',
             'model' => Post::className(),
             'model_id' => $post->id,

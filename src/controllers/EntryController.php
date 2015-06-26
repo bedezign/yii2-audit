@@ -61,7 +61,7 @@ class EntryController extends Controller
         return $this->render('view', [
             'id'          => $id,
             'model'       => $model,
-            'activePanel' => $activePanel ? $panels[$activePanel] : false,
+            'activePanel' => $activePanel ? $panels[$activePanel] : null,
             'panels'      => $panels,
         ]);
     }

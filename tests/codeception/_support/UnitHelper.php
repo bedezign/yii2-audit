@@ -6,5 +6,8 @@ namespace Codeception\Module;
 
 class UnitHelper extends \Codeception\Module
 {
-
+    public function fetchTheLastModelPk($class)
+    {
+        return $class::find()->orderBy([reset($class::primaryKey()) => SORT_DESC])->scalar();
+    }
 }

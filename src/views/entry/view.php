@@ -90,8 +90,10 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
                 </div>
             </div>
             <div class="col-md-10">
-                <?php if ($activePanel) echo $activePanel->getDetail(); ?>
-                <input type="hidden" name="panel" value="<?= $activePanel->id ?>"/>
+                <?php if ($activePanel):
+                    echo $activePanel->getDetail() ?>
+                    <input type="hidden" name="panel" value="<?= $activePanel->id ?>"/>
+                <?php endif; ?>
             </div>
         </div>
     </form>

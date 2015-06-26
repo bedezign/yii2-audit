@@ -36,6 +36,10 @@ class AuditTarget extends Target
      */
     public function export()
     {
+        if (!\Yii::$app)
+            // Things like this can happen in tests etc, but it is too late for us to do anything about that.
+            return;
+
         if (!$this->module->entry || empty($this->module->panels))
             return;
 

@@ -21,7 +21,6 @@ class m150626_000001_create_audit_entry extends \yii\db\Migration
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 
         $this->createIndex('idx_user_id', self::TABLE, ['user_id']);
-        $this->createIndex('idx_url', self::TABLE, ['url']);
         $this->createIndex('idx_route', self::TABLE, ['route']);
     }
 
