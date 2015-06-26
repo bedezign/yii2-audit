@@ -3,7 +3,6 @@
 /** @var yii\web\View $this */
 /** @var bedezign\yii2\audit\models\AuditJavascript $model */
 
-use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 

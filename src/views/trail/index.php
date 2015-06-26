@@ -28,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'attribute' => 'entry_id',
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
-                    return $data->entry_id ? Html::a($data->entry_id, ['default/view', 'id' => $data->entry_id]) : '';
+                    return $data->entry_id ? Html::a($data->entry_id, ['entry/view', 'id' => $data->entry_id]) : '';
                 },
                 'format' => 'raw',
             ],
