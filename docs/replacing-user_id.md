@@ -13,7 +13,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function userIdentifierCallback($id)
     {
         $user = self::findOne($id);
-        return $user ? $user->username : $id;
+        return $user ? Html::a($user->username, ['/user/admin/update', 'id' => $user->id]) : $id;
     }
 }
 ```
