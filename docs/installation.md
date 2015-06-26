@@ -35,13 +35,12 @@ Example:
 ```php
 $config = [
     'modules' => [
-        'audit' => [
-            'class' => 'bedezign\yii2\audit\Audit',
-            // ... see advanced-options.md
-        ],
+        'audit' => 'bedezign\yii2\audit\Audit',
     ],
 ];
 ```
+
+See [Advanced Options](advanced-options.md) for the all configuration options.
 
 ## Viewing the Audit Data
 
