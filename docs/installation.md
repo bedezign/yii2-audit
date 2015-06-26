@@ -33,15 +33,15 @@ Add a module to your configuration (with optional extra settings) and if it need
 Example:
 
 ```php
-'bootstrap' => ['log', 'audit', ...],
-'controllerNamespace' => 'frontend\controllers',
-
-'modules' => [
-    'audit' => [
-        'class' => 'bedezign\yii2\audit\Audit',
-        // ... see advanced-options.md
+$config = [
+    'bootstrap' => ['log', 'audit', ...],
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            // ... see advanced-options.md
+        ],
     ],
-],
+];
 ```
 
 ## Viewing the Audit Data
