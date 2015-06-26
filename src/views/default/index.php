@@ -56,7 +56,7 @@ foreach (range(-6, 0) as $day) {
                 <?php
                 $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                 echo ChartJs::widget([
-                    'type' => 'Line',
+                    'type' => 'Bar',
                     'options' => $options,
                     'data' => [
                         'labels' => $days,
@@ -73,7 +73,7 @@ foreach (range(-6, 0) as $day) {
                 <?php
                 $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                 echo ChartJs::widget([
-                    'type' => 'Line',
+                    'type' => 'Bar',
                     'options' => $options,
                     'data' => [
                         'labels' => $days,
@@ -89,7 +89,7 @@ foreach (range(-6, 0) as $day) {
             <div class="well">
                 <?php
                 echo ChartJs::widget([
-                    'type' => 'Line',
+                    'type' => 'Bar',
                     'options' => $options,
                     'data' => [
                         'labels' => $days,
@@ -105,7 +105,7 @@ foreach (range(-6, 0) as $day) {
             <div class="well">
                 <?php
                 echo ChartJs::widget([
-                    'type' => 'Line',
+                    'type' => 'Bar',
                     'options' => $options,
                     'data' => [
                         'labels' => $days,
