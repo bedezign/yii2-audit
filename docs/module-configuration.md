@@ -29,6 +29,17 @@ Word of caution: The module is configured by default to only allow viewing acces
         'compressData' => true,
         // The callback to use to convert a user id into an identifier (username, email, ...). Can also be html.
         'userIdentifierCallback' => ['app\models\User', 'userIdentifierCallback'],
+        // If the value is a simple string, it is the identifier of an internal to activate (with default settings)
+        // If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
+        'panels' => [
+            'request',
+            'error',
+            'trail',
+            'app/views' => [
+                'class' => 'app\panels\ViewsPanel',
+                // ...
+            ],
+        ],
     ],
 ],
 ```
