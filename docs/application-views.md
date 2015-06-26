@@ -3,7 +3,7 @@
 Audit comes with several handy views to display data inside your application.
 
 
-## Audit Log for a Model
+## Audit Trail View for one Model
 
 Model:
 ```php
