@@ -2,65 +2,46 @@
 
 namespace bedezign\yii2\audit\controllers;
 
-use bedezign\yii2\audit\models;
+use bedezign\yii2\audit\components\web\Controller;
+use bedezign\yii2\audit\models\AuditJavascript;
+use bedezign\yii2\audit\models\AuditJavascriptSearch;
 use Yii;
-use yii\helpers\Json;
-use yii\web\Response;
 
 /**
  * JavascriptController
  * @package bedezign\yii2\audit\controllers
  */
-class JavascriptController extends \yii\web\Controller
+class JavascriptController extends Controller
 {
     /**
-     * @param \yii\base\Action $action
-     * @return bool
-     * @throws \yii\web\BadRequestHttpException
+     * Lists all AuditJavascript models.
+     * @return mixed
      */
-    public function beforeAction($action)
+    public function actionIndex()
     {
-        $this->enableCsrfValidation = false;
-        return parent::beforeAction($action);
+        $searchModel = new AuditJavascriptSearch;
+        $dataProvider = $searchModel->search(Yii::$app->request->get());
+
+        return $this->render('index', [
+            'dataProvider' => $dataProvider,
+            'searchModel'  => $searchModel,
+        ]);
     }
 
     /**
-     * @return array
+     * Displays a single AuditJavascript model.
+     * @param integer $id
+     * @return mixed
+     * @throws \HttpInvalidParamException
      */
-    public function actionLog()
+    public function actionView($id)
     {
-        Yii::$app->response->format = Response::FORMAT_JSON;
-        $data = Json::decode(Yii::$app->request->post('data'));
-        if (!isset($data['auditEntry']))
-            return ['result' => 'error', 'message' => 'No audit entry to attach to'];
-
-        // Convert data into the loggable object
-        $javascript = new models\AuditJavascript();
-        $map = [
-            'auditEntry' => 'entry_id',
-            'message'    => 'message',
-            'type'       => 'type',
-            'file'       => 'origin',
-            'line'       => function ($value) use ($javascript) {
-                $javascript->origin .= ':' . $value;
-            },
-            'col'        => function ($value) use ($javascript) {
-                $javascript->origin .= ':' . $value;
-            },
-            'data'       => function ($value) use ($javascript) {
-                if (count($value)) $javascript->data = $value;
-            },
-        ];
-
-        foreach ($map as $key => $target)
-            if (isset($data[$key])) {
-                if (is_callable($target)) $target($data[$key]);
-                else $javascript->$target = $data[$key];
-            }
-
-        if ($javascript->save())
-            return ['result' => 'ok'];
-
-        return ['result' => 'error', 'errors' => $javascript->getErrors()];
+        $model = AuditJavascript::findOne($id);
+        if (!$model) {
+            throw new \HttpInvalidParamException('Invalid request number specified');
+        }
+        return $this->render('view', [
+            'model' => $model,
+        ]);
     }
 }

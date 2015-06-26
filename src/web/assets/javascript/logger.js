@@ -42,13 +42,13 @@
 
             this.attachErrorHandler = function() {
                 if (typeof previousErrorHandler != 'function' || previousErrorHandler != errorHandler)
-                    previousErrorHandler = window.onerror
+                    previousErrorHandler = window.onerror;
                 window.onerror = errorHandler;
             };
 
             this.capture = function(type, message, data, file, line, col) {
                 if (!this.logUrl)
-                    this.logUrl = window.auditUrl || '/audit/javascript/log';
+                    this.logUrl = window.auditUrl || '/audit/js-log';
 
                 console.debug(this.logUrl, window.auditUrl, window.auditEntry);
 

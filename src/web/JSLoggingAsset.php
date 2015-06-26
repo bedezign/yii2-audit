@@ -47,7 +47,7 @@ class JSLoggingAsset extends AssetBundle
         if ($module && $module->entry) {
             // We can't be sure that the actual logger was loaded already, so we fallback on the window object
             // to store the associated audit url and entry id
-            $url = \yii\helpers\Url::to(["/{$module->id}/javascript/log"]);
+            $url = \yii\helpers\Url::to(["/{$module->id}/js-log"]);
             $id = $module->getEntry()->id;
             \Yii::$app->view->registerJs("window.auditUrl = '$url'; window.auditEntry = $id;", View::POS_HEAD);
         }
