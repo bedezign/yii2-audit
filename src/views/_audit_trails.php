@@ -12,7 +12,6 @@ use yii\widgets\Pjax;
 /**
  * @var View $this
  * @var BaseActiveRecord $model
- * @var yii\bootstrap\ActiveForm $form
  * @var array $params
  */
 
