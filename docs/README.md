@@ -2,6 +2,7 @@
 
 ## Configuration
 - [Installation and Configuration](installation.md)
+- [Module Configuration](module-configuration.md)
 
 ## Logging
 - [Database Logging](database-logging.md)
