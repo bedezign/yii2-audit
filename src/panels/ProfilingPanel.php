@@ -20,7 +20,7 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
     {
         $memory = sprintf('%.1f MB', $this->data['memory'] / 1048576);
         $time = number_format($this->data['time'] * 1000) . ' ms';
-        return parent::getName() . ' <small>(' . $memory . ' / ' . $time . ')</small>';
+        return $this->getName() . ' <small>(' . $memory . ' / ' . $time . ')</small>';
     }
 
 

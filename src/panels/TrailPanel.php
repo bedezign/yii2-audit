@@ -18,6 +18,9 @@ class TrailPanel extends AuditBasePanel
         return \Yii::t('audit', 'Trail');
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return $this->getName() . ' <small>(' . count($this->_model->trails) . ')</small>';
@@ -34,9 +37,9 @@ class TrailPanel extends AuditBasePanel
         $dataProvider = $searchModel->search($params);
 
         return \Yii::$app->view->render('panels/trail/detail', [
-            'panel'        => $this,
+            'panel' => $this,
             'dataProvider' => $dataProvider,
-            'searchModel'  => $searchModel,
+            'searchModel' => $searchModel,
         ]);
     }
 }

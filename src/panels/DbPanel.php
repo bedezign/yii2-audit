@@ -21,7 +21,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
         $timings = $this->calculateTimings();
         $queryCount = count($timings);
         $queryTime = number_format($this->getTotalQueryTime($timings) * 1000) . ' ms';
-        return parent::getName() . ' <small>(' . $queryCount . ' / ' . $queryTime . ')</small>';
+        return $this->getName() . ' <small>(' . $queryCount . ' / ' . $queryTime . ')</small>';
     }
 
     /**

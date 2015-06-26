@@ -10,6 +10,9 @@ use yii\helpers\Url;
  */
 trait PanelHelperTrait
 {
+    /**
+     * @var
+     */
     protected $_model;
 
     /**
@@ -17,9 +20,12 @@ trait PanelHelperTrait
      */
     public function getLabel()
     {
-        return parent::getName() . ' <small>(' . count($this->data) . ')</small>';
+        return $this->getName() . ' <small>(' . count($this->data) . ')</small>';
     }
 
+    /**
+     * @param $model
+     */
     public function setModel($model)
     {
         $this->_model = $model;
