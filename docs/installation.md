@@ -49,3 +49,7 @@ Assuming you named the module "audit" you can then access the audit module throu
 ```
 http://localhost/path/to/index.php?r=audit
 ```
+
+## Where to now ?
+
+Check out the other [Documentation](README.md)
