@@ -71,7 +71,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
     ]);
 ?>
 
-<?php \yii\widgets\Pjax::begin(['id'=>'audit-debug-panels']); ?>
+<?php \yii\widgets\Pjax::begin(['id'=>'audit-panels','timeout'=>5000]); ?>
 <form>
     <div class="row">
         <div class="col-md-2">
