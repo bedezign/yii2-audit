@@ -6,7 +6,7 @@
  * [Marc Hollander](https://github.com/MGHollander)
  * [Brett O'Donnell](https://github.com/cornernote)
 
-## Other Projects
+## Related Projects
 
  * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
  * [yii2-debug Module](https://github.com/yiisoft/yii2-debug)
