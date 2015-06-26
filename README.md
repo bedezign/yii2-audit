@@ -45,9 +45,7 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 ## Screenshots
 
 ![Home Page](https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png)
-![Index example](docs/screenshots/audit-index.png?raw=true)
-![View example](docs/screenshots/audit-view.png?raw=true)
-![Diff example](docs/screenshots/audit-diff.png?raw=true)
+![Entry View Page](https://cloud.githubusercontent.com/assets/51875/8369879/857f70b0-1bff-11e5-8373-2d79e3b0c05d.png)
 
 ## Credits
 
