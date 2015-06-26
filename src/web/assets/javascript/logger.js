@@ -56,6 +56,12 @@
                     if (window.auditEntry)
                         log.auditEntry = window.auditEntry;
 
+                    xhr.onreadystatechange = function() {
+                        if (xhr.readyState == 4) {
+                            data = JSON.parse(xhr.responseText);
+                            if (data.entry) window.auditEntry = data.entry;
+                        }
+                    }
                     xhr.open('POST', this.logUrl);
                     xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded; charset=UTF-8');
                     xhr.send('data=' + encodeURIComponent(JSON.stringify(log)));

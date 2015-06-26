@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\controllers;
 
+use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\models;
 use Yii;
 use yii\helpers\Json;
@@ -31,8 +32,10 @@ class JsLogController extends \yii\web\Controller
     {
         Yii::$app->response->format = Response::FORMAT_JSON;
         $data = Json::decode(Yii::$app->request->post('data'));
-        if (!isset($data['auditEntry']))
-            return ['result' => 'error', 'message' => 'No audit entry to attach to'];
+        if (!isset($data['auditEntry'])) {
+            $entry = Audit::current()->getEntry(true);
+            $data['auditEntry'] = $entry->id;
+        }
 
         // Convert data into the loggable object
         $javascript = new models\AuditJavascript();
@@ -59,7 +62,7 @@ class JsLogController extends \yii\web\Controller
             }
 
         if ($javascript->save())
-            return ['result' => 'ok'];
+            return ['result' => 'ok', 'entry' => $data['auditEntry']];
 
         return ['result' => 'error', 'errors' => $javascript->getErrors()];
     }
