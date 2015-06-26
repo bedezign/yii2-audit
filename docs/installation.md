@@ -23,7 +23,7 @@ Or add a `require` line to your `composer.json`:
 Run the migrations from the `migrations` folder to create the relevant tables:  
 
 ```
-$ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations`
+$ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations
 ```
 
 ## Configuration
