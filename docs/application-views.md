@@ -9,13 +9,17 @@ Model:
 ```php
 class Post extends \yii\db\ActiveRecord
 {
-    /** get trails for this model */
+    /** 
+     * get trails for this model 
+     */
     public function getAuditTrails()
     {
         return $this->hasMany(AuditTrail::className(), ['model_id' => 'id'])
             ->andOnCondition(['model' => get_class($this)]);
     }
-    /** get trails for this model and all related comment models */
+    /** 
+     * get trails for this model and all related comment models 
+     */
     public function getAuditTrails()
     {
         return AuditTrail::find()
@@ -33,14 +37,22 @@ class Post extends \yii\db\ActiveRecord
 
 Controller:
 ```php
+class PostController extends \yii\web\Controller
+{
     public function actionLog($id)
     {
         $model = $this->findModel($id);
         return $this->render('log', ['model' => $model]);
     }
+}
 ```
 
-View
+View (simple)
+```php
+echo $this->render('@bedezign/yii2/audit/views/_audit_trails', ['model' => $model]);
+```
+
+All View Options
 ```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
@@ -48,7 +60,8 @@ echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // params for the AuditTrailSearch::search() (optional)
     'params' => [
         'AuditTrailSearch' => [
-            'field' => 'status', // in this case we only want to show trails for the "status" field
+            // in this case we only want to show trails for the "status" field
+            'field' => 'status',
         ]
     ],
 ]);
