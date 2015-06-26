@@ -349,8 +349,9 @@ class Audit extends Module
         }
 
         try {
-            if ($this->userIdentifierCallback && is_callable($this->userIdentifierCallback))
-                return $this->userIdentifierCallback($user_id);
+            if ($this->userIdentifierCallback && is_callable($this->userIdentifierCallback)) {
+                return call_user_func_array($this->userIdentifierCallback, array($user_id));
+            }
         } catch (\Exception $e) {
             // if exception then just let it slide, we'll just return the user_id
         }
