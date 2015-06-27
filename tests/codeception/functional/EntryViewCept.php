@@ -32,6 +32,9 @@ $I->see('Error Code');
 $I->click('Javascript');
 $I->see('Origin');
 
+$I->click('Trail');
+$I->see('Database Trails');
+
 //$I->click('Asset Bundles');
 //$I->see('asset bundles were loaded');
 //
