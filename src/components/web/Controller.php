@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\components\web;
 
+use bedezign\yii2\audit\components\Access;
 use bedezign\yii2\audit\web\AuditAsset;
 use bedezign\yii2\audit\Audit;
 use Yii;
@@ -22,7 +23,7 @@ class Controller extends \yii\web\Controller
     public function behaviors()
     {
         return [
-            'access' => $this->module->getAccessControlFilter()
+            'access' => Access::getAccessControlFilter()
         ];
     }
 

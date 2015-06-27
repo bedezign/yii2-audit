@@ -1,6 +1,7 @@
 <?php
 
 use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\components\Access;
 use yii\helpers\Html;
 
 /** @var yii\web\View $this */
@@ -8,7 +9,7 @@ use yii\helpers\Html;
 
 if ($auditEntry = Audit::getInstance()->getEntry()) {
     $style = YII_DEBUG ? '' : 'color:transparent;';
-    if (Audit::getInstance()->checkAccess()) {
+    if (Access::checkAccess()) {
         echo Html::a('audit-' . $auditEntry->id, ['/audit/default/view', 'id' => $auditEntry->id], ['style' => $style]);
     } else {
         echo Html::tag('span', 'audit-' . $auditEntry->id, ['style' => $style]);

@@ -1,6 +1,7 @@
 <?php
 
 use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\components\Access;
 use bedezign\yii2\audit\models\AuditTrail;
 use bedezign\yii2\audit\models\AuditTrailSearch;
 use bedezign\yii2\audit\web\AuditAsset;
@@ -47,7 +48,7 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
             'attribute' => 'entry_id',
             'value' => function ($model) {
                 /** @var AuditTrail $model */
-                if (Audit::getInstance()->checkAccess()) {
+                if (Access::checkAccess()) {
                     return Html::a($model->entry_id, ['/audit/entry/view', 'id' => $model->entry_id]);
                 }
                 return $model->entry_id;
