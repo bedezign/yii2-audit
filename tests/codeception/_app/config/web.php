@@ -46,6 +46,9 @@ $config = [
             'enableCsrfValidation' => false,
             'enableCookieValidation' => false
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'user' => [
             'identityClass' => 'app\models\User',
         ],

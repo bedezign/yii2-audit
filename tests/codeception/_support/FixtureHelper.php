@@ -10,6 +10,7 @@ use tests\codeception\_fixtures\AuditErrorFixture;
 use tests\codeception\_fixtures\AuditJavascriptFixture;
 use tests\codeception\_fixtures\AuditTrailFixture;
 use tests\codeception\_fixtures\PostFixture;
+use tests\codeception\_fixtures\UserFixture;
 use yii\test\FixtureTrait;
 
 class FixtureHelper extends Module
@@ -69,6 +70,10 @@ class FixtureHelper extends Module
             'post' => [
                 'class' => PostFixture::className(),
                 'dataFile' => '@tests/codeception/_fixtures/data/init_post.php',
+            ],
+            'user' => [
+                'class' => UserFixture::className(),
+                'dataFile' => '@tests/codeception/_fixtures/data/init_user.php',
             ],
         ];
     }

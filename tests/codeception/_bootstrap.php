@@ -2,10 +2,6 @@
 
 require __DIR__ . '/_init.php';
 
-// without following line test on travis fails
-//require_once VENDOR_DIR . '/yiisoft/yii2/base/ErrorException.php';
-//require_once __DIR__ . '/../../src/components/Helper.php';
-
 require_once(VENDOR_DIR . '/yiisoft/yii2/Yii.php');
 
 $_SERVER['SCRIPT_FILENAME'] = YII_TEST_ENTRY_FILE;
