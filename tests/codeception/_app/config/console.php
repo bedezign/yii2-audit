@@ -25,6 +25,7 @@ return [
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
+            'compressData' => false,
         ],
     ],
 ];

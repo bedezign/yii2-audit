@@ -18,6 +18,12 @@ run tests with verbose output
 ~/.composer/vendor/bin/codecept run --debug --fail-fast
 ```
 
+run single test
+ 
+```
+~/.composer/vendor/bin/codecept run functional EntryViewCept.php
+```
+
 Build codeception when the config changes
 
 ```

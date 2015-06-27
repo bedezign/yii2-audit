@@ -9,30 +9,29 @@ use yii\helpers\Url;
  */
 
 $I = new FunctionalTester($scenario);
-$I->wantTo('ensure that entries grid and view works');
-$I->amOnPage(Url::to(['/audit/entry']));
+$I->wantTo('ensure that entry view and panels works');
 
 $I->amOnPage(Url::to(['/audit/entry/view', 'id' => 1]));
 $I->see('Entry #1', 'h1');
 
-//$icon = '<i class="glyphicon glyphicon-chevron-right"></i> ';
-//$I->click($icon . 'Request');
-//$I->see('Routing');
-//
-//$I->click($icon . 'Database');
-//$I->see('Database Queries');
-//
-//$I->click($icon . 'Logs');
-//$I->seeLink('Log Messages');
-//
-//$I->click($icon . 'Asset Bundles');
+$I->click('Request');
+$I->see('Routing');
+
+$I->click('Database');
+$I->see('Database Queries');
+
+$I->click('Logs');
+$I->see('Log Messages');
+
+$I->click('Profiling');
+$I->see('Performance Profiling');
+
+//$I->click('Asset Bundles');
 //$I->see('asset bundles were loaded');
 //
-//$I->click($icon . 'Configuration');
+//$I->click('Configuration');
 //$I->seeLink('Application Configuration');
 //
-//$I->click($icon . 'Mail');
+//$I->click('Mail');
 //$I->seeLink('Email Messages');
-//
-//$I->click($icon . 'Performance');
-//$I->see('Performance Profiling');
+

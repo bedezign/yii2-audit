@@ -48,6 +48,7 @@ $config = [
             'accessIps' => null,
             'accessUsers' => null,
             'accessRoles' => null,
+            'compressData' => false,
             'panels' => [
                 'request',
                 'error',
