@@ -2,11 +2,18 @@
 
 namespace bedezign\yii2\audit\panels;
 
+use bedezign\yii2\audit\Audit;
 use yii\helpers\Url;
 
 /**
  * PanelTrait
  * @package bedezign\yii2\audit\panels
+ *
+ * @property Audit $module
+ * @property array|mixed $data
+ * @property string $id
+ * @property string $tag
+ * @method string getName()
  */
 trait PanelTrait
 {
