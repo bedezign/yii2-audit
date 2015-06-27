@@ -249,10 +249,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     protected function getUserId()
     {
-        if (Yii::$app instanceof Application && Yii::$app->user) {
-            return Yii::$app->user->id;
-        }
-        return null;
+        return (Yii::$app instanceof Application && Yii::$app->user) ? Yii::$app->user->id : null;
     }
 
     /**
