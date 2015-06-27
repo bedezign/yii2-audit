@@ -5,6 +5,7 @@ namespace bedezign\yii2\audit\models;
 use bedezign\yii2\audit\components\db\ActiveRecord;
 use bedezign\yii2\audit\components\Helper;
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * Class AuditEntry
@@ -91,18 +92,9 @@ class AuditEntry extends ActiveRecord
     }
 
     /**
-     * Returns all linked AuditData instances
-     * @return AuditData[]
-     */
-    public function getExtraData()
-    {
-        return static::hasMany(AuditData::className(), ['entry_id' => 'id']);
-    }
-
-    /**
      * Returns all linked AuditError instances
      * (Called `linkedErrors()` to avoid confusion with the `getErrors()` method)
-     * @return AuditError[]
+     * @return ActiveQuery
      */
     public function getLinkedErrors()
     {
@@ -111,7 +103,7 @@ class AuditEntry extends ActiveRecord
 
     /**
      * Returns all linked AuditTrail instances
-     * @return AuditTrail[]
+     * @return ActiveQuery
      */
     public function getTrails()
     {
@@ -120,7 +112,7 @@ class AuditEntry extends ActiveRecord
 
     /**
      * Returns all linked AuditJavascript instances
-     * @return AuditJavascript[]
+     * @return ActiveQuery
      */
     public function getJavascripts()
     {
