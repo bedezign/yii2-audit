@@ -73,7 +73,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function events()
     {
         return [
-            ActiveRecord::EVENT_AFTER_FIND   => 'afterFind',
+            ActiveRecord::EVENT_AFTER_FIND => 'afterFind',
             ActiveRecord::EVENT_AFTER_INSERT => 'afterInsert',
             ActiveRecord::EVENT_AFTER_UPDATE => 'afterUpdate',
             ActiveRecord::EVENT_AFTER_DELETE => 'afterDelete',
@@ -229,12 +229,12 @@ class AuditTrailBehavior extends \yii\base\Behavior
             return;
         }
         Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
-            'action'   => 'DELETE',
+            'action' => 'DELETE',
             'entry_id' => $this->getAuditEntryId(),
-            'user_id'  => $this->getUserId(),
-            'model'    => $this->owner->className(),
+            'user_id' => $this->getUserId(),
+            'model' => $this->owner->className(),
             'model_id' => $this->getNormalizedPk(),
-            'created'  => date($this->dateFormat),
+            'created' => date($this->dateFormat),
         ])->execute();
     }
 
@@ -283,15 +283,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     protected function getAuditEntryId()
     {
-        /** @var Audit $audit */
-        $audit = $audit = Yii::$app->getModule(Audit::findModuleIdentifier());;
-        if ($audit) {
-            $entry = $audit->getEntry(true);
-            if ($entry) {
-                return $entry->id;
-            }
-        }
-        return null;
+        return Audit::getInstance()->getEntry(true)->id;
     }
 
 }

@@ -25,8 +25,7 @@ class AuditController extends \yii\console\Controller
      */
     public function actionCleanup()
     {
-        /** @var Audit $audit */
-        $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
+        $audit = Audit::getInstance();
         if ($audit->maxAge === null)
             return;
 

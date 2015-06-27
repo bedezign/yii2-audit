@@ -318,7 +318,7 @@ class Audit extends Module
     public static function current()
     {
         if (!self::$_current) {
-            self::$_current = Yii::$app->getModule(Audit::findModuleIdentifier());
+            self::$_current = Audit::getInstance();
         }
         return self::$_current;
     }

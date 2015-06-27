@@ -47,7 +47,7 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
             'attribute' => 'entry_id',
             'value' => function ($model) {
                 /** @var AuditTrail $model */
-                if (Yii::$app->getModule(Audit::findModuleIdentifier())->checkAccess()) {
+                if (Audit::getInstance()->checkAccess()) {
                     return Html::a($model->entry_id, ['/audit/entry/view', 'id' => $model->entry_id]);
                 }
                 return $model->entry_id;

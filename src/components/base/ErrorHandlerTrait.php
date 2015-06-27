@@ -28,14 +28,10 @@ trait ErrorHandlerTrait
                 return;
             }
 
-            /** @var Audit $audit */
-            $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
-            if ($audit) {
-                $entry = $audit->getEntry(true);
-                if ($entry) {
-                    AuditError::log($entry, $exception);
-                    $entry->finalize();
-                }
+            $entry = Audit::getInstance()->getEntry(true);
+            if ($entry) {
+                AuditError::log($entry, $exception);
+                $entry->finalize();
             }
 
         } catch (\Exception $e) {
