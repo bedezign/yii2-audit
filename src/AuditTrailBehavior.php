@@ -118,6 +118,12 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     public function audit($action)
     {
+        // Lets check if the whole class should be ignored
+        if (sizeof($this->ignoredClasses) > 0) {
+            if (array_search(get_class($this->owner), $this->ignoredClasses) !== false) {
+                return;
+            }
+        }
         // If this is a delete then just write one row and get out of here
         if ($action == 'DELETE') {
             $this->saveAuditTrailDelete();
@@ -126,12 +132,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
         // Get the new and old attributes
         $newAttributes = $this->owner->getAttributes();
         $oldAttributes = $this->getOldAttributes();
-        // Lets check if the whole class should be ignored
-        if (sizeof($this->ignoredClasses) > 0) {
-            if (array_search(get_class($this->owner), $this->ignoredClasses) !== false) {
-                return;
-            }
-        }
         // Lets unset fields which are not allowed
         if (sizeof($this->allowed) > 0) {
             foreach ($newAttributes as $f => $v) {
