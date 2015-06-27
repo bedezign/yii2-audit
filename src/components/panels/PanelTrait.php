@@ -1,6 +1,6 @@
 <?php
 
-namespace bedezign\yii2\audit\panels;
+namespace bedezign\yii2\audit\components\panels;
 
 use bedezign\yii2\audit\Audit;
 use yii\helpers\Url;

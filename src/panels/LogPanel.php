@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\panels;
 
+use bedezign\yii2\audit\components\panels\PanelTrait;
 use Yii;
 use yii\debug\models\search\Log;
 

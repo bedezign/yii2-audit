@@ -7,7 +7,7 @@
  * @copyright 2015 B&E DeZign
  */
 
-namespace bedezign\yii2\audit\panels;
+namespace bedezign\yii2\audit\components\panels;
 
 /**
  * Panel

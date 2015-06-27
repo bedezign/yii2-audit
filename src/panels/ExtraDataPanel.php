@@ -1,6 +1,7 @@
 <?php
 
 namespace bedezign\yii2\audit\panels;
+use bedezign\yii2\audit\components\panels\Panel;
 
 /**
  * ExtraDataPanel
