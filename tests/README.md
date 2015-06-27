@@ -19,7 +19,7 @@ run tests with verbose output
 ```
 
 run single test
- 
+
 ```
 ~/.composer/vendor/bin/codecept run functional EntryViewCept.php
 ```

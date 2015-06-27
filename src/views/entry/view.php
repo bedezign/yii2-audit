@@ -91,8 +91,8 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             </div>
             <div class="col-md-10">
                 <?php if ($activePanel) { ?>
-                    <?= $activePanel->getDetail(); ?>
                     <?php
+                    echo $activePanel->getDetail();
                     //echo \yii\helpers\VarDumper::dumpAsString($activePanel->data);
                     ?>
                     <input type="hidden" name="panel" value="<?= $activePanel->id ?>"/>
