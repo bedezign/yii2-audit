@@ -14,7 +14,7 @@ use bedezign\yii2\audit\components\db\ActiveRecord;
  * @property string $data
  *
  * @property AuditEntry    $entry
- * 
+ *
  * @package bedezign\yii2\audit\models
  */
 class AuditData extends ActiveRecord

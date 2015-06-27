@@ -65,14 +65,6 @@ class AuditTrail extends ActiveRecord
     }
 
     /**
-     * @param ActiveQuery $query
-     */
-    public static function recently($query)
-    {
-        $query->orderBy(['[[id]]' => SORT_DESC]);
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getEntry()
