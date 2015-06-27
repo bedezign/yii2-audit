@@ -10,5 +10,6 @@ use yii\helpers\Url;
 
 $I = new FunctionalTester($scenario);
 $I->wantTo('ensure that entry grid works');
-$I->amOnPage(Url::to(['/audit/entry']));
+$I->amOnPage(Url::to(['/audit/entry', 'AuditEntrySearch' => ['id' => 1]]));
 $I->see('Entries', 'h1');
+
