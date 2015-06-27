@@ -30,7 +30,7 @@ class Post extends ActiveRecord
     public function behaviors()
     {
         return [
-            AuditTrailBehavior::className(),
+            'audit' => ['class' => AuditTrailBehavior::className()],
         ];
     }
 

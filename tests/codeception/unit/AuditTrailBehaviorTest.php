@@ -11,7 +11,7 @@ use Codeception\Specify;
 /**
  * AuditTrailBehaviorTest
  */
-class AuditTrailBehaviorTest extends \yii\codeception\TestCase
+class AuditTrailBehaviorTest extends AuditTestCase
 {
     use Specify;
 
@@ -141,6 +141,18 @@ class AuditTrailBehaviorTest extends \yii\codeception\TestCase
             'model' => Post::className(),
             'model_id' => $post->id,
         ]);
+    }
+
+    public function testThatAllowedConfigurationWorks()
+    {
+        $entry = $this->entry(true);
+
+        $post = new Post();
+        $audit = $post->getBehavior('audit');
+        $audit->allowed = ['body'];
+        $post->title = 'New post title';
+        $post->body = 'New post body';
+        $this->assertTrue($post->save());
     }
 
 }
