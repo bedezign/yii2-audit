@@ -52,7 +52,5 @@ $I->see('Extra Data');
 
 $I->click('Mail');
 $I->see('Email Messages');
-$I->click('Download eml');
-$I->canSeeResponseCodeIs(200);
 
 
