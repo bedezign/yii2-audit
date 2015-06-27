@@ -2,7 +2,7 @@
 
 namespace app\panels;
 
-use bedezign\yii2\audit\panels\Panel;
+use bedezign\yii2\audit\components\panels\Panel;
 use yii\base\Event;
 use yii\base\ViewEvent;
 use yii\web\View;
