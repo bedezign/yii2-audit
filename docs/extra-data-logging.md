@@ -5,5 +5,6 @@ It is possible to add extra custom data to the current audit entry by simply cal
 ```php
 use bedezign\yii2\audit\Audit;
 
-Audit::current()->data('type or identifier', 'extra data can be an integer, string, array, object or whatever');
+$data = 'extra data can be an integer, string, array, object or whatever';
+Audit::current()->data('type or identifier', $data);
 ```
