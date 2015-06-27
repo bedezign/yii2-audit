@@ -208,7 +208,7 @@ return [
         'id' => 6,
         'entry_id' => 1,
         'type' => 'audit/mail',
-        'data' => file_get_contents(__DIR__ . '/blob/mail.txt'),
+        'data' => file_get_contents(__DIR__ . '/mail/data.txt'),
     ],
     [
         'id' => 7,

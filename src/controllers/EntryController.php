@@ -72,7 +72,7 @@ class EntryController extends Controller
      */
     public function actionDownloadMail($file)
     {
-        $filePath = Yii::getAlias($this->module->panels['mail']->mailPath) . '/' . basename($file);
+        $filePath = Yii::getAlias($this->module->panels['audit/mail']->mailPath) . '/' . basename($file);
 
         if ((mb_strpos($file, '\\') !== false || mb_strpos($file, '/') !== false) || !is_file($filePath)) {
             throw new NotFoundHttpException('Mail file not found');
