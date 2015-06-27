@@ -15,7 +15,7 @@ class AuditJavascriptTest extends AuditTestCase
     public function testGetEntry()
     {
         $javascript = AuditJavascript::findOne(1);
-        $this->assertEquals($javascript->entry->className(), AuditEntry::className());
+        $this->assertEquals($javascript->getEntry()->one()->className(), AuditEntry::className());
     }
 
 }

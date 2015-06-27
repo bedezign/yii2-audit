@@ -15,7 +15,7 @@ class AuditErrorTest extends AuditTestCase
     public function testGetEntry()
     {
         $error = AuditError::findOne(1);
-        $this->assertEquals($error->entry->className(), AuditEntry::className());
+        $this->assertEquals($error->getEntry()->one()->className(), AuditEntry::className());
     }
 
 }

@@ -15,7 +15,7 @@ class AuditTrailTest extends AuditTestCase
     public function testGetEntry()
     {
         $trail = AuditTrail::findOne(1);
-        $this->assertEquals($trail->entry->className(), AuditEntry::className());
+        $this->assertEquals($trail->getEntry()->one()->className(), AuditEntry::className());
     }
 
 }
