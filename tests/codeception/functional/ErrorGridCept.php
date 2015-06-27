@@ -9,6 +9,6 @@ use yii\helpers\Url;
  */
 
 $I = new FunctionalTester($scenario);
-$I->wantTo('ensure that entry grid works');
-$I->amOnPage(Url::to(['/audit/entry']));
-$I->see('Entries', 'h1');
+$I->wantTo('ensure that error grid works');
+$I->amOnPage(Url::to(['/audit/error']));
+$I->see('Errors', 'h1');

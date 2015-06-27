@@ -18,6 +18,12 @@ run tests with verbose output
 ~/.composer/vendor/bin/codecept run --debug --fail-fast
 ```
 
+run tests with code coverage
+
+```
+~/.composer/vendor/bin/codecept run --coverage-html --coverage-xml
+```
+
 run single test
 
 ```

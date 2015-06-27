@@ -18,6 +18,10 @@ $config = [
         ],
         'cache' => null,
         'db' => require __DIR__ . '/db.php',
+        'errorHandler' => [
+            'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+            'errorAction' => 'site/error',
+        ],
         'log' => [
             'traceLevel' => getenv('YII_TRACE_LEVEL'),
             'targets' => [
