@@ -24,8 +24,9 @@ use yii\db\ActiveQuery;
  */
 class AuditTrail extends ActiveRecord
 {
+
     /**
-     * @return string the associated database table name
+     * @inheritdoc
      */
     public static function tableName()
     {

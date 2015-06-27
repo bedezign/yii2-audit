@@ -21,6 +21,14 @@ class AuditData extends ActiveRecord
 {
 
     /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{%audit_data}}';
+    }
+
+    /**
      * @param $entry_id
      * @return array
      */
@@ -39,11 +47,4 @@ class AuditData extends ActiveRecord
         return static::find()->where(['entry_id' => $entry_id, 'type' => $type])->one();
     }
 
-    /**
-     * @return string
-     */
-    public static function tableName()
-    {
-        return '{{%audit_data}}';
-    }
 }

@@ -38,7 +38,7 @@ class AuditEntry extends ActiveRecord
     protected $autoSerialize = false;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public static function tableName()
     {

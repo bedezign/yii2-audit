@@ -25,6 +25,14 @@ class AuditJavascript extends ActiveRecord
 {
 
     /**
+     * @inheritdoc
+     */
+    public static function tableName()
+    {
+        return '{{audit_javascript}}';
+    }
+
+    /**
      * @return \yii\db\ActiveQuery
      */
     public function getEntry()
@@ -32,18 +40,4 @@ class AuditJavascript extends ActiveRecord
         return $this->hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
 
-    /**
-     * @return array
-     */
-    public function rules()
-    {
-        return [
-            [['entry_id', 'message'], 'required']
-        ];
-    }
-
-    public static function tableName()
-    {
-        return '{{audit_javascript}}';
-    }
 }

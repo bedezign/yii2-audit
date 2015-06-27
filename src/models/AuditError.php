@@ -29,7 +29,7 @@ class AuditError extends ActiveRecord
     protected $serializeAttributes = ['trace'];
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public static function tableName()
     {
