@@ -120,16 +120,6 @@ class AuditEntry extends ActiveRecord
     }
 
     /**
-     * @param      $type
-     * @param      $data
-     * @param bool $compact
-     */
-    public function addData($type, $data, $compact = true)
-    {
-        $this->addBatchData([$type => $data], $compact);
-    }
-
-    /**
      * @param      $batchData
      * @param bool $compact
      * @throws \yii\db\Exception
