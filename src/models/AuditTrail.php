@@ -3,7 +3,6 @@
 namespace bedezign\yii2\audit\models;
 
 use Yii;
-use yii\db\ActiveRecord;
 
 /**
  * The followings are the available columns in table 'tbl_audit_trail':
