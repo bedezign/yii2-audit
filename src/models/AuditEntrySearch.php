@@ -85,4 +85,17 @@ class AuditEntrySearch extends AuditEntry
         }, 30);
         return array_combine($routes, $routes);
     }
+
+    /**
+     * @return array
+     */
+    static public function methodFilter()
+    {
+        $methods = AuditEntry::getDb()->cache(function () {
+            return AuditEntry::find()->distinct(true)
+                ->select('request_method')->where(['is not', 'request_method', null])
+                ->groupBy('request_method')->orderBy('request_method ASC')->column();
+        }, 240);
+        return array_combine($methods, $methods);
+    }
 }
