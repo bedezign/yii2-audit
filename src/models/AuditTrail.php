@@ -53,19 +53,6 @@ class AuditTrail extends ActiveRecord
     }
 
     /**
-     * @return array validation rules for model attributes.
-     */
-    public function rules()
-    {
-        return [
-            [['action', 'model', 'created', 'model_id'], 'required'],
-            [['entry_id', 'user_id'], 'integer', 'integerOnly' => true],
-            [['action', 'model', 'model_id', 'field'], 'string', 'max' => 255],
-            [['old_value', 'new_value'], 'safe']
-        ];
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getEntry()
