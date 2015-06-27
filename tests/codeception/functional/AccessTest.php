@@ -22,9 +22,11 @@ class AccessTest extends \yii\codeception\TestCase
      */
     protected $tester;
 
-    /**
-     * Access
-     */
+    public function testAccessAnyAllow()
+    {
+        $this->assertTrue(Access::checkAccess());
+    }
+
     public function testAccessIpAllow()
     {
         $audit = Audit::getInstance();
@@ -64,6 +66,52 @@ class AccessTest extends \yii\codeception\TestCase
         $audit = Audit::getInstance();
 
         $audit->accessRoles = ['admin'];
+        $this->assertFalse(Access::checkAccess());
+        $audit->accessRoles = null;
+    }
+
+    public function testAccessGuestAllow()
+    {
+        $audit = Audit::getInstance();
+
+        $audit->accessRoles = ['?'];
+        $this->assertTrue(Access::checkAccess());
+        $audit->accessRoles = null;
+    }
+
+    public function testAccessGuestDeny()
+    {
+        $audit = Audit::getInstance();
+
+        $user = User::findOne(1);
+        \Yii::$app->user->login($user);
+
+        $audit->accessRoles = ['?'];
+        $this->assertFalse(Access::checkAccess());
+        $audit->accessRoles = null;
+
+        \Yii::$app->user->logout();
+    }
+
+    public function testAccessLoggedInAllow()
+    {
+        $audit = Audit::getInstance();
+
+        $user = User::findOne(1);
+        \Yii::$app->user->login($user);
+
+        $audit->accessRoles = ['@'];
+        $this->assertTrue(Access::checkAccess());
+        $audit->accessRoles = null;
+
+        \Yii::$app->user->logout();
+    }
+
+    public function testAccessLoggedInDeny()
+    {
+        $audit = Audit::getInstance();
+
+        $audit->accessRoles = ['@'];
         $this->assertFalse(Access::checkAccess());
         $audit->accessRoles = null;
     }
