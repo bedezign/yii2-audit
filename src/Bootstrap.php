@@ -2,12 +2,13 @@
 
 namespace bedezign\yii2\audit;
 use yii\base\Application;
+use yii\base\BootstrapInterface;
 
 /**
  * Bootstrap
  * @package bedezign\yii2\audit
  */
-class Bootstrap implements \yii\base\BootstrapInterface
+class Bootstrap implements BootstrapInterface
 {
     /**
      * Bootstrap method to be called during application bootstrap stage.

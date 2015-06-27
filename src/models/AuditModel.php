@@ -29,7 +29,7 @@ class AuditModel extends ActiveRecord
      */
     public static function getDb()
     {
-        return Audit::current() ? Audit::current()->getDb() : parent::getDb();
+        return Audit::getInstance()->getDb();
     }
 
     /**

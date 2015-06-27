@@ -26,7 +26,7 @@ class Helper extends \yii\base\Object
             $data = static::compact($data);
 
         $data = serialize($data);
-        if (Audit::current()->compressData)
+        if (Audit::getInstance()->compressData)
             $data = gzcompress($data);
 
         return $data;
@@ -40,7 +40,7 @@ class Helper extends \yii\base\Object
     public static function unserialize($data)
     {
         $originalData = $data;
-        if (Audit::current()->compressData)
+        if (Audit::getInstance()->compressData)
             $data = gzuncompress($data);
 
         if ($data === false)

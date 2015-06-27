@@ -37,7 +37,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 'label' => Yii::t('audit', 'User ID'),
                 'class' => 'yii\grid\DataColumn',
                 'value' => function ($data) {
-                    return Audit::current()->getUserIdentifier($data->user_id);
+                    return Audit::getInstance()->getUserIdentifier($data->user_id);
                 },
                 'format' => 'raw',
             ],

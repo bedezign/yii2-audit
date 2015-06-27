@@ -3,6 +3,10 @@
 return [
     'id' => 'yii2-audit-console',
     'basePath' => dirname(__DIR__),
+    'bootstrap' => [
+        'bedezign\yii2\audit\Bootstrap',
+        'audit',
+    ],
     'aliases' => [
         '@vendor' => VENDOR_DIR,
         '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),

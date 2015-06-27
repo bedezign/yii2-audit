@@ -116,11 +116,6 @@ class Audit extends Module
     public $logTarget;
 
     /**
-     * @var static The current instance
-     */
-    private static $_current = null;
-
-    /**
      * @var \bedezign\yii2\audit\models\AuditEntry If activated this is the active entry
      */
     private $_entry = null;
@@ -130,7 +125,6 @@ class Audit extends Module
      */
     public function init()
     {
-        self::$_current = $this;
         parent::init();
 
         $app = Yii::$app;
@@ -309,18 +303,6 @@ class Audit extends Module
         }
 
         return ['class' => \yii\filters\AccessControl::className(), 'rules' => [$rule]];
-    }
-
-    /**
-     * Returns the current module instance.
-     * @return static
-     */
-    public static function current()
-    {
-        if (!self::$_current) {
-            self::$_current = Audit::getInstance();
-        }
-        return self::$_current;
     }
 
     /**

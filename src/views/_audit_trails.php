@@ -39,7 +39,7 @@ $auditTrailDataProvider->sort = ['defaultOrder' => ['id' => SORT_DESC]];
         [
             'attribute' => 'user_id',
             'value' => function ($data) {
-                return Audit::current()->getUserIdentifier($data->user_id);
+                return Audit::getInstance()->getUserIdentifier($data->user_id);
             },
             'format' => 'raw',
         ],

@@ -33,7 +33,7 @@ class JsLogController extends \yii\web\Controller
         Yii::$app->response->format = Response::FORMAT_JSON;
         $data = Json::decode(Yii::$app->request->post('data'));
         if (!isset($data['auditEntry'])) {
-            $entry = Audit::current()->getEntry(true);
+            $entry = Audit::getInstance()->getEntry(true);
             $data['auditEntry'] = $entry->id;
         }
 
