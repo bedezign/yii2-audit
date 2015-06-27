@@ -9,9 +9,9 @@ use bedezign\yii2\audit\tests\UnitTester;
 use Codeception\Specify;
 
 /**
- * AuditTrailBehaviorInactiveTest
+ * AuditTrailBehaviorNotActiveTest
  */
-class AuditTrailBehaviorInactiveTest extends AuditTestCase
+class AuditTrailBehaviorNotActiveTest extends AuditTestCase
 {
     use Specify;
 

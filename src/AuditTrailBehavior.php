@@ -38,12 +38,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public $ignoredClasses = [];
 
     /**
-     * Skip fields where bouth old and new values are NULL
-     * @var boolean
-     */
-    public $skipNulls = true;
-
-    /**
      * Is the behavior is active or not
      * @var boolean
      */
@@ -204,10 +198,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
         $rows = array();
         foreach ($newAttributes as $field => $new) {
             $old = isset($oldAttributes[$field]) ? $oldAttributes[$field] : '';
-            // If we are skipping nulls then lets see if both sides are null
-            if ($this->skipNulls && empty($old) && empty($new)) {
-                continue;
-            }
             // If they are not the same lets write an audit log
             if ($new != $old) {
                 $rows[] = [$entry_id, $user_id, $old, $new, $action, $model, $model_id, $field, $created];
