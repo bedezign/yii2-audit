@@ -35,6 +35,9 @@ $I->see('Origin');
 $I->click('Trail');
 $I->see('Database Trails');
 
+$I->click('Mail');
+$I->see('Email Messages');
+
 $I->click('Extra');
 $I->see('Extra Data');
 

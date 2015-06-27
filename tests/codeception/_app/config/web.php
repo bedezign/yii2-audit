@@ -13,6 +13,9 @@ $config = [
         '@bower' => VENDOR_DIR . '/bower',
         '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
     ],
+    'params' => [
+        'supportEmail' => 'test@example.com',
+    ],
     'components' => [
         'assetManager' => [
             'basePath' => __DIR__ . '/../web/assets',

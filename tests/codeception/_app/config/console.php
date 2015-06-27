@@ -11,6 +11,9 @@ return [
         '@vendor' => VENDOR_DIR,
         '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
     ],
+    'params' => [
+        'supportEmail' => 'errors@example.com',
+    ],
     'components' => [
         'cache' => null,
         'db' => require __DIR__ . '/db.php',
@@ -24,6 +27,9 @@ return [
                     'dirMode' => 0777
                 ],
             ],
+        ],
+        'urlManager' => [
+            'scriptUrl' => 'http://example.com/',
         ],
     ],
     'modules' => [

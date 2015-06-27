@@ -207,6 +207,12 @@ return [
     [
         'id' => 6,
         'entry_id' => 1,
+        'type' => 'audit/mail',
+        'data' => file_get_contents(__DIR__ . '/blob/mail.txt'),
+    ],
+    [
+        'id' => 7,
+        'entry_id' => 1,
         'type' => 'app/views',
         'data' => serialize([
             '/vagrant/git/yii2-audit/src/views/entry/index.php',
@@ -214,3 +220,6 @@ return [
         ]),
     ],
 ];
+
+
+
