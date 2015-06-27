@@ -8,6 +8,8 @@ use yii\debug\models\search\Db;
 /**
  * DbPanel
  * @package bedezign\yii2\audit\panels
+ *
+ * @method bool hasExplain()
  */
 class DbPanel extends \yii\debug\panels\DbPanel
 {
