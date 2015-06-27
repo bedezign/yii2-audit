@@ -4,18 +4,17 @@
  * raw data attributes.
  */
 
-namespace bedezign\yii2\audit\models;
+namespace bedezign\yii2\audit\components\db;
 
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\Helper;
-use yii\db\ActiveRecord;
 
 /**
- * AuditModel
+ * ActiveRecord
  * @package bedezign\yii2\audit\models
  * @property string $created
  */
-class AuditModel extends ActiveRecord
+class ActiveRecord extends \yii\db\ActiveRecord
 {
     /** @var bool                   If true, automatically pack and unpack the data attribute */
     protected $autoSerialize = true;

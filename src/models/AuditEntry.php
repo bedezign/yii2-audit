@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\components\db\ActiveRecord;
 use bedezign\yii2\audit\components\Helper;
 use Yii;
 
@@ -24,7 +25,7 @@ use Yii;
  * @property AuditTrail[]      $trails
  * @property AuditData[]       $associatedPanels
  */
-class AuditEntry extends AuditModel
+class AuditEntry extends ActiveRecord
 {
     /**
      * @var

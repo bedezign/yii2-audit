@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\components\db\ActiveRecord;
 use Yii;
 use yii\db\ActiveQuery;
 
@@ -19,7 +20,7 @@ use yii\db\ActiveQuery;
  * @property string  $old_value
  * @property string  $created
  */
-class AuditTrail extends AuditModel
+class AuditTrail extends ActiveRecord
 {
     /**
      * @return string the associated database table name

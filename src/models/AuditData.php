@@ -1,6 +1,7 @@
 <?php
 
 namespace bedezign\yii2\audit\models;
+use bedezign\yii2\audit\components\db\ActiveRecord;
 
 /**
  * AuditData
@@ -14,7 +15,7 @@ namespace bedezign\yii2\audit\models;
  *
  * @package bedezign\yii2\audit\models
  */
-class AuditData extends AuditModel
+class AuditData extends ActiveRecord
 {
     /**
      * @param AuditEntry $entry
