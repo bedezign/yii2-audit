@@ -68,7 +68,7 @@ class AuditEntrySearch extends AuditEntry
         $query->andFilterWhere(['duration' => $this->duration]);
         $query->andFilterWhere(['memory_max' => $this->memory_max]);
         $query->andFilterWhere(['like', 'created', $this->created]);
-        $query->with(['linkedErrors', 'javascript']);
+        $query->with(['linkedErrors', 'javascripts']);
 
         return $dataProvider;
     }
