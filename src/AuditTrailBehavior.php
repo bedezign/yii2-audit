@@ -106,10 +106,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function audit($action)
     {
         // Lets check if the whole class should be ignored
-        if (sizeof($this->ignoredClasses) > 0) {
-            if (array_search(get_class($this->owner), $this->ignoredClasses) !== false) {
-                return;
-            }
+        if (sizeof($this->ignoredClasses) > 0 && array_search(get_class($this->owner), $this->ignoredClasses) !== false) {
+            return;
         }
         // If this is a delete then just write one row and get out of here
         if ($action == 'DELETE') {
