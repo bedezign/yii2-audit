@@ -195,6 +195,18 @@ return [
     [
         'id' => 5,
         'entry_id' => 1,
+        'type' => 'audit/extra',
+        'data' => serialize([
+            [
+                'type' => 'type or identifier',
+                'data' => 'extra data can be an integer, string, array, object or whatever',
+            ],
+        ]),
+
+    ],
+    [
+        'id' => 6,
+        'entry_id' => 1,
         'type' => 'app/views',
         'data' => serialize([
             '/vagrant/git/yii2-audit/src/views/entry/index.php',

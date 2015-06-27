@@ -35,6 +35,9 @@ $I->see('Origin');
 $I->click('Trail');
 $I->see('Database Trails');
 
+$I->click('Extra');
+$I->see('Extra Data');
+
 //$I->click('Asset Bundles');
 //$I->see('asset bundles were loaded');
 //

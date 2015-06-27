@@ -3,17 +3,17 @@
 namespace bedezign\yii2\audit\panels;
 
 /**
- * CustomDataPanel
+ * ExtraDataPanel
  * @package bedezign\yii2\audit\panels
  */
-class CustomDataPanel extends Panel
+class ExtraDataPanel extends Panel
 {
     /**
      * @return string
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Custom Data');
+        return \Yii::t('audit', 'Extra');
     }
 
     public function getLabel()
@@ -42,7 +42,7 @@ class CustomDataPanel extends Panel
         $dataProvider = new \yii\data\ArrayDataProvider();
         $dataProvider->allModels = $this->data;
 
-        return \Yii::$app->view->render('panels/custom/detail', [
+        return \Yii::$app->view->render('panels/extra/detail', [
             'panel'        => $this,
             'dataProvider' => $dataProvider,
         ]);

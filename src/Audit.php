@@ -196,15 +196,12 @@ class Audit extends Module
      */
     public function data($type, $data)
     {
-        $entry = $this->entry;
-        if (!$entry) {
-            return;
-        }
+        $this->getEntry(true); // force create of an entry to store the data
 
-        if (!isset($this->panels['audit/custom']))
-            $this->panels['audit/custom'] = Yii::createObject(['class' => 'bedezign\yii2\audit\panels\CustomDataPanel']);
+        if (!isset($this->panels['audit/extra']))
+            $this->panels['audit/extra'] = Yii::createObject(['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel']);
 
-        $this->panels['audit/custom']->trackData(['type' => $type, 'data' => $data]);
+        $this->panels['audit/extra']->trackData(['type' => $type, 'data' => $data]);
     }
 
     /**
@@ -371,7 +368,7 @@ class Audit extends Module
                 'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
                 'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
                 'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
-                'audit/custom' => ['class' => 'bedezign\yii2\audit\panels\CustomDataPanel'],
+                'audit/extra' => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
             ];
 
             foreach ($viewOnlyPanels as $identifier => $config)

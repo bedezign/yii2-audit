@@ -4,7 +4,7 @@ namespace bedezign\yii2\audit\models;
 
 /**
  * AuditData
- * Extra custom data associated with a specific audit line. There are currently no guidelines concerning what the name/type
+ * Extra data associated with a specific audit line. There are currently no guidelines concerning what the name/type
  * needs to be, this is at your own discretion.
  *
  * @property int    $id
