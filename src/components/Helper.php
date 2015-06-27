@@ -134,35 +134,4 @@ class Helper extends \yii\base\Object
         }
         return $args;
     }
-
-    /**
-     * Converts a value to a string to output. This was taken from the Yii2 Debug component
-     * @param mixed $value
-     * @return string
-     */
-    public static function formatValue($value)
-    {
-        return htmlspecialchars(\yii\helpers\VarDumper::dumpAsString($value), ENT_QUOTES | ENT_SUBSTITUTE, \Yii::$app->charset, true);
-    }
-
-
-    /**
-     * Ensures a string is less than a specified length.
-     * If it is longer then it is truncated and a message is sent to the the info log.
-     *
-     * @param $string
-     * @param int $length
-     * @return string
-     */
-    public static function truncate($string, $length = 0)
-    {
-        if ($length) {
-            if (strlen($string) > $length) {
-                \Yii::info('truncate required: ' . $string, 'audit');
-                $string = substr($string, 0, $length);
-            }
-        }
-        return $string;
-    }
-
 }

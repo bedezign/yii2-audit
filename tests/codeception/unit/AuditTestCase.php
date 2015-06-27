@@ -4,6 +4,9 @@ namespace tests\codeception\unit;
 
 class AuditTestCase extends \yii\codeception\TestCase
 {
+    /**
+     * @return \bedezign\yii2\audit\Audit
+     */
     public function module()
     {
         return \Yii::$app->getModule('audit');

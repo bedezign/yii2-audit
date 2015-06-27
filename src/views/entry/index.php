@@ -32,8 +32,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            'request_method',
-            'ajax',
+            [
+                'filter' => AuditEntrySearch::methodFilter(),
+                'attribute' => 'request_method',
+            ],
+            [
+                'filter' => [1 => \Yii::t('audit', 'Yes'), 0 => \Yii::t('audit', 'No')],
+                'attribute' => 'ajax',
+                'value' => function($data) {
+                    return $data->ajax ? Yii::t('audit', 'Yes') : Yii::t('audit', 'No');
+                },
+            ],
             'created',
             [
                 'class' => 'yii\grid\DataColumn',

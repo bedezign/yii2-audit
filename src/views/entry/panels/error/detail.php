@@ -5,6 +5,7 @@
 
 use yii\helpers\Html;
 use yii\grid\GridView;
+use bedezign\yii2\audit\models\AuditErrorSearch;
 
 echo '<h1>' . Yii::t('audit', 'Errors') . '</h1>';
 
@@ -41,7 +42,10 @@ echo GridView::widget([
                 'width' => '80px',
             ],
         ],
-        'file',
+        [
+            'attribute' => 'file',
+            'filter' => AuditErrorSearch::fileFilter(),
+        ],
         [
             'attribute' => 'line',
             'options'   => [

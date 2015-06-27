@@ -42,7 +42,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width' => '80px',
                 ],
             ],
-            'file',
+            [
+                'filter' => AuditErrorSearch::fileFilter(),
+                'attribute' => 'file',
+            ],
             [
                 'attribute' => 'line',
                 'options' => [
