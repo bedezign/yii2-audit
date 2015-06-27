@@ -70,7 +70,11 @@ class AuditError extends ActiveRecord
     {
         $error = new static();
         $error->entry_id = $entry->id;
-        $error->recordMessage($message, $code, $file, $line, $trace);
+        $error->message = $message;
+        $error->code = $code;
+        $error->file = $file;
+        $error->line = $line;
+        $error->trace = Helper::cleanupTrace($trace);
         return $error->save(false) ? $error : null;
     }
 
@@ -84,22 +88,6 @@ class AuditError extends ActiveRecord
         $this->file = $exception->getFile();
         $this->line = $exception->getLine();
         $this->trace = Helper::cleanupTrace($exception->getTrace());
-    }
-
-    /**
-     * @param        $message
-     * @param int    $code
-     * @param string $file
-     * @param int    $line
-     * @param array  $trace
-     */
-    public function recordMessage($message, $code = 0, $file = '', $line = 0, $trace = [])
-    {
-        $this->message = $message;
-        $this->code = $code;
-        $this->file = $file;
-        $this->line = $line;
-        $this->trace = Helper::cleanupTrace($trace);
     }
 
     /**
