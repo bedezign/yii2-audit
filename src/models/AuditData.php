@@ -21,14 +21,6 @@ class AuditData extends ActiveRecord
 {
 
     /**
-     * @return AuditEntry
-     */
-    public function getEntry()
-    {
-        return static::hasOne(AuditEntry::className(), ['id' => 'entry_id']);
-    }
-
-    /**
      * @param $entry_id
      * @return array
      */
