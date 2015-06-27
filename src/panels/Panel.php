@@ -9,6 +9,12 @@
 
 namespace bedezign\yii2\audit\panels;
 
+/**
+ * Panel
+ * @package bedezign\yii2\audit\panels
+ *
+ * @property array|mixed $data
+ */
 class Panel extends \yii\debug\Panel
 {
     use PanelTrait;
