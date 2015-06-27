@@ -9,8 +9,7 @@ use yii\helpers\Url;
  */
 
 $I = new FunctionalTester($scenario);
-$I->wantTo('ensure that javascript view works');
+$I->wantTo('ensure that error view gives error with bad id');
 
-$I->amOnPage(Url::to(['/audit/javascript/view', 'id' => 1]));
-$I->see('JS #1', 'h1');
-
+$I->amOnPage(Url::to(['/audit/error/view', 'id' => 99999]));
+$I->see('Not Found (#404)', 'h1');

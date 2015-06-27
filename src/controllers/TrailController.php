@@ -6,6 +6,7 @@ use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditTrail;
 use bedezign\yii2\audit\models\AuditTrailSearch;
 use Yii;
+use yii\web\HttpException;
 
 /**
  * TrailController
@@ -32,13 +33,13 @@ class TrailController extends Controller
      * Displays a single AuditTrail model.
      * @param integer $id
      * @return mixed
-     * @throws \HttpInvalidParamException
+     * @throws HttpException
      */
     public function actionView($id)
     {
         $model = AuditTrail::findOne($id);
         if (!$model) {
-            throw new \HttpInvalidParamException('Invalid request number specified');
+            throw new HttpException(404, 'The requested page does not exist.');
         }
         return $this->render('view', [
             'model' => $model,

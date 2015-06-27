@@ -6,6 +6,7 @@ use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditEntrySearch;
 use Yii;
+use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -39,7 +40,6 @@ class EntryController extends Controller
      * @param integer $id
      * @param string  $panel
      * @return mixed
-     * @throws \HttpInvalidParamException
      * @throws \yii\base\InvalidConfigException
      */
     public function actionView($id, $panel = '')
@@ -95,7 +95,7 @@ class EntryController extends Controller
         /** @var AuditEntry $model */
         $model = AuditEntry::findOne($id);
         if (!$model) {
-            throw new \HttpInvalidParamException('Invalid request number specified');
+            throw new HttpException(404, 'The requested page does not exist.');
         }
 
         // Make sure the view-only panels are active as well
