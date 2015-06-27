@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\models;
 
 use Yii;
+use yii\db\ActiveQuery;
 
 /**
  * The followings are the available columns in table 'tbl_audit_trail':
@@ -61,7 +62,7 @@ class AuditTrail extends AuditModel
     }
 
     /**
-     * @param $query
+     * @param ActiveQuery $query
      */
     public static function recently($query)
     {
