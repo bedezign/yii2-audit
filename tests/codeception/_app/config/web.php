@@ -4,7 +4,8 @@ $config = [
     'id' => 'yii2-audit-web',
     'basePath' => dirname(__DIR__),
     'bootstrap' => [
-        'bedezign\yii2\audit\Bootstrap'
+        'bedezign\yii2\audit\Bootstrap',
+        'audit',
     ],
     'extensions' => require(VENDOR_DIR . '/yiisoft/extensions.php'),
     'aliases' => [
