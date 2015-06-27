@@ -19,6 +19,8 @@ use yii\db\ActiveQuery;
  * @property string  $new_value
  * @property string  $old_value
  * @property string  $created
+ *
+ * @property AuditEntry    $entry
  */
 class AuditTrail extends ActiveRecord
 {

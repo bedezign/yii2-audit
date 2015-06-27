@@ -18,6 +18,8 @@ use bedezign\yii2\audit\components\Helper;
  * @property string $message
  * @property string $origin
  * @property string $data
+ *
+ * @property AuditEntry    $entry
  */
 class AuditJavascript extends ActiveRecord
 {
