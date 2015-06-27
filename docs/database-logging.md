@@ -40,13 +40,8 @@ class Post extends \yii\db\ActiveRecord
                 'ignored' => ['another_field'],
                 // Array with classes to ignore
                 'ignoredClasses' => ['common\models\Model'],
-                // Skip fields where bouth old and new values are NULL
-                'skipNulls' => false,
                 // Is the behavior is active or not
                 'active' => true,
-                // Model attribute to use to get the user_id from an attribute in the owner model
-                // Set to null to get the user_id from `Yii::$app->user->id`
-                'userAttribute' => 'user_id',
                 // Date format to use in stamp - set to "Y-m-d H:i:s" for datetime or "U" for timestamp
                 'dateFormat' => 'Y-m-d H:i:s',
             ]

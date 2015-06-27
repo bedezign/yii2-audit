@@ -44,13 +44,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public $active = true;
 
     /**
-     * Model attribute to use to get the user_id from an attribute in the owner model
-     * Set to null to get the user_id from `Yii::$app->user->id`
-     * @var string|null
-     */
-    public $userAttribute;
-
-    /**
      * Date format to use in stamp - set to "Y-m-d H:i:s" for datetime or "U" for timestamp
      * @var string
      */
@@ -258,10 +251,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     protected function getUserId()
     {
-        if (isset($this->userAttribute)) {
-            $data = $this->owner->getAttributes();
-            return isset($data[$this->userAttribute]) ? $data[$this->userAttribute] : null;
-        }
         if (Yii::$app instanceof Application && Yii::$app->user) {
             return Yii::$app->user->id;
         }
