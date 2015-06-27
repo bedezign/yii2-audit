@@ -29,6 +29,9 @@ $I->see('Performance Profiling');
 $I->click('Error');
 $I->see('Error Code');
 
+$I->click('Javascript');
+$I->see('Origin');
+
 //$I->click('Asset Bundles');
 //$I->see('asset bundles were loaded');
 //
