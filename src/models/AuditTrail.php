@@ -71,14 +71,6 @@ class AuditTrail extends ActiveRecord
     }
 
     /**
-     * @return mixed
-     */
-    public function getParent()
-    {
-        return new $this->model;
-    }
-
-    /**
      * @return \yii\db\ActiveQuery
      */
     public function getEntry()

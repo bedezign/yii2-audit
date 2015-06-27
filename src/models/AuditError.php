@@ -37,11 +37,11 @@ class AuditError extends ActiveRecord
     }
 
     /**
-     * @param AuditEntry $entry
+     * @return \yii\db\ActiveQuery
      */
-    public function setEntry(AuditEntry $entry)
+    public function getEntry()
     {
-        $this->entry_id = $entry->id;
+        return $this->hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
 
     /**
@@ -52,7 +52,7 @@ class AuditError extends ActiveRecord
     public static function log(AuditEntry $entry, $exception)
     {
         $error = new static();
-        $error->entry = $entry;
+        $error->entry_id = $entry->id;
         $error->record($exception);
         return $error->save(false) ? $error : null;
     }
@@ -69,7 +69,7 @@ class AuditError extends ActiveRecord
     public static function logMessage(AuditEntry $entry, $message, $code = 0, $file = '', $line = 0, $trace = [])
     {
         $error = new static();
-        $error->entry = $entry;
+        $error->entry_id = $entry->id;
         $error->recordMessage($message, $code, $file, $line, $trace);
         return $error->save(false) ? $error : null;
     }

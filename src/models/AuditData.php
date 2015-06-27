@@ -17,13 +17,6 @@ use bedezign\yii2\audit\components\db\ActiveRecord;
  */
 class AuditData extends ActiveRecord
 {
-    /**
-     * @param AuditEntry $entry
-     */
-    public function setEntry(AuditEntry $entry)
-    {
-        $this->entry_id = $entry->id;
-    }
 
     /**
      * @return AuditEntry

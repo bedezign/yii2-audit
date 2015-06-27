@@ -21,12 +21,13 @@ use bedezign\yii2\audit\components\Helper;
  */
 class AuditJavascript extends ActiveRecord
 {
+
     /**
-     * @param AuditEntry $entry
+     * @return \yii\db\ActiveQuery
      */
-    public function setEntry(AuditEntry $entry)
+    public function getEntry()
     {
-        $this->entry_id = $entry->id;
+        return $this->hasOne(AuditEntry::className(), ['id' => 'entry_id']);
     }
 
     /**
