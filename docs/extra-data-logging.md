@@ -3,11 +3,7 @@
 It is possible to add extra custom data to the current audit entry by simply calling:
 
 ```php
-\bedezign\yii2\audit\Audit::current()->data('type or identifier', 'extra data can be an integer, string, array, object or whatever');
-```
+use bedezign\yii2\audit\Audit;
 
-Or if you prefer:
-
-```php
-\Yii::$app->audit->data(('type or identifier', 'extra data can be an integer, string, array, object or whatever');
+Audit::current()->data('type or identifier', 'extra data can be an integer, string, array, object or whatever');
 ```
