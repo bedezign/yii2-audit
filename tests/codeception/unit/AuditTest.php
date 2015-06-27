@@ -2,6 +2,7 @@
 
 namespace tests\codeception\unit;
 
+use bedezign\yii2\audit\tests\UnitTester;
 use Yii;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditData;
@@ -35,7 +36,7 @@ class AuditTest extends AuditTestCase
         $originalData = ['some', 'array', 'with', 'test', 'data'];
 
         $oldDataId = $this->tester->fetchTheLastModelPk(AuditData::className());
-        $this->module()->data('custom-test', $originalData);
+        $this->module()->data('extra-test', $originalData);
         $this->finalizeAudit();
 
         $newDataId = $this->tester->fetchTheLastModelPk(AuditData::className());
@@ -43,7 +44,7 @@ class AuditTest extends AuditTestCase
 
         $this->tester->seeRecord(AuditData::className(), [
             'entry_id' => $entryId,
-            'type' => 'audit/custom',
+            'type' => 'audit/extra',
         ]);
 
         //$data = AuditData::findOne($newDataId);
