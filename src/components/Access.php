@@ -6,6 +6,7 @@ use bedezign\yii2\audit\Audit;
 use Yii;
 use yii\base\Component;
 use yii\di\Instance;
+use yii\filters\AccessControl;
 use yii\web\User;
 
 class Access extends Component
@@ -16,6 +17,12 @@ class Access extends Component
      */
     public static function getAccessControlFilter()
     {
+        return [
+            'class' => AccessControl::className(),
+            'rules' => [['allow' => self::checkAccess()]]
+        ];
+
+        /*
         $audit = Audit::getInstance();
         if ($audit->accessUsers === null && $audit->accessRoles === null && $audit->accessIps === null) {
             // No user authentication active, skip adding the filter
@@ -46,6 +53,7 @@ class Access extends Component
         }
 
         return ['class' => \yii\filters\AccessControl::className(), 'rules' => [$rule]];
+        */
     }
 
     /**
