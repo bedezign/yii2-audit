@@ -19,10 +19,15 @@ A command is available to email errors which can be added to your cron.
 php yii audit/error-email
 ```
 
-You should ensure you have setup a `mailer` component and have a `scriptUrl` property in the `urlManager` component in your console configuration.  For example:
+You should ensure you have setup a `mailer` component and have a `scriptUrl` property in the `urlManager` component in your console configuration. In addition you need a `supportEmail` in your `params` setting.
+
+For example:
 
 ```php
 $console = [
+    'params' => [
+        'supportEmail' => 'errors@example.com',
+    ],
     'components' => [
         'mailer' => [
             // see http://www.yiiframework.com/doc-2.0/guide-tutorial-mailing.html

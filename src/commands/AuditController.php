@@ -58,7 +58,7 @@ SQL
         $email = Yii::$app->params['supportEmail'];
 
         // find all errors to email
-        $batch = AuditError::find()->where(['emailed' => 0])->batch();
+        $batch = AuditError::find()->where(['status' => null])->batch();
         foreach ($batch as $auditErrors) {
             /** @var AuditError $model */
             foreach ($auditErrors as $model) {
@@ -89,8 +89,8 @@ SQL
                     ->send();
 
                 // mark as emailed
-                $model->emailed = 1;
-                $model->save(false, ['emailed']);
+                $model->status = 'emailed';
+                $model->save(false, ['status']);
 
             }
         }

@@ -17,11 +17,13 @@ class m150626_000003_create_audit_error extends \yii\db\Migration
             'file'       => Schema::TYPE_STRING . '(512)',
             'line'       => Schema::TYPE_INTEGER ,
             'trace'      => 'BLOB',
+            'status'     => Schema::TYPE_INTEGER ,
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 
         $this->addForeignKey('fk_audit_error_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id', 'CASCADE');
         $this->createIndex('idx_message', self::TABLE, ['message']);
         $this->createIndex('idx_file', self::TABLE, ['file']);
+        $this->createIndex('idx_status', self::TABLE, ['status']);
     }
 
     public function down()
