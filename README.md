@@ -87,7 +87,7 @@ Contributions are welcome.  Please refer to the [contributing guidelines](CONTRI
 Thanks to [everyone who has contributed](CREDITS.md).
 
 
-## Links
+## Project Resources
 
 * [GitHub Project](https://github.com/bedezign/yii2-audit)
 * [Yii2 Extension](http://www.yiiframework.com/extension/yii2-audit)
