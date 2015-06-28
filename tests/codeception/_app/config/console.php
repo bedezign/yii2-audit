@@ -17,6 +17,9 @@ return [
     'components' => [
         'cache' => null,
         'db' => require __DIR__ . '/db.php',
+        'errorHandler' => [
+            'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+        ],
         'log' => [
             'traceLevel' => getenv('YII_TRACE_LEVEL'),
             'targets' => [

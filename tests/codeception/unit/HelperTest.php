@@ -3,6 +3,7 @@
 namespace tests\codeception\unit;
 
 use bedezign\yii2\audit\components\Helper;
+use bedezign\yii2\audit\tests\UnitTester;
 use Codeception\Specify;
 
 /**
