@@ -7,6 +7,7 @@ use Yii;
 use yii\base\Component;
 use yii\di\Instance;
 use yii\filters\AccessControl;
+use yii\helpers\ArrayHelper;
 use yii\web\User;
 
 class Access extends Component
@@ -84,8 +85,12 @@ class Access extends Component
      */
     private static function checkAccessUsers($users)
     {
-        if (!empty($users) && in_array(Yii::$app->user->id, $users))
-            return true;
+        if (!empty($users)) {
+            $users = ArrayHelper::toArray($users);
+            if (in_array(Yii::$app->user->id, $users)) {
+                return true;
+            }
+        }
         return false;
     }
 
@@ -95,10 +100,11 @@ class Access extends Component
      */
     private static function checkAccessRoles($roles)
     {
-        $user = Instance::ensure('user', User::className());
         if (empty($roles)) {
             return false;
         }
+        $user = Instance::ensure('user', User::className());
+        $roles = ArrayHelper::toArray($roles);
         foreach ($roles as $role) {
             if ($role === '?' && $user->getIsGuest()) {
                 return true;
@@ -117,8 +123,12 @@ class Access extends Component
      */
     private static function checkAccessIps($ips)
     {
-        if (!empty($ips) && in_array(Yii::$app->request->getUserIP(), $ips))
-            return true;
+        if (!empty($ips)) {
+            $ips = ArrayHelper::toArray($ips);
+            if (in_array(Yii::$app->request->getUserIP(), $ips)) {
+                return true;
+            }
+        }
         return false;
     }
 

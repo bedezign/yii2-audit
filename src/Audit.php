@@ -111,6 +111,16 @@ class Audit extends Module
     ];
 
     /**
+     * @var array
+     */
+    private $_viewOnlyPanels = [
+        'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+        'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+        'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+        'audit/extra' => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
+    ];
+
+    /**
      * @var AuditTarget
      */
     public $logTarget;
@@ -126,31 +136,13 @@ class Audit extends Module
     public function init()
     {
         parent::init();
-
         $app = Yii::$app;
-
-        // Allow the users to specify a simple string if there is only 1 entry
-        $this->trackActions = ArrayHelper::toArray($this->trackActions);
-        $this->ignoreActions = ArrayHelper::toArray($this->ignoreActions);
-
-        if (!empty($this->accessRoles))
-            $this->accessRoles = ArrayHelper::toArray($this->accessRoles);
-
-        if (!empty($this->accessUsers))
-            $this->accessUsers = ArrayHelper::toArray($this->accessUsers);
-
-        if (!empty($this->accessIps))
-            $this->accessIps = ArrayHelper::toArray($this->accessIps);
-
         // Before action triggers a new audit entry
         $app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onBeforeAction']);
-
         // After request finalizes the audit entry.
         $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
-
         // Activate the logging target
         $this->logTarget = $app->getLog()->targets['audit'] = new AuditTarget($this);
-
         $this->initPanels();
     }
 
@@ -162,10 +154,12 @@ class Audit extends Module
     {
         $actionId = $event->action->uniqueId;
 
-        if (count($this->trackActions) && !$this->routeMatches($actionId, $this->trackActions))
+        $trackActions = ArrayHelper::toArray($this->trackActions);
+        if (count($trackActions) && !$this->routeMatches($actionId, $trackActions))
             return;
 
-        if (count($this->ignoreActions) && $this->routeMatches($actionId, $this->ignoreActions))
+        $ignoreActions = ArrayHelper::toArray($this->ignoreActions);
+        if (count($ignoreActions) && $this->routeMatches($actionId, $ignoreActions))
             return;
 
         // Still here, start audit
@@ -247,16 +241,11 @@ class Audit extends Module
         $panels = $this->getPanels();
 
         if ($all) {
-            $viewOnlyPanels = [
-                'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-                'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-                'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
-                'audit/extra' => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
-            ];
-
-            foreach ($viewOnlyPanels as $identifier => $config)
-                if (!isset($panels[$identifier]))
+            foreach ($this->_viewOnlyPanels as $identifier => $config) {
+                if (!isset($panels[$identifier])) {
                     $panels[$identifier] = Yii::createObject($config);
+                }
+            }
         }
 
         $this->panels = $panels;
