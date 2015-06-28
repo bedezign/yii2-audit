@@ -115,32 +115,9 @@ class AuditTrailBehavior extends \yii\base\Behavior
             return;
         }
         // Get the new and old attributes
-        $newAttributes = $this->owner->getAttributes();
-        $oldAttributes = $this->getOldAttributes();
-        // Lets unset fields which are not allowed
-        if (sizeof($this->allowed) > 0) {
-            foreach ($newAttributes as $f => $v) {
-                if (array_search($f, $this->allowed) === false) {
-                    unset($newAttributes[$f]);
-                }
-            }
-            foreach ($oldAttributes as $f => $v) {
-                if (array_search($f, $this->allowed) === false) {
-                    unset($oldAttributes[$f]);
-                }
-            }
-        }
-        // Lets unset fields which are ignored
-        if (sizeof($this->ignored) > 0) {
-            foreach ($newAttributes as $f => $v) {
-                if (array_search($f, $this->ignored) !== false)
-                    unset($newAttributes[$f]);
-            }
-            foreach ($oldAttributes as $f => $v) {
-                if (array_search($f, $this->ignored) !== false)
-                    unset($oldAttributes[$f]);
-            }
-        }
+        $newAttributes = $this->cleanAttributes($this->owner->getAttributes());
+        $oldAttributes = $this->cleanAttributes($this->getOldAttributes());
+
         // If no difference then get out of here
         if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
             return;
@@ -152,12 +129,61 @@ class AuditTrailBehavior extends \yii\base\Behavior
     }
 
     /**
+     * Clean attributes of fields that are not allowed or ignored.
+     *
+     * @param $attributes
+     * @return mixed
+     */
+    protected function cleanAttributes($attributes)
+    {
+        $attributes = $this->cleanAttributesAllowed($attributes);
+        $attributes = $this->cleanAttributesIgnored($attributes);
+        return $attributes;
+    }
+
+    /**
+     * Unset attributes which are not allowed
+     *
+     * @param $attributes
+     * @return mixed
+     */
+    protected function cleanAttributesAllowed($attributes)
+    {
+        if (sizeof($this->allowed) > 0) {
+            foreach ($attributes as $f => $v) {
+                if (array_search($f, $this->allowed) === false) {
+                    unset($attributes[$f]);
+                }
+            }
+        }
+        return $attributes;
+    }
+
+    /**
+     * Unset attributes which are ignored
+     *
+     * @param $attributes
+     * @return mixed
+     */
+    protected function cleanAttributesIgnored($attributes)
+    {
+        if (sizeof($this->ignored) > 0) {
+            foreach ($attributes as $f => $v) {
+                if (array_search($f, $this->ignored) !== false) {
+                    unset($attributes[$f]);
+                }
+            }
+        }
+        return $attributes;
+    }
+
+    /**
      * @param       $action
      * @param       $newAttributes
      * @param array $oldAttributes
      * @throws \yii\db\Exception
      */
-    public function auditAttributes($action, $newAttributes, $oldAttributes = [])
+    protected function auditAttributes($action, $newAttributes, $oldAttributes = [])
     {
         if (!$this->active) {
             return;
@@ -173,6 +199,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
     }
 
     /**
+     * Save the audit trails for a create or update action
+     *
      * @param $action
      * @param $newAttributes
      * @param $oldAttributes
@@ -202,7 +230,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     }
 
     /**
-     * @throws \yii\db\Exception
+     * Save the audit trails for a delete action
      */
     protected function saveAuditTrailDelete()
     {
