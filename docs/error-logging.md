@@ -7,7 +7,6 @@ If you want errors to be logged, you have to register the included errorhandler 
 ```php
 'errorHandler' => [
    'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
-   'errorAction' => 'site/error',
 ],
 ```
 
