@@ -28,9 +28,7 @@ $ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations
 
 ## Configuration
 
-Add a module to your configuration (with optional extra settings) and if it needs to auto trigger, also add it to the bootstrap:
-
-Example:
+Add `Audit` to your configuration array:
 
 ```php
 $config = [
