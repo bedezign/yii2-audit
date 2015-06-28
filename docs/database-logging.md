@@ -71,8 +71,7 @@ $post->save();
 use bedezign\yii2\audit\components\Version;
 
 $post = Post::findOne(1);
-$post->title = 'something post title';
-$post->body = 'something post body';
+$post->title = 'updated post title';
 $post->save();
 // ... time passes ...
 $post = Version::find($post->className(), $post->id);
