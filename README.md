@@ -13,28 +13,39 @@ Yii2 Audit is a module that records and displays web/cli requests, database chan
 
 ## Features
 
-* Installs as a simple module so it can be added without any hassle.
+* Tracks minimal data in the base entry:
+  * `user_id` - User ID of the visitor (if any), based on `Yii::$app->user->id`.
+  * `ip` - IP Address of the visitor.
+  * `request_method` - The method used to generate the request, eg: `GET`, `POST`, `DELETE`, `PUT`, `PATCH`, `OPTIONS`, `HEAD` or `CLI`.
+  * `ajax` - If the page was requested using ajax.
+  * `route` - The controller and action of the request.
+  * `duration` - How long the request took to serve.
+  * `memory_max` - The peak memory usage during the request.
 
-* Tracks all incoming web and console request data:
-  * The users IP Address and User ID.
-  * URL Information including the route/params, referrer and where they were redirected to.
-  * PHP SuperGlobals `$_GET`, `$_POST`, `$_SERVER`, `$_FILES` and `$_COOKIES`.
-  * Headers from the Request and Response.
-  * Memory Usage and Request Duration.
-  * SQL Queries and Profile information.
-  * Yii Logs
+* Tracks additional data using configurable Panels.  Each panel is optional, and you can even create your own.
+  * `RequestPanel` - Tracks all incoming web and console request data:
+    * The users IP Address and User ID.
+    * URL Information including the route/params, referrer and where they were redirected to.
+    * PHP SuperGlobals `$_GET`, `$_POST`, `$_SERVER`, `$_FILES` and `$_COOKIES`.
+    * Headers from the Request and Response.
+  * `AssetPanel` - Asset Bundles loaded for the request.
+  * `ConfigPanel` - Yii and PHP configuration that was used for the request.
+  * `DbPanel` - SQL queries.
+  * `ErrorPanel` - Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
+  * `ExtraDataPanel` - Extra data that you want to store.
+  * `JavascriptPanel` - Automatically log JavaScript errors. Errors and warning are logged automatically by including `JSLoggingAsset` asset bundle.  The javascript component also provides methods to manually add logging entries.
+  * `LogPanel` - Yii logs.
+  * `MailPanel` - Emails that were sent during the request
+  * `ProfilingPanel` - Application profiling information.
+  * `TrailPanel` - Database changes that were made during the request using the `AuditTrailBehavior`.
+  * `YourOwnPanel` - Create your own panel to capture any data you want.
+
+* Installs as a simple module so it can be added without any hassle.
 
 * You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
 
-* Track database changes by implementing the `AuditTrailBehavior`.
+* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality by IPs, roles or users.
 
-* Automatically log JavaScript errors. Errors and warning are logged automatically (if you activate the functionality), but the javascript component also provides methods to manually add logging entries.
-
-* Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
-
-* Track extra data using a simple method call, or by creating a new Panel.
-
-* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality, both by roles or by user-id.
 
 ## Documentation
 
@@ -71,8 +82,9 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 
 ## Credits
 
-Thanks to [everyone who has contributed](CREDITS.md)
+Thanks to [everyone who has contributed](CREDITS.md).
+
 
 ## License
 
-BSD-3 - Please refer to the [license](LICENSE.md)
+BSD-3 - Please refer to the [license](LICENSE.md).
