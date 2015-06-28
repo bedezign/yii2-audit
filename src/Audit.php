@@ -261,33 +261,44 @@ class Audit extends Module
 
     /**
      * @return array
-     * @throws InvalidConfigException
      */
     protected function getPanels()
     {
         $panels = [];
         foreach ($this->panels as $key => $value) {
-            $identifier = $config = null;
-            if (is_numeric($key)) {
-                // The config a panel name
-                if (strpos($value, '/') === false) $value = 'audit/' . $value;
-                if (!isset($this->_corePanels[$value]))
-                    throw new InvalidConfigException("'$value' is not a valid panel name");
-                $identifier = $value;
-                $config = $this->_corePanels[$value];
-            } elseif (is_string($key)) {
-                $identifier = $key;
-                $config = is_string($value) ? ['class' => $value] : $value;
-            }
-
+            list($identifier, $config) = $this->getPanelConfig($key, $value);
             if (is_array($config)) {
                 $config['module'] = $this;
                 $config['id'] = $identifier;
                 $panels[$identifier] = Yii::createObject($config);
-            } else
+            } else {
                 $panels[$identifier] = $config;
+            }
         }
         return $panels;
+    }
+
+    /**
+     * @param $key
+     * @param $value
+     * @return array
+     * @throws InvalidConfigException
+     */
+    protected function getPanelConfig($key, $value)
+    {
+        $identifier = $config = null;
+        if (is_numeric($key)) {
+            // The config a panel name
+            if (strpos($value, '/') === false) $value = 'audit/' . $value;
+            if (!isset($this->_corePanels[$value]))
+                throw new InvalidConfigException("'$value' is not a valid panel name");
+            $identifier = $value;
+            $config = $this->_corePanels[$value];
+        } elseif (is_string($key)) {
+            $identifier = $key;
+            $config = is_string($value) ? ['class' => $value] : $value;
+        }
+        return [$identifier, $config];
     }
 
     /**
@@ -302,8 +313,10 @@ class Audit extends Module
             elseif (is_array($module)) {
                 if (isset($module['class']))
                     $class = $module['class'];
-            } else
+            } else {
+                /** @var Audit $module */
                 $class = $module::className();
+            }
 
             $parts = explode('\\', $class);
             if ($class && strtolower(end($parts)) == 'audit')
