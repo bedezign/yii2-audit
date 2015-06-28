@@ -32,12 +32,12 @@ Yii2 Audit is a module that records and displays web/cli requests, database chan
   * `ConfigPanel` - Yii and PHP configuration that was used for the request.
   * `DbPanel` - SQL queries.
   * `ErrorPanel` - Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
-  * `ExtraDataPanel` - Extra data that you want to store.
   * `JavascriptPanel` - Automatically log JavaScript errors. Errors and warning are logged automatically by including `JSLoggingAsset` asset bundle.  The javascript component also provides methods to manually add logging entries.
   * `LogPanel` - Yii logs.
   * `MailPanel` - Emails that were sent during the request
   * `ProfilingPanel` - Application profiling information.
   * `TrailPanel` - Database changes that were made during the request using the `AuditTrailBehavior`.
+  * `ExtraDataPanel` - Extra data that you want to store.
   * `YourOwnPanel` - Create your own panel to capture any data you want.
 
 * Installs as a simple module so it can be added without any hassle.
