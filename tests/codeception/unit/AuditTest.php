@@ -2,6 +2,7 @@
 
 namespace tests\codeception\unit;
 
+use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\tests\UnitTester;
 use Yii;
 use bedezign\yii2\audit\models\AuditEntry;
@@ -49,5 +50,18 @@ class AuditTest extends AuditTestCase
 
         //$data = AuditData::findOne($newDataId);
         //$this->assertEquals($)
+    }
+
+    public function testFindModuleIdentifier()
+    {
+        $this->assertEquals(Audit::getInstance()->findModuleIdentifier(), 'audit');
+    }
+
+    public function testFindModuleIdentifierWithoutModule()
+    {
+        $audit = Yii::$app->modules['audit'];
+        Yii::$app->setModule('audit', null);
+        $this->assertNull(Audit::getInstance()->findModuleIdentifier());
+        Yii::$app->setModule('audit', $audit);
     }
 }
