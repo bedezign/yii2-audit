@@ -30,3 +30,37 @@ $config = [
     ],
 ];
 ```
+
+## Filtering on identifier
+
+The other way around is also supported. If you provide a second callback that accepts a string and returns a user id/an array of user ids, you can search for your identifiers and whatnot.
+
+For example:
+
+```php
+class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
+    /**
+     * @param string $id user_id from audit_entry table
+     * @return mixed|string
+     */
+    public static function filterByUserIdentifierCallback($identifier)
+    {
+    	return static::find()->select('user_id)
+    		->where(['like', 'username', $identifier)->orWhere(['like]', 'email', $identifier)
+    		->column();
+    }
+}
+```
+
+And your module configuration:
+
+```php
+$config = [
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+            'userFilterCallback' => ['app\models\User', 'filterByUserIdentifierCallback'],
+        ],
+    ],
+];
+```
