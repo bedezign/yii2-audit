@@ -23,6 +23,7 @@ class m150626_000005_create_audit_javascript extends \yii\db\Migration
 
     public function down()
     {
+        $this->dropForeignKey('fk_audit_javascript_entry_id', self::TABLE);
         $this->dropTable(self::TABLE);
     }
 }

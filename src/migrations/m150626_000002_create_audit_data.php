@@ -20,6 +20,7 @@ class m150626_000002_create_audit_data extends \yii\db\Migration
 
     public function down()
     {
+        $this->dropForeignKey('fk_audit_data_entry_id', self::TABLE);
         $this->dropTable(self::TABLE);
     }
 }

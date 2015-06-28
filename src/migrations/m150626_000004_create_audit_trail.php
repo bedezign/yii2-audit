@@ -31,6 +31,7 @@ class m150626_000004_create_audit_trail extends Migration
 
     public function down()
     {
+        $this->dropForeignKey('fk_audit_trail_entry_id', self::TABLE);
         $this->dropTable(self::TABLE);
     }
 }

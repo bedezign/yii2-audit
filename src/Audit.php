@@ -99,6 +99,9 @@ class Audit extends Module
      * @var array list of panels.
      * If the value is a simple string, it is the identifier of an internal to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
+     *
+     * Please note: If you add custom panels, please namespace them ("namespace/panel"). Any non-namespaced identifier will be
+     * looked for in the `audit` namespace.
      */
     public $panels = [
         'request',
