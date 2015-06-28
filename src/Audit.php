@@ -112,7 +112,7 @@ class Audit extends Module
     ];
 
     /**
-     * @var AuditTarget
+     * @var LogTarget
      */
     public $logTarget;
 
@@ -157,7 +157,7 @@ class Audit extends Module
         // After request finalizes the audit entry.
         $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
         // Activate the logging target
-        $this->logTarget = $app->getLog()->targets['audit'] = new AuditTarget($this);
+        $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this);
         $this->initPanels();
     }
 

@@ -11,10 +11,10 @@ use Yii;
 use yii\log\Target;
 
 /**
- * Class AuditTarget
+ * LogTarget
  * @package bedezign\yii2\audit
  */
-class AuditTarget extends Target
+class LogTarget extends Target
 {
     /**
      * @var Audit
