@@ -12,7 +12,6 @@
 - [Custom Panels](custom-panels.md)
 
 ## Viewing Data
-- [Module Views](module-views.md)
 - [Replacing user_id](replacing-user_id.md)
 - [Application Views](application-views.md)
 
