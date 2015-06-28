@@ -57,7 +57,7 @@ class Post extends \yii\db\ActiveRecord
 
 ```php
 $post_id = 1;
-$post = Post::findOne(1);
+$post = Post::findOne($post_id);
 $post->delete();
 // ... time passes ...
 $post = Version::find(Post::className(), $post_id);
