@@ -46,7 +46,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     public static function filterByUserIdentifierCallback($identifier)
     {
     	return static::find()->select('user_id)
-    		->where(['like', 'username', $identifier)->orWhere(['like]', 'email', $identifier)
+    		->where(['like', 'username', $identifier])->orWhere(['like', 'email', $identifier])
     		->column();
     }
 }
