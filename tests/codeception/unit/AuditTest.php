@@ -74,7 +74,8 @@ class AuditTest extends AuditTestCase
         $audit->trackActions = null;
         $audit->ignoreActions = null;
 
-        $action = Yii::$app->controller->createAction(null);
+        $controller = Yii::$app->createController('help/index');
+        $action = $controller[0]->createAction('index');
         $event = new ActionEvent($action);
         $audit->onBeforeAction($event);
 
