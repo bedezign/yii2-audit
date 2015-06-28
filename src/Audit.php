@@ -235,13 +235,8 @@ class Audit extends Module
         if (!$user_id) {
             return Yii::t('audit', 'Guest');
         }
-
-        try {
-            if ($this->userIdentifierCallback && is_callable($this->userIdentifierCallback)) {
-                return call_user_func($this->userIdentifierCallback, $user_id);
-            }
-        } catch (\Exception $e) {
-            // if exception then just let it slide, we'll just return the user_id
+        if ($this->userIdentifierCallback && is_callable($this->userIdentifierCallback)) {
+            return call_user_func($this->userIdentifierCallback, $user_id);
         }
         return $user_id;
     }
