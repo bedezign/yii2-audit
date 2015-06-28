@@ -2,6 +2,7 @@
 
 ## 0.2.0
 
+* ability to undelete and roll back to any version of a model
 * added controllers and views for entry, trail, javascript and errors
 * added graphs to main page
 * created views that can be included in your application
