@@ -80,7 +80,9 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 ![Javascript Panel](https://cloud.githubusercontent.com/assets/51875/8395077/25f75e88-1d98-11e5-9ade-32a5e9b16511.png)
 
 
-## Credits
+## Contributing
+
+Contributions are welcome.  Please refer to the [contributing guidelines](CONTRIBUTING.md).
 
 Thanks to [everyone who has contributed](CREDITS.md).
 
