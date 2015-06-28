@@ -25,4 +25,28 @@ class AuditEntrySearchTest extends AuditTestCase
         $this->assertEquals(['GET' => 'GET'], AuditEntrySearch::methodFilter());
     }
 
+    public function testUserCallbackIsCalledForString()
+    {
+        $mock = $this->getMock('stdClass', ['testCallback']);
+        $mock->expects($this->once())
+            ->method('testCallback')
+            ->will($this->returnValue([1, 2]));
+
+        $this->module()->userFilterCallback = [$mock, 'testCallback'];
+
+        $search = new AuditEntrySearch();
+        $search->search(['AuditEntrySearch' => ['user_id' => 'testuser']]);
+    }
+
+    public function testUserCallbackIsNotCalledForInteger()
+    {
+        $mock = $this->getMock('stdClass', ['testCallback']);
+        $mock->expects($this->never())
+            ->method('testCallback');
+
+        $this->module()->userFilterCallback = [$mock, 'testCallback'];
+
+        $search = new AuditEntrySearch();
+        $search->search(['AuditEntrySearch' => ['user_id' => 12]]);
+    }
 }

@@ -96,6 +96,11 @@ class Audit extends Module
     public $userIdentifierCallback = false;
 
     /**
+     * @var string Will be called to translate text in the user filter into a (or more) user id's
+     */
+    public $userFilterCallback = false;
+
+    /**
      * @var array list of panels.
      * If the value is a simple string, it is the identifier of an internal to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.

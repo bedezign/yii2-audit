@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\Audit;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
@@ -58,10 +59,7 @@ class AuditEntrySearch extends AuditEntry
 
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
-        $userId = $this->user_id;
-        if (strlen($this->user_id))
-            $userId = intval($this->user_id) ?: 0;
-        $query->andFilterWhere(['user_id' => $userId]);
+        $this->filterUserId($this->user_id, $query);
         $query->andFilterWhere(['route' => $this->route]);
         $query->andFilterWhere(['request_method' => $this->request_method]);
         $query->andFilterWhere(['ajax' => $this->ajax]);
@@ -97,5 +95,17 @@ class AuditEntrySearch extends AuditEntry
                 ->groupBy('request_method')->orderBy('request_method ASC')->column();
         }, 240);
         return array_combine($methods, $methods);
+    }
+
+    protected function filterUserId($userId, $query)
+    {
+        if (strlen($this->user_id)) {
+            if (!is_numeric($userId) && $callback = Audit::getInstance()->userFilterCallback) {
+                $userId = call_user_func($callback, $userId);
+            }
+            else
+                $userId = intval($this->user_id) ?: 0;
+        }
+        $query->andFilterWhere(['user_id' => $userId]);
     }
 }
