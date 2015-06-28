@@ -26,7 +26,7 @@ Run the migrations from the `migrations` folder to create the relevant tables:
 $ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations
 ```
 
-## Configuration
+## Module Configuration
 
 Add `Audit` to your configuration array:
 
