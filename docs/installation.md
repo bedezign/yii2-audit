@@ -40,7 +40,51 @@ $config = [
 ];
 ```
 
-See [Module Configuration](module-configuration.md) for the all configuration options.
+See [Module Configuration](module-configuration.md) for the all configuration options and advanced usage information.
+
+## Logging Database Changes
+
+Add `AuditTrailBehavior` to the models you want to log:
+
+```php
+class Post extends \yii\db\ActiveRecord
+{
+    public function behaviors()
+    {
+        return [
+            'bedezign\yii2\audit\AuditTrailBehavior'
+        ];
+    }
+}
+```
+
+See [Database Logging](database-logging.md) for the all configuration options and advanced usage information.
+
+## Logging Javascript
+
+Register `JSLoggingAsset` in any of your views:
+
+```php
+\bedezign\yii2\audit\web\JSLoggingAsset::register($this);
+```
+
+See [Javascript Logging](javascript-logging.md) for the all configuration options and advanced usage information.
+
+## Logging Errors
+
+Add `ErrorHandler` to your configuration array:
+
+```php
+$config = [
+    'components' => [
+        'errorHandler' => [
+           'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+        ],
+    ],
+];
+```
+
+See [Error Logging](error-logging.md) for the all configuration options and advanced usage information.
 
 ## Viewing the Audit Data
 
