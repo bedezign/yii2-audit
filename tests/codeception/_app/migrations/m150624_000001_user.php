@@ -9,6 +9,7 @@ class m150624_000001_user extends Migration
     {
         $this->createTable('user', [
             'id' => Schema::TYPE_PK,
+            'username' => Schema::TYPE_STRING,
         ]);
     }
 
