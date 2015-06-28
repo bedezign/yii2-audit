@@ -61,7 +61,10 @@ $config = [
             'accessRoles' => null,
             'compressData' => false,
             'trackActions' => ['*'],
-            'ignoreActions' => ['/audit/default/index'],
+            'ignoreActions' => [
+                '/audit/default/index',
+                '/audit/error/*',
+            ],
             'panels' => [
                 'request',
                 'error',
