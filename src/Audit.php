@@ -213,12 +213,13 @@ class Audit extends Module
 
     /**
      * @param bool $create
-     * @return models\AuditEntry|static
+     * @param bool $new
+     * @return AuditEntry|static
      */
-    public function getEntry($create = false)
+    public function getEntry($create = false, $new = false)
     {
-        if (!$this->_entry && $create) {
-            $this->_entry = models\AuditEntry::create(true);
+        if ((!$this->_entry && $create) || $new) {
+            $this->_entry = AuditEntry::create(true);
         }
         return $this->_entry;
     }

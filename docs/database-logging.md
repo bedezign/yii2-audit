@@ -49,3 +49,43 @@ class Post extends \yii\db\ActiveRecord
     }
 }
 ```
+
+
+## Version Control
+
+## Undeleting
+
+```php
+$post_id = 1;
+$post = Post::findOne(1);
+$post->delete();
+// ... time passes ...
+$post = Version::find(Post::className(), $post_id);
+$post->save();
+```
+
+### Rolling Back to Last Version
+
+```php
+$post = Post::findOne(1);
+$post->title = 'something post title';
+$post->body = 'something post body';
+$post->save();
+// ... time passes ...
+$post = Version::find($post->className(), $post->id);
+$post->save();
+```
+
+### Rolling Back to Any Version
+
+```php
+// get all versions
+$versions = Version::versions($post->className(), $post->id));
+// get the last version
+$version = Version::lastVersion($post->className(), $post->id));
+// load model at any version
+$post = Version::find($post->className(), $post->id, $version);
+// save the model
+$post->save();
+```
+

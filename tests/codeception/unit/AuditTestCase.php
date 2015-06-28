@@ -12,9 +12,9 @@ class AuditTestCase extends \yii\codeception\TestCase
         return \Yii::$app->getModule('audit');
     }
 
-    public function entry($create = true)
+    public function entry($create = true, $new = false)
     {
-        return $this->module()->getEntry($create);
+        return $this->module()->getEntry($create, $new);
     }
 
     public function finalizeAudit()
