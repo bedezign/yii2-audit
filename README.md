@@ -16,16 +16,16 @@ Yii2 Audit is a module that records and displays web/cli requests, database chan
 * Tracks minimal data in the base entry:
   * `user_id` - User ID of the visitor (if any), based on `Yii::$app->user->id`.
   * `ip` - IP Address of the visitor.
-  * `request_method` - The method used to generate the request, eg: `GET`, `POST`, `DELETE`, `PUT`, `PATCH`, `OPTIONS`, `HEAD` or `CLI`.
+  * `request_method` - The method used to generate the request, eg: `CLI` for console requests and `GET`, `POST`, `DELETE`, `PUT`, `PATCH`, `OPTIONS` or `HEAD` for web requests.
   * `ajax` - If the page was requested using ajax.
   * `route` - The controller and action of the request.
   * `duration` - How long the request took to serve.
   * `memory_max` - The peak memory usage during the request.
+  * `created` - The datetime the entry was created.
 
 * Tracks additional data using configurable Panels.  Each panel is optional, and you can even create your own.
   * `RequestPanel` - Tracks all incoming web and console request data:
-    * The users IP Address and User ID.
-    * URL Information including the route/params, referrer and where they were redirected to.
+    * URL Information including the route and params.
     * PHP SuperGlobals `$_GET`, `$_POST`, `$_SERVER`, `$_FILES` and `$_COOKIES`.
     * Headers from the Request and Response.
   * `AssetPanel` - Asset Bundles loaded for the request.
