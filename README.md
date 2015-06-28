@@ -48,8 +48,7 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 ![Dashboard](https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png)
 
 ### Entry View
-
-![Entry View](https://cloud.githubusercontent.com/assets/51875/8369879/857f70b0-1bff-11e5-8373-2d79e3b0c05d.png)
+![Audit Entry View](https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png)
 
 #### Trail Panel
 ![Trail Panel](https://cloud.githubusercontent.com/assets/51875/8372048/7f4f86de-1c1e-11e5-91a5-7052b597992f.png)
