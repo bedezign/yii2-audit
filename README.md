@@ -62,6 +62,12 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 #### Profiling Panel
 ![Profiling Panel](https://cloud.githubusercontent.com/assets/51875/8395072/cc95d2a2-1d97-11e5-891e-05580d03fd7a.png)
 
+#### Error Panel
+![Error Panel](https://cloud.githubusercontent.com/assets/51875/8395074/f9b1d196-1d97-11e5-874d-829c095aead8.png)
+
+#### Javascript Panel
+![Javascript Panel](https://cloud.githubusercontent.com/assets/51875/8395077/25f75e88-1d98-11e5-9ade-32a5e9b16511.png)
+
 
 ## Credits
 
