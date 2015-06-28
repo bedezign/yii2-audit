@@ -5,9 +5,13 @@
 If you want errors to be logged, you have to register the included errorhandler as well in you configuration:
 
 ```php
-'errorHandler' => [
-   'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
-],
+$config = [
+    'components' => [
+        'errorHandler' => [
+           'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+        ],
+    ],
+];
 ```
 
 ## Emailing Errors
