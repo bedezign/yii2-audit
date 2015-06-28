@@ -56,6 +56,8 @@ class Post extends \yii\db\ActiveRecord
 ## Undeleting
 
 ```php
+use bedezign\yii2\audit\components\Version;
+
 $post_id = 1;
 Post::findOne($post_id)->delete();
 // ... time passes ...
@@ -66,6 +68,8 @@ $post->save();
 ### Rolling Back to Last Version
 
 ```php
+use bedezign\yii2\audit\components\Version;
+
 $post = Post::findOne(1);
 $post->title = 'something post title';
 $post->body = 'something post body';
@@ -78,6 +82,8 @@ $post->save();
 ### Rolling Back to Any Version
 
 ```php
+use bedezign\yii2\audit\components\Version;
+
 // get all versions
 $versions = Version::versions($post->className(), $post->id));
 // get the last version
