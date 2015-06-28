@@ -12,6 +12,7 @@ namespace bedezign\yii2\audit;
 
 use bedezign\yii2\audit\models\AuditEntry;
 use Yii;
+use yii\base\ActionEvent;
 use yii\base\Application;
 use yii\base\InvalidConfigException;
 use yii\base\Module;
@@ -162,20 +163,16 @@ class Audit extends Module
 
     /**
      * Called to evaluate if the current request should be logged
-     * @param \yii\base\Event $event
+     * @param ActionEvent $event
      */
     public function onBeforeAction($event)
     {
-        $actionId = $event->action->uniqueId;
-
-        $trackActions = ArrayHelper::toArray($this->trackActions);
-        if (count($trackActions) && !$this->routeMatches($actionId, $trackActions))
+        if (!empty($this->trackActions) && !$this->routeMatches($event->action->uniqueId, $this->trackActions)) {
             return;
-
-        $ignoreActions = ArrayHelper::toArray($this->ignoreActions);
-        if (count($ignoreActions) && $this->routeMatches($actionId, $ignoreActions))
+        }
+        if (!empty($this->ignoreActions) && $this->routeMatches($event->action->uniqueId, $this->ignoreActions)) {
             return;
-
+        }
         // Still here, start audit
         $this->getEntry(true);
     }
@@ -336,6 +333,7 @@ class Audit extends Module
      */
     protected function routeMatches($route, $list)
     {
+        $list = ArrayHelper::toArray($list);
         foreach ($list as $compare) {
             $len = strlen($compare);
             if ($compare[$len - 1] == '*') {
