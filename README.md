@@ -54,7 +54,7 @@ For changes since the last version see the [Changelog](CHANGELOG.md).
 ![Trail Panel](https://cloud.githubusercontent.com/assets/51875/8372048/7f4f86de-1c1e-11e5-91a5-7052b597992f.png)
 
 #### Database Panel
-![Database Panel](https://cloud.githubusercontent.com/assets/51875/8370713/fd6482ea-1c0a-11e5-9581-96ef717d7e69.png)
+![Database Panel](https://cloud.githubusercontent.com/assets/51875/8395068/94b25018-1d97-11e5-9857-a7d3e151cc97.png)
 
 #### Log Panel
 ![Logs Panel](https://cloud.githubusercontent.com/assets/51875/8370717/0e6e9134-1c0b-11e5-9840-17d1ece07b9a.png)
