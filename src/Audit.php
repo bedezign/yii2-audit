@@ -111,6 +111,25 @@ class Audit extends Module
     ];
 
     /**
+     * @var AuditTarget
+     */
+    public $logTarget;
+
+    /**
+     * @var array
+     */
+    private $_corePanels = [
+        'audit/request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+        'audit/error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+        'audit/db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+        'audit/log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
+        'audit/asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+        'audit/config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
+        'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+        'audit/profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+    ];
+
+    /**
      * @var array
      */
     private $_viewOnlyPanels = [
@@ -119,11 +138,6 @@ class Audit extends Module
         'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
         'audit/extra' => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
     ];
-
-    /**
-     * @var AuditTarget
-     */
-    public $logTarget;
 
     /**
      * @var \bedezign\yii2\audit\models\AuditEntry If activated this is the active entry
@@ -234,7 +248,6 @@ class Audit extends Module
 
     /**
      * @param bool $all
-     * @throws InvalidConfigException
      */
     public function initPanels($all = false)
     {
@@ -258,16 +271,15 @@ class Audit extends Module
     protected function getPanels()
     {
         $panels = [];
-        $corePanels = $this->corePanels();
         foreach ($this->panels as $key => $value) {
             $identifier = $config = null;
             if (is_numeric($key)) {
                 // The config a panel name
                 if (strpos($value, '/') === false) $value = 'audit/' . $value;
-                if (!isset($corePanels[$value]))
+                if (!isset($this->_corePanels[$value]))
                     throw new InvalidConfigException("'$value' is not a valid panel name");
                 $identifier = $value;
-                $config = $corePanels[$value];
+                $config = $this->_corePanels[$value];
             } elseif (is_string($key)) {
                 $identifier = $key;
                 $config = is_string($value) ? ['class' => $value] : $value;
@@ -328,23 +340,6 @@ class Audit extends Module
                 return true;
         }
         return false;
-    }
-
-    /**
-     * @return array
-     */
-    protected function corePanels()
-    {
-        return [
-            'audit/request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-            'audit/error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-            'audit/db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-            'audit/log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-            'audit/asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-            'audit/config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-            'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-            'audit/profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
-        ];
     }
 
 }
