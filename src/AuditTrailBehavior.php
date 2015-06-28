@@ -81,6 +81,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function afterInsert()
     {
         $this->audit('CREATE');
+        $this->setOldAttributes($this->owner->getAttributes());
     }
 
     /**
@@ -89,6 +90,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function afterUpdate()
     {
         $this->audit('UPDATE');
+        $this->setOldAttributes($this->owner->getAttributes());
     }
 
     /**
@@ -97,6 +99,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     public function afterDelete()
     {
         $this->audit('DELETE');
+        $this->setOldAttributes([]);
     }
 
     /**
@@ -105,6 +108,10 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     public function audit($action)
     {
+        // Not active? get out of here
+        if (!$this->active) {
+            return;
+        }
         // Lets check if the whole class should be ignored
         if (sizeof($this->ignoredClasses) > 0 && array_search(get_class($this->owner), $this->ignoredClasses) !== false) {
             return;
@@ -114,18 +121,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
             $this->saveAuditTrailDelete();
             return;
         }
-        // Get the new and old attributes
-        $newAttributes = $this->cleanAttributes($this->owner->getAttributes());
-        $oldAttributes = $this->cleanAttributes($this->getOldAttributes());
-
-        // If no difference then get out of here
-        if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
-            return;
-        }
         // Now lets actually write the attributes
-        $this->auditAttributes($action, $newAttributes, $oldAttributes);
-        // Reset old attributes to handle the case with the same model instance updated multiple times
-        $this->setOldAttributes($this->owner->getAttributes());
+        $this->auditAttributes($action);
     }
 
     /**
@@ -178,17 +175,19 @@ class AuditTrailBehavior extends \yii\base\Behavior
     }
 
     /**
-     * @param       $action
-     * @param       $newAttributes
-     * @param array $oldAttributes
+     * @param string $action
      * @throws \yii\db\Exception
      */
-    protected function auditAttributes($action, $newAttributes, $oldAttributes = [])
+    protected function auditAttributes($action)
     {
-        if (!$this->active) {
+        // Get the new and old attributes
+        $newAttributes = $this->cleanAttributes($this->owner->getAttributes());
+        $oldAttributes = $this->cleanAttributes($this->getOldAttributes());
+        // If no difference then get out of here
+        if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
             return;
         }
-
+        // Get the trail data
         $entry_id = $this->getAuditEntryId();
         $user_id = $this->getUserId();
         $model = $this->owner->className();
@@ -234,9 +233,6 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     protected function saveAuditTrailDelete()
     {
-        if (!$this->active) {
-            return;
-        }
         Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
             'action' => 'DELETE',
             'entry_id' => $this->getAuditEntryId(),
