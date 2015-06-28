@@ -87,6 +87,15 @@ Contributions are welcome.  Please refer to the [contributing guidelines](CONTRI
 Thanks to [everyone who has contributed](CREDITS.md).
 
 
+## Links
+
+* [GitHub Project](https://github.com/bedezign/yii2-audit)
+* [Yii2 Extension](http://www.yiiframework.com/extension/yii2-audit)
+* [Packagist Package](https://packagist.org/packages/bedezign/yii2-audit)
+* [Travis CI Testing](https://travis-ci.org/bedezign/yii2-audit)
+* [Scrutinizer CI Code Quality](https://scrutinizer-ci.com/g/bedezign/yii2-audit)
+
+
 ## License
 
 BSD-3 - Please refer to the [license](LICENSE.md).
