@@ -310,10 +310,9 @@ class Audit extends Module
             elseif (is_array($module)) {
                 if (isset($module['class']))
                     $class = $module['class'];
-            } else {
-                /** @var Audit $module */
+            } else
+                /** @var Module $module */
                 $class = $module::className();
-            }
 
             $parts = explode('\\', $class);
             if ($class && strtolower(end($parts)) == 'audit')
