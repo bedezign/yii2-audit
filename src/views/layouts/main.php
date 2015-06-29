@@ -2,6 +2,7 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use bedezign\yii2\audit\web\JSLoggingAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
@@ -17,6 +18,7 @@ yii\debug\DebugAsset::register($this);
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <?= Html::csrfMetaTags() ?>
     <title><?= Html::encode($this->title) ?></title>
+    <?php JSLoggingAsset::register($this); ?>
     <?php $this->registerCss('body{padding-top: 60px;}'); ?>
     <?php $this->head() ?>
 </head>
