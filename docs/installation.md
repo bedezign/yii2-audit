@@ -13,7 +13,7 @@ Or add a `require` line to your `composer.json`:
 ```
 {
     "require": {
-        'bedezign/yii2-audit: "*"
+        "bedezign/yii2-audit": "*"
     }
 }
 ```
