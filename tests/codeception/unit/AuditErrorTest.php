@@ -2,6 +2,7 @@
 
 namespace tests\codeception\unit;
 
+use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\tests\UnitTester;
@@ -64,6 +65,60 @@ class AuditErrorTest extends AuditTestCase
 
         $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
         $this->assertEquals($oldId, $newId, 'Expected error entry to not be created');
+    }
+
+    public function testModuleCannotNotLoadDoesntLog()
+    {
+        $module = Audit::getInstance();
+
+        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+
+        Audit::setInstance(null);
+        Yii::$app->setModule('audit', null);
+
+        $exception = new Exception('Unexpected error triggered before bootstrap');
+        Yii::$app->errorHandler->logException($exception);
+
+        // Restore module so the getDb() calls work again
+        Audit::setInstance($module);
+        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $this->assertEquals($oldId, $newId, 'Expected error entry to not be created');
+    }
+
+    public function testModuleIsAutoloadedDuringException()
+    {
+        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+
+        Audit::setInstance(null);
+        // Back to configuaration array (default settings)
+        Yii::$app->setModule('audit', ['class' => Audit::className()]);
+
+        $exception = new Exception('Unexpected error triggered before bootstrap');
+        Yii::$app->errorHandler->logException($exception);
+
+        $this->assertInstanceOf(Audit::className(), Audit::getInstance());
+        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
+    }
+
+    public function testModuleIsNotAutoloadedDuringAMemoryExecption()
+    {
+        $module = Audit::getInstance();
+        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+
+        Audit::setInstance(null);
+        // Back to configuaration array (default settings)
+        Yii::$app->setModule('audit', ['class' => Audit::className()]);
+
+        $exception = new Exception('Allowed memory size of ...');
+        Yii::$app->errorHandler->logException($exception);
+
+        $this->assertNull(Audit::getInstance());
+
+        // Restore module for database
+        Audit::setInstance($module);
+        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $this->assertEquals($oldId, $newId, 'Expected error entry not to be created');
     }
 
 }

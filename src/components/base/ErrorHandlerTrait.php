@@ -23,12 +23,19 @@ trait ErrorHandlerTrait
     {
         try {
 
-            // Make sure not to interfere with out of memory errors, there's not enough spare room to load everything
-            if (strncmp($exception->getMessage(), 'Allowed memory size of', 22) == 0) {
-                return;
+            $isMemoryError = strncmp($exception->getMessage(), 'Allowed memory size of', 22) === 0;
+
+            $module = Audit::getInstance();
+            if (!$module && !$isMemoryError) {
+                // Only attempt to load the module if this isn't an out of memory error, not enough room otherwise
+                $module = \Yii::$app->getModule(Audit::findModuleIdentifier());
             }
 
-            $entry = Audit::getInstance()->getEntry(true);
+            if (!$module) {
+                throw new \Exception('Audit module cannot be loaded');
+            }
+
+            $entry = $module->getEntry(!$isMemoryError);
             if ($entry) {
                 AuditError::log($entry, $exception);
                 $entry->finalize();
