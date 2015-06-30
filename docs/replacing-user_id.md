@@ -40,12 +40,12 @@ For example:
 ```php
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
-     * @param string $id user_id from audit_entry table
+     * @param string $identifier user_id from audit_entry table
      * @return mixed|string
      */
     public static function filterByUserIdentifierCallback($identifier)
     {
-    	return static::find()->select('user_id)
+    	return static::find()->select('user_id')
     		->where(['like', 'username', $identifier])->orWhere(['like', 'email', $identifier])
     		->column();
     }
