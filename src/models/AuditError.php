@@ -4,6 +4,7 @@ namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\components\db\ActiveRecord;
 use bedezign\yii2\audit\components\Helper;
+use Yii;
 
 /**
  * Class AuditError
@@ -94,12 +95,21 @@ class AuditError extends ActiveRecord
     }
 
     /**
-     * @return array
+     * @inheritdoc
      */
     public function attributeLabels()
     {
         return [
-            'code' => 'Error Code'
+            'id' => Yii::t('audit', 'ID'),
+            'entry_id' => Yii::t('audit', 'Entry ID'),
+            'created' => Yii::t('audit', 'Created'),
+            'message' => Yii::t('audit', 'Message'),
+            'code' => Yii::t('audit', 'Error Code'),
+            'file' => Yii::t('audit', 'File'),
+            'line' => Yii::t('audit', 'Line'),
+            'trace' => Yii::t('audit', 'Trace'),
+            'hash' => Yii::t('audit', 'Hash'),
+            'status' => Yii::t('audit', 'Status'),
         ];
     }
 
