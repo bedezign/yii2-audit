@@ -1,19 +1,18 @@
 <?php
 
-/** @var yii\web\View $this */
-/** @var bedezign\yii2\audit\models\AuditEntry $model */
+/** @var View $this */
+/** @var Panel[] $panels */
+/** @var Panel $activePanel */
+/** @var AuditEntry $model */
 
 use bedezign\yii2\audit\Audit;
-use yii\bootstrap\Modal;
-use yii\bootstrap\Tabs;
-use yii\data\ActiveDataProvider;
-use yii\grid\GridView;
+use bedezign\yii2\audit\components\panels\Panel;
+use bedezign\yii2\audit\models\AuditEntry;
 use yii\grid\GridViewAsset;
 use yii\helpers\Html;
+use yii\web\View;
 use yii\widgets\DetailView;
-
-use bedezign\yii2\audit\components\Helper;
-use bedezign\yii2\audit\models\AuditTrail;
+use yii\widgets\Pjax;
 
 GridViewAsset::register($this);
 
@@ -77,30 +76,25 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
         </div>
     </div>
 
-<?php \yii\widgets\Pjax::begin(['id' => 'audit-panels', 'timeout' => 5000]); ?>
-    <form>
-        <div class="row">
-            <div class="col-md-2">
-                <div class="list-group">
-                    <?php
-                    foreach ($panels as $id => $panel) {
-                        $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getLabel();
-                        echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
-                            'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
-                        ]);
-                    }
-                    ?>
-                </div>
-            </div>
-            <div class="col-md-10">
-                <?php if ($activePanel) { ?>
-                    <?php
-                    echo $activePanel->getDetail();
-                    //echo \yii\helpers\VarDumper::dumpAsString($activePanel->data);
-                    ?>
-                    <input type="hidden" name="panel" value="<?= $activePanel->id ?>"/>
-                <?php } ?>
+<?php Pjax::begin(['id' => 'audit-panels', 'timeout' => 5000]); ?>
+    <div class="row">
+        <div class="col-md-2">
+            <div class="list-group">
+                <?php
+                foreach ($panels as $id => $panel) {
+                    $label = '<i class="glyphicon glyphicon-chevron-right"></i>' . $panel->getLabel();
+                    echo Html::a($label, ['view', 'id' => $model->id, 'panel' => $id], [
+                        'class' => $panel === $activePanel ? 'list-group-item active' : 'list-group-item',
+                    ]);
+                }
+                ?>
             </div>
         </div>
-    </form>
-<?php \yii\widgets\Pjax::end(); ?>
+        <div class="col-md-10">
+            <?php if ($activePanel) { ?>
+                <?= $activePanel->getDetail(); ?>
+                <input type="hidden" name="panel" value="<?= $activePanel->id ?>"/>
+            <?php } ?>
+        </div>
+    </div>
+<?php Pjax::end(); ?>
