@@ -8,11 +8,14 @@ use yii\bootstrap\Modal;
 use yii\bootstrap\Tabs;
 use yii\data\ActiveDataProvider;
 use yii\grid\GridView;
+use yii\grid\GridViewAsset;
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
 use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\models\AuditTrail;
+
+GridViewAsset::register($this);
 
 $this->title = Yii::t('audit', 'Entry #{id}', ['id' => $model->id]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
@@ -74,7 +77,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
         </div>
     </div>
 
-<?php // \yii\widgets\Pjax::begin(['id' => 'audit-panels', 'timeout' => 5000]); ?>
+<?php \yii\widgets\Pjax::begin(['id' => 'audit-panels', 'timeout' => 5000]); ?>
     <form>
         <div class="row">
             <div class="col-md-2">
@@ -100,4 +103,4 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
             </div>
         </div>
     </form>
-<?php // \yii\widgets\Pjax::end(); ?>
+<?php \yii\widgets\Pjax::end(); ?>
