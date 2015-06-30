@@ -8,13 +8,14 @@
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
-use yii\grid\GridViewAsset;
 use yii\helpers\Html;
 use yii\web\View;
 use yii\widgets\DetailView;
 use yii\widgets\Pjax;
 
-GridViewAsset::register($this);
+foreach ($panels as $panel) {
+    $panel->registerAssets();
+}
 
 $this->title = Yii::t('audit', 'Entry #{id}', ['id' => $model->id]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];

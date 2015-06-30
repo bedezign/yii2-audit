@@ -5,6 +5,7 @@ namespace bedezign\yii2\audit\panels;
 use bedezign\yii2\audit\components\panels\PanelTrait;
 use Yii;
 use yii\debug\models\search\Log;
+use yii\grid\GridViewAsset;
 
 /**
  * LogPanel
@@ -36,4 +37,13 @@ class LogPanel extends \yii\debug\panels\LogPanel
             'searchModel' => $searchModel,
         ]);
     }
+
+    /**
+     *
+     */
+    public function registerAssets()
+    {
+        GridViewAsset::register(Yii::$app->getView());
+    }
+
 }

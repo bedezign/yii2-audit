@@ -5,6 +5,7 @@ namespace bedezign\yii2\audit\panels;
 use bedezign\yii2\audit\components\panels\PanelTrait;
 use Yii;
 use yii\debug\models\search\Db;
+use yii\grid\GridViewAsset;
 
 /**
  * DbPanel
@@ -41,5 +42,13 @@ class DbPanel extends \yii\debug\panels\DbPanel
             'searchModel' => $searchModel,
             'hasExplain' => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
         ]);
+    }
+
+    /**
+     *
+     */
+    public function registerAssets()
+    {
+        GridViewAsset::register(Yii::$app->getView());
     }
 }

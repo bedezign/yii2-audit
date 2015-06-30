@@ -4,6 +4,8 @@ namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditJavascriptSearch;
+use Yii;
+use yii\grid\GridViewAsset;
 
 /**
  * JavascriptPanel
@@ -39,6 +41,14 @@ class JavascriptPanel extends Panel
             'dataProvider' => $dataProvider,
             'searchModel'  => $searchModel,
         ]);
+    }
+
+    /**
+     *
+     */
+    public function registerAssets()
+    {
+        GridViewAsset::register(Yii::$app->getView());
     }
 
 }

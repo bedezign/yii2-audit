@@ -4,6 +4,8 @@ namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditTrailSearch;
+use Yii;
+use yii\grid\GridViewAsset;
 
 /**
  * TrailPanel
@@ -43,4 +45,13 @@ class TrailPanel extends Panel
             'searchModel' => $searchModel,
         ]);
     }
+
+    /**
+     *
+     */
+    public function registerAssets()
+    {
+        GridViewAsset::register(Yii::$app->getView());
+    }
+
 }

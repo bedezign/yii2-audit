@@ -48,4 +48,12 @@ trait PanelTrait
             'id' => $this->tag,
         ]);
     }
+
+    /**
+     *
+     */
+    public function registerAssets()
+    {
+
+    }
 }

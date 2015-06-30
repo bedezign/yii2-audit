@@ -5,6 +5,7 @@ namespace bedezign\yii2\audit\panels;
 use bedezign\yii2\audit\components\panels\PanelTrait;
 use Yii;
 use yii\debug\models\search\Profile;
+use yii\grid\GridViewAsset;
 
 /**
  * ProfilingPanel
@@ -41,4 +42,13 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
             'time' => number_format($this->data['time'] * 1000) . ' ms',
         ]);
     }
+
+    /**
+     *
+     */
+    public function registerAssets()
+    {
+        GridViewAsset::register(Yii::$app->getView());
+    }
+
 }
