@@ -52,5 +52,11 @@ echo GridView::widget([
                 'width' => '80px',
             ],
         ],
+        [
+            'attribute' => 'hash',
+            'options' => [
+                'width' => '100px',
+            ],
+        ],
     ],
 ]);

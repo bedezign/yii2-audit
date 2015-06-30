@@ -17,6 +17,7 @@ use bedezign\yii2\audit\components\Helper;
  * @property string        $file
  * @property int           $line
  * @property mixed         $trace
+ * @property string        $hash
  * @property int           $status
  *
  * @property AuditEntry    $entry
@@ -75,6 +76,7 @@ class AuditError extends ActiveRecord
         $error->file = $file;
         $error->line = $line;
         $error->trace = Helper::cleanupTrace($trace);
+        $error->hash = Helper::hash($error->message . $error->file . $error->line);
         return $error->save(false) ? $error : null;
     }
 
@@ -88,6 +90,7 @@ class AuditError extends ActiveRecord
         $this->file = $exception->getFile();
         $this->line = $exception->getLine();
         $this->trace = Helper::cleanupTrace($exception->getTrace());
+        $this->hash = Helper::hash($this->message . $this->file . $this->line);
     }
 
     /**
@@ -99,6 +102,5 @@ class AuditError extends ActiveRecord
             'code' => 'Error Code'
         ];
     }
-
 
 }

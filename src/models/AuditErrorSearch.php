@@ -20,7 +20,7 @@ class AuditErrorSearch extends AuditError
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'entry_id', 'file', 'line', 'message', 'code'], 'safe'],
+            [['id', 'entry_id', 'file', 'line', 'message', 'code', 'hash'], 'safe'],
         ];
     }
 
@@ -62,6 +62,7 @@ class AuditErrorSearch extends AuditError
         $query->andFilterWhere(['line' => $this->line]);
         $query->andFilterWhere(['like', 'message', $this->message]);
         $query->andFilterWhere(['code' => $this->code]);
+        $query->andFilterWhere(['hash' => $this->hash]);
 
         return $dataProvider;
     }

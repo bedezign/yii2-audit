@@ -17,6 +17,7 @@ class m150626_000003_create_audit_error extends \yii\db\Migration
             'file'       => Schema::TYPE_STRING . '(512)',
             'line'       => Schema::TYPE_INTEGER ,
             'trace'      => 'BLOB',
+            'hash'       => Schema::TYPE_STRING . '(32)',
             'status'     => Schema::TYPE_INTEGER ,
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 

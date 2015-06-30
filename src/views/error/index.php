@@ -52,6 +52,12 @@ $this->params['breadcrumbs'][] = $this->title;
                     'width' => '80px',
                 ],
             ],
+            [
+                'attribute' => 'hash',
+                'options' => [
+                    'width' => '100px',
+                ],
+            ],
         ],
     ]); ?>
 </div>
