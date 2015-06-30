@@ -278,9 +278,17 @@ class AuditTrailBehavior extends \yii\base\Behavior
 
     /**
      * @return models\AuditEntry|null|static
+     * @throws \Exception
      */
     protected function getAuditEntryId()
     {
+        $module = Audit::getInstance();
+        if (!$module) {
+            $module = \Yii::$app->getModule(Audit::findModuleIdentifier());
+        }
+        if (!$module) {
+            throw new \Exception('Audit module cannot be loaded');
+        }
         return Audit::getInstance()->getEntry(true)->id;
     }
 
