@@ -47,12 +47,12 @@ class AuditJavascript extends ActiveRecord
     public function attributeLabels()
     {
         return [
-            'id' => Yii::t('audit', 'ID'),
-            'entry_id' => Yii::t('audit', 'Entry ID'),
-            'created' => Yii::t('audit', 'Created'),
-            'message' => Yii::t('audit', 'Message'),
-            'origin' => Yii::t('audit', 'Origin'),
-            'data' => Yii::t('audit', 'Data'),
+            'id'        => Yii::t('audit', 'ID'),
+            'entry_id'  => Yii::t('audit', 'Entry ID'),
+            'created'   => Yii::t('audit', 'Created'),
+            'message'   => Yii::t('audit', 'Message'),
+            'origin'    => Yii::t('audit', 'Origin'),
+            'data'      => Yii::t('audit', 'Data'),
         ];
     }
 }
