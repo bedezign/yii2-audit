@@ -4,6 +4,7 @@ namespace bedezign\yii2\audit\components\panels;
 
 use bedezign\yii2\audit\Audit;
 use yii\helpers\Url;
+use yii\web\View;
 
 /**
  * PanelTrait
@@ -50,9 +51,9 @@ trait PanelTrait
     }
 
     /**
-     *
+     * @param View $view
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
 
     }

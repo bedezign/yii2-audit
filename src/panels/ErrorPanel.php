@@ -15,20 +15,23 @@ class ErrorPanel extends Panel
 {
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
         return \Yii::t('audit', 'Error');
     }
 
+    /**
+     * @inheritdoc
+     */
     public function getLabel()
     {
         return $this->getName() . ' <small>(' . count($this->_model->linkedErrors) . ')</small>';
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -45,11 +48,11 @@ class ErrorPanel extends Panel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 
 }

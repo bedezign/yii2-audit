@@ -16,7 +16,7 @@ class LogPanel extends \yii\debug\panels\LogPanel
     use PanelTrait;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
@@ -24,7 +24,7 @@ class LogPanel extends \yii\debug\panels\LogPanel
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -39,11 +39,11 @@ class LogPanel extends \yii\debug\panels\LogPanel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 
 }

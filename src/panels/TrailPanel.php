@@ -14,7 +14,7 @@ use yii\grid\GridViewAsset;
 class TrailPanel extends Panel
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -22,7 +22,7 @@ class TrailPanel extends Panel
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
@@ -30,7 +30,7 @@ class TrailPanel extends Panel
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -47,11 +47,11 @@ class TrailPanel extends Panel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 
 }

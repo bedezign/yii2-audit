@@ -14,20 +14,23 @@ use yii\grid\GridViewAsset;
 class JavascriptPanel extends Panel
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
         return \Yii::t('audit', 'Javascript');
     }
 
+    /**
+     * @return string
+     */
     public function getLabel()
     {
         return $this->getName() . ' <small>(' . count($this->_model->javascripts) . ')</small>';
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -44,11 +47,11 @@ class JavascriptPanel extends Panel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 
 }

@@ -16,7 +16,7 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
     use PanelTrait;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
@@ -27,7 +27,7 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
 
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -44,11 +44,11 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 
 }

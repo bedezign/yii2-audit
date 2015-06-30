@@ -15,7 +15,7 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
     use PanelTrait;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {

@@ -13,7 +13,7 @@ use yii\grid\GridViewAsset;
 class ExtraDataPanel extends Panel
 {
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getName()
     {
@@ -21,7 +21,7 @@ class ExtraDataPanel extends Panel
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
@@ -40,7 +40,7 @@ class ExtraDataPanel extends Panel
     }
 
     /**
-     * @return array|mixed
+     * @inheritdoc
      */
     public function save()
     {
@@ -48,7 +48,7 @@ class ExtraDataPanel extends Panel
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -62,11 +62,11 @@ class ExtraDataPanel extends Panel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 
 }

@@ -14,7 +14,7 @@ use yii\widgets\DetailView;
 use yii\widgets\Pjax;
 
 foreach ($panels as $panel) {
-    $panel->registerAssets();
+    $panel->registerAssets($this);
 }
 
 $this->title = Yii::t('audit', 'Entry #{id}', ['id' => $model->id]);

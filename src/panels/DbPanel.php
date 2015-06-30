@@ -18,7 +18,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
     use PanelTrait;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
@@ -29,7 +29,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
@@ -45,10 +45,10 @@ class DbPanel extends \yii\debug\panels\DbPanel
     }
 
     /**
-     *
+     * @inheritdoc
      */
-    public function registerAssets()
+    public function registerAssets($view)
     {
-        GridViewAsset::register(Yii::$app->getView());
+        GridViewAsset::register($view);
     }
 }

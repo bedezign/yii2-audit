@@ -15,7 +15,7 @@ class MailPanel extends \yii\debug\panels\MailPanel
     use PanelTrait;
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getDetail()
     {
