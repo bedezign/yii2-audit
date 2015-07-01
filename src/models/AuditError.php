@@ -20,7 +20,7 @@ use Yii;
  * @property int           $line
  * @property mixed         $trace
  * @property string        $hash
- * @property int           $status
+ * @property int           $emailed
  *
  * @property AuditEntry    $entry
  */
@@ -102,7 +102,7 @@ class AuditError extends ActiveRecord
             'line'      => Yii::t('audit', 'Line'),
             'trace'     => Yii::t('audit', 'Trace'),
             'hash'      => Yii::t('audit', 'Hash'),
-            'status'    => Yii::t('audit', 'Status'),
+            'emailed'   => Yii::t('audit', 'Emailed'),
         ];
     }
 
