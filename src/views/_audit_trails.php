@@ -6,7 +6,6 @@ use bedezign\yii2\audit\models\AuditTrail;
 use bedezign\yii2\audit\models\AuditTrailSearch;
 use bedezign\yii2\audit\web\AuditAsset;
 use yii\db\ActiveQuery;
-use yii\db\ActiveRecord;
 use yii\grid\GridView;
 use yii\helpers\Html;
 use yii\web\View;
@@ -23,7 +22,7 @@ use yii\widgets\Pjax;
 
 $params = !empty($params) ? $params : Yii::$app->request->get();
 $query = !empty($query) ? $query : null;
-$columns = !empty($columns) ? $columns : null;
+$columns = !empty($columns) ? $columns : [];
 $filterModel = !empty($filterModel) || (isset($filterModel) && $filterModel === null) ? $filterModel : new AuditTrailSearch();
 
 $this->registerAssetBundle(AuditAsset::className());
@@ -69,10 +68,10 @@ if (empty($columns) || in_array('model_id', $columns)) {
 if (empty($columns) || in_array('field', $columns)) {
     $_columns[] = 'field';
 }
-if (empty($columns) || in_array('old_value', $columns)) {
+if (in_array('old_value', $columns)) {
     $_columns[] = 'old_value';
 }
-if (empty($columns) || in_array('new_value', $columns)) {
+if (in_array('new_value', $columns)) {
     $_columns[] = 'new_value';
 }
 if (empty($columns) || in_array('diff', $columns)) {
@@ -98,7 +97,7 @@ Pjax::begin([
 echo '<div class="table-responsive">' . GridView::widget([
         'layout' => '{summary}{pager}<br/>{items}{pager}',
         'dataProvider' => $auditTrailDataProvider,
-        'filterModel' => null,
+        'filterModel' => $filterModel,
         'columns' => $_columns,
     ]) . '</div>';
 
