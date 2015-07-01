@@ -11,3 +11,6 @@ vendor/
 
 # ignore temporary files
 *~
+
+# ignore test files
+TestController.php
