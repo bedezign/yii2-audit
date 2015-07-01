@@ -42,7 +42,7 @@ echo DetailView::widget([
 
 echo Html::tag('h2', Yii::t('audit', 'Text'));
 echo '<div class="well">';
-echo Helper::uncompress($model->text);
+echo Yii::$app->formatter->asNtext(Helper::uncompress($model->text));
 echo '</div>';
 
 echo Html::tag('h2', Yii::t('audit', 'HTML'));
