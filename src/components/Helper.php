@@ -23,11 +23,10 @@ class Helper extends \yii\base\Object
     public static function serialize($data, $compact = true)
     {
         if ($compact)
-            $data = static::compact($data);
+            $data = self::compact($data);
 
         $data = serialize($data);
-        if (Audit::getInstance()->compressData)
-            $data = gzcompress($data);
+        $data = self::compress($data);
 
         return $data;
     }
@@ -40,8 +39,7 @@ class Helper extends \yii\base\Object
     public static function unserialize($data)
     {
         $originalData = $data;
-        if (Audit::getInstance()->compressData)
-            $data = gzuncompress($data);
+        $data = self::uncompress($data);
 
         if ($data === false)
             $data = $originalData;
@@ -50,6 +48,30 @@ class Helper extends \yii\base\Object
         if ($data === false)
             $data = $originalData;
 
+        return $data;
+    }
+
+    /**
+     * Compress
+     * @param mixed $data
+     * @return string binary blob of data
+     */
+    public static function compress($data)
+    {
+        if (Audit::getInstance()->compressData)
+            $data = gzcompress($data);
+        return $data;
+    }
+
+    /**
+     * Compress
+     * @param mixed $data
+     * @return string binary blob of data
+     */
+    public static function uncompress($data)
+    {
+        if (Audit::getInstance()->compressData)
+            $data = gzuncompress($data);
         return $data;
     }
 
@@ -99,7 +121,7 @@ class Helper extends \yii\base\Object
             if (isset($trace[$n]['params'])) unset($trace[$n]['params']);
 
             if (isset($trace[$n]['args']))
-                $trace[$n]['args'] = static::cleanupTraceArguments($trace[$n]['args']);
+                $trace[$n]['args'] = self::cleanupTraceArguments($trace[$n]['args']);
         }
 
         return $trace;
@@ -121,13 +143,13 @@ class Helper extends \yii\base\Object
 
                 if ($recurseDepth > 0) {
                     // Make sure to limit the toArray to non recursive, it's much to easy to get stuck in an infinite loop
-                    $object = static::cleanupTraceArguments(ArrayHelper::toArray($value, [], false), $recurseDepth - 1);
+                    $object = self::cleanupTraceArguments(ArrayHelper::toArray($value, [], false), $recurseDepth - 1);
                     $object['__class'] = $class;
                     $args[$name] = $object;
                 }
             } else if (is_array($value)) {
                 if ($recurseDepth > 0)
-                    $args[$name] = static::cleanupTraceArguments($value, $recurseDepth - 1);
+                    $args[$name] = self::cleanupTraceArguments($value, $recurseDepth - 1);
                 else
                     $args[$name] = 'Array';
             }

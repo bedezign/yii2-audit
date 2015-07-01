@@ -19,8 +19,8 @@ class m150626_000006_create_audit_mail extends \yii\db\Migration
             'cc'         => Schema::TYPE_STRING,
             'bcc'        => Schema::TYPE_STRING,
             'subject'    => Schema::TYPE_STRING,
-            'body'       => 'BLOB NULL',
-            'headers'    => 'BLOB NULL',
+            'text'       => 'BLOB NULL',
+            'html'       => 'BLOB NULL',
             'data'       => 'BLOB NULL',
         ], $this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null);
 

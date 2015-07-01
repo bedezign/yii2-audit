@@ -32,20 +32,25 @@ echo DetailView::widget([
         'cc',
         'bcc',
         'subject',
+        [
+            'label' => Yii::t('audit', 'Download'),
+            'value' => Html::a(Yii::t('audit', 'Download eml file'), ['mail/download', 'id' => $model->id]),
+            'format' => 'raw',
+        ],
     ],
 ]);
 
-echo Html::tag('h2', Yii::t('audit', 'Headers'));
+echo Html::tag('h2', Yii::t('audit', 'Text'));
 echo '<div class="well">';
-echo Helper::unserialize($model->headers);
+echo Helper::uncompress($model->text);
 echo '</div>';
 
-echo Html::tag('h2', Yii::t('audit', 'Body'));
+echo Html::tag('h2', Yii::t('audit', 'HTML'));
 echo '<div class="well">';
-echo Helper::unserialize($model->body);
+echo Helper::uncompress($model->html);
 echo '</div>';
 
 echo Html::tag('h2', Yii::t('audit', 'Data'));
 echo '<div class="well">';
-echo Helper::unserialize($model->data);
+echo Yii::$app->formatter->asNtext(Helper::uncompress($model->data));
 echo '</div>';

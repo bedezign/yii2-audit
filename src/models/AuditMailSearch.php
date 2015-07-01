@@ -18,7 +18,7 @@ class AuditMailSearch extends AuditMail
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'entry_id', 'successful', 'to', 'from', 'reply', 'cc', 'bcc', 'subject', 'body'], 'safe'],
+            [['id', 'entry_id', 'successful', 'to', 'from', 'reply', 'cc', 'bcc', 'subject'], 'safe'],
         ];
     }
 
@@ -56,14 +56,13 @@ class AuditMailSearch extends AuditMail
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
-        $query->andFilterWhere(['like', 'successful', $this->successful]);
+        $query->andFilterWhere(['successful' => $this->successful]);
         $query->andFilterWhere(['like', 'to', $this->to]);
         $query->andFilterWhere(['like', 'from', $this->from]);
         $query->andFilterWhere(['like', 'reply', $this->reply]);
         $query->andFilterWhere(['like', 'cc', $this->cc]);
         $query->andFilterWhere(['like', 'bcc', $this->bcc]);
         $query->andFilterWhere(['like', 'subject', $this->subject]);
-        $query->andFilterWhere(['like', 'body', $this->body]);
 
         return $dataProvider;
     }

@@ -58,6 +58,6 @@ class MailController extends Controller
         if (!$model) {
             throw new NotFoundHttpException('The requested mail does not exist.');
         }
-        Yii::$app->response->sendContentAsFile(Helper::unserialize($model->data), $model->id . '.eml');
+        Yii::$app->response->sendContentAsFile(Helper::uncompress($model->data), $model->id . '.eml');
     }
 }

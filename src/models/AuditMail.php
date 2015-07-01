@@ -8,6 +8,9 @@ namespace bedezign\yii2\audit\models;
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\db\ActiveRecord;
 use bedezign\yii2\audit\components\Helper;
+use Swift_Message;
+use Swift_Mime_Attachment;
+use Swift_Mime_MimePart;
 use Yii;
 use yii\base\Event;
 use yii\mail\MessageInterface;
@@ -27,8 +30,8 @@ use yii\swiftmailer\Message;
  * @property string $cc
  * @property string $bcc
  * @property string $subject
- * @property string $headers
- * @property string $body
+ * @property string $text
+ * @property string $html
  * @property string $data
  *
  * @property AuditEntry    $entry
@@ -74,29 +77,25 @@ class AuditMail extends ActiveRecord
 
         // add more information when message is a SwiftMailer message
         if ($message instanceof Message) {
-            /* @var $swiftMessage \Swift_Message */
+            /* @var $swiftMessage Swift_Message */
             $swiftMessage = $message->getSwiftMessage();
 
-            $body = $swiftMessage->getBody();
-            if (empty($body)) {
-                $parts = $swiftMessage->getChildren();
-                foreach ($parts as $part) {
-                    if (!($part instanceof \Swift_Mime_Attachment)) {
-                        /* @var $part \Swift_Mime_MimePart */
-                        if ($part->getContentType() == 'text/plain') {
-                            $messageData['charset'] = $part->getCharset();
-                            $body = $part->getBody();
-                            break;
-                        }
-                    }
+            $parts = $swiftMessage->getChildren();
+            foreach ($parts as $part) {
+                /* @var $part Swift_Mime_MimePart */
+                if ($part instanceof Swift_Mime_Attachment) {
+                    continue;
+                }
+                $contentType = $part->getContentType();
+                if ($contentType == 'text/plain') {
+                    $mail->text = Helper::compress($part->getBody());
+                } elseif ($contentType == 'text/html') {
+                    $mail->html = Helper::compress($part->getBody());
                 }
             }
-
-            $mail->body = Helper::serialize($body, false);
-            $mail->headers = Helper::serialize($swiftMessage->getHeaders(), false);
         }
 
-        $mail->data = Helper::serialize($message->toString(), false);
+        $mail->data = Helper::compress($message->toString());
 
         return $mail->save(false) ? $mail : null;
     }
@@ -117,8 +116,8 @@ class AuditMail extends ActiveRecord
             'cc' => Yii::t('audit', 'CC'),
             'bcc' => Yii::t('audit', 'BCC'),
             'subject' => Yii::t('audit', 'Subject'),
-            'headers' => Yii::t('audit', 'Headers'),
-            'body' => Yii::t('audit', 'Body'),
+            'text' => Yii::t('audit', 'Text Body'),
+            'html' => Yii::t('audit', 'HTML Body'),
             'data' => Yii::t('audit', 'Data'),
         ];
     }
