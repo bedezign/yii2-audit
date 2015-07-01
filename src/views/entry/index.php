@@ -74,6 +74,13 @@ $this->params['breadcrumbs'][] = $this->title;
                 'contentOptions' => ['class' => 'text-right'],
             ],
             [
+                'attribute' => 'mails',
+                'value' => function ($data) {
+                    return $data->mails ? count($data->mails) : '';
+                },
+                'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
                 'attribute' => 'javascripts',
                 'value' => function ($data) {
                     return $data->javascripts ? count($data->javascripts) : '';
