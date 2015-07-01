@@ -8,6 +8,7 @@ use tests\codeception\_fixtures\AuditDataFixture;
 use tests\codeception\_fixtures\AuditEntryFixture;
 use tests\codeception\_fixtures\AuditErrorFixture;
 use tests\codeception\_fixtures\AuditJavascriptFixture;
+use tests\codeception\_fixtures\AuditMailFixture;
 use tests\codeception\_fixtures\AuditTrailFixture;
 use tests\codeception\_fixtures\PostFixture;
 use tests\codeception\_fixtures\UserFixture;
@@ -66,6 +67,10 @@ class FixtureHelper extends Module
             'audit_trail' => [
                 'class' => AuditTrailFixture::className(),
                 'dataFile' => '@tests/codeception/_fixtures/data/init_audit_trail.php',
+            ],
+            'audit_mail' => [
+                'class' => AuditMailFixture::className(),
+                'dataFile' => '@tests/codeception/_fixtures/data/init_audit_mail.php',
             ],
             'post' => [
                 'class' => PostFixture::className(),
