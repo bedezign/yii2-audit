@@ -101,22 +101,26 @@ class Audit extends Module
     public $userFilterCallback = false;
 
     /**
-     * @var array list of panels.
-     * If the value is a simple string, it is the identifier of an internal to activate (with default settings)
+     * @var array list of panels that should be active/tracking/available during the auditing phase.
+     * If the value is a simple string, it is the identifier of an internal panel to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
+     * It is important that the key is unique, as this is the identifier used to store any data associated with the panel.
      *
-     * Please note: If you add custom panels, please namespace them ("namespace/panel"). Any non-namespaced identifier will be
-     * looked for in the `audit` namespace.
+     * Please note: If you add custom panels, please namespace them ("mynamespace/panelname").
+     * Any non-namespaced identifier will be looked for in the `audit` namespace.
      */
     public $panels = [
         'request',
-        'error',
         'db',
         'log',
         'mail',
         'profiling',
         // 'asset',
         // 'config',
+
+        // These provide special functionality and get loaded to activate it
+        'error',      // Links the extra error reporting functions (`exception()` and `errorMessage()`)
+        'extra'       // Links the data functions (`data()`)
     ];
 
     /**
@@ -128,26 +132,24 @@ class Audit extends Module
      * @var array
      */
     private $_corePanels = [
-        'audit/request' => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
-        'audit/error' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-        'audit/db' => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
-        'audit/log' => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
-        'audit/asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
-        'audit/config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-        'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-        'audit/profiling' => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+        // Tracking/logging panels
+        'audit/request'    => ['class' => 'bedezign\yii2\audit\panels\RequestPanel'],
+        'audit/db'         => ['class' => 'bedezign\yii2\audit\panels\DbPanel'],
+        'audit/log'        => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
+        'audit/asset'      => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+        'audit/config'     => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
+        'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+        'audit/profiling'  => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
+
+        // Special other panels
+        'audit/error'      => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
+        'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
+        'audit/trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+        'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
+        'audit/extra'      => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
     ];
 
-    /**
-     * @var array
-     */
-    private $_viewOnlyPanels = [
-        'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
-        'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
-        'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
-        'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
-        'audit/extra' => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
-    ];
+    private $_panelFunctions = [];
 
     /**
      * @var \bedezign\yii2\audit\models\AuditEntry If activated this is the active entry
@@ -161,13 +163,17 @@ class Audit extends Module
     {
         parent::init();
         $app = Yii::$app;
+
         // Before action triggers a new audit entry
         $app->on(Application::EVENT_BEFORE_ACTION, [$this, 'onBeforeAction']);
         // After request finalizes the audit entry.
         $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
+
         // Activate the logging target
         $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this);
-        $this->initPanels();
+
+        // Boot all active panels
+        $this->panels = $this->loadPanels($this->panels);
     }
 
     /**
@@ -197,19 +203,21 @@ class Audit extends Module
     }
 
     /**
-     * Associate extra data with the current entry (if any)
-     * @param string $type Optional type argument
-     * @param mixed $data The data to associate with the current entry
-     * @return models\AuditData
+     * Allows panels to register functions that can be called directly on the module
+     * @param string    $name
+     * @param callable  $callback
      */
-    public function data($type, $data)
+    public function registerFunction($name, $callback = null)
     {
-        $this->getEntry(true); // force create of an entry to store the data
+        $this->_panelFunctions[$name] = $callback;
+    }
 
-        if (!isset($this->panels['audit/extra']))
-            $this->panels['audit/extra'] = Yii::createObject(['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel']);
+    public function __call($name, $params)
+    {
+        if (!isset($this->_panelFunctions[$name]))
+            throw new \yii\base\InvalidCallException("Unknown panel function '$name'");
 
-        $this->panels['audit/extra']->trackData(['type' => $type, 'data' => $data]);
+        return call_user_func_array($this->_panelFunctions[$name], $params);
     }
 
     /**
@@ -249,30 +257,13 @@ class Audit extends Module
     }
 
     /**
-     * @param bool $all
+     * Tries to assemble the configuration for the panels that the user wants for auditing
+     * @return Panel[]
      */
-    public function initPanels($all = false)
-    {
-        $panels = $this->getPanels();
-
-        if ($all) {
-            foreach ($this->_viewOnlyPanels as $identifier => $config) {
-                if (!isset($panels[$identifier])) {
-                    $panels[$identifier] = Yii::createObject($config);
-                }
-            }
-        }
-
-        $this->panels = $panels;
-    }
-
-    /**
-     * @return array
-     */
-    protected function getPanels()
+    public function loadPanels($panelList)
     {
         $panels = [];
-        foreach ($this->panels as $key => $value) {
+        foreach ($panelList as $key => $value) {
             list($identifier, $config) = $this->getPanelConfig($key, $value);
             if (is_array($config)) {
                 $config['module'] = $this;

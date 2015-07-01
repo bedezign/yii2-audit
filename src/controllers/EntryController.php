@@ -43,9 +43,8 @@ class EntryController extends Controller
      */
     public function actionView($id, $panel = '')
     {
-        $model = $this->loadData($id);
+        list($model, $panels) = $this->loadData($id);
         $storedPanels = $model->associatedPanels;
-        $panels = array_intersect_key($this->module->panels, array_flip($storedPanels));
 
         if (isset($panels[$panel]))
             $activePanel = $panel;
@@ -79,7 +78,7 @@ class EntryController extends Controller
 
     /**
      * @param $id
-     * @return AuditEntry
+     * @return [AuditEntry, Panel[]]
      * @throws NotFoundHttpException
      */
     public function loadData($id)
@@ -90,15 +89,26 @@ class EntryController extends Controller
             throw new NotFoundHttpException('The requested entry does not exist.');
         }
 
-        // Make sure the view-only panels are active as well
+        // Why the separate panel list here?
+        // Because we don't want to interfere with the modules' regular configuration.
+        // We might as well be viewing an entry that has data for more panels than those who are currently active.
+        // Updating the actual module panels would mean that for all audit viewing that panel would become active again
+
+        // See what panels are stored for this entry
+        $storedPanels = $model->associatedPanels;
+        // Fetch the already loaded panels first
         $module = $this->module;
-        $module->initPanels(true);
-        foreach ($module->panels as $panelId => $panel) {
+        $panels = array_intersect_key($module->panels, array_flip($storedPanels));
+        // Combine with the id's of the other panels (should all be core panels)
+        $panels = array_merge($panels, array_diff($storedPanels, array_keys($panels)));
+        // And now we can load all relevant panels for this entry
+        $panels = $module->loadPanels($panels);
+        foreach ($panels as $panelId => $panel) {
             $panel->tag = $id;
             $panel->model = $model;
             $panel->load($model->typeData($panelId));
         }
 
-        return $model;
+        return [$model, $panels];
     }
 }

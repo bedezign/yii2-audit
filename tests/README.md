@@ -12,10 +12,13 @@ composer global require "codeception/codeception=2.0.*"
 
 ## Run Migrations
 
+
 ```
 php codeception/_app/yii migrate/up --interactive=0
 php codeception/_app/yii migrate/up --migrationPath=../src/migrations --interactive=0
 ```
+Note: The default configuration assumes the presence of an `audit_test` database and a user `travis` (no password).
+
 
 ## Helpful Commands
 

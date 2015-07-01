@@ -18,5 +18,4 @@ namespace bedezign\yii2\audit\components\panels;
 class Panel extends \yii\debug\Panel
 {
     use PanelTrait;
-
 }
