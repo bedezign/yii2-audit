@@ -24,6 +24,7 @@ use yii\db\ActiveQuery;
  * @property AuditError[]      $linkedErrors
  * @property AuditJavascript[] $javascripts
  * @property AuditTrail[]      $trails
+ * @property AuditMail[]       $mails
  * @property AuditData[]       $associatedPanels
  */
 class AuditEntry extends ActiveRecord
@@ -75,6 +76,9 @@ class AuditEntry extends ActiveRecord
             if (count($this->trails))
                 $panels[] = 'audit/trail';
 
+            if (count($this->mails))
+                $panels[] = 'audit/mail';
+
             $this->populateRelation('associatedPanels', $panels);
         }
         $related  = $this->getRelatedRecords();
@@ -108,6 +112,15 @@ class AuditEntry extends ActiveRecord
     public function getTrails()
     {
         return static::hasMany(AuditTrail::className(), ['entry_id' => 'id']);
+    }
+
+    /**
+     * Returns all linked AuditMail instances
+     * @return ActiveQuery
+     */
+    public function getMails()
+    {
+        return static::hasMany(AuditMail::className(), ['entry_id' => 'id']);
     }
 
     /**

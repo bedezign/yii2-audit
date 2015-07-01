@@ -3,6 +3,7 @@
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditJavascript;
+use bedezign\yii2\audit\models\AuditMail;
 use bedezign\yii2\audit\models\AuditTrail;
 use dosamigos\chartjs\ChartJs;
 use yii\helpers\ArrayHelper;
@@ -38,9 +39,10 @@ foreach (range(-6, 0) as $day) {
     $date = strtotime($day . 'days');
     $days[] = date('D: Y-m-d', $date);
     $count['entry'][] = AuditEntry::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
-    $count['error'][] = AuditError::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
     $count['trail'][] = AuditTrail::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
+    $count['mail'][] = AuditMail::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
     $count['javascript'][] = AuditJavascript::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
+    $count['error'][] = AuditError::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
 }
 
 //fake data
@@ -59,7 +61,7 @@ foreach (range(-6, 0) as $day) {
     <h1><?= Html::encode($this->title) ?></h1>
 
     <div class="row">
-        <div class="col-md-6 col-lg-3">
+        <div class="col-md-12 col-lg-12">
             <h2><?php echo Html::a(Yii::t('audit', 'Entries'), ['entry/index']); ?></h2>
 
             <div class="well">
@@ -94,7 +96,24 @@ foreach (range(-6, 0) as $day) {
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <h2><?php echo Html::a(Yii::t('audit', 'JS'), ['javascript/index']); ?></h2>
+            <h2><?php echo Html::a(Yii::t('audit', 'Mail'), ['mail/index']); ?></h2>
+
+            <div class="well">
+                <?php
+                $this->registerCss('canvas {width: 100% !important;height: 400px;}');
+                echo ChartJs::widget([
+                    'type' => 'Bar',
+                    'options' => $options,
+                    'data' => [
+                        'labels' => $days,
+                        'datasets' => [ArrayHelper::merge($dataSet, ['data' => $count['mail']])],
+                    ]
+                ]);
+                ?>
+            </div>
+        </div>
+        <div class="col-md-6 col-lg-3">
+            <h2><?php echo Html::a(Yii::t('audit', 'Javascript'), ['javascript/index']); ?></h2>
 
             <div class="well">
                 <?php

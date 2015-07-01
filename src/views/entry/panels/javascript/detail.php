@@ -1,9 +1,11 @@
 <?php
-/* @var $panel yii\debug\panels\LogPanel */
-/* @var $searchModel yii\debug\models\search\Log */
-/* @var $dataProvider yii\data\ArrayDataProvider */
+/* @var $panel LogPanel */
+/* @var $searchModel AuditJavascriptSearch */
+/* @var $dataProvider ArrayDataProvider */
 
-use yii\helpers\Html;
+use bedezign\yii2\audit\models\AuditJavascriptSearch;
+use yii\data\ArrayDataProvider;
+use yii\debug\panels\LogPanel;
 use yii\grid\GridView;
 
 echo '<h1>' . Yii::t('audit', 'Javascript') . '</h1>';

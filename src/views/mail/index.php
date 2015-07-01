@@ -1,6 +1,6 @@
 <?php
 
-use bedezign\yii2\audit\models\AuditJavascriptSearch;
+use bedezign\yii2\audit\models\AuditMailSearch;
 use yii\data\ActiveDataProvider;
 use yii\helpers\Html;
 use yii\grid\GridView;
@@ -8,13 +8,13 @@ use yii\web\View;
 
 /* @var $this View */
 /* @var $dataProvider ActiveDataProvider */
-/* @var $searchModel AuditJavascriptSearch */
+/* @var $searchModel AuditMailSearch */
 
-$this->title = Yii::t('audit', 'Javascript');
+$this->title = Yii::t('audit', 'Mail');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>
-<div class="audit-javascript">
+<div class="audit-mail">
 
     <h1><?= Html::encode($this->title) ?></h1>
 
@@ -38,18 +38,17 @@ $this->params['breadcrumbs'][] = $this->title;
                 'format' => 'raw',
             ],
             [
-                'attribute' => 'type',
+                'attribute' => 'successful',
                 'options' => [
                     'width' => '80px',
                 ],
             ],
-            [
-                'attribute' => 'origin',
-                'options' => [
-                    'width' => '80px',
-                ],
-            ],
-            'message',
+            'to',
+            'from',
+            'reply',
+            'cc',
+            'bcc',
+            'subject',
             [
                 'attribute' => 'created',
                 'options' => [

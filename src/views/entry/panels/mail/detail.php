@@ -1,59 +1,43 @@
 <?php
-/* @var $panel yii\debug\panels\MailPanel */
-/* @var $searchModel yii\debug\models\search\Mail */
-/* @var $dataProvider yii\data\ArrayDataProvider */
+/* @var $panel LogPanel */
+/* @var $searchModel AuditMailSearch */
+/* @var $dataProvider ArrayDataProvider */
 
-use \yii\widgets\ListView;
-use yii\widgets\ActiveForm;
-use yii\helpers\Html;
+use bedezign\yii2\audit\models\AuditMailSearch;
+use yii\data\ArrayDataProvider;
+use yii\debug\panels\LogPanel;
+use yii\grid\GridView;
 
-$listView = new ListView([
+echo '<h1>' . Yii::t('audit', 'Mail') . '</h1>';
+
+echo GridView::widget([
     'dataProvider' => $dataProvider,
-    'itemView' => '@yii/debug/views/default/panels/mail/_item',
-    'layout' => "{summary}\n{items}\n{pager}\n",
+    'filterModel' => $searchModel,
+    'columns' => [
+        ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+        [
+            'attribute' => 'id',
+            'options' => [
+                'width' => '80px',
+            ],
+        ],
+        [
+            'attribute' => 'successful',
+            'options' => [
+                'width' => '80px',
+            ],
+        ],
+        'to',
+        'from',
+        'reply',
+        'cc',
+        'bcc',
+        'subject',
+        [
+            'attribute' => 'created',
+            'options' => [
+                'width' => '150px',
+            ],
+        ],
+    ],
 ]);
-$listView->sorter = ['options' => ['class' => 'mail-sorter']];
-
-echo '<h1>' . Yii::t('audit', 'Email Messages') . '</h1>';
-?>
-
-<div class="row">
-    <div class="col-lg-2">
-        <?= Html::button('Form filtering', ['class' => 'btn btn-default', 'onclick' => '$("#email-form").toggle();']) ?>
-    </div>
-    <div class="row col-lg-10">
-        <?= $listView->renderSorter() ?>
-    </div>
-</div>
-
-<div id="email-form" style="display: none;">
-    <?php $form = ActiveForm::begin([
-        'method' => 'get',
-        'action' => ['entry/view', 'id' => \Yii::$app->request->get('id'), 'panel' => 'mail'],
-    ]); ?>
-    <div class="row">
-        <?= $form->field($searchModel, 'from', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
-
-        <?= $form->field($searchModel, 'to', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
-
-        <?= $form->field($searchModel, 'reply', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
-
-        <?= $form->field($searchModel, 'cc', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
-
-        <?= $form->field($searchModel, 'bcc', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
-
-        <?= $form->field($searchModel, 'charset', ['options' => ['class' => 'col-lg-6']])->textInput() ?>
-
-        <?= $form->field($searchModel, 'subject', ['options' => ['class' => 'col-lg-6']])->textInput()	?>
-
-        <?= $form->field($searchModel, 'body', ['options' => ['class' => 'col-lg-6']])->textInput()	?>
-
-        <div class="form-group col-lg-12">
-            <?= Html::submitButton('Filter', ['class' => 'btn btn-success']) ?>
-        </div>
-    </div>
-
-    <?php ActiveForm::end(); ?>
-</div>
-
-<?= $listView->run() ?>

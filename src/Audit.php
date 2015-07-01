@@ -145,6 +145,7 @@ class Audit extends Module
         'audit/errors' => ['class' => 'bedezign\yii2\audit\panels\ErrorPanel'],
         'audit/javascript' => ['class' => 'bedezign\yii2\audit\panels\JavascriptPanel'],
         'audit/trail' => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
+        'audit/mail' => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
         'audit/extra' => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
     ];
 

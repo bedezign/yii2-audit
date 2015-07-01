@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\components\panels;
 
 use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\models\AuditEntry;
 use yii\helpers\Url;
 use yii\web\View;
 
@@ -19,7 +20,7 @@ use yii\web\View;
 trait PanelTrait
 {
     /**
-     * @var
+     * @var AuditEntry
      */
     protected $_model;
 
@@ -32,7 +33,7 @@ trait PanelTrait
     }
 
     /**
-     * @param $model
+     * @param AuditEntry $model
      */
     public function setModel($model)
     {

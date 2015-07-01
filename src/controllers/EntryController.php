@@ -81,6 +81,9 @@ class EntryController extends Controller
         Yii::$app->response->sendFile($filePath);
     }
 
+    /**
+     * @return array
+     */
     public function actions()
     {
         $actions = [];
@@ -90,6 +93,11 @@ class EntryController extends Controller
         return $actions;
     }
 
+    /**
+     * @param $id
+     * @return AuditEntry
+     * @throws HttpException
+     */
     public function loadData($id)
     {
         /** @var AuditEntry $model */
