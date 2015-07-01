@@ -20,10 +20,10 @@ use yii\widgets\Pjax;
  */
 
 
-$params = !empty($params) ? $params : Yii::$app->request->get();
-$query = !empty($query) ? $query : null;
-$columns = !empty($columns) ? $columns : [];
-$filter = !empty($filter) ? $filter : true;
+$params = isset($params) ? $params : Yii::$app->request->get();
+$query = isset($query) ? $query : null;
+$columns = isset($columns) ? $columns : [];
+$filter = isset($filter) ? $filter : true;
 
 $this->registerAssetBundle(AuditAsset::className());
 
