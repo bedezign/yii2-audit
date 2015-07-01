@@ -18,7 +18,7 @@ class m150626_000003_create_audit_error extends \yii\db\Migration
             'line'       => Schema::TYPE_INTEGER ,
             'trace'      => 'BLOB',
             'hash'       => Schema::TYPE_STRING . '(32)',
-            'emailed'    => Schema::TYPE_INTEGER . ' NOT NULL',
+            'emailed'    => Schema::TYPE_BOOLEAN . " NOT NULL DEFAULT '0'",
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 
         $this->addForeignKey('fk_audit_error_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id', 'CASCADE');
