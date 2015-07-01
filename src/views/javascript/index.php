@@ -10,7 +10,7 @@ use yii\web\View;
 /* @var $dataProvider ActiveDataProvider */
 /* @var $searchModel AuditJavascriptSearch */
 
-$this->title = Yii::t('audit', 'Javascript');
+$this->title = Yii::t('audit', 'Javascripts');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

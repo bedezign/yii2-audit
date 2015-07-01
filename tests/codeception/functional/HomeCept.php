@@ -23,6 +23,16 @@ $I->click('Trails');
 $I->see('Trails', 'h1');
 $I->click('Audit');
 
+$I->seeLink('Mails');
+$I->click('Mails');
+$I->see('Mails', 'h1');
+$I->click('Audit');
+
+$I->seeLink('Javascripts');
+$I->click('Javascripts');
+$I->see('Javascripts', 'h1');
+$I->click('Audit');
+
 $I->seeLink('Errors');
 $I->click('Errors');
 $I->see('Errors', 'h1');

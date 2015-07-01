@@ -10,7 +10,7 @@ use yii\web\View;
 /* @var $dataProvider ActiveDataProvider */
 /* @var $searchModel AuditMailSearch */
 
-$this->title = Yii::t('audit', 'Mail');
+$this->title = Yii::t('audit', 'Mails');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
 $this->params['breadcrumbs'][] = $this->title;
 ?>

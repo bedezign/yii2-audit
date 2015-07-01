@@ -96,7 +96,7 @@ foreach (range(-6, 0) as $day) {
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <h2><?php echo Html::a(Yii::t('audit', 'Mail'), ['mail/index']); ?></h2>
+            <h2><?php echo Html::a(Yii::t('audit', 'Mails'), ['mail/index']); ?></h2>
 
             <div class="well">
                 <?php
@@ -113,7 +113,7 @@ foreach (range(-6, 0) as $day) {
             </div>
         </div>
         <div class="col-md-6 col-lg-3">
-            <h2><?php echo Html::a(Yii::t('audit', 'Javascript'), ['javascript/index']); ?></h2>
+            <h2><?php echo Html::a(Yii::t('audit', 'Javascripts'), ['javascript/index']); ?></h2>
 
             <div class="well">
                 <?php

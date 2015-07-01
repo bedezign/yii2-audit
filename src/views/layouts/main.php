@@ -36,8 +36,8 @@ echo Nav::widget([
     'items' => [
         ['label' => Yii::t('audit', 'Entries'), 'url' => ['entry/index']],
         ['label' => Yii::t('audit', 'Trails'), 'url' => ['trail/index']],
-        ['label' => Yii::t('audit', 'Mail'), 'url' => ['mail/index']],
-        ['label' => Yii::t('audit', 'JS'), 'url' => ['javascript/index']],
+        ['label' => Yii::t('audit', 'Mails'), 'url' => ['mail/index']],
+        ['label' => Yii::t('audit', 'Javascripts'), 'url' => ['javascript/index']],
         ['label' => Yii::t('audit', 'Errors'), 'url' => ['error/index']],
     ],
     'options' => ['class' => 'navbar-nav'],
