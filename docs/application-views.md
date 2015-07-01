@@ -78,8 +78,8 @@ echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     ],
     // which columns to show
     'columns' => ['user_id', 'entry_id', 'action', 'model', 'model_id', 'old_value', 'new_value', 'diff', 'created'],
-    // set to null to hide filter fields
-    'filterModel' => null,
+    // set to false to hide filter
+    'filter' => false,
 ]);
 ```
 
