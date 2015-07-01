@@ -6,9 +6,9 @@
 use yii\helpers\Html;
 use yii\widgets\DetailView;
 
-$this->title = Yii::t('audit', 'JS #{id}', ['id' => $model->id]);
+$this->title = Yii::t('audit', 'Javascript #{id}', ['id' => $model->id]);
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
-$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'JS'), 'url' => ['index']];
+$this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Javascripts'), 'url' => ['index']];
 $this->params['breadcrumbs'][] = '#' . $model->id;
 
 echo Html::tag('h1', $this->title);

@@ -5,6 +5,7 @@
 
 use yii\grid\GridView;
 use yii\helpers\Html;
+use yii\helpers\VarDumper;
 use yii\widgets\DetailView;
 
 $this->title = Yii::t('audit', 'Error #{id}', ['id' => $model->id]);
@@ -54,7 +55,7 @@ echo GridView::widget([
             'value' => function ($data) {
                 $out = '<a class="args-toggle glyphicon glyphicon-plus" href="javascript:void(0);"></a>';
                 $out .= '<pre style="display:none;">';
-                $out .= \yii\helpers\VarDumper::dumpAsString($data['args']);
+                $out .= VarDumper::dumpAsString($data['args']);
                 $out .= '</pre>';
                 return $out;
             },
