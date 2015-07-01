@@ -13,7 +13,7 @@ use yii\widgets\Pjax;
 
 /**
  * @var View $this
- * @var AuditTrailSearch $filterModel
+ * @var bool $filter
  * @var array $params
  * @var ActiveQuery $query
  * @var array $columns
@@ -23,7 +23,7 @@ use yii\widgets\Pjax;
 $params = !empty($params) ? $params : Yii::$app->request->get();
 $query = !empty($query) ? $query : null;
 $columns = !empty($columns) ? $columns : [];
-$filterModel = !empty($filterModel) || (isset($filterModel) && $filterModel === null) ? $filterModel : new AuditTrailSearch();
+$filter = !empty($filter) ? $filter : true;
 
 $this->registerAssetBundle(AuditAsset::className());
 
@@ -97,7 +97,7 @@ Pjax::begin([
 echo '<div class="table-responsive">' . GridView::widget([
         'layout' => '{summary}{pager}<br/>{items}{pager}',
         'dataProvider' => $auditTrailDataProvider,
-        'filterModel' => $filterModel,
+        'filterModel' => $filter ? $auditTrailSearch : null,
         'columns' => $_columns,
     ]) . '</div>';
 
