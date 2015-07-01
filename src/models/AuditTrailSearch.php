@@ -34,22 +34,23 @@ class AuditTrailSearch extends AuditTrail
 
     /**
      * @param $params
+     * @param null $query
      * @return ActiveDataProvider
      */
-    public function search($params)
+    public function search($params, $query = null)
     {
-        $query = $this->find();
+        $query = $query ? $query : $this->find();
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'  => [
+            'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
             ]
         ]);
 
-        // load the seach form data and validate
+        // load the search form data and validate
         if (!($this->load($params) && $this->validate())) {
             return $dataProvider;
         }
