@@ -6,7 +6,7 @@ use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditJavascript;
 use bedezign\yii2\audit\models\AuditJavascriptSearch;
 use Yii;
-use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * JavascriptController
@@ -33,13 +33,13 @@ class JavascriptController extends Controller
      * Displays a single AuditJavascript model.
      * @param integer $id
      * @return mixed
-     * @throws HttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
         $model = AuditJavascript::findOne($id);
         if (!$model) {
-            throw new HttpException(404, 'The requested page does not exist.');
+            throw new NotFoundHttpException('The requested javascript does not exist.');
         }
         return $this->render('view', [
             'model' => $model,

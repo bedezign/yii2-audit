@@ -35,6 +35,11 @@ echo DetailView::widget([
     ],
 ]);
 
+echo Html::tag('h2', Yii::t('audit', 'Headers'));
+echo '<div class="well">';
+echo Helper::unserialize($model->headers);
+echo '</div>';
+
 echo Html::tag('h2', Yii::t('audit', 'Body'));
 echo '<div class="well">';
 echo Helper::unserialize($model->body);

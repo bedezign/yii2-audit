@@ -6,7 +6,6 @@ use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditEntrySearch;
 use Yii;
-use yii\web\HttpException;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -67,21 +66,6 @@ class EntryController extends Controller
     }
 
     /**
-     * @param $file
-     * @throws NotFoundHttpException
-     */
-    public function actionDownloadMail($file)
-    {
-        $filePath = Yii::getAlias($this->module->panels['audit/mail']->mailPath) . '/' . basename($file);
-
-        if ((mb_strpos($file, '\\') !== false || mb_strpos($file, '/') !== false) || !is_file($filePath)) {
-            throw new NotFoundHttpException('Mail file not found');
-        }
-
-        Yii::$app->response->sendFile($filePath);
-    }
-
-    /**
      * @return array
      */
     public function actions()
@@ -96,14 +80,14 @@ class EntryController extends Controller
     /**
      * @param $id
      * @return AuditEntry
-     * @throws HttpException
+     * @throws NotFoundHttpException
      */
     public function loadData($id)
     {
         /** @var AuditEntry $model */
         $model = AuditEntry::findOne($id);
         if (!$model) {
-            throw new HttpException(404, 'The requested page does not exist.');
+            throw new NotFoundHttpException('The requested entry does not exist.');
         }
 
         // Make sure the view-only panels are active as well

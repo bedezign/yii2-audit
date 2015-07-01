@@ -9,7 +9,6 @@ use yii\helpers\Url;
  */
 
 $I = new FunctionalTester($scenario);
-$I->wantTo('ensure that entry view gives error with bad id');
-
-$I->amOnPage(Url::to(['/audit/entry/view', 'id' => 99999]));
-$I->see('Not Found (#404)', 'h1');
+$I->wantTo('ensure that mail grid works');
+$I->amOnPage(Url::to(['/audit/mail']));
+$I->see('Mails', 'h1');

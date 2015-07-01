@@ -8,7 +8,7 @@ use yii\data\ArrayDataProvider;
 use yii\debug\panels\LogPanel;
 use yii\grid\GridView;
 
-echo '<h1>' . Yii::t('audit', 'Mail') . '</h1>';
+echo '<h1>' . Yii::t('audit', 'Email Messages') . '</h1>';
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,

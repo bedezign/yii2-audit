@@ -9,6 +9,8 @@ use yii\helpers\Url;
  */
 
 $I = new FunctionalTester($scenario);
+
 $I->wantTo('ensure that javascript grid works');
 $I->amOnPage(Url::to(['/audit/javascript']));
-$I->see('JS', 'h1');
+$I->see('Javascripts', 'h1');
+

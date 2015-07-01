@@ -6,7 +6,7 @@ use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
 use Yii;
-use yii\web\HttpException;
+use yii\web\NotFoundHttpException;
 
 /**
  * ErrorController
@@ -33,13 +33,13 @@ class ErrorController extends Controller
      * Displays a single AuditError model.
      * @param integer $id
      * @return mixed
-     * @throws HttpException
+     * @throws NotFoundHttpException
      */
     public function actionView($id)
     {
         $model = AuditError::findOne($id);
         if (!$model) {
-            throw new HttpException(404, 'The requested page does not exist.');
+            throw new NotFoundHttpException('The requested error does not exist.');
         }
         return $this->render('view', [
             'model' => $model,
