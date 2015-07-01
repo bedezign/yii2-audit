@@ -79,9 +79,7 @@ class AuditMail extends ActiveRecord
         if ($message instanceof Message) {
             /* @var $swiftMessage Swift_Message */
             $swiftMessage = $message->getSwiftMessage();
-
-            $parts = $swiftMessage->getChildren();
-            foreach ($parts as $part) {
+            foreach ($swiftMessage->getChildren() as $part) {
                 /* @var $part Swift_Mime_MimePart */
                 if ($part instanceof Swift_Mime_Attachment) {
                     continue;
