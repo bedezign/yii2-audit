@@ -7,6 +7,7 @@ use bedezign\yii2\audit\models\AuditMailSearch;
 use yii\data\ArrayDataProvider;
 use yii\debug\panels\LogPanel;
 use yii\grid\GridView;
+use yii\helpers\Html;
 
 echo '<h1>' . Yii::t('audit', 'Email Messages') . '</h1>';
 
@@ -14,7 +15,20 @@ echo GridView::widget([
     'dataProvider' => $dataProvider,
     'filterModel' => $searchModel,
     'columns' => [
-        ['class' => 'yii\grid\ActionColumn', 'template' => '{view}'],
+        [
+            'class'    => 'yii\grid\ActionColumn',
+            'template' => '{view}',
+            'buttons'  => [
+                'view' => function ($url, $model) {
+                    return Html::a(
+                        Html::tag('span', '', ['class' => 'glyphicon glyphicon-eye-open']), ['mail/view', 'id' => $model->id]
+                    );
+                }
+            ],
+            'options'  => [
+                'width' => '30px',
+            ],
+        ],
         [
             'attribute' => 'id',
             'options' => [

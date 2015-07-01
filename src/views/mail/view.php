@@ -50,7 +50,7 @@ echo '<div class="well">';
 echo Helper::uncompress($model->html);
 echo '</div>';
 
-echo Html::tag('h2', Yii::t('audit', 'Data'));
-echo '<div class="well">';
-echo Yii::$app->formatter->asNtext(Helper::uncompress($model->data));
-echo '</div>';
+//echo Html::tag('h2', Yii::t('audit', 'Data'));
+//echo '<div class="well">';
+//echo Yii::$app->formatter->asNtext(Helper::uncompress($model->data));
+//echo '</div>';
