@@ -27,6 +27,14 @@ class AuditTestCase extends \yii\codeception\TestCase
             $this->mockApplication();
     }
 
+    public function useEntry($entry)
+    {
+        $reflection = new \ReflectionClass($this->module());
+        $property = $reflection->getProperty('_entry');
+        $property->setAccessible(true);
+        $property->setValue($this->module(), $entry);
+    }
+
     protected function tearDown()
     {
         \Yii::getLogger()->messages = [];

@@ -2,8 +2,8 @@ class_name: UnitTester
 modules:
     enabled:
         - Asserts
-        - UnitHelper
         - Yii2
+        - tests\codeception\_support\UnitHelper
         - tests\codeception\_support\FixtureHelper
         - tests\codeception\_support\MailHelper
     config:

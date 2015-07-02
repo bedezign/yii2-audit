@@ -11,14 +11,14 @@
             "email": "Steve@bedezign.com"
         },
         {
-            "name": "Marc Hollander",
-            "homepage": "http://maruc.nl/",
-            "email": "marchollander@gmail.com"
-        },
-        {
             "name": "Brett O'Donnell",
             "homepage": "https://mrphp.com.au/",
             "email": "cornernote@gmail.com"
+        },
+        {
+            "name": "Marc Hollander",
+            "homepage": "http://maruc.nl/",
+            "email": "marchollander@gmail.com"
         }
     ],
     "require": {

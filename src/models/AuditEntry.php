@@ -117,6 +117,12 @@ class AuditEntry extends ActiveRecord
         static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
 
+    public function addData($type, $data, $compact = true)
+    {
+        $record = [$this->id, $type, Helper::serialize($data, $compact)];
+        static::getDb()->createCommand()->insert(AuditData::tableName(), $record)->execute();
+    }
+
     /**
      * Records the current application state into the instance.
      */

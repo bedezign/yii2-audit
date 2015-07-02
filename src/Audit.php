@@ -107,6 +107,11 @@ class Audit extends Module
     public $userFilterCallback = false;
 
     /**
+     * @var bool The module does batch saving of the data records by default. You can disable this if you are experiencing
+     * `max_allowed_packet` errors when logging huge data quantities. Records will be saved per piece instead of all at once
+     */
+    public $batchSave = true;
+    /**
      * @var array list of panels that should be active/tracking/available during the auditing phase.
      * If the value is a simple string, it is the identifier of an internal panel to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.

@@ -3,8 +3,8 @@
 ## Developers
 
 * [Steve Guns (Blizzke)](https://github.com/Blizzke)
-* [Marc Hollander (MGHollander)](https://github.com/MGHollander)
 * [Brett O'Donnell (cornernote)](https://github.com/cornernote)
+* [Marc Hollander (MGHollander)](https://github.com/MGHollander)
 
 ## Contributors
 

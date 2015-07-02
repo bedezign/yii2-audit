@@ -40,17 +40,26 @@ class LogTarget extends Target
             // Things like this can happen in tests etc, but it is too late for us to do anything about that.
             return;
 
-        if (!$this->module->entry || empty($this->module->panels))
+        $module = $this->module;
+        if (!$module->entry || empty($module->panels))
             return;
 
+        $entry = $module->entry;
+
         $records = [];
-        foreach ($this->module->panels as $id => $panel) {
+        foreach ($module->panels as $id => $panel) {
             $records[$id] = $panel->save();
         }
-
         $records = array_filter($records);
-        if (!empty($records))
-            $this->module->entry->addBatchData($records, false);
+
+        if (!empty($records)) {
+            if ($module->batchSave)
+                $entry->addBatchData($records, false);
+            else {
+                foreach ($records as $type => $record)
+                    $entry->addData($type, $records, false);
+            }
+        }
         $this->messages = [];
     }
 
