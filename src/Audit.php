@@ -15,6 +15,7 @@ use Yii;
 use yii\base\ActionEvent;
 use yii\base\Application;
 use yii\base\InvalidConfigException;
+use yii\base\InvalidParamException;
 use yii\base\Module;
 use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
@@ -211,6 +212,9 @@ class Audit extends Module
      */
     public function registerFunction($name, $callback)
     {
+        if (isset($this->_panelFunctions[$name]))
+            throw new InvalidParamException("The '$name'-function has already been defined.");
+
         $this->_panelFunctions[$name] = $callback;
     }
 
