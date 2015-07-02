@@ -121,4 +121,24 @@ class AuditErrorTest extends AuditTestCase
         $this->assertEquals($oldId, $newId, 'Expected error entry not to be created');
     }
 
+    public function testThatExceptionUtilityFunctionIsAdded()
+    {
+        $module = $this->module();
+
+        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $module->exception(new \Exception('Testing utility functions'));
+        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
+    }
+
+    public function testThatErrorMessageUtilityFunctionIsAdded()
+    {
+        $module = $this->module();
+
+        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $module->errorMessage("testing the message function");
+        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
+    }
+
 }

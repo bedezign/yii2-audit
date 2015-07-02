@@ -6,7 +6,7 @@ use bedezign\yii2\audit\models\AuditEntry;
 use Codeception\Specify;
 
 /**
- * AuditErrorTest
+ * AuditEntryTest
  */
 class AuditEntryTest extends AuditTestCase
 {

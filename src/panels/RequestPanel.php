@@ -76,7 +76,7 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
     protected function getRoute()
     {
         if (Yii::$app->requestedAction) {
-            return Yii::$app->requestedAction->getUniqueId();
+            return \yii\helpers\Inflector::camel2id(Yii::$app->requestedAction->getUniqueId());
         }
         return Yii::$app->requestedRoute;
     }
