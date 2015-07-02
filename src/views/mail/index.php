@@ -51,9 +51,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'subject',
             [
                 'attribute' => 'created',
-                'options' => [
-                    'width' => '150px',
-                ],
+                'options' => ['width' => '150px'],
             ],
         ],
     ]); ?>

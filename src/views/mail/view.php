@@ -37,6 +37,7 @@ echo DetailView::widget([
             'value' => Html::a(Yii::t('audit', 'Download eml file'), ['mail/download', 'id' => $model->id]),
             'format' => 'raw',
         ],
+        'created',
     ],
 ]);
 

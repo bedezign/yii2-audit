@@ -18,7 +18,7 @@ class AuditJavascriptSearch extends AuditJavascript
     {
         // only fields in rules() are searchable
         return [
-            [['id', 'entry_id', 'type', 'message', 'origin'], 'safe'],
+            [['id', 'entry_id', 'type', 'message', 'origin', 'created'], 'safe'],
         ];
     }
 
@@ -58,6 +58,7 @@ class AuditJavascriptSearch extends AuditJavascript
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
         $query->andFilterWhere(['like', 'message', $this->message]);
         $query->andFilterWhere(['like', 'origin', $this->origin]);
+        $query->andFilterWhere(['like', 'created', $this->created]);
 
         return $dataProvider;
     }

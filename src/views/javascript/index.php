@@ -52,9 +52,7 @@ $this->params['breadcrumbs'][] = $this->title;
             'message',
             [
                 'attribute' => 'created',
-                'options' => [
-                    'width' => '150px',
-                ],
+                'options' => ['width' => '150px'],
             ],
         ],
     ]); ?>

@@ -43,7 +43,6 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->ajax ? Yii::t('audit', 'Yes') : Yii::t('audit', 'No');
                 },
             ],
-            'created',
             [
                 'class' => 'yii\grid\DataColumn',
                 'attribute' => 'route',
@@ -93,6 +92,10 @@ $this->params['breadcrumbs'][] = $this->title;
                     return $data->linkedErrors ? count($data->linkedErrors) : '';
                 },
                 'contentOptions' => ['class' => 'text-right'],
+            ],
+            [
+                'attribute' => 'created',
+                'options' => ['width' => '150px'],
             ],
         ],
     ]); ?>

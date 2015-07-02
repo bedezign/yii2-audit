@@ -28,6 +28,7 @@ echo DetailView::widget([
         'code',
         'file',
         'line',
+        'created',
     ],
 ]);
 

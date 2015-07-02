@@ -188,7 +188,7 @@ class AuditEntry extends ActiveRecord
     {
         return [
             'id'             => Yii::t('audit', 'Entry ID'),
-            'created'        => Yii::t('audit', 'Added'),
+            'created'        => Yii::t('audit', 'Created'),
             'ip'             => Yii::t('audit', 'IP'),
             'duration'       => Yii::t('audit', 'Duration'),
             'user_id'        => Yii::t('audit', 'User'),

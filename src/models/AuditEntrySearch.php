@@ -8,6 +8,7 @@ use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
 use bedezign\yii2\audit\models\AuditEntry;
+use yii\db\ActiveQuery;
 
 /**
  * Class AuditEntrySearch
@@ -97,6 +98,10 @@ class AuditEntrySearch extends AuditEntry
         return array_combine($methods, $methods);
     }
 
+    /**
+     * @param $userId
+     * @param ActiveQuery $query
+     */
     protected function filterUserId($userId, $query)
     {
         if (strlen($this->user_id)) {

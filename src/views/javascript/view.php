@@ -25,6 +25,7 @@ echo DetailView::widget([
         'type',
         'origin',
         'message',
+        'created',
     ],
 ]);
 

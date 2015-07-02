@@ -47,11 +47,5 @@ echo GridView::widget([
         'cc',
         'bcc',
         'subject',
-        [
-            'attribute' => 'created',
-            'options' => [
-                'width' => '150px',
-            ],
-        ],
     ],
 ]);
