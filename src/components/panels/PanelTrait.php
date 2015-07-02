@@ -41,6 +41,18 @@ trait PanelTrait
     }
 
     /**
+     * Returns if the panel is available for the specified entry.
+     * If not it will not be shown in the viewer.
+     *
+     * @param AuditEntry $entry
+     * @return bool
+     */
+    public function hasEntryData($entry)
+    {
+        return false;
+    }
+
+    /**
      * @return string
      */
     public function getUrl()

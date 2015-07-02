@@ -16,6 +16,7 @@ use yii\base\ActionEvent;
 use yii\base\Application;
 use yii\base\InvalidConfigException;
 use yii\base\Module;
+use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -173,7 +174,8 @@ class Audit extends Module
         $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this);
 
         // Boot all active panels
-        $this->panels = $this->loadPanels($this->panels);
+        $this->normalizePanelConfiguration();
+        $this->panels = $this->loadPanels(array_keys($this->panels));
     }
 
     /**
@@ -257,46 +259,73 @@ class Audit extends Module
     }
 
     /**
+     * Returns a list of all available panel identifiers
+     * @return string[]
+     */
+    public function getPanelIdentifiers()
+    {
+        return array_unique(array_merge(array_keys($this->panels), array_keys($this->_corePanels)));
+    }
+
+    /**
      * Tries to assemble the configuration for the panels that the user wants for auditing
+     * @param string[]          Set of panel identifiers that should be loaded
      * @return Panel[]
      */
-    public function loadPanels($panelList)
+    public function loadPanels($list)
     {
         $panels = [];
-        foreach ($panelList as $key => $value) {
-            list($identifier, $config) = $this->getPanelConfig($key, $value);
-            if (is_array($config)) {
-                $config['module'] = $this;
-                $config['id'] = $identifier;
-                $panels[$identifier] = Yii::createObject($config);
-            } else {
-                $panels[$identifier] = $config;
-            }
+        foreach ($list as $panel) {
+            $panels[$panel] = $this->getPanel($panel);
         }
         return $panels;
     }
 
     /**
-     * @param $key
-     * @param $value
-     * @return array
+     * @param string $identifier
+     * @return null|Panel
      * @throws InvalidConfigException
      */
-    protected function getPanelConfig($key, $value)
+    public function getPanel($identifier)
     {
-        $identifier = $config = null;
-        if (is_numeric($key)) {
-            // The config a panel name
-            if (strpos($value, '/') === false) $value = 'audit/' . $value;
-            if (!isset($this->_corePanels[$value]))
-                throw new InvalidConfigException("'$value' is not a valid panel name");
-            $identifier = $value;
-            $config = $this->_corePanels[$value];
-        } elseif (is_string($key)) {
-            $identifier = $key;
-            $config = is_string($value) ? ['class' => $value] : $value;
+        $config = null;
+        if (isset($this->panels[$identifier]))
+            $config = $this->panels[$identifier];
+        elseif (isset($this->_corePanels[$identifier]))
+            $config = $this->_corePanels[$identifier];
+
+        if (!$config)
+            throw new InvalidConfigException("'$value' is not a valid panel identifier");
+
+        if (is_array($config)) {
+            $config['module'] = $this;
+            $config['id'] = $identifier;
+            return Yii::createObject($config);
         }
-        return [$identifier, $config];
+
+        return $config;
+    }
+
+    /**
+     * Make sure the configured panels array is a uniform set of <identifier> => <config> entries.
+     * @throws InvalidConfigException
+     */
+    protected function normalizePanelConfiguration()
+    {
+        $panels = [];
+        foreach ($this->panels as $id => $panel) {
+            if (is_numeric($id)) {
+                // The value is a panel ID. If not namespaced then we assume a core panel
+                if (strpos($panel, '/') === false) $panel = 'audit/' . $panel;
+                if (!isset($this->_corePanels[$panel]))
+                    throw new InvalidConfigException("'$panel' is not a valid panel identifier");
+                $panels[$panel] = $this->_corePanels[$panel];
+            }
+            else {
+                $panels[$id] = is_string($panel) ? ['class' => $panel] : $panel;
+            }
+        }
+        $this->panels = $panels;
     }
 
     /**

@@ -30,11 +30,6 @@ use yii\db\ActiveQuery;
 class AuditEntry extends ActiveRecord
 {
     /**
-     * @var
-     */
-    protected $start_time;
-
-    /**
      * @var bool
      */
     protected $autoSerialize = false;
@@ -58,41 +53,6 @@ class AuditEntry extends ActiveRecord
             $entry->record();
 
         return $entry;
-    }
-
-    /**
-     * @return array
-     */
-    public function getAssociatedPanels()
-    {
-        if (!$this->isRelationPopulated('associatedPanels')) {
-            $panels = AuditData::findEntryTypes($this->id);
-            if (count($this->linkedErrors))
-                $panels[] = 'audit/error';
-
-            if (count($this->javascripts))
-                $panels[] = 'audit/javascript';
-
-            if (count($this->trails))
-                $panels[] = 'audit/trail';
-
-            if (count($this->mails))
-                $panels[] = 'audit/mail';
-
-            $this->populateRelation('associatedPanels', $panels);
-        }
-        $related  = $this->getRelatedRecords();
-        return $related['associatedPanels'];
-    }
-
-    /**
-     * @param $type
-     * @return mixed|null
-     */
-    public function typeData($type)
-    {
-        $record = AuditData::findForEntry($this->id, $type);
-        return $record ? $record->data : null;
     }
 
     /**
@@ -133,6 +93,16 @@ class AuditEntry extends ActiveRecord
     }
 
     /**
+     * Returns all linked data records
+     * @return ActiveQuery
+     */
+    public function getData()
+    {
+        return static::hasMany(AuditData::className(), ['entry_id' => 'id'])->indexBy('type');
+    }
+
+    /**
+     * Writes a number of associated data records in one go.
      * @param      $batchData
      * @param bool $compact
      * @throws \yii\db\Exception
@@ -144,7 +114,7 @@ class AuditEntry extends ActiveRecord
         foreach ($batchData as $type => $data) {
             $rows[] = [$this->id, $type, Helper::serialize($data, $compact)];
         }
-        Yii::$app->db->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
+        static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
 
     /**
@@ -156,13 +126,11 @@ class AuditEntry extends ActiveRecord
         $request = $app->request;
 
         $this->route = $app->requestedAction ? $app->requestedAction->uniqueId : null;
-        $this->start_time = YII_BEGIN_TIME;
-
         if ($request instanceof \yii\web\Request) {
             $user = $app->user;
-            $this->user_id = $user->isGuest ? 0 : $user->id;
-            $this->ip = $request->userIP;
-            $this->ajax = $request->isAjax;
+            $this->user_id        = $user->isGuest ? 0 : $user->id;
+            $this->ip             = $request->userIP;
+            $this->ajax           = $request->isAjax;
             $this->request_method = $request->method;
         } else if ($request instanceof \yii\console\Request) {
             $this->request_method = 'CLI';
@@ -176,7 +144,7 @@ class AuditEntry extends ActiveRecord
      */
     public function finalize()
     {
-        $this->duration = microtime(true) - $this->start_time;
+        $this->duration = microtime(true) - YII_BEGIN_TIME;
         $this->memory_max = memory_get_peak_usage();
         return $this->save(false, ['duration', 'memory_max']);
     }

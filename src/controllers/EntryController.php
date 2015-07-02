@@ -44,8 +44,6 @@ class EntryController extends Controller
     public function actionView($id, $panel = '')
     {
         list($model, $panels) = $this->loadData($id);
-        $storedPanels = $model->associatedPanels;
-
         if (isset($panels[$panel]))
             $activePanel = $panel;
         else {
@@ -94,21 +92,17 @@ class EntryController extends Controller
         // We might as well be viewing an entry that has data for more panels than those who are currently active.
         // Updating the actual module panels would mean that for all audit viewing that panel would become active again
 
-        // See what panels are stored for this entry
-        $storedPanels = $model->associatedPanels;
-        // Fetch the already loaded panels first
-        $module = $this->module;
-        $panels = array_intersect_key($module->panels, array_flip($storedPanels));
-        // Combine with the id's of the other panels (should all be core panels)
-        $panels = array_merge($panels, array_diff($storedPanels, array_keys($panels)));
-        // And now we can load all relevant panels for this entry
-        $panels = $module->loadPanels($panels);
-        foreach ($panels as $panelId => $panel) {
-            $panel->tag = $id;
-            $panel->model = $model;
-            $panel->load($model->typeData($panelId));
-        }
+        $panels = $this->module->loadPanels($this->module->panelIdentifiers);
+        $activePanels = [];
+        $data = \yii\helpers\ArrayHelper::getColumn($model->data, 'data');
+        foreach ($panels as $panelId => $panel)
+            if ($panel->hasEntryData($model)) {
+                $panel->tag = $id;
+                $panel->model = $model;
+                $panel->load(isset($data[$panelId]) ? $data[$panelId] : null);
+                $activePanels[$panelId] = $panel;
+            }
 
-        return [$model, $panels];
+        return [$model, $activePanels];
     }
 }

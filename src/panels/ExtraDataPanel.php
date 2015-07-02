@@ -3,7 +3,7 @@
 namespace bedezign\yii2\audit\panels;
 
 use Yii;
-use bedezign\yii2\audit\components\panels\Panel;
+use bedezign\yii2\audit\components\panels\DataStoragePanel;
 use bedezign\yii2\audit\src\components\panels\BootstrapInterface;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridViewAsset;
@@ -12,7 +12,7 @@ use yii\grid\GridViewAsset;
  * ExtraDataPanel
  * @package bedezign\yii2\audit\panels
  */
-class ExtraDataPanel extends Panel
+class ExtraDataPanel extends DataStoragePanel
 {
     public function init()
     {

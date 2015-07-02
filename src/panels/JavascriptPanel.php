@@ -29,6 +29,11 @@ class JavascriptPanel extends Panel
         return $this->getName() . ' <small>(' . count($this->_model->javascripts) . ')</small>';
     }
 
+    public function hasEntryData($entry)
+    {
+        return count($entry->javascripts) > 0;
+    }
+
     /**
      * @inheritdoc
      */

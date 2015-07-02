@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\panels;
 
-use bedezign\yii2\audit\components\panels\PanelTrait;
+use bedezign\yii2\audit\components\panels\DataStoragePanelTrait;
 use Yii;
 use yii\debug\models\search\Profile;
 use yii\grid\GridViewAsset;
@@ -13,7 +13,7 @@ use yii\grid\GridViewAsset;
  */
 class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
 {
-    use PanelTrait;
+    use DataStoragePanelTrait;
 
     /**
      * @inheritdoc

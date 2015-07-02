@@ -17,9 +17,21 @@ class AuditTestCase extends \yii\codeception\TestCase
         return $this->module()->getEntry($create, $new);
     }
 
-    public function finalizeAudit()
+    public function finalizeAudit($restartApplication = true)
     {
         $this->module()->onAfterRequest();
-        $this->module()->logTarget->collect([], true);
+        \Yii::getLogger()->flush(true);
+        $this->destroyApplication();
+
+        if ($restartApplication)
+            $this->mockApplication();
     }
+
+    protected function tearDown()
+    {
+        \Yii::getLogger()->messages = [];
+        parent::tearDown();
+    }
+
+
 }

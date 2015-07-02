@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\panels;
 
-use bedezign\yii2\audit\components\panels\PanelTrait;
+use bedezign\yii2\audit\components\panels\DataStoragePanelTrait;
 use Yii;
 
 /**
@@ -11,7 +11,7 @@ use Yii;
  */
 class ConfigPanel extends \yii\debug\panels\ConfigPanel
 {
-    use PanelTrait;
+    use DataStoragePanelTrait;
 
     /**
      * @return string

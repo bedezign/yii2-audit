@@ -39,7 +39,7 @@ class VersionTest extends AuditTestCase
         $post = Post::findOne($post_id);
         $post->body = 'only change the post body';
         $post->save();
-        $this->finalizeAudit($post_id);
+        $this->finalizeAudit();
 
         $versions = Version::versions($post->className(), $post->id);
         $this->assertEquals($versions, [

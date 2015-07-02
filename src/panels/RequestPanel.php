@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\panels;
 
-use bedezign\yii2\audit\components\panels\PanelTrait;
+use bedezign\yii2\audit\components\panels\DataStoragePanelTrait;
 use Yii;
 use yii\base\InlineAction;
 
@@ -12,7 +12,7 @@ use yii\base\InlineAction;
  */
 class RequestPanel extends \yii\debug\panels\RequestPanel
 {
-    use PanelTrait;
+    use DataStoragePanelTrait;
 
     /**
      * @inheritdoc

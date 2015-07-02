@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\panels;
 
-use bedezign\yii2\audit\components\panels\PanelTrait;
+use bedezign\yii2\audit\components\panels\DataStoragePanelTrait;
 use Yii;
 use yii\debug\models\search\Log;
 use yii\grid\GridViewAsset;
@@ -13,7 +13,7 @@ use yii\grid\GridViewAsset;
  */
 class LogPanel extends \yii\debug\panels\LogPanel
 {
-    use PanelTrait;
+    use DataStoragePanelTrait;
 
     /**
      * @inheritdoc
@@ -36,6 +36,12 @@ class LogPanel extends \yii\debug\panels\LogPanel
             'panel' => $this,
             'searchModel' => $searchModel,
         ]);
+    }
+
+    public function save()
+    {
+        $data = parent::save();
+        return (isset($data['messages']) && count($data['messages']) > 0) ? $data : null;
     }
 
     /**

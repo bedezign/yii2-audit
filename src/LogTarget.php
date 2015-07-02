@@ -51,6 +51,7 @@ class LogTarget extends Target
         $records = array_filter($records);
         if (!empty($records))
             $this->module->entry->addBatchData($records, false);
+        $this->messages = [];
     }
 
     /**

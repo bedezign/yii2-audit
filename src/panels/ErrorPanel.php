@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\panels\Panel;
+use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
 use Yii;
@@ -26,6 +27,11 @@ class ErrorPanel extends Panel
             $entry = $this->module->getEntry(true);
             return $entry ? AuditError::logMessage($entry, $message, $code, $file, $line, $trace) : false;
         });
+    }
+
+    public function hasEntryData($entry)
+    {
+        return count($entry->linkedErrors) > 0;
     }
 
     /**

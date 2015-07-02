@@ -21,6 +21,11 @@ class TrailPanel extends Panel
         return \Yii::t('audit', 'Trail');
     }
 
+    public function hasEntryData($entry)
+    {
+        return count($entry->trails) > 0;
+    }
+
     /**
      * @inheritdoc
      */
