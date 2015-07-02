@@ -3,7 +3,7 @@ modules:
     enabled:
         - Asserts
         - Yii2
-        - UnitHelper
+        - tests\codeception\_support\UnitHelper
         - tests\codeception\_support\FixtureHelper
         - tests\codeception\_support\MailHelper
     config:
