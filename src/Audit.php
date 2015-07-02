@@ -209,7 +209,7 @@ class Audit extends Module
      * @param string    $name
      * @param callable  $callback
      */
-    public function registerFunction($name, $callback = null)
+    public function registerFunction($name, $callback)
     {
         $this->_panelFunctions[$name] = $callback;
     }
