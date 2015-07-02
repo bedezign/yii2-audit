@@ -10,6 +10,7 @@
 - [Error Logging](error-logging.md)
 - [Extra Data Logging](extra-data-logging.md)
 - [Custom Panels](custom-panels.md)
+- [Utility Functions](utility-functions.md)
 
 ## Viewing Data
 - [Replacing user_id](replacing-user_id.md)
