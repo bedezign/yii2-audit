@@ -137,7 +137,7 @@ class CurlPanel extends DataStoragePanel
      */
     public function save()
     {
-        return array_values($this->data);
+        return $this->data ? array_values($this->data) : null;
     }
 
     /**

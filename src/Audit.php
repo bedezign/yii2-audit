@@ -290,7 +290,7 @@ class Audit extends Module
      */
     public function getPanelIdentifiers()
     {
-        return array_unique(array_merge(array_keys($this->activePanels), array_keys($this->_corePanels)));
+        return array_unique(array_merge(array_keys($this->panels), array_keys($this->_corePanels)));
     }
 
     /**
