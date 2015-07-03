@@ -149,7 +149,6 @@ class Audit extends Module
         'audit/log'        => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
         'audit/asset'      => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
         'audit/config'     => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-        'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
         'audit/profiling'  => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
 
         // Special other panels
