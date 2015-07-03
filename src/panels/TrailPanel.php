@@ -18,7 +18,7 @@ class TrailPanel extends Panel
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Trail');
+        return \Yii::t('audit', 'Database Trails');
     }
 
     public function hasEntryData($entry)

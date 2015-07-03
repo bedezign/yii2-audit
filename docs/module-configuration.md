@@ -1,6 +1,6 @@
 # Module Configuration
 
-Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating the `accessUsers`-option, you don't want to give everyone access to your audit data!
+Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating either the `accessUsers`- or the `accessIps`-option, you don't want to give everyone access to your audit data!
 
 
 ## Audit Module Options
@@ -32,14 +32,17 @@ Word of caution: The module is configured by default to only allow viewing acces
         // If the value is a simple string, it is the identifier of an internal to activate (with default settings)
         // If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
         'panels' => [
-            'request',
-            'error',
-            'trail',
+            'audit/request',
+            'audit/error',
+            'audit/trail',
             'app/views' => [
                 'class' => 'app\panels\ViewsPanel',
                 // ...
             ],
         ],
+        'panelsMerge' => [
+           // ... merge data (see below)
+        ]
     ],
 ],
 ```
@@ -56,3 +59,48 @@ If you only want to log the database changes, javascript and errors you should u
     ],
 ],
 ```
+
+## Panel configuration ##
+
+You have the choice between either using `$panels` to specify a complete list of panels and their configuration, or using `$panelsMerge` for a selective update. 
+
+The `$panels`-variable accepts a number of different formats:
+* A simple string (no key) to load a core panel. For example `"audit/config"`
+* A string index with a string value. This adds a new panel with the give class: `"app/views" => "app\panels\ViewPanel"` will result in a new panel of class `app\panels\ViewPanel` being loaded
+* A string index with an array value. If the index is the name of a core panel then the core class will be added, so no need for that. If it is a custom panel you'll need to specify the entire configuration, including `class`.
+
+### Smaller changes via merging ###
+
+The module also provides a `$panelsMerge` configuration option.  
+This allows you to simply specify what you like to change, as compared to the current `$panels` configuration.
+
+The panels updated and/or added via this configuration are considered part of the default panel configuration and will be initialised during the logging phaze of the module.
+
+**A couple examples:**
+
+```php
+'panelsMerge' => [
+   "audit/config" => []
+]
+```
+
+This results in the config (core) panel being loaded as well without having to re-specify the entire panels list.
+
+
+```php
+'panelsMerge' => [
+   "audit/curl" => ['log' => false]
+]
+```
+
+This disables the verbose log for the cURL panel
+
+```php
+'panelsMerge' => [
+	'app/views' => [
+		'class' => 'app\panels\ViewsPanel',
+	]
+]
+```
+
+This adds a completely new panel.

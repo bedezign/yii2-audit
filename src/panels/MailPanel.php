@@ -38,7 +38,7 @@ class MailPanel extends Panel
      */
     public function getName()
     {
-        return Yii::t('audit', 'Mail');
+        return Yii::t('audit', 'Email Messages');
     }
 
     /**

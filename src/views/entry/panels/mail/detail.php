@@ -9,7 +9,7 @@ use yii\debug\panels\LogPanel;
 use yii\grid\GridView;
 use yii\helpers\Html;
 
-echo '<h1>' . Yii::t('audit', 'Email Messages') . '</h1>';
+echo Html::tag('h1', $panel->name);
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,
