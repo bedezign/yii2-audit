@@ -119,7 +119,7 @@ class AuditEntry extends ActiveRecord
 
     public function addData($type, $data, $compact = true)
     {
-        $record = [$this->id, $type, Helper::serialize($data, $compact)];
+        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => Helper::serialize($data, $compact)];
         static::getDb()->createCommand()->insert(AuditData::tableName(), $record)->execute();
     }
 
