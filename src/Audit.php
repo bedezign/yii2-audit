@@ -134,7 +134,7 @@ class Audit extends Module
         // These provide special functionality and get loaded to activate it
         'audit/error',      // Links the extra error reporting functions (`exception()` and `errorMessage()`)
         'audit/extra',      // Links the data functions (`data()`)
-        'audit/curl',       // Links the curl tracking function (`curl()`)
+        'audit/curl',       // Links the curl tracking function (`curlBegin()`, `curlEnd()` and `curlExec()`)
     ];
 
     /**
@@ -172,7 +172,6 @@ class Audit extends Module
         'audit/curl'       => ['class' => 'bedezign\yii2\audit\panels\CurlPanel'],
     ];
 
-    private $_panels = [];
     private $_panelFunctions = [];
 
     /**
