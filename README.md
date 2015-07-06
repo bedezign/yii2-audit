@@ -39,6 +39,7 @@ Yii2 Audit is a module that records and displays web/cli requests, database chan
   * `ProfilingPanel` - Application profiling information.
   * `TrailPanel` - Database changes that were made during the request using the `AuditTrailBehavior`.
   * `ExtraDataPanel` - Extra data that you want to store.
+  * `CurlPanel` - Track your applications' cURL requests (and their replies, log and headers)
   * `YourOwnPanel` - Create your own panel to capture any data you want.
 
 * Installs as a simple module so it can be added without any hassle.

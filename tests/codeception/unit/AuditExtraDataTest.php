@@ -27,11 +27,32 @@ class AuditExtraDataTest extends AuditTestCase
     {
         Audit::getInstance()->data('some type', 'some data');
         $this->finalizeAudit();
-        
+
         $this->tester->seeRecord(AuditData::className(), [
             'entry_id' => 2,
             'type' => 'audit/extra',
         ]);
-
     }
+
+    public function testThatFindForEntryWorks()
+    {
+        $this->entry();
+        $this->finalizeAudit();
+
+        $this->assertNotNull(AuditData::findForEntry(2, 'audit/request'));
+        $this->assertNotNull(AuditData::findForEntry(2, 'audit/log'));
+    }
+
+    public function testThatFindEntryTypesWorks()
+    {
+        $this->entry();
+        $this->finalizeAudit();
+
+        $types = AuditData::findEntryTypes(2);
+        $subset = ['audit/request', 'audit/log', 'audit/db', 'audit/profiling'];
+        sort($types);
+        sort($subset);
+        $this->assertArraySubset($subset, $types);
+    }
+
 }
