@@ -22,11 +22,26 @@ $tabs = [
     ]
 ];
 
-if ($post)
+if ($post) {
+    $prepend = '';
+    $hide = false;
+    if (is_string($post)) {
+        // If the post was specified as a string, make the expanded (array) version available)
+        $id = 'toggle_expanded_'. $index;
+        $prepend =
+            Html::checkbox($id, false, ['id' => $id, 'class' => 'audit_curl_post_toggle']) . ' ' . Html::label(\Yii::t('audit', 'Expand'), $id) .  Html::tag('div', $post);
+        $result = [];
+        parse_str($post, $result);
+        $post = $result;
+        $hide = true;
+    }
     $tabs[] = [
         'label' => \Yii::t('audit', 'POST'),
-        'content' => Html::tag('div', VarDumper::dumpAsString($post, 15, true), ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'])
+        'content' => Html::tag('div', $prepend .
+            Html::tag('div', VarDumper::dumpAsString($post, 15), ['style' => 'display: ' . ($hide ? 'none' : 'block')]),
+            ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'])
     ];
+}
 
 if ($headers)
     $tabs[] = [
