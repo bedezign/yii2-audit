@@ -339,12 +339,10 @@ class Audit extends Module
     {
         $panels = [];
         foreach ($this->panels as $key => $value) {
-            $id = $panel = null;
-
             if (is_numeric($key)) {
                 // The $value contains the identifier of a core panel
                 if (!isset($this->_corePanels[$value]))
-                    throw new InvalidConfigException("'$panel' is not a valid panel identifier");
+                    throw new InvalidConfigException("'$value' is not a valid panel identifier");
                 $panels[$value] = $this->_corePanels[$value];
             }
             else {
