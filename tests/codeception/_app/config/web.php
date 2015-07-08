@@ -3,6 +3,7 @@
 $config = [
     'id' => 'yii2-audit-web',
     'basePath' => dirname(__DIR__),
+    'controllerNamespace' => 'tests\app\controllers',
     'bootstrap' => [
         'bedezign\yii2\audit\Bootstrap',
         'audit',
@@ -50,7 +51,7 @@ $config = [
             'class' => 'yii\rbac\PhpManager',
         ],
         'user' => [
-            'identityClass' => 'app\models\User',
+            'identityClass' => 'tests\app\models\User',
         ],
     ],
     'modules' => [
@@ -66,7 +67,7 @@ $config = [
                 '/audit/error/*',
             ],
             'panelsMerge' => [
-                'app/views' => ['class' => 'app\panels\ViewsPanel' ],
+                'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],
             ],
         ],
     ],

@@ -2,7 +2,7 @@
 
 namespace tests\codeception\unit;
 
-use app\models\User;
+use tests\app\models\User;
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\Access;
 use bedezign\yii2\audit\tests\UnitTester;

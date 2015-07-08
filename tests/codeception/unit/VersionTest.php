@@ -2,7 +2,7 @@
 
 namespace tests\codeception\unit;
 
-use app\models\Post;
+use tests\app\models\Post;
 use bedezign\yii2\audit\components\Version;
 use bedezign\yii2\audit\tests\UnitTester;
 use Codeception\Specify;

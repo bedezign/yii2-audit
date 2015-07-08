@@ -1,12 +1,12 @@
 <?php
 
-namespace app\controllers;
+namespace tests\app\controllers;
 
 use yii\web\Controller;
 
 /**
  * SiteController
- * @package app\controllers
+ * @package tests\app\controllers
  */
 class SiteController extends Controller
 {

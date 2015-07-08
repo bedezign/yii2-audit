@@ -23,7 +23,7 @@ class AuditUserIdentifierCallbackTest extends AuditTestCase
 
     public function testUserIdentifierCallbackTest()
     {
-        Audit::getInstance()->userIdentifierCallback = ['app\models\User', 'userIdentifierCallback'];
+        Audit::getInstance()->userIdentifierCallback = ['tests\app\models\User', 'userIdentifierCallback'];
         $this->assertEquals(Audit::getInstance()->getUserIdentifier(1), 'admin');
     }
 

@@ -2,7 +2,7 @@
 
 namespace tests\codeception\unit;
 
-use app\controllers\SiteController;
+use tests\app\controllers\SiteController;
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\tests\UnitTester;
 use Yii;

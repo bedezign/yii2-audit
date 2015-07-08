@@ -1,6 +1,6 @@
 <?php
 
-namespace app\panels;
+namespace tests\app\panels;
 
 use bedezign\yii2\audit\components\panels\Panel;
 use yii\base\Event;
@@ -9,7 +9,7 @@ use yii\web\View;
 
 /**
  * ViewsPanel
- * @package app\panels
+ * @package tests\app\panels
  */
 class ViewsPanel extends Panel
 {

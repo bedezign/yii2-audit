@@ -6,5 +6,5 @@ use yii\test\ActiveFixture;
 
 class PostFixture extends ActiveFixture
 {
-    public $modelClass = 'app\models\Post';
+    public $modelClass = 'tests\app\models\Post';
 }

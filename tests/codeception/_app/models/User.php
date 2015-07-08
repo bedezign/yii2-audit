@@ -1,6 +1,6 @@
 <?php
 
-namespace app\models;
+namespace tests\app\models;
 
 use yii\base\NotSupportedException;
 use yii\db\ActiveRecord;
@@ -8,7 +8,7 @@ use yii\web\IdentityInterface;
 
 /**
  * User
- * @package app\models
+ * @package tests\app\models
  * @property int $id
  * @property string $username
  */

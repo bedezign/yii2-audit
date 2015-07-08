@@ -6,7 +6,7 @@ return [
         'entry_id' => 1,
         'user_id' => 1,
         'action' => 'CREATE',
-        'model' => 'app\models\Post',
+        'model' => 'tests\app\models\Post',
         'model_id' => 1,
         'field' => 'id',
         'old_value' => null,
