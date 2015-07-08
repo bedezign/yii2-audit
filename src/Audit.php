@@ -320,7 +320,7 @@ class Audit extends Module
             $config = $this->_corePanels[$identifier];
 
         if (!$config)
-            throw new InvalidConfigException("'$value' is not a valid panel identifier");
+            throw new InvalidConfigException("'$identifier' is not a valid panel identifier");
 
         if (is_array($config)) {
             $config['module'] = $this;
