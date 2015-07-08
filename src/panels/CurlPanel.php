@@ -32,8 +32,14 @@ class CurlPanel extends DataStoragePanel
      */
     public $content = true;
 
+    /**
+     * @var array
+     */
     private $_logHandles = [];
 
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
@@ -58,6 +64,12 @@ class CurlPanel extends DataStoragePanel
         return $this->getName() . ' <small>(' . count($this->data) . ')</small>';
     }
 
+    /**
+     * @param $handle
+     * @param null $url
+     * @param null $postData
+     * @return mixed
+     */
     public function doRequest($handle, $url = null, $postData = null)
     {
         $this->trackRequest($handle, $url, $postData);
@@ -67,7 +79,11 @@ class CurlPanel extends DataStoragePanel
     }
 
     /**
-     * @param $data
+     * @param $handle
+     * @param null $url
+     * @param null $postData
+     * @return bool
+     * @internal param $data
      */
     public function trackRequest($handle, $url = null, $postData = null)
     {
@@ -95,6 +111,10 @@ class CurlPanel extends DataStoragePanel
         return true;
     }
 
+    /**
+     * @param $handle
+     * @return bool
+     */
     public function finalizeRequest($handle)
     {
         $id = $this->id($handle);
@@ -163,6 +183,11 @@ class CurlPanel extends DataStoragePanel
         $view->registerJs('$(".audit_curl_post_toggle").click(function() {$(this).next().next().toggle().next().toggle(); });');
     }
 
+    /**
+     * @param $handle
+     * @param $header
+     * @return int
+     */
     public function captureHeader($handle, $header)
     {
         $id = $this->id($handle);
@@ -173,6 +198,10 @@ class CurlPanel extends DataStoragePanel
         return strlen($header);
     }
 
+    /**
+     * @param $resource
+     * @return bool|mixed
+     */
     protected function id($resource)
     {
         if (!is_resource($resource))
