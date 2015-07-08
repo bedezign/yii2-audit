@@ -23,7 +23,7 @@ class m150626_000004_create_audit_trail extends Migration
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 
         // Index these bad boys for speedy lookups
-        $this->addForeignKey('fk_audit_trail_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id', 'CASCADE');
+        $this->addForeignKey('fk_audit_trail_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id');
         $this->createIndex('idx_audit_user_id', self::TABLE, 'user_id');
         $this->createIndex('idx_audit_trail_field', self::TABLE, ['model', 'model_id', 'field']);
         $this->createIndex('idx_audit_trail_action', self::TABLE, 'action');
