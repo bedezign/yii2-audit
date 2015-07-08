@@ -15,6 +15,10 @@ use yii\grid\GridViewAsset;
  */
 class ErrorPanel extends Panel
 {
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();
@@ -29,6 +33,9 @@ class ErrorPanel extends Panel
         });
     }
 
+    /**
+     * @inheritdoc
+     */
     public function hasEntryData($entry)
     {
         return count($entry->linkedErrors) > 0;

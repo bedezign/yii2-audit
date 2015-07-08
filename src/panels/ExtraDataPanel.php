@@ -14,6 +14,10 @@ use yii\grid\GridViewAsset;
  */
 class ExtraDataPanel extends DataStoragePanel
 {
+
+    /**
+     * @inheritdoc
+     */
     public function init()
     {
         parent::init();

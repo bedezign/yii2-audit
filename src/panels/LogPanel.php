@@ -38,6 +38,9 @@ class LogPanel extends \yii\debug\panels\LogPanel
         ]);
     }
 
+    /**
+     * @inheritdoc
+     */
     public function save()
     {
         $data = parent::save();

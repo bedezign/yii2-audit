@@ -28,6 +28,9 @@ class MailPanel extends Panel
         });
     }
 
+    /**
+     * @inheritdoc
+     */
     public function hasEntryData($entry)
     {
         return count($entry->mails) > 0;

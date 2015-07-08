@@ -25,7 +25,6 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
         return $this->getName() . ' <small>(' . $memory . ' / ' . $time . ')</small>';
     }
 
-
     /**
      * @inheritdoc
      */
