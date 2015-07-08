@@ -77,7 +77,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
         </div>
     </div>
 
-<?php Pjax::begin(['id' => 'audit-panels', 'timeout' => 5000]); ?>
+<?php Pjax::begin(['id' => 'audit-panels', 'timeout' => 0]); ?>
     <div class="row">
         <div class="col-md-2">
             <div class="list-group">
