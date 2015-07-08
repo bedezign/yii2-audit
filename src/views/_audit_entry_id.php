@@ -10,7 +10,7 @@ use yii\helpers\Html;
 if ($auditEntry = Audit::getInstance()->getEntry()) {
     $style = YII_DEBUG ? '' : 'color:transparent;';
     if (Access::checkAccess()) {
-        echo Html::a('audit-' . $auditEntry->id, ['/audit/default/view', 'id' => $auditEntry->id], ['style' => $style]);
+        echo Html::a('audit-' . $auditEntry->id, ['/audit/entry/view', 'id' => $auditEntry->id], ['style' => $style]);
     } else {
         echo Html::tag('span', 'audit-' . $auditEntry->id, ['style' => $style]);
     }

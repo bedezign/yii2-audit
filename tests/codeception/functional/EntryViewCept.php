@@ -32,10 +32,10 @@ $I->see('Error Code');
 $I->click('Javascript');
 $I->see('Origin');
 
-$I->click('Trail');
+$I->click('Database Trails');
 $I->see('Database Trails');
 
-$I->click('Extra');
+$I->click('Extra Data');
 $I->see('Extra Data');
 
 //$I->click('Asset Bundles');
@@ -44,7 +44,7 @@ $I->see('Extra Data');
 //$I->click('Configuration');
 //$I->seeLink('Application Configuration');
 
-$I->click('Mail');
+$I->click('Email Messages');
 $I->see('Email Messages');
 
 

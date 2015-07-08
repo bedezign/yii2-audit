@@ -111,27 +111,39 @@ class Audit extends Module
      * `max_allowed_packet` errors when logging huge data quantities. Records will be saved per piece instead of all at once
      */
     public $batchSave = true;
+
     /**
      * @var array list of panels that should be active/tracking/available during the auditing phase.
      * If the value is a simple string, it is the identifier of an internal panel to activate (with default settings)
-     * If the entry is a '<key>' => '<string>|<array>' it is a new panel. It can optionally override a core panel or add a new one.
+     * If the entry is a '<key>' => '<string>|<array>' it is either a new panel or a panel override (if you specify a core id).
      * It is important that the key is unique, as this is the identifier used to store any data associated with the panel.
      *
-     * Please note: If you add custom panels, please namespace them ("mynamespace/panelname").
-     * Any non-namespaced identifier will be looked for in the `audit` namespace.
+     * Please note:
+     * - If you just want to change the configuration for a core panel, use the `$panelConfiguration`, it will be merged into this one
+     * - If you add custom panels, please namespace them ("mynamespace/panelname").
      */
     public $panels = [
-        'request',
-        'db',
-        'log',
-        'mail',
-        'profiling',
-        // 'asset',
-        // 'config',
+        'audit/request',
+        'audit/db',
+        'audit/log',
+        'audit/mail',
+        'audit/profiling',
+        // 'audit/asset',
+        // 'audit/config',
 
         // These provide special functionality and get loaded to activate it
-        'error',      // Links the extra error reporting functions (`exception()` and `errorMessage()`)
-        'extra'       // Links the data functions (`data()`)
+        'audit/error',      // Links the extra error reporting functions (`exception()` and `errorMessage()`)
+        'audit/extra',      // Links the data functions (`data()`)
+        'audit/curl',       // Links the curl tracking function (`curlBegin()`, `curlEnd()` and `curlExec()`)
+    ];
+
+    /**
+     * Everything you add in here will be merged with the basic panel configuration.
+     * This gives you an easy way to just add or modify panels/configurations without having to re-specify every panel.
+     * This only accepts regular definitions ('<key>' => '<array>'), but the core class will be added if needed
+     * Take a look at the [module configuration](docs/module-configuration.md) for more information.
+     */
+    public $panelsMerge = [
     ];
 
     /**
@@ -149,7 +161,6 @@ class Audit extends Module
         'audit/log'        => ['class' => 'bedezign\yii2\audit\panels\LogPanel'],
         'audit/asset'      => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
         'audit/config'     => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
-        'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
         'audit/profiling'  => ['class' => 'bedezign\yii2\audit\panels\ProfilingPanel'],
 
         // Special other panels
@@ -158,6 +169,7 @@ class Audit extends Module
         'audit/trail'      => ['class' => 'bedezign\yii2\audit\panels\TrailPanel'],
         'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
         'audit/extra'      => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
+        'audit/curl'       => ['class' => 'bedezign\yii2\audit\panels\CurlPanel'],
     ];
 
     private $_panelFunctions = [];
@@ -326,19 +338,29 @@ class Audit extends Module
     protected function normalizePanelConfiguration()
     {
         $panels = [];
-        foreach ($this->panels as $id => $panel) {
-            if (is_numeric($id)) {
-                // The value is a panel ID. If not namespaced then we assume a core panel
-                if (strpos($panel, '/') === false) $panel = 'audit/' . $panel;
-                if (!isset($this->_corePanels[$panel]))
-                    throw new InvalidConfigException("'$panel' is not a valid panel identifier");
-                $panels[$panel] = $this->_corePanels[$panel];
+        foreach ($this->panels as $key => $value) {
+            if (is_numeric($key)) {
+                // The $value contains the identifier of a core panel
+                if (!isset($this->_corePanels[$value]))
+                    throw new InvalidConfigException("'$value' is not a valid panel identifier");
+                $panels[$value] = $this->_corePanels[$value];
             }
             else {
-                $panels[$id] = is_string($panel) ? ['class' => $panel] : $panel;
+                // The key contains the identifer and the value is either a class name or a full array
+                $panels[$key] = is_string($value) ? ['class' => $value] : $value;
             }
         }
-        $this->panels = $panels;
+        $this->panels = ArrayHelper::merge($panels, $this->panelsMerge);
+
+        // We now need one more iteration to add core classes to the panels added via the merge, if needed
+        array_walk($this->panels, function(&$value, $key) {
+           if (!isset($value['class'])) {
+               if (isset($this->_corePanels[$key]))
+                   $value = ArrayHelper::merge($value, $this->_corePanels[$key]);
+               else
+                   throw new InvalidConfigException("Invalid configuration for '$key'. No 'class' specified.");
+           }
+        });
     }
 
     /**

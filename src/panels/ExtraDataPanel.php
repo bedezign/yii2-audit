@@ -25,7 +25,7 @@ class ExtraDataPanel extends DataStoragePanel
      */
     public function getName()
     {
-        return Yii::t('audit', 'Extra');
+        return Yii::t('audit', 'Extra Data');
     }
 
     /**

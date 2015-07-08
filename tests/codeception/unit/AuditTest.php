@@ -2,12 +2,14 @@
 
 namespace tests\codeception\unit;
 
+use app\controllers\SiteController;
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\tests\UnitTester;
 use Yii;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditData;
 use Codeception\Specify;
+use yii\base\Action;
 use yii\base\ActionEvent;
 
 /**
@@ -85,5 +87,61 @@ class AuditTest extends AuditTestCase
         $audit->trackActions = $trackActions;
         $audit->ignoreActions = $ignoreActions;
         $audit->onBeforeAction($event);
+    }
+
+    public function testThatTrackActionsWorksWithAddedAction()
+    {
+        // Make sure no entry has been started
+        $this->useEntry(null);
+        $audit = $this->module();
+        $audit->trackActions = ['site/track-actions'];
+
+        $action = new Action('track-actions', new SiteController('site', \Yii::$app));
+        $event = new ActionEvent($action);
+        $audit->onBeforeAction($event);
+
+        $this->assertNotNull($audit->getEntry(false));
+    }
+
+    public function testThatTrackActionsWorksWithNoMatch()
+    {
+        // Make sure no entry has been started
+        $this->useEntry(null);
+        $audit = $this->module();
+        $audit->trackActions = ['site/track-actions'];
+
+        $action = new Action('notrack-action', new SiteController('site', \Yii::$app));
+        $event = new ActionEvent($action);
+        $audit->onBeforeAction($event);
+
+        $this->assertNull($audit->getEntry(false));
+    }
+
+    public function testThatIgnoredActionsWorksWithAddedAction()
+    {
+        // Make sure no entry has been started
+        $this->useEntry(null);
+        $audit = $this->module();
+        $audit->ignoreActions = ['site/track-actions'];
+
+        $action = new Action('track-actions', new SiteController('site', \Yii::$app));
+        $event = new ActionEvent($action);
+        $audit->onBeforeAction($event);
+
+        $this->assertNull($audit->getEntry(false));
+    }
+
+    public function testThatIgnoredActionsWorksWithNoMatch()
+    {
+        // Make sure no entry has been started
+        $this->useEntry(null);
+        $audit = $this->module();
+        $audit->ignoreActions = ['site/track-actions'];
+
+        $action = new Action('notrack-action', new SiteController('site', \Yii::$app));
+        $event = new ActionEvent($action);
+        $audit->onBeforeAction($event);
+
+        $this->assertNotNull($audit->getEntry(false));
     }
 }

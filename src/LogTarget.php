@@ -57,7 +57,7 @@ class LogTarget extends Target
                 $entry->addBatchData($records, false);
             else {
                 foreach ($records as $type => $record)
-                    $entry->addData($type, $records, false);
+                    $entry->addData($type, $record, false);
             }
         }
         $this->messages = [];
