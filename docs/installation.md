@@ -33,7 +33,7 @@ Add `Audit` to your configuration array:
 ```php
 $config = [
     'modules' => [
-        'audit' => 'bedezign\yii2\audit\Audit',
+        'audit' => 'bedezign\yii2\audit\Auditing',
     ],
 ];
 ```
@@ -42,7 +42,7 @@ See [Module Configuration](module-configuration.md) for the all configuration op
 
 ## Logging Database Changes
 
-Add `AuditTrailBehavior` to the models you want to log:
+Add `AuditingBehavior` to the models you want to log:
 
 ```php
 class Post extends \yii\db\ActiveRecord
@@ -50,7 +50,7 @@ class Post extends \yii\db\ActiveRecord
     public function behaviors()
     {
         return [
-            'bedezign\yii2\audit\AuditTrailBehavior'
+            'bedezign\yii2\audit\AuditingBehavior'
         ];
     }
 }
