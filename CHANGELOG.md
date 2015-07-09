@@ -1,6 +1,9 @@
 # Changelog
 
-## 0.2.0
+## 1.0.1 under development
+
+
+## 1.0.0 July 9, 2015
 
 * ability to undelete and roll back to any version of a model
 * added controllers and views for entry, trail, javascript and errors
