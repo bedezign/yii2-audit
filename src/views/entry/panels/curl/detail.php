@@ -12,6 +12,7 @@ $content = empty($request['content']) ? false : $request['content'];
 $log     = empty($request['log']) ? false : $request['log'];
 unset($request['post'], $request['content'], $request['headers'], $request['log']);
 
+$preformatted = ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'];
 $formatter = \Yii::$app->formatter;
 
 $tabs = [
@@ -22,25 +23,16 @@ $tabs = [
     ]
 ];
 
+$post = http_build_query(['test' => 'var', 'test2' => 'value1', 'test3' => ['value3', 'value2']]);
 if ($post) {
-    $prepend = '';
-    $hide = false;
-    if (is_string($post)) {
-        // If the post was specified as a string, make the expanded (array) version available)
-        $id = 'toggle_expanded_'. $index;
-        $prepend =
-            Html::checkbox($id, false, ['id' => $id, 'class' => 'audit_curl_post_toggle']) . ' ' . Html::label(\Yii::t('audit', 'Expand'), $id) .  Html::tag('div', $post);
-        $result = [];
-        parse_str($post, $result);
-        $post = $result;
-        $hide = true;
-    }
     $tabs[] = [
         'label' => \Yii::t('audit', 'POST'),
-        'content' => Html::tag('div', $prepend .
-            Html::tag('div', VarDumper::dumpAsString($post, 15), ['style' => 'display: ' . ($hide ? 'none' : 'block')]),
-            ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'])
+        'content' => Html::tag('div', $post, $preformatted)
     ];
+    checkString(
+        ['asQuery' => \Yii::t('audit', 'POST - Query'), 'asJSON' => \Yii::t('audit', 'POST - JSON'), 'asXML' => \Yii::t('audit', 'POST - XML')],
+        $post, $preformatted, $tabs
+    );
 }
 
 if ($headers)
@@ -49,19 +41,60 @@ if ($headers)
         'content' => Html::tag('div', $formatter->asNtext(implode('', $headers)), ['class' => 'well'])
     ];
 
-if ($content)
+if ($content) {
     $tabs[] = [
         'label' => \Yii::t('audit', 'Content'),
-        'content' => Html::tag('div', $formatter->asText($content), ['class' => 'well', 'style' => 'overflow: auto; white-space: pre'])
+        'content' => Html::tag('div', $formatter->asText($content), $preformatted)
     ];
+    checkString(
+        ['asQuery' => \Yii::t('audit', 'Content - Query'), 'asJSON' => \Yii::t('audit', 'Content - JSON'), 'asXML' => \Yii::t('audit', 'Content - XML')],
+        $content, $preformatted, $tabs
+    );
+}
 
 if ($log)
     $tabs[] = [
         'label' => \Yii::t('audit', 'Log'),
-        'content' => Html::tag('div', $formatter->asNtext($log), ['class' => 'well', 'style' => 'overflow: auto'])
+        'content' => Html::tag('div', $formatter->asNtext($log), $preformatted)
     ];
 
 
 echo Html::tag('h2', \Yii::t('audit', 'Request #{id}', ['id' => $index])),
         Tabs::widget(['items' => $tabs]);
 
+
+function checkString($types, $data, $preformatted, &$tabs)
+{
+    foreach ($types as $function => $title) {
+        $result = $function($data);
+        if ($result)
+            $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)];
+    }
+}
+
+function asQuery($data)
+{
+    $data = rawurldecode($data);
+    if (!preg_match('/^([\w\d\-\[\]]+(=[\w-]*)?(&[\w\d\-\[\]]+(=[\w-]*)?)*)?$/', $data))
+        return null;
+
+    $result = [];
+    parse_str($data, $result);
+    return VarDumper::dumpAsString($result, 15);
+}
+
+function asJSON($data)
+{
+    $decoded = @json_decode($data);
+    return $decoded ? json_encode($decoded, JSON_PRETTY_PRINT) : null;
+}
+
+function asXML($data)
+{
+    $doc = new \DOMDocument('1.0');
+    $doc->preserveWhiteSpace = false;
+    $doc->formatOutput = true;
+    if (@$doc->loadXML($data))
+        return htmlentities($doc->saveXML(), ENT_COMPAT, 'UTF-8');
+    return null;
+}
