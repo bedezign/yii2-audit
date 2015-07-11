@@ -111,4 +111,4 @@ $config = [
 
 Check out the [source for the existing panels](https://github.com/bedezign/yii2-audit/tree/master/src/panels) to see some of the ways panels can be used.
 
-If you create a useful panel please [let us know](https://github.com/bedezign/yii2-audit/issues)!
+If you create a useful panel please [let us know](https://github.com/bedezign/yii2-audit/issues/new)!
