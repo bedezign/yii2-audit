@@ -20,44 +20,49 @@ Yii2 Audit is a module that records and displays web/cli requests, database chan
 
 ## Features
 
-* Tracks minimal data in the base entry:
-  * `user_id` - User ID of the visitor (if any), based on `Yii::$app->user->id`.
-  * `ip` - IP Address of the visitor.
-  * `request_method` - The method used to generate the request, eg: `CLI` for console requests and `GET`, `POST`, `DELETE`, `PUT`, `PATCH`, `OPTIONS` or `HEAD` for web requests.
-  * `ajax` - If the page was requested using ajax.
-  * `route` - The controller and action of the request.
-  * `duration` - How long the request took to serve.
-  * `memory_max` - The peak memory usage during the request.
-  * `created` - The datetime the entry was created.
+### Minimal Footprint
 
-* Tracks additional data using configurable Panels.  Each panel is optional, and you can even create your own.
-  * `RequestPanel` - Tracks all incoming web and console request data:
-    * URL Information including the route and params.
-    * PHP SuperGlobals `$_GET`, `$_POST`, `$_SERVER`, `$_FILES` and `$_COOKIES`.
-    * Headers from the Request and Response.
-  * `AssetPanel` - Asset Bundles loaded for the request.
-  * `ConfigPanel` - Yii and PHP configuration that was used for the request.
-  * `DbPanel` - SQL queries.
-  * `ErrorPanel` - Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user.
-  * `JavascriptPanel` - Automatically log JavaScript errors. Errors and warning are logged automatically by including `JSLoggingAsset` asset bundle.  The javascript component also provides methods to manually add logging entries.
-  * `LogPanel` - Yii logs.
-  * `MailPanel` - Emails that were sent during the request
-  * `ProfilingPanel` - Application profiling information.
-  * `TrailPanel` - Database changes that were made during the request using the `AuditTrailBehavior`.
-  * `ExtraDataPanel` - Extra data that you want to store.
-  * `CurlPanel` - Track your applications' cURL requests (and their replies, log and headers)
-  * `YourOwnPanel` - Create your own panel to capture any data you want.
+Tracks minimal data in the base entry:
+
+* `user_id` - User ID of the visitor (if any), based on `Yii::$app->user->id`.
+* `ip` - IP Address of the visitor.
+* `request_method` - The method used to generate the request, eg: `CLI` for console requests and `GET`, `POST`, `DELETE`, `PUT`, `PATCH`, `OPTIONS` or `HEAD` for web requests.
+* `ajax` - If the page was requested using ajax.
+* `route` - The controller and action of the request.
+* `duration` - How long the request took to serve.
+* `memory_max` - The peak memory usage during the request.
+* `created` - The datetime the entry was created.
+
+### Tracks additional data using configurable Panels.
+
+Each panel is optional, and you can even create your own.
+
+* `RequestPanel` - Tracks all incoming web and console request data:
+  * URL Information including the route and params.
+  * PHP SuperGlobals `$_GET`, `$_POST`, `$_SERVER`, `$_FILES` and `$_COOKIES`.
+  * Headers from the Request and Response.
+* `AssetPanel` - Asset Bundles loaded for the request.
+* `ConfigPanel` - Yii and PHP configuration that was used for the request.
+* `DbPanel` - SQL queries. - [more info](https://bedezign.github.io/yii2-audit/docs/database-panel/)
+* `ErrorPanel` - Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user. [more info](https://bedezign.github.io/yii2-audit/docs/error-panel/)
+* `JavascriptPanel` - Automatically log JavaScript errors. Errors and warning are logged automatically by including `JSLoggingAsset` asset bundle.  The javascript component also provides methods to manually add logging entries. [more info](https://bedezign.github.io/yii2-audit/docs/javascript-panel/)
+* `LogPanel` - Yii logs.
+* `MailPanel` - Emails that were sent during the request. [more info](https://bedezign.github.io/yii2-audit/docs/mail-panel/)
+* `ProfilingPanel` - Application profiling information.
+* `TrailPanel` - Database changes that were made during the request using the `AuditTrailBehavior`. [more info](https://bedezign.github.io/yii2-audit/docs/trail-panel/)
+* `ExtraDataPanel` - Extra data that you want to store. [more info](https://bedezign.github.io/yii2-audit/docs/extra-data-panel/)
+* `CurlPanel` - Track your applications cURL requests (including replies, log and headers) [more info](https://bedezign.github.io/yii2-audit/docs/curl-panel/)
+* `YourOwnPanel` - Create your own panel to capture any data you want. [more info](https://bedezign.github.io/yii2-audit/docs/custom-views-panel/)
+
+### Powerful, yet Simple
 
 * Installs as a simple module so it can be added without any hassle.
-
 * You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
-
 * View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality by IPs, roles or users.
-
 
 ## Documentation
 
-Getting started? Try the [Installation Guide](docs/installation/).  You will find further information in the [Documentation](docs/).
+Getting started? Try the [Installation Guide](https://bedezign.github.io/yii2-audit/docs/installation/).  You will find further information in the [Documentation](https://bedezign.github.io/yii2-audit/docs/).
 
 For changes since the last version see the [Changelog](https://github.com/bedezign/yii2-audit/blob/master/CHANGELOG.md).
 
@@ -90,7 +95,7 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
 
 ## Contributing
 
-Contributions are welcome.  Please refer to the [contributing guidelines](CONTRIBUTING.md).
+Contributions are welcome.  Please refer to the [contributing guidelines](https://github.com/bedezign/yii2-audit/blob/master/CONTRIBUTING.md).
 
 Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/blob/master/CREDITS.md).
 
@@ -107,4 +112,4 @@ Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/
 
 ## License
 
-BSD-3 - Please refer to the [license](LICENSE.md).
+BSD-3 - Please refer to the [license](https://github.com/bedezign/yii2-audit/blob/master/LICENSE.md).
