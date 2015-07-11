@@ -1,3 +1,8 @@
+---
+layout: default
+title: Creating a Custom Panel to Log Rendered Views
+---
+
 # Creating a Custom Panel to Log Rendered Views
 
 You can create your own panels that collect and display the specific data you want. Below we'll describe the process of creating a simple custom panel that:

@@ -1,3 +1,8 @@
+---
+layout: default
+title: Extra Data Panel
+---
+
 # Extra Data Panel
 
 It is possible to add extra custom data to the current audit entry by simply calling:

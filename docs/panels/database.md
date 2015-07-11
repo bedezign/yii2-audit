@@ -1,3 +1,8 @@
+---
+layout: default
+title: Database Panel
+---
+
 # Database Panel
 
 If you want database changes to be logged, you have to add the `AuditTrailBehavior` to the models you want to log.
