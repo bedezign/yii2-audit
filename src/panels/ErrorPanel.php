@@ -3,7 +3,6 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\panels\Panel;
-use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
 use Yii;

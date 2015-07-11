@@ -4,7 +4,6 @@ namespace bedezign\yii2\audit\panels;
 
 use Yii;
 use bedezign\yii2\audit\components\panels\DataStoragePanel;
-use bedezign\yii2\audit\src\components\panels\BootstrapInterface;
 use yii\data\ArrayDataProvider;
 use yii\grid\GridViewAsset;
 
@@ -41,6 +40,7 @@ class ExtraDataPanel extends DataStoragePanel
     }
 
     /**
+     * @param $type
      * @param $data
      */
     public function trackData($type, $data)
