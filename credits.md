@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Contributors
-permalink: /contributors/
+permalink: /credits/
 contributors: true
 ---
 
