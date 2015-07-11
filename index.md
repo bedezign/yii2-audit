@@ -7,7 +7,7 @@ jumbotron: true
 
 [![Join Chat](https://img.shields.io/badge/gitter-join%20chat-blue.svg?style=flat-square)](https://gitter.im/bedezign/yii2-audit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Latest Version](https://img.shields.io/github/tag/bedezign/yii2-audit.svg?style=flat-square&label=release)](https://github.com/bedezign/yii2-audit/tags)
-[![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](https://github.com/bedezign/yii2-audit/blob/master/LICENSE.md)
+[![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](https://bedezign.github.io/yii2-audit/license/)
 [![Build Status](https://img.shields.io/travis/bedezign/yii2-audit/master.svg?style=flat-square)](https://travis-ci.org/bedezign/yii2-audit)
 [![HHVM](https://img.shields.io/hhvm/bedezign/yii2-audit.svg?style=flat-square)](http://hhvm.h4cc.de/package/bedezign/yii2-audit)
 [![Coverage Status](https://img.shields.io/scrutinizer/coverage/g/bedezign/yii2-audit.svg?style=flat-square)](https://scrutinizer-ci.com/g/bedezign/yii2-audit/code-structure)
@@ -94,4 +94,4 @@ Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/
 
 ## License
 
-BSD-3 - Please refer to the [license](https://github.com/bedezign/yii2-audit/blob/master/LICENSE.md).
+BSD-3 - Please refer to the [license](https://bedezign.github.io/yii2-audit/license/).
