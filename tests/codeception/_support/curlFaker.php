@@ -44,10 +44,12 @@ namespace bedezign\yii2\audit\panels {
         return curl_dummy('curl_multi_getcontent', $resource);
     }
 
-    function curl_dummy($function, ...$parameters)
+    function curl_dummy($function)
     {
+        $parameters = func_get_args();
+        array_shift($parameters);
         if (isset(\Yii::$app->params[$function]))
-            return \Yii::$app->params[$function](...$parameters);
+            return call_user_func_array(\Yii::$app->params[$function], $parameters);
         else
             return call_user_func_array('\\' . $function, $parameters);
     }
