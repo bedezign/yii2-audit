@@ -37,7 +37,7 @@ Each panel is optional, and you can even create your own.
   * Headers from the Request and Response.
 * `AssetPanel` - Asset Bundles loaded for the request.
 * `ConfigPanel` - Yii and PHP configuration that was used for the request.
-* `DbPanel` - SQL queries. - [more info](https://bedezign.github.io/yii2-audit/docs/database-panel/)
+* `DbPanel` - SQL queries.
 * `ErrorPanel` - Record all PHP exceptions and errors in the background.  Once logged you can configure a cron task to email the errors to a developer so issues can be fixed before they are even reported by a user. [more info](https://bedezign.github.io/yii2-audit/docs/error-panel/)
 * `JavascriptPanel` - Automatically log JavaScript errors. Errors and warning are logged automatically by including `JSLoggingAsset` asset bundle.  The javascript component also provides methods to manually add logging entries. [more info](https://bedezign.github.io/yii2-audit/docs/javascript-panel/)
 * `LogPanel` - Yii logs.
