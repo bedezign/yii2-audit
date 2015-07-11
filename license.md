@@ -1,3 +1,8 @@
+---
+layout: default
+title: The BSD License (BSD)
+---
+
 # The BSD License (BSD)
 
 Copyright (c) 2013-2015, B&E DeZign <info@bedezign.com>
