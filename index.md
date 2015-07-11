@@ -65,11 +65,21 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
 
 ## Screenshots
 
-### Dashboard
-![Dashboard](https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png)
+<div class="row">
+    <div class="col-md-6">
+        <h3>Dashboard</h3>
+        <div class="thumbnail">
+            <a href="https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png" class="fancybox" rel="screenshots"><img src="https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png" alt="Dashboard"></a>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <h3>Entry View</h3>
+        <div class="thumbnail">
+            <a href="https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png" class="fancybox" rel="screenshots"><img src="https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png" alt="Audit Entry View"></a>
+        </div>
+    </div>
+</div>
 
-### Entry View
-![Audit Entry View](https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png)
 
 ### More Screenshots
 
