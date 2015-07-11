@@ -18,11 +18,13 @@ class CurlPanelTest extends AuditTestCase
     {
         $curl = curl_init();
 
+        $panel = Audit::getInstance()->getPanel('audit/curl');
+
         $mock = $this->getMockBuilder('stdClass')->setMethods(['setOpt'])->getMock();
         $mock->expects($this->exactly(4))
             ->method('setOpt')
             ->withConsecutive(
-                [$curl, CURLOPT_HEADERFUNCTION, $this->anything()],
+                [$curl, CURLOPT_HEADERFUNCTION, [$panel, 'captureHeader']],
                 [$curl, CURLOPT_VERBOSE, true],
                 [$curl, CURLOPT_STDERR, $this->anything()],
                 [$curl, CURLOPT_RETURNTRANSFER, 1]
@@ -48,8 +50,15 @@ class CurlPanelTest extends AuditTestCase
         $curlId = $this->getCurlId($curl);
         $panel = Audit::getInstance()->getPanel('audit/curl');
 
-        // TrackRequest normally initializes this
-        $panel->data = [$curlId => []];
+        // Have trackRequest initialize as usual
+        $this->assertTrue($panel->trackRequest($curl));
+
+        // Obtain the temporary handle created for the logging
+        $reflection = new \ReflectionClass(CurlPanel::className());
+        $log = $reflection->getProperty('_logHandles');
+        $log->setAccessible(true);
+        $handles = $log->getValue($panel);
+
 
         $mock = $this->getMockBuilder('stdClass')->setMethods(['getInfo', 'getContent', 'getErrorNo', 'getError'])->getMock();
         $mock->expects($this->once())->method('getInfo')
@@ -67,13 +76,32 @@ class CurlPanelTest extends AuditTestCase
         curl_callback('curl_errno', [$mock, 'getErrorNo']);
         curl_callback('curl_error', [$mock, 'getError']);
 
+        // Assume curl works as it should and fake-give the panel a couple headers to keep
+        $panel->captureHeader($curl, "HTTP/1.1 200 OK\n");
+        $panel->captureHeader($curl, "Date: Thu, 09 Jul 2015 15:04:49 GMT\n");
+
+        $log = <<<LOG
+        * Connected to testing.com (192.168.1.1) port 80 (#0)
+        > GET /start HTTP/1.1
+
+        < HTTP/1.1 200 OK
+LOG;
+        // Feed it some log too:
+        fputs($handles[$curlId], $log);
+
+
         $this->assertTrue(Audit::getInstance()->curlEnd($curl));
 
         $data = $panel->data[$curlId];
         $this->assertEquals([
-           'content_type' => 'text/json',
-           'effective_url' => 'http://testing.com',
-           'content' => 'Testing content'
+            'content_type' => 'text/json',
+            'effective_url' => 'http://testing.com',
+            'content' => 'Testing content',
+            'headers' => [
+                "HTTP/1.1 200 OK\n",
+                "Date: Thu, 09 Jul 2015 15:04:49 GMT\n"
+            ],
+            'log' => $log
         ], $data);
     }
 
