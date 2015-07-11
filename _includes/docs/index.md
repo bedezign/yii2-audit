@@ -1,9 +1,4 @@
----
-layout: default
-title: Audit Documentation
----
-
-# Audit Documentation
+# Documentation
 
 ## Configuration
 - [Installation and Configuration](installation.md)

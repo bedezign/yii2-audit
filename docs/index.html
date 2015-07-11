@@ -3,4 +3,5 @@ layout: default
 title: Audit Documentation
 ---
 
-{% include docs/index.md %}
+{% capture contents %}{% include docs/index.md %}{% endcapture %}
+{{ contents | markdownify }}
