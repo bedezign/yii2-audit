@@ -21,7 +21,7 @@ Audit comes with several handy views to display data inside your application.
 
 ### Model
 
-{% highlight php %}
+```php
 class Post extends \yii\db\ActiveRecord
 {
     /** 
@@ -48,11 +48,11 @@ class Post extends \yii\db\ActiveRecord
             ]);
     }
 }    
-{% endhighlight %}
+```
 
 ### Controller
 
-{% highlight php %}
+```php
 class PostController extends \yii\web\Controller
 {
     public function actionLog($id)
@@ -61,19 +61,19 @@ class PostController extends \yii\web\Controller
         return $this->render('log', ['model' => $model]);
     }
 }
-{% endhighlight %}
+```
 
 ### View
 
 simple:
 
-{% highlight php %}
+```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', ['query' => $model->getAuditTrails()]);
-{% endhighlight %}
+```
 
 all options:
 
-{% highlight php %}
+```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
     'query' => $model->getAuditTrails(),
@@ -89,15 +89,15 @@ echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // set to false to hide filter
     'filter' => false,
 ]);
-{% endhighlight %}
+```
 
 ## Render AuditEntry.id in Layout
 
 It is often useful for users to be able to report the AuditEntry.id to the developer.  To render the ID to the page include the partial provided:
 
-{% highlight php %}
+```php
 <?= $this->render('@bedezign/yii2/audit/views/_audit_entry_id'); ?>
-{% endhighlight %}
+```
 
 Please note, this will not create an audit entry and will only display if an audit entry exists.
 
