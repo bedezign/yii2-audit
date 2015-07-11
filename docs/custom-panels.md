@@ -45,7 +45,7 @@ class ViewsPanel extends Panel
     }
     
     /**
-     * Returns the data that will be saved. The data will be placed into the `audit_data` table.
+     * Returns the data that will be saved into the `audit_data` table.
      */
     public function save()
     {
