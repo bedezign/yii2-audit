@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Database Panel
-permalink: /docs/database-panel/
+title: Trail Panel
+permalink: /docs/trail-panel/
 ---
 
-# Database Panel
+# Trail Panel
 
 If you want database changes to be logged, you have to add the `AuditTrailBehavior` to the models you want to log.
 
