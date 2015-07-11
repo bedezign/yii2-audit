@@ -32,4 +32,4 @@ A `Panel` is a class responsible for capturing and displaying data.  Panel data 
 
 ## Upgrading
 
-- [Upgrading from 0.1.x to 0.2? Definitely read this!](upgrading-0.1-0.2/)
+- [Upgrading from 0.1.x to 1.0? Definitely read this!](upgrading-0.1-1.0/)
