@@ -66,11 +66,13 @@ class PostController extends \yii\web\Controller
 ### View
 
 simple:
+
 ```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', ['query' => $model->getAuditTrails()]);
 ```
 
 all options:
+
 ```php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
