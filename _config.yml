@@ -1,5 +1,5 @@
 #markdown: redcarpet
-#highlighter: pygments
+highlighter: pygments
 permalink: /:title/
 exclude: ["README.md"]
 baseurl: /yii2-audit
