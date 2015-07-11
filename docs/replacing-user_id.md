@@ -71,3 +71,5 @@ $config = [
     ],
 ];
 ```
+
+{% include page-edit.html %}

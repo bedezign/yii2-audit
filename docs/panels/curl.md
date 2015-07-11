@@ -82,3 +82,4 @@ This uses the `CURLOPT_HEADERFUNCTION` option.
 
 For content tracking the `CURLOPT_RETURNTRANSFER` is enabled.
 
+{% include page-edit.html %}

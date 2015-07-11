@@ -18,3 +18,5 @@ In this section you will find documentation regarding the core audit panels as w
 - [Error](error/)
 - [Extra Data](extra-data/)
 - [cURL](curl/)
+
+{% include page-edit.html %}

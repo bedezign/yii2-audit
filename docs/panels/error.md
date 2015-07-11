@@ -49,3 +49,5 @@ $console = [
     ],
 ]
 ```
+
+{% include page-edit.html %}

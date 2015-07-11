@@ -103,3 +103,5 @@ http://localhost/path/to/index.php?r=audit
 ## Where to now ?
 
 Check out the other [Documentation](../)
+
+{% include page-edit.html %}

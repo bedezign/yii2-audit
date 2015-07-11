@@ -24,3 +24,5 @@ Alternatively you can achieve the same via the application instance (as always i
 
 The `data()`-function is a utilitairy function that is linked to the module by the `ExtraData`-panel.
 For an overview of all other available built-in functions, please take a look [here](../utility-functions)
+
+{% include page-edit.html %}

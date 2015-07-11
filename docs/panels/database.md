@@ -95,3 +95,4 @@ $post = Version::find($post->className(), $post->id, $version);
 $post->save();
 ```
 
+{% include page-edit.html %}

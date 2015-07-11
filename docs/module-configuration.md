@@ -110,3 +110,5 @@ This disables the verbose log for the cURL panel
 ```
 
 This adds a completely new panel.
+
+{% include page-edit.html %}
