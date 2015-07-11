@@ -5,3 +5,22 @@ body {
 img { 
     max-width: 100%; 
 }
+
+/**
+ * contributor styles
+ */
+
+#contributors ul {
+    margin: 0;
+    padding: 0;
+}
+#contributors li {
+    width: 78px;
+    margin: 5px;
+    display: inline-block;
+    text-align: center;
+    font-size: 75%;
+}
+#contributors img {
+    width: 64px;
+}

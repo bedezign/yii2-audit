@@ -1,0 +1,15 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        // contributors
+        $.ajax({
+            type: 'GET',
+            url: 'https://api.github.com/repos/bedezign/yii2-audit/contributors',
+            dataType: 'json',
+            success: function(result) {
+                for(i in result) {
+                    $('#contributors ul').append('<li class="thumbnail"><a href="https://github.com/bedezign/yii2-audit/commits?author=' + result[i].login + '" target="_blank"><img src="' + result[i].avatar_url + 's=64" title="' + result[i].login + ' (' + result[i].contributions + ' contributions)"></a></li>');
+                }
+            }
+        });
+    });
+</script>
