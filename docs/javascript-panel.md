@@ -10,6 +10,7 @@ The module also supports logging of javascript errors, warnings and even regular
 To activate, register the `\bedezign\yii2\audit\web\JSLoggingAsset` in any of your views:
 
 ```php
+<?php
 \bedezign\yii2\audit\web\JSLoggingAsset::register($this);
 ```
 

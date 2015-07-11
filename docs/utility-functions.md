@@ -14,6 +14,7 @@ __Note__: These functions are only available if the panel is actually added to t
 Usage is simply:
 
 ```php
+<?php
 $module = Audit::getInstance();
 $module->theFunction(relevantArguments);
 ```
@@ -24,6 +25,7 @@ $module->theFunction(relevantArguments);
 This panel adds a `data()`-function to link custom data to the entry.
 
 ```php
+<?php
 $module->data($type, $data);
 ```
 
@@ -33,6 +35,7 @@ $module->data($type, $data);
 The error panel provides 2 shortcut functions to log exceptions or messages to the entry:
 
 ```php
+<?php
 $module->exception(Exception $exception)
 ```
 
@@ -41,6 +44,7 @@ It actually links to `AuditError::log()` but takes care of the `AuditEntry` para
 
 
 ```php
+<?php
 $module->errorMessage($message, $code = 0, $file = '', $line = 0, $trace = []);
 ```
 
@@ -51,12 +55,14 @@ Depending on how you normally do your cURL requests you can use this panel in 2 
 
 ```php
 ... // Create and configure curl handle
+<?php
 $curlResult = $module->curlExec($curlHandle, $startingUrl = null, $postData = null);
 ```
 
 Or
 
 ```php
+<?php
 ... // Create and configure curl handle
 $module->curlBegin($curlHandle, $startingUrl = null, $postData = null);
 curl_exec($curlHandle);

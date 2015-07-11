@@ -39,6 +39,7 @@ Upgrading from pre 1.0? [Be sure to read this](../upgrading-0.1-0.2/).
 Add `Audit` to your configuration array:
 
 ```php
+<?php
 $config = [
     'modules' => [
         'audit' => 'bedezign\yii2\audit\Audit',
@@ -53,6 +54,7 @@ See [Module Configuration](../module-configuration/) for the all configuration o
 Add `AuditTrailBehavior` to the models you want to log:
 
 ```php
+<?php
 class Post extends \yii\db\ActiveRecord
 {
     public function behaviors()
@@ -71,6 +73,7 @@ See [Trail Panel](../trail-panel/) for the all configuration options and advance
 Register `JSLoggingAsset` in any of your views:
 
 ```php
+<?php
 \bedezign\yii2\audit\web\JSLoggingAsset::register($this);
 ```
 
@@ -81,6 +84,7 @@ See [Javascript Panel](../javascript-panel/) for the all configuration options a
 Add `ErrorHandler` to your configuration array:
 
 ```php
+<?php
 $config = [
     'components' => [
         'errorHandler' => [

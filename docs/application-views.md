@@ -22,6 +22,7 @@ Audit comes with several handy views to display data inside your application.
 ### Model
 
 ```php
+<?php
 class Post extends \yii\db\ActiveRecord
 {
     /** 
@@ -53,6 +54,7 @@ class Post extends \yii\db\ActiveRecord
 ### Controller
 
 ```php
+<?php
 class PostController extends \yii\web\Controller
 {
     public function actionLog($id)
@@ -68,12 +70,14 @@ class PostController extends \yii\web\Controller
 simple:
 
 ```php
+<?php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', ['query' => $model->getAuditTrails()]);
 ```
 
 all options:
 
 ```php
+<?php
 echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // model to display audit trais for, must have a getAuditTrails() method
     'query' => $model->getAuditTrails(),

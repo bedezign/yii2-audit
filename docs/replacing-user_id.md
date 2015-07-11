@@ -11,6 +11,7 @@ By default the views output the raw user_id stored in the audit tables.  You can
 For example add the following to your User model:
 
 ```php
+<?php
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @param string $id user_id from audit_entry table
@@ -27,6 +28,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 Then update the audit module in your config array:
 
 ```php
+<?php
 $config = [
     'modules' => [
         'audit' => [
@@ -44,6 +46,7 @@ The other way around is also supported. If you provide a second callback that ac
 For example:
 
 ```php
+<?php
 class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
     /**
      * @param string $identifier user_id from audit_entry table
@@ -62,6 +65,7 @@ class User extends \yii\db\ActiveRecord implements \yii\web\IdentityInterface
 And your module configuration:
 
 ```php
+<?php
 $config = [
     'modules' => [
         'audit' => [

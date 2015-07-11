@@ -95,6 +95,7 @@ The workflow for the code above is:
 Now it's time to tell audit to use the new panel. In `config/web.php`, the audit configuration is modified to:
 
 ```php
+<?php
 $config = [
     'modules' => [
         'audit' => [

@@ -11,6 +11,7 @@ permalink: /docs/error-panel/
 If you want errors to be logged, you have to register the included errorhandler as well in you configuration:
 
 ```php
+<?php
 $config = [
     'components' => [
         'errorHandler' => [
@@ -33,6 +34,7 @@ You should ensure you have setup a `mailer` component and have a `scriptUrl` pro
 For example:
 
 ```php
+<?php
 $console = [
     'params' => [
         'supportEmail' => 'errors@example.com',

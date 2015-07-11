@@ -9,6 +9,7 @@ permalink: /docs/extra-data-panel/
 It is possible to add extra custom data to the current audit entry by simply calling:
 
 ```php
+<?php
 use bedezign\yii2\audit\Audit;
 
 $key = 'type or identifier';
@@ -19,6 +20,7 @@ Audit::getInstance()->data($key, $data);
 Alternatively you can achieve the same via the application instance (as always in the docs, assuming the module is added as `audit`):
 
 ```php
+<?php
 \Yii::$app->getModule('audit')->data($key, $data);
 ```
 

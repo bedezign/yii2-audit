@@ -16,16 +16,19 @@ By default the panel is configured to log general info regarding the request, th
 You can disable everything except for the general info by modifying the default panel configuration:
 
 ```php
-'modules' => [
-   'audit' => [
-      'panelsMerge' => [
-         'audit/curl' => [
-            'log' => false,
-            'headers' => false,
-            'content' => false,
-         ]
-      ]
-   ]
+<?php
+$config = [
+    'modules' => [
+       'audit' => [
+          'panelsMerge' => [
+             'audit/curl' => [
+                'log' => false,
+                'headers' => false,
+                'content' => false,
+             ],
+          ],
+       ],
+    ],
 ]
 ```
 
@@ -40,6 +43,7 @@ Both POST data and the original URL cannot be obtained from the cURL handle. You
 Method 1, allow the panel to execute the request:
 
 ```php
+<?php
 $url = 'http://the.site.com/';
 $post = ['key1' => 'value1', 'key2' => 'value2']; 
 $handle = curl_init($url);
@@ -52,6 +56,7 @@ The return result in this case (if you have content tracking enabled or set the 
 Method 2, in case you have no control over when the request is executed:
 
 ```php
+<?php
 $url = 'http://the.site.com/';
 $post = ['key1' => 'value1', 'key2' => 'value2']; 
 $handle = curl_init($url);

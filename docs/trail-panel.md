@@ -11,6 +11,7 @@ If you want database changes to be logged, you have to add the `AuditTrailBehavi
 ## Basic Configuration
 
 ```php
+<?php
 /**
  * Post
  * @mixin AuditTrailBehavior
@@ -29,6 +30,7 @@ class Post extends \yii\db\ActiveRecord
 ## Advanced Configuration
 
 ```php
+<?php
 /**
  * Post
  * @mixin AuditTrailBehavior
@@ -62,6 +64,7 @@ class Post extends \yii\db\ActiveRecord
 ### Undeleting
 
 ```php
+<?php
 $post_id = 1;
 Post::findOne($post_id)->delete();
 // ... time passes ...
@@ -72,6 +75,7 @@ $post->save();
 ### Rolling Back to Last Version
 
 ```php
+<?php
 $post = Post::findOne(1);
 $post->title = 'updated post title';
 $post->save();
@@ -83,6 +87,7 @@ $post->save();
 ### Rolling Back to Any Version
 
 ```php
+<?php
 use bedezign\yii2\audit\components\Version;
 
 // get all versions
