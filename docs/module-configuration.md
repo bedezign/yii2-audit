@@ -1,3 +1,8 @@
+---
+layout: default
+title: Module Configuration
+---
+
 # Module Configuration
 
 Word of caution: The module is configured by default to only allow viewing access to users with the role 'admin'. This functionality is only available in Yii if you have enabled [RBAC](http://www.yiiframework.com/doc-2.0/guide-security-authorization.html#role-based-access-control-rbac) (via the `authManager`-component). If not, please set this option to `null`. If you do so you should consider activating either the `accessUsers`- or the `accessIps`-option, you don't want to give everyone access to your audit data!

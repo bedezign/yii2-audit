@@ -1,3 +1,8 @@
+---
+layout: default
+title: Replacing User ID
+---
+
 # Replacing User ID
 
 By default the views output the raw user_id stored in the audit tables.  You can customise this with your own callback.

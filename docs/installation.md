@@ -1,3 +1,8 @@
+---
+layout: default
+title: Installation and Configuration
+---
+
 # Installation and Configuration
 
 ## Download

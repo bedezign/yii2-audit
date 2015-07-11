@@ -1,3 +1,8 @@
+---
+layout: default
+title: Panels
+---
+
 # Panels
 
 Panels are classes that are responsible for capturing and displaying data.  A panel is displayed within an entry.  An entry represents a single hit to your application (via an web or console entry script, eg `web/index.php` or `yii`).

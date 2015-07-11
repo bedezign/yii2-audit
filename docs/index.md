@@ -1,3 +1,8 @@
+---
+layout: default
+title: Audit Documentation
+---
+
 # Audit Documentation
 
 ## Configuration

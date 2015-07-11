@@ -1,4 +1,7 @@
-# Upgrading from 0.1 to 0.2 versions
+---
+layout: default
+title: Upgrading from 0.1 to 0.2 versions
+---
 
 Due to the heavy work and changes in the way data is treated it was nearly impossible for us to keep the data compatible. Therefor we decided to create a complete new fresh set of migration scripts for people only just starting to use the module.
 

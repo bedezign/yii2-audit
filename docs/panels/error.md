@@ -1,3 +1,8 @@
+---
+layout: default
+title: Error Panel
+---
+
 # Error Panel
 
 ## Basic Configuration

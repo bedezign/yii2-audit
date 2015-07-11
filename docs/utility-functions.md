@@ -1,4 +1,9 @@
-# Utility functions #
+---
+layout: default
+title: Utility functions
+---
+
+# Utility functions
 
 The audit-module allows panels to link extra functions via its `registerFunction()`-function.
 Some of the panels add methods during their initialisation that are then available during the application cycle.
@@ -14,7 +19,7 @@ $module->theFunction(relevantArguments);
 
 (Or you can skip the adding a variable first and call the function directly on `getInstace()`)
 
-## ExtraDataPanel ##
+## ExtraDataPanel
 This panel adds a `data()`-function to link custom data to the entry.
 
 ```php
@@ -23,7 +28,7 @@ $module->data($type, $data);
 
 `$type` is usually a string, but it depends on what you need. `$data` is mixed.
 
-## ErrorPanel ##
+## ErrorPanel
 The error panel provides 2 shortcut functions to log exceptions or messages to the entry:
 
 ```php
@@ -40,7 +45,7 @@ $module->errorMessage($message, $code = 0, $file = '', $line = 0, $trace = []);
 
 Logs an error message into your entry. Same as `exception()`, but it links to `AuditError::logMessage()`.
 
-## CurlPanel ##
+## CurlPanel
 Depending on how you normally do your cURL requests you can use this panel in 2 different ways:
 
 ```php

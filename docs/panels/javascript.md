@@ -1,3 +1,8 @@
+---
+layout: default
+title: Javascript Panel
+---
+
 # Javascript Panel
 
 The module also supports logging of javascript errors, warnings and even regular log entries.

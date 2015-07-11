@@ -1,3 +1,8 @@
+---
+layout: default
+title: Application Views
+---
+
 # Application Views
 
 Audit comes with several handy views to display data inside your application.

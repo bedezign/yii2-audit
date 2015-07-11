@@ -1,4 +1,9 @@
-# CurlPanel
+---
+layout: default
+title: Curl Panel
+---
+
+# Curl Panel
 
 This is a speciality panel, designed to help you track data of the cURL requests you make.
 
