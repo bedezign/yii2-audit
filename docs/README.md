@@ -5,7 +5,10 @@
 - [Module Configuration](module-configuration.md)
 - [Utility Functions](utility-functions.md)
 
-## [Panels](panels/README.md)
+## Panels
+
+- [Panels Overview](panels/README.md)
+- [Creating a Custom Panel to Log Rendered Views](panels/custom-views.md)
 
 ### Audit Panels
 
@@ -14,10 +17,6 @@
 - [Error Logging](panels/error.md)
 - [Extra Data Logging](panels/extra-data.md)
 - [cURL Requests](panels/curl.md)
-
-### Custom Panels
-
-- [Creating a Custom Panel to Log Rendered Views](panels/custom-views.md)
 
 ## Viewing Data
 - [Replacing user_id](replacing-user_id.md)
