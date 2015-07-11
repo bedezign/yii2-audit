@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Upgrading from 0.1 to 0.2 versions
-permalink: /docs/upgrading/0.1-0.2/
+permalink: /docs/upgrading-0.1-0.2/
 ---
 
 Due to the heavy work and changes in the way data is treated it was nearly impossible for us to keep the data compatible. Therefor we decided to create a complete new fresh set of migration scripts for people only just starting to use the module.
