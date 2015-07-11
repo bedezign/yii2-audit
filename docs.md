@@ -19,7 +19,7 @@ A `Panel` is a class responsible for capturing and displaying data.  Panel data 
 ## Panels
 
 - [Creating a Custom Panel to Log Rendered Views](custom-views-panel/)
-- [Database](database-panel/)
+- [Trail](trail-panel/)
 - [Javascript](javascript-panel/)
 - [Error](error-panel/)
 - [Extra Data](extra-data-panel/)
