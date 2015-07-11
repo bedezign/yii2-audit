@@ -2,4 +2,4 @@ markdown: redcarpet
 highlighter: pygments
 permalink: /:title
 exclude: ["README.md"]
-baseurl: yii2-audit
+baseurl: /yii2-audit
