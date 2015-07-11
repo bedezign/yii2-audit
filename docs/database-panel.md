@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Database Panel
-permalink: /docs/panels/database/
+permalink: /docs/database-panel/
 ---
 
 # Database Panel
@@ -95,4 +95,3 @@ $post = Version::find($post->className(), $post->id, $version);
 $post->save();
 ```
 
-{% include page-edit.html %}

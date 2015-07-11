@@ -65,4 +65,3 @@ $module->curlEnd($curlHandle);
 
 For more information about the cURL-panel, [see here](panels/curl-panel/)
 
-{% include page-edit.html %}

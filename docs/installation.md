@@ -104,4 +104,3 @@ http://localhost/path/to/index.php?r=audit
 
 Check out the other [Documentation](../)
 
-{% include page-edit.html %}

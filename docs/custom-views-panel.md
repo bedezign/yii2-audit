@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Creating a Custom Panel to Log Rendered Views
-permalink: /docs/panels/custom-views/
+permalink: /docs/custom-views-panel/
 ---
 
 # Creating a Custom Panel to Log Rendered Views
@@ -119,4 +119,3 @@ Check out the [source for the existing panels](https://github.com/bedezign/yii2-
 
 If you create a useful panel please [let us know](https://github.com/bedezign/yii2-audit/issues/new)!
 
-{% include page-edit.html %}

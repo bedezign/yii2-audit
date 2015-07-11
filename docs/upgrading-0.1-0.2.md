@@ -16,4 +16,3 @@ Please note that this is in structure only. The changes were too big to keep you
 
 We are very sorry for the inconvenience but promise you that taking the plunge will be worth it, we have all sorts of new goodies!
 
-{% include page-edit.html %}

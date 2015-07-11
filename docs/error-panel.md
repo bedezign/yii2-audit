@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Error Panel
-permalink: /docs/panels/error/
+permalink: /docs/error-panel/
 ---
 
 # Error Panel
@@ -50,4 +50,3 @@ $console = [
 ]
 ```
 
-{% include page-edit.html %}

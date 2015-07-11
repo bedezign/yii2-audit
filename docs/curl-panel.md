@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Curl Panel
-permalink: /docs/panels/curl/
+permalink: /docs/curl-panel/
 ---
 
 # Curl Panel
@@ -82,4 +82,3 @@ This uses the `CURLOPT_HEADERFUNCTION` option.
 
 For content tracking the `CURLOPT_RETURNTRANSFER` is enabled.
 
-{% include page-edit.html %}
