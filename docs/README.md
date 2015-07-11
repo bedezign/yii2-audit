@@ -12,11 +12,11 @@
 
 ### Audit Panels
 
-- [Database Logging](panels/database.md)
-- [Javascript Logging](panels/javascript.md)
-- [Error Logging](panels/error.md)
-- [Extra Data Logging](panels/extra-data.md)
-- [cURL Requests](panels/curl.md)
+- [Database](panels/database.md)
+- [Javascript](panels/javascript.md)
+- [Error](panels/error.md)
+- [Extra Data](panels/extra-data.md)
+- [cURL](panels/curl.md)
 
 ## Viewing Data
 - [Replacing user_id](replacing-user_id.md)

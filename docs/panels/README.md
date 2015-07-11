@@ -4,15 +4,11 @@ Panels are classes that are responsible for capturing and displaying data.  A pa
 
 In this section you will find documentation regarding the core audit panels as well as how to create your own panels.
 
-## Audit Panels
-
-- [Database Logging](database.md)
-- [Javascript Logging](javascript.md)
-- [Error Logging](error.md)
-- [Extra Data Logging](extra-data.md)
-- [cURL Requests](curl.md)
-
-## Custom Panels
+## Panels
 
 - [Creating a Custom Panel to Log Rendered Views](panels/custom-views.md)
-
+- [Database](panels/database.md)
+- [Javascript](panels/javascript.md)
+- [Error](panels/error.md)
+- [Extra Data](panels/extra-data.md)
+- [cURL](panels/curl.md)
