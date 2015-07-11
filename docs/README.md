@@ -3,15 +3,21 @@
 ## Configuration
 - [Installation and Configuration](installation.md)
 - [Module Configuration](module-configuration.md)
-
-## Logging
-- [Database Logging](database-logging.md)
-- [Javascript Logging](javascript-logging.md)
-- [Error Logging](error-logging.md)
-- [Extra Data Logging](extra-data-logging.md)
-- [cURL Requests](panels/curl-panel.md)
 - [Utility Functions](utility-functions.md)
-- [Custom Panels](custom-panels.md)
+
+## [Panels](panels/README.md)
+
+### Audit Panels
+
+- [Database Logging](panels/database.md)
+- [Javascript Logging](panels/javascript.md)
+- [Error Logging](panels/error.md)
+- [Extra Data Logging](panels/extra-data.md)
+- [cURL Requests](panels/curl.md)
+
+### Custom Panels
+
+- [Creating a Custom Panel to Log Rendered Views](panels/custom-views.md)
 
 ## Viewing Data
 - [Replacing user_id](replacing-user_id.md)

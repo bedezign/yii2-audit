@@ -1,4 +1,4 @@
-# Database Logging
+# Database Panel
 
 If you want database changes to be logged, you have to add the `AuditTrailBehavior` to the models you want to log.
 
@@ -53,7 +53,7 @@ class Post extends \yii\db\ActiveRecord
 
 ## Version Control
 
-## Undeleting
+### Undeleting
 
 ```php
 $post_id = 1;

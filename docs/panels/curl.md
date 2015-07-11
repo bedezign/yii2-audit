@@ -1,10 +1,10 @@
-# CurlPanel #
+# CurlPanel
 
 This is a speciality panel, designed to help you track data of the cURL requests you make.
 
 The functions provided by this panel are described on the [utility functions page](../utility-functions.md).
 
-## What is logged? ##
+## What is logged?
 By default the panel is configured to log general info regarding the request, the received headers, the connection log and the returned content. If any errors occur it will log both the error number and the error string.
 
 You can disable everything except for the general info by modifying the default panel configuration:
@@ -23,7 +23,7 @@ You can disable everything except for the general info by modifying the default 
 ]
 ```
 
-## Usage ##
+## Usage
 
 Since there is no way to automatically detect when cURL requests are being done, it is up to you to notify the panel.
 
@@ -60,19 +60,19 @@ if (!Audit::getInstance()->curlEnd($handle)) {
 
 Like this, the returned result is a `bool` (true if the request succeeded).
 
-## Beware ##
+## Beware
 
 In order to deliver its awesome functionality, the panel needs to add/configure a couple of options on the handle. This section attempts to provide you with a list so you know exactly what.
 
-### Log ###
+### Log
 
 The log depends on the verbose functionality. It configures the options `CURLOPT_VERBOSE` and `CURL_STDERR`.
 
-### Headers ###
+### Headers
 
 This uses the `CURLOPT_HEADERFUNCTION` option.
 
-### Content ###
+### Content
 
 For content tracking the `CURLOPT_RETURNTRANSFER` is enabled.
 
