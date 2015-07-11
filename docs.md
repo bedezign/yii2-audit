@@ -6,14 +6,17 @@ permalink: /docs/
 
 # Documentation
 
+Yii2 Audit tracks each hit to your application (via an web or console entry script, eg `web/index.php` or `yii`) and stores this as an `AuditEntry`.
+
+A `Panel` is a class responsible for capturing and displaying data.  Panel data is given an `entry_id` and is related to an `AuditEntry`.  This data is displayed in detail within the entry view page and may also have its own views and dashboards.
+
 ## Configuration
+
 - [Installation and Configuration](installation/)
 - [Module Configuration](module-configuration/)
 - [Utility Functions](utility-functions/)
 
 ## Panels
-
-Panels are classes that are responsible for capturing and displaying data.  A panel is displayed within an entry.  An entry represents a single hit to your application (via an web or console entry script, eg `web/index.php` or `yii`).
 
 - [Creating a Custom Panel to Log Rendered Views](custom-views-panel/)
 - [Database](database-panel/)
