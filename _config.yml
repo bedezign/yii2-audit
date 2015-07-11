@@ -1,3 +1,4 @@
 markdown: redcarpet
 highlighter: pygments
 permalink: /:title
+exclude: ["README.md"]
