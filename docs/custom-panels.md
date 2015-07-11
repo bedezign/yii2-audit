@@ -105,3 +105,10 @@ $config = [
 ## Screenshot
 
 ![Custom Panel View](https://cloud.githubusercontent.com/assets/51875/8370372/149aa0de-1c06-11e5-8229-6fd53142b7c2.png)
+
+
+## What else can I do with panels?
+
+Check out the [source for the existing panels](https://github.com/bedezign/yii2-audit/tree/master/src/panels) to see some of the ways panels can be used.
+
+If you create a useful panel please [let us know](https://github.com/bedezign/yii2-audit/issues)!
