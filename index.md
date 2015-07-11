@@ -97,6 +97,7 @@ Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/
 
 ## Project Resources
 
+* [Documentation](https://bedezign.github.io/yii2-audit/)
 * [GitHub Project](https://github.com/bedezign/yii2-audit)
 * [Yii2 Extension](http://www.yiiframework.com/extension/yii2-audit)
 * [Packagist Package](https://packagist.org/packages/bedezign/yii2-audit)
