@@ -1,6 +1,7 @@
 ---
 layout: default
 title: The BSD License (BSD)
+permalink: /license/
 ---
 
 # The BSD License (BSD)
