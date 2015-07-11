@@ -66,13 +66,17 @@ Getting started? Try the [Installation Guide](https://bedezign.github.io/yii2-au
 
 For changes since the last version see the [Changelog](https://github.com/bedezign/yii2-audit/blob/master/CHANGELOG.md).
 
-## [Screenshots](https://bedezign.github.io/yii2-audit/screenshots/)
+## Screenshots
 
 ### Dashboard
 ![Dashboard](https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png)
 
 ### Entry View
 ![Audit Entry View](https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png)
+
+### More Screenshots
+
+More images are available from the [Screen Shots](https://bedezign.github.io/yii2-audit/screenshots/) page.
 
 ## Contributing
 
