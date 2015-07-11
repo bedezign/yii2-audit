@@ -1,13 +1,14 @@
 ---
 layout: default
 title: Curl Panel
+permalink: /docs/panels/curl/
 ---
 
 # Curl Panel
 
 This is a speciality panel, designed to help you track data of the cURL requests you make.
 
-The functions provided by this panel are described on the [utility functions page](../utility-functions.md).
+The functions provided by this panel are described on the [utility functions page](../utility-functions).
 
 ## What is logged?
 By default the panel is configured to log general info regarding the request, the received headers, the connection log and the returned content. If any errors occur it will log both the error number and the error string.

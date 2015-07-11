@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Utility functions
+permalink: /docs/utility-functions/
 ---
 
 # Utility functions
@@ -62,4 +63,4 @@ curl_exec($curlHandle);
 $module->curlEnd($curlHandle);
 ```
 
-For more information about the cURL-panel, [see here](panels/curl-panel.md)
+For more information about the cURL-panel, [see here](panels/curl-panel/)

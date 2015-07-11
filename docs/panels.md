@@ -1,9 +1,10 @@
 ---
 layout: default
 title: Panels
+permalink: /docs/panels/
 ---
 
-# Panels
+# Panel Documentation
 
 Panels are classes that are responsible for capturing and displaying data.  A panel is displayed within an entry.  An entry represents a single hit to your application (via an web or console entry script, eg `web/index.php` or `yii`).
 
@@ -11,9 +12,9 @@ In this section you will find documentation regarding the core audit panels as w
 
 ## Panels
 
-- [Creating a Custom Panel to Log Rendered Views](panels/custom-views.md)
-- [Database](panels/database.md)
-- [Javascript](panels/javascript.md)
-- [Error](panels/error.md)
-- [Extra Data](panels/extra-data.md)
-- [cURL](panels/curl.md)
+- [Creating a Custom Panel to Log Rendered Views](custom-views/)
+- [Database](database/)
+- [Javascript](javascript/)
+- [Error](error/)
+- [Extra Data](extra-data/)
+- [cURL](curl/)

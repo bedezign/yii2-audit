@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Installation and Configuration
+permalink: /docs/installation/
 ---
 
 # Installation and Configuration
@@ -31,7 +32,7 @@ Run the migrations from the `migrations` folder to create the relevant tables:
 $ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations
 ```
 
-Upgrading from pre 1.0? [Be sure to read this](upgrading-0.1-0.2.md).
+Upgrading from pre 1.0? [Be sure to read this](upgrading-0.1-0.2).
 
 ## Module Configuration
 
@@ -45,7 +46,7 @@ $config = [
 ];
 ```
 
-See [Module Configuration](module-configuration.md) for the all configuration options and advanced usage information.
+See [Module Configuration](module-configuration) for the all configuration options and advanced usage information.
 
 ## Logging Database Changes
 
@@ -63,7 +64,7 @@ class Post extends \yii\db\ActiveRecord
 }
 ```
 
-See [Database Logging](database-logging.md) for the all configuration options and advanced usage information.
+See [Database Logging](database-logging) for the all configuration options and advanced usage information.
 
 ## Logging Javascript
 
@@ -73,7 +74,7 @@ Register `JSLoggingAsset` in any of your views:
 \bedezign\yii2\audit\web\JSLoggingAsset::register($this);
 ```
 
-See [Javascript Logging](javascript-logging.md) for the all configuration options and advanced usage information.
+See [Javascript Logging](javascript-logging) for the all configuration options and advanced usage information.
 
 ## Logging Errors
 
@@ -89,7 +90,7 @@ $config = [
 ];
 ```
 
-See [Error Logging](error-logging.md) for the all configuration options and advanced usage information.
+See [Error Logging](../panels/error/) for the all configuration options and advanced usage information.
 
 ## Viewing the Audit Data
 
@@ -101,4 +102,4 @@ http://localhost/path/to/index.php?r=audit
 
 ## Where to now ?
 
-Check out the other [Documentation](README.md)
+Check out the other [Documentation](../)

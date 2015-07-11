@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Javascript Panel
+permalink: /docs/panels/javascript/
 ---
 
 # Javascript Panel

@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Application Views
+permalink: /docs/application-views/
 ---
 
 # Application Views

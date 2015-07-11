@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Module Configuration
+permalink: /docs/module-configuration/
 ---
 
 # Module Configuration

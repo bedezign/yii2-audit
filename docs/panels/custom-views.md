@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Creating a Custom Panel to Log Rendered Views
+permalink: /docs/panels/custom-views/
 ---
 
 # Creating a Custom Panel to Log Rendered Views

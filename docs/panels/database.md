@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Database Panel
+permalink: /docs/panels/database/
 ---
 
 # Database Panel

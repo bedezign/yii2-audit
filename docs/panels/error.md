@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Error Panel
+permalink: /docs/panels/error/
 ---
 
 # Error Panel

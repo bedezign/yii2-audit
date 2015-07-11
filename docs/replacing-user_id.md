@@ -1,6 +1,7 @@
 ---
 layout: default
 title: Replacing User ID
+permalink: /docs/replacing-user_id/
 ---
 
 # Replacing User ID
