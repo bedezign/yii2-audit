@@ -47,4 +47,63 @@ class HelperTest extends AuditTestCase
         $this->assertEquals(serialize($data), Helper::serialize($data, false));
     }
 
+    public function testFormatAsQueryDoesntDoJson()
+    {
+        $this->assertNull(Helper::formatAsQuery('{"test":"data","test2":["data2","data3"]}'));
+    }
+
+    public function testFormatAsQueryWorks()
+    {
+        $this->assertEquals(<<<PHP
+[
+    'test' => 'var'
+    'test2' => 'value1'
+    'test3' => [
+        0 => 'value3'
+        1 => 'value2'
+    ]
+]
+PHP
+        , Helper::formatAsQuery('test=var&test2=value1&test3%5B0%5D=value3&test3%5B1%5D=value2'));
+    }
+
+    public function testFormatAsJsonOnlyAcceptsJson()
+    {
+        $this->assertNull(Helper::formatAsJSON('test=var&test2=value1&test3%5B0%5D=value3&test3%5B1%5D=value2'));
+    }
+
+    public function testFormatAsJsonWorks()
+    {
+        $this->assertEquals(<<<JSON
+{
+    "test": "data",
+    "test2": [
+        "data2",
+        "data3"
+    ]
+}
+JSON
+        , Helper::formatAsJSON('{"test":"data","test2":["data2","data3"]}'));
+    }
+
+    public function testFormatAsXMLDoesntDoJson()
+    {
+        $this->assertNull(Helper::formatAsXML('{"test":"data","test2":["data2","data3"]}'));
+    }
+
+    public function testFormatAsXMLWorks()
+    {
+        $this->assertEquals(<<<XML
+&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;note&gt;
+  &lt;to&gt;Tove&lt;/to&gt;
+  &lt;from&gt;Jani&lt;/from&gt;
+  &lt;heading&gt;Reminder&lt;/heading&gt;
+  &lt;body&gt;Don't forget me this weekend!&lt;/body&gt;
+&lt;/note&gt;
+
+XML
+        , Helper::formatAsXML('<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don\'t forget me this weekend!</body></note>'));
+    }
+
 }
