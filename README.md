@@ -51,7 +51,7 @@ Yii2 Audit is a module that records and displays web/cli requests, database chan
 
 ## Documentation
 
-Getting started? Try the [Installation Guide](docs/installation.md).  You will find further information in the [Documentation](docs/README.md).
+Getting started? Try the [Installation Guide](https://bedezign.github.io/yii2-audit/docs/installation.md).  You will find further information in the [Documentation](https://bedezign.github.io/yii2-audit/docs/).
 
 For changes since the last version see the [Changelog](CHANGELOG.md).
 
@@ -91,6 +91,7 @@ Thanks to [everyone who has contributed](CREDITS.md).
 
 ## Project Resources
 
+* [Documentation](https://bedezign.github.io/yii2-audit/)
 * [GitHub Project](https://github.com/bedezign/yii2-audit)
 * [Yii2 Extension](http://www.yiiframework.com/extension/yii2-audit)
 * [Packagist Package](https://packagist.org/packages/bedezign/yii2-audit)
