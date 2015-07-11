@@ -180,7 +180,6 @@ class CurlPanel extends DataStoragePanel
     public function registerAssets($view)
     {
         GridViewAsset::register($view);
-        $view->registerJs('$(".audit_curl_post_toggle").click(function() {$(this).next().next().toggle().next().toggle(); });');
     }
 
     /**

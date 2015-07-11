@@ -3,8 +3,11 @@
 
 use yii\bootstrap\Tabs;
 use yii\helpers\Html;
-use yii\helpers\VarDumper;
+use bedezign\yii2\audit\components\Helper;
 
+if (!function_exists('formatDataString')) {
+    function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; }}
+}
 
 $post    = empty($request['post']) ? false : $request['post'];
 $headers = empty($request['headers']) ? false : $request['headers'];
@@ -29,8 +32,8 @@ if ($post) {
         'label' => \Yii::t('audit', 'POST'),
         'content' => Html::tag('div', $post, $preformatted)
     ];
-    checkString(
-        ['asQuery' => \Yii::t('audit', 'POST - Query'), 'asJSON' => \Yii::t('audit', 'POST - JSON'), 'asXML' => \Yii::t('audit', 'POST - XML')],
+    formatDataString(
+        ['formatAsQuery' => \Yii::t('audit', 'POST - Query'), 'formatAsJSON' => \Yii::t('audit', 'POST - JSON'), 'formatAsXML' => \Yii::t('audit', 'POST - XML')],
         $post, $preformatted, $tabs
     );
 }
@@ -46,8 +49,8 @@ if ($content) {
         'label' => \Yii::t('audit', 'Content'),
         'content' => Html::tag('div', $formatter->asText($content), $preformatted)
     ];
-    checkString(
-        ['asQuery' => \Yii::t('audit', 'Content - Query'), 'asJSON' => \Yii::t('audit', 'Content - JSON'), 'asXML' => \Yii::t('audit', 'Content - XML')],
+    formatDataString(
+        ['formatAsQuery' => \Yii::t('audit', 'Content - Query'), 'formatAsJSON' => \Yii::t('audit', 'Content - JSON'), 'formatAsXML' => \Yii::t('audit', 'Content - XML')],
         $content, $preformatted, $tabs
     );
 }
@@ -61,40 +64,3 @@ if ($log)
 
 echo Html::tag('h2', \Yii::t('audit', 'Request #{id}', ['id' => $index])),
         Tabs::widget(['items' => $tabs]);
-
-
-function checkString($types, $data, $preformatted, &$tabs)
-{
-    foreach ($types as $function => $title) {
-        $result = $function($data);
-        if ($result)
-            $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)];
-    }
-}
-
-function asQuery($data)
-{
-    $data = rawurldecode($data);
-    if (!preg_match('/^([\w\d\-\[\]]+(=[\w-]*)?(&[\w\d\-\[\]]+(=[\w-]*)?)*)?$/', $data))
-        return null;
-
-    $result = [];
-    parse_str($data, $result);
-    return VarDumper::dumpAsString($result, 15);
-}
-
-function asJSON($data)
-{
-    $decoded = @json_decode($data);
-    return $decoded ? json_encode($decoded, JSON_PRETTY_PRINT) : null;
-}
-
-function asXML($data)
-{
-    $doc = new \DOMDocument('1.0');
-    $doc->preserveWhiteSpace = false;
-    $doc->formatOutput = true;
-    if (@$doc->loadXML($data))
-        return htmlentities($doc->saveXML(), ENT_COMPAT, 'UTF-8');
-    return null;
-}

@@ -7,6 +7,7 @@ namespace bedezign\yii2\audit\components;
 
 use bedezign\yii2\audit\Audit;
 use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 
 /**
  * Helper
@@ -176,4 +177,45 @@ class Helper extends \yii\base\Object
         return $str;
     }
 
+    /**
+     * If the data resembles a query string it will be returned as a formatted variable for output
+     * @param $data
+     * @return null|string
+     */
+    public static function formatAsQuery($data)
+    {
+        $data = rawurldecode($data);
+        if (!preg_match('/^([\w\d\-\[\]]+(=[\w-]*)?(&[\w\d\-\[\]]+(=[\w-]*)?)*)?$/', $data))
+            return null;
+
+        $result = [];
+        parse_str($data, $result);
+        return VarDumper::dumpAsString($result, 15);
+    }
+
+    /**
+     * If the data contains JSON it will be returned as a pretty printable string
+     * @param $data
+     * @return null|string
+     */
+    public static function formatAsJSON($data)
+    {
+        $decoded = @json_decode($data);
+        return $decoded ? json_encode($decoded, JSON_PRETTY_PRINT) : null;
+    }
+
+    /**
+     * If the data contains XML it will be returned as a pretty printable string
+     * @param $data
+     * @return null|string
+     */
+    public static function formatAsXML($data)
+    {
+        $doc = new \DOMDocument('1.0');
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
+        if (@$doc->loadXML($data))
+            return htmlentities($doc->saveXML(), ENT_COMPAT, 'UTF-8');
+        return null;
+    }
 }

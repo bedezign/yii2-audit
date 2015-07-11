@@ -15,7 +15,7 @@ return [
                 'user-agent' => 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.124 Safari/537.36',
                 'accept-encoding' => 'gzip, deflate, sdch',
                 'accept-language' => 'en,en-AU;q=0.8,en-GB;q=0.6,en-US;q=0.4',
-                'cookie' => '_csrf=eef13a3679738be3e17292e63c7939aa559f4f9d83f83a648484e5a91ff3d67da%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22ayJ_ofLvqmhRjidnDTMcS_jc4tuJ_jN0%22%3B%7D; PHPSESSID=a8u4tqpk2l9did1lut7p3dbqn2; _identity=8450b41366d4812549c3fdb96ecbf2454d888618d408c94652dfd6e89fd07ff9a%3A2%3A%7Bi%3A0%3Bs%3A9%3A%22_identity%22%3Bi%3A1%3Bs%3A46%3A%22%5B1%2C%22Bq6HnQ4Z07uhCsxF_XRlReMKLPjpcGwt%22%2C1209600%5D%22%3B%7D',
+                'cookie' => '_csrf=eef13a3679738be3e17292e63c7939aa559f4f9d83f83a648484e5a91ff3d67da%3A2%3A%7Bi%3A0%3Bs%3A5%3A%22_csrf%22%3Bi%3A1%3Bs%3A32%3A%22ayJ_ofLvqmhRjidnDTMcS_jc4tuJ_jN0%22%3B%7D; PHPSESSID=a8u4tqpk2l9did1lut7p3dbqn2',
             ],
             'responseHeaders' => [
                 'X-Powered-By' => 'PHP/5.5.9-1ubuntu4.7',
@@ -219,6 +219,87 @@ return [
             '/vagrant/git/yii2-audit/src/views/layouts/main.php',
         ]),
     ],
+    [
+        'id' => 8,
+        'entry_id' => 1,
+        'type' => 'audit/curl',
+        'data' => serialize([
+          0 =>
+          [
+            'starting_url' => 'http://testing.com/start',
+            'headers' => [
+              0 => "HTTP/1.1 401 Unauthorized\n",
+              1 => "Content-Type: text/html; charset=us-ascii\n",
+              2 => "Server: Microsoft-HTTPAPI/2.0\n",
+              3 => "Date: Thu, 09 Jul 2015 15:04:45 GMT\n",
+              4 => "Content-Length: 341\n",
+              5 => "\n",
+              6 => "HTTP/1.1 200 OK\n",
+              7 => "Cache-Control: no-cache\n",
+              8 => "Content-Length: 33094\n",
+              9 => "Content-Type: application/json;odata=verbose;charset=utf-8\n",
+              10 => "Server: Microsoft-IIS/7.5\n",
+              11 => "X-Content-Type-Options: nosniff\n",
+              12 => "DataServiceVersion: 1.0;\n",
+              13 => "X-AspNet-Version: 4.0.30319\n",
+              14 => "Persistent-Auth: true\n",
+              15 => "X-Powered-By: ASP.NET\n",
+              16 => "Date: Thu, 09 Jul 2015 15:04:49 GMT\n",
+              17 => "\n",
+            ],
+            'content_type' => 'application/json;odata=verbose;charset=utf-8',
+            'http_code' => 200,
+            'header_size' => 839,
+            'request_size' => 746,
+            'filetime' => -1,
+            'redirect_count' => 1,
+            'total_time' => 4.1798570000000002,
+            'namelookup_time' => 1.2E-5,
+            'connect_time' => 1.2E-5,
+            'pretransfer_time' => 1.2999999999999999E-5,
+            'size_download' => 33094,
+            'speed_download' => 7917,
+            'download_content_length' => 33094,
+            'starttransfer_time' => 4.0445039999999999,
+            'redirect_time' => 0.095444000000000001,
+            'primary_ip' => '192.168.1.1',
+            'effective_url' => 'http://testing.com/redirected',
+            'log' => '* About to connect() to testing.comport 80 (#0)
+        *   Trying 192.168.1.1 ... * connected
+        * Connected to testing.com (192.168.1.1) port 80 (#0)
+        > GET /start HTTP/1.1
+        Host: testing.com:80
+        Accept: */*
+
+        < HTTP/1.1 302 Moved
+        < Content-Type: text/html; charset=us-ascii
+        < Server: Microsoft-HTTPAPI/2.0
+        < Location: http://testing.com/redirected
+        <
+        * Ignoring the response-body
+        * Connection #0 to host testing.com left intact
+        > GET /redirected HTTP/1.1
+        Host: testing.com:80
+        Accept: */*
+
+        < HTTP/1.1 200 OK
+        < Cache-Control: no-cache
+        < Content-Length: 33094
+        < Content-Type: application/json;odata=verbose;charset=utf-8
+        < Server: Microsoft-IIS/7.5
+        < X-Content-Type-Options: nosniff
+        < DataServiceVersion: 1.0;
+        < X-AspNet-Version: 4.0.30319
+        < Persistent-Auth: true
+        < X-Powered-By: ASP.NET
+        < Date: Thu, 09 Jul 2015 15:04:49 GMT
+        <
+        * Connection #0 to host testing.com left intact
+        ',
+            'content' => '{"test":"data","test2":["data2","data3"]}',
+          ],
+       ])
+    ]
 ];
 
 

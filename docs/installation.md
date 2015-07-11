@@ -5,7 +5,7 @@
 Download using composer by running the following command:
 
 ```
-$ composer require --prefer-dist bedezign/yii2-audit "*"
+$ composer require --prefer-dist bedezign/yii2-audit:"^1.0"
 ```
 
 Or add a `require` line to your `composer.json`: 
@@ -13,7 +13,7 @@ Or add a `require` line to your `composer.json`:
 ```
 {
     "require": {
-        "bedezign/yii2-audit": "*"
+        "bedezign/yii2-audit": "^1.0"
     }
 }
 ```
@@ -25,6 +25,8 @@ Run the migrations from the `migrations` folder to create the relevant tables:
 ```
 $ php yii migrate --migrationPath=@bedezign/yii2/audit/migrations
 ```
+
+Upgrading from pre 1.0? [Be sure to read this](upgrading-0.1-0.2.md).
 
 ## Module Configuration
 

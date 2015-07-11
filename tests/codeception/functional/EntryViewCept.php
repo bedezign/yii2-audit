@@ -47,8 +47,10 @@ $I->see('Extra Data');
 $I->click('Email Messages');
 $I->see('Email Messages');
 
+$I->click('cURL');
+$I->see('Starting url');
+$I->see('Effective url');
+$I->see('Content - JSON');
 
-$I->wantTo('ensure that entry view gives error with bad id');
-$I->amOnPage(Url::to(['/audit/entry/view', 'id' => 99999]));
-$I->see('Not Found (#404)', 'h1');
-
+$I->click('Log');
+$I->see('About to connect() to');
