@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Yii2 Audit
-description: Yii2 Audit is a module that records and displays web/cli requests, database changes, php/js errors and associated data.
+description: Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
+jumbotron: true
 ---
 
 # Yii2 Audit
@@ -16,7 +17,7 @@ description: Yii2 Audit is a module that records and displays web/cli requests, 
 [![Total Downloads](https://img.shields.io/packagist/dt/bedezign/yii2-audit.svg?style=flat-square)](https://packagist.org/packages/bedezign/yii2-audit)
 [![Yii2 Framework](https://img.shields.io/badge/extension-Yii2_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/extension/yii2-audit)
 
-Yii2 Audit is a module that records and displays web/cli requests, database changes, php/js errors and associated data.
+Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
 
 ## Features
 

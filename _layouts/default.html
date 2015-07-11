@@ -8,9 +8,7 @@
     <meta name="author" content="">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootswatch/3.3.5/sandstone/bootstrap.min.css" rel="stylesheet">
-    <style>
-    img { max-width: 100%; }
-    </style>
+    <link href="{{site.baseurl}}/css/app.css" rel="stylesheet">
     <!--[if lt IE 9]>
       <script src="http://html5shim.googlecode.com/svn/trunk/html5.js">
       </script>
@@ -21,6 +19,8 @@
   <body>
   
   {% include navbar.html %}
+
+  {% if page.jumbotron }%}{% include jumbotron.html %}{% endif %}
 
   <div class="container">
   {{content}}
