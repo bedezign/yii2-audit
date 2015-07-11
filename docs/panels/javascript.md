@@ -33,7 +33,7 @@ The module works by overriding `window.onerror`. Everything that arrives there i
 
 Just introduce a syntax error in your script (forget to close a bracket or something). A logentry should be created.
 
-```javscript
+```js
 function test(){
 ```
 
