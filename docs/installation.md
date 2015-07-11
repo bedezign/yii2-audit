@@ -64,7 +64,7 @@ class Post extends \yii\db\ActiveRecord
 }
 ```
 
-See [Database Panel](../database-panel/) for the all configuration options and advanced usage information.
+See [Trail Panel](../trail-panel/) for the all configuration options and advanced usage information.
 
 ## Logging Javascript
 
