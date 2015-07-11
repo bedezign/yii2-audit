@@ -92,7 +92,7 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
 
 Contributions are welcome.  Please refer to the [contributing guidelines](CONTRIBUTING.md).
 
-Thanks to [everyone who has contributed](CREDITS.md).
+Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/blob/master/CREDITS.md).
 
 
 ## Project Resources
