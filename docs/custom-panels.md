@@ -29,12 +29,12 @@ use yii\web\View;
 class ViewsPanel extends Panel
 {
     /**
-     * @var array
+     * @var array This will store a list of views that have been rednered.
      */
     private $_viewFiles = [];
 
     /**
-     * @inheritdoc
+     * Add an event listener to the View::EVENT_BEFORE_RENDER event to capture the view filenames.
      */
     public function init()
     {
@@ -45,7 +45,7 @@ class ViewsPanel extends Panel
     }
     
     /**
-     * @inheritdoc
+     * Returns the data that will be saved. The data will be placed into the `audit_data` table.
      */
     public function save()
     {
@@ -53,7 +53,7 @@ class ViewsPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * Get the name of the panel.
      */
     public function getName()
     {
@@ -61,7 +61,7 @@ class ViewsPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * Get the label that will be used on the tab in the entry view page.
      */
     public function getLabel()
     {
@@ -69,7 +69,7 @@ class ViewsPanel extends Panel
     }
 
     /**
-     * @inheritdoc
+     * Get the HTML output that will be rendered into the tab view area on the entry view page.
      */
     public function getDetail()
     {
@@ -94,6 +94,7 @@ $config = [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
             'panels' => [
+                // panel_id => array of options or string containing class
                 'app/views' => 'app\panels\ViewsPanel',
             ],
         ],
