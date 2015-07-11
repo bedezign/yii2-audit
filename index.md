@@ -5,8 +5,6 @@ description: Yii2 Audit records and displays web/cli requests, database changes,
 jumbotron: true
 ---
 
-# Yii2 Audit
-
 [![Join Chat](https://img.shields.io/badge/gitter-join%20chat-blue.svg?style=flat-square)](https://gitter.im/bedezign/yii2-audit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Latest Version](https://img.shields.io/github/tag/bedezign/yii2-audit.svg?style=flat-square&label=release)](https://github.com/bedezign/yii2-audit/tags)
 [![Software License](https://img.shields.io/badge/license-BSD-brightgreen.svg?style=flat-square)](https://github.com/bedezign/yii2-audit/blob/master/LICENSE.md)
