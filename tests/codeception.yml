@@ -19,5 +19,4 @@ coverage:
             - ../src/migrations/*
             - ../src/web/assets/*
             - ../vendor/*
-            - ../docs/*
             - ../tests/*
