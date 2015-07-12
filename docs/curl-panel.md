@@ -11,6 +11,7 @@ This is a speciality panel, designed to help you track data of the cURL requests
 The functions provided by this panel are described on the [utility functions page](../utility-functions).
 
 ## What is logged?
+
 By default the panel is configured to log general info regarding the request, the received headers, the connection log and the returned content. If any errors occur it will log both the error number and the error string.
 
 You can disable everything except for the general info by modifying the default panel configuration:
