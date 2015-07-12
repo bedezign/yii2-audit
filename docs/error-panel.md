@@ -15,7 +15,10 @@ If you want errors to be logged, you have to register the included errorhandler 
 $config = [
     'components' => [
         'errorHandler' => [
-           'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+            // web error handler
+            'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+            // console error handler
+            //'class' => '\bedezign\yii2\audit\components\console\ErrorHandler',
         ],
     ],
 ];
