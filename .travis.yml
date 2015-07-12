@@ -15,6 +15,12 @@ matrix:
     - php: hhvm
       env: DB=pgsql
 
+branches:
+  only:
+    - master
+    - gh-pages
+    - /^feature\/.+$/
+
 install:
   - travis_retry composer self-update
   - travis_retry composer global require "fxp/composer-asset-plugin:1.0.*"
