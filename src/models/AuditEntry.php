@@ -112,7 +112,7 @@ class AuditEntry extends ActiveRecord
         $columns = ['entry_id', 'type', 'data'];
         $rows = [];
         foreach ($batchData as $type => $data) {
-            $rows[] = [$this->id, $type, [Helper::serialize($data, $compact), \PDO::PARAM_LOB]];
+            $rows[] = [$this->id, $type, Helper::serialize($data, $compact)];
         }
         static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
@@ -125,7 +125,7 @@ class AuditEntry extends ActiveRecord
      */
     public function addData($type, $data, $compact = true)
     {
-        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => [Helper::serialize($data, $compact), \PDO::PARAM_LOB]];
+        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => Helper::serialize($data, $compact)];
         static::getDb()->createCommand()->insert(AuditData::tableName(), $record)->execute();
     }
 
