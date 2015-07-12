@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Screen Shots
+title: Screenshots
 permalink: /screenshots/
 ---
 
-# Screen Shots
+# Screenshots
 
 <div class="row thumbnails">
     {% for screenshot in site.data.screenshots %}
