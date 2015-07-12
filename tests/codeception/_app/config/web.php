@@ -34,7 +34,7 @@ $config = [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning', 'info'],
                     'logVars' => ['_GET', '_POST', '_FILES', '_COOKIE', '_SESSION'],
-                    'logFile' => '@app/runtime/logs/web.log',
+                    'logFile' => YII_ENV == 'heroku' ? 'php://stderr' : '@app/runtime/logs/web.log',
                     'dirMode' => 0777
                 ],
             ],

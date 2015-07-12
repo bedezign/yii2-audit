@@ -26,7 +26,7 @@ return [
                 [
                     'class' => 'yii\log\FileTarget',
                     'levels' => ['error', 'warning', 'info'],
-                    'logFile' => '@app/runtime/logs/console.log',
+                    'logFile' => YII_ENV == 'heroku' ? 'php://stderr' : '@app/runtime/logs/console.log',
                     'dirMode' => 0777
                 ],
             ],
