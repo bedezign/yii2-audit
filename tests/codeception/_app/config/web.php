@@ -60,7 +60,7 @@ $config = [
             'accessIps' => null,
             'accessUsers' => null,
             'accessRoles' => null,
-            'compressData' => false,
+            'compressData' => YII_ENV == 'heroku' ? true : false,
             'trackActions' => ['*'],
             'ignoreActions' => [
                 '/audit/default/index',
