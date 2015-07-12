@@ -66,8 +66,14 @@ php -S 0.0.0.0:88 -t codeception/_app/web/
 
 ## Heroku
 
-### Push
+### Git
 
+Add remote:
+```
+git remote add heroku https://git.heroku.com/limitless-inlet-7926.git
+```
+
+Push changes:
 ```
 git push heroku master
 ```
@@ -76,7 +82,7 @@ git push heroku master
 
 ```
 heroku run php /app/tests/codeception/_app/yii migrate/up --interactive=0
-heroku run php /app/tests/codeception/_app/yii migrate/up --migrationPath=../src/migrations --interactive=0
+heroku run php /app/tests/codeception/_app/yii migrate/up --migrationPath=/app/src/migrations --interactive=0
 ```
 
 ### Helpful Commands
