@@ -6,6 +6,7 @@ use bedezign\yii2\audit\components\db\ActiveRecord;
 use bedezign\yii2\audit\components\Helper;
 use Yii;
 use yii\db\ActiveQuery;
+use yii\db\Expression;
 
 /**
  * Class AuditEntry
@@ -111,10 +112,13 @@ class AuditEntry extends ActiveRecord
     {
         $columns = ['entry_id', 'type', 'data'];
         $rows = [];
+        $params = [];
         foreach ($batchData as $type => $data) {
-            $rows[] = [$this->id, $type, Helper::serialize($data, $compact)];
+            $param = ':data_' . str_replace('/', '_', $type);
+            $rows[] = [$this->id, $type, new Expression($param)];
+            $params[$param] = [Helper::serialize($data, $compact), \PDO::PARAM_LOB];
         }
-        static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
+        static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->bindValues($params)->execute();
     }
 
     /**
@@ -125,7 +129,7 @@ class AuditEntry extends ActiveRecord
      */
     public function addData($type, $data, $compact = true)
     {
-        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => Helper::serialize($data, $compact)];
+        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => [Helper::serialize($data, $compact), \PDO::PARAM_LOB]];
         static::getDb()->createCommand()->insert(AuditData::tableName(), $record)->execute();
     }
 
