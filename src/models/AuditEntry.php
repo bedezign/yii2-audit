@@ -112,14 +112,20 @@ class AuditEntry extends ActiveRecord
         $columns = ['entry_id', 'type', 'data'];
         $rows = [];
         foreach ($batchData as $type => $data) {
-            $rows[] = [$this->id, $type, Helper::serialize($data, $compact)];
+            $rows[] = [$this->id, $type, [Helper::serialize($data, $compact), \PDO::PARAM_LOB]];
         }
         static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->execute();
     }
 
+    /**
+     * @param $type
+     * @param $data
+     * @param bool|true $compact
+     * @throws \yii\db\Exception
+     */
     public function addData($type, $data, $compact = true)
     {
-        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => Helper::serialize($data, $compact)];
+        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => [Helper::serialize($data, $compact), \PDO::PARAM_LOB]];
         static::getDb()->createCommand()->insert(AuditData::tableName(), $record)->execute();
     }
 
