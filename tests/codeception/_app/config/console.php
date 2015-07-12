@@ -20,7 +20,7 @@ return [
         ],
         'db' => require __DIR__ . '/db.php',
         'errorHandler' => [
-            'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+            'class' => '\bedezign\yii2\audit\components\console\ErrorHandler',
         ],
         'log' => [
             'traceLevel' => getenv('YII_TRACE_LEVEL'),
