@@ -97,7 +97,13 @@ Watch logs:
 heroku logs --tail
 ```
 
-Get config info:
+Set and unset config var:
+```
+heroku config:set SOME_CONFIG=foobar
+heroku config:unset SOME_CONFIG
+```
+
+Get config vars:
 ```
 heroku config
 ```
