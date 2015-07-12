@@ -66,30 +66,14 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
 ## Screenshots
 
 <div class="row">
+    {% for screenshot in site.data.screenshots limit:4 %}
     <div class="col-md-3">
-        <h3>Dashboard</h3>
+        <h3>{{screenshot.name}}</h3>
         <div class="thumbnail">
-            <a href="https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png" class="fancybox" rel="screenshots"><img src="https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png" alt="Dashboard"></a>
+            <a href="{{screenshot.url}}" class="fancybox" rel="screenshots"><img src="{{screenshot.url}}" alt="{{screenshot.name}}"></a>
         </div>
     </div>
-    <div class="col-md-3">
-        <h3>Entry View</h3>
-        <div class="thumbnail">
-            <a href="https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png" class="fancybox" rel="screenshots"><img src="https://cloud.githubusercontent.com/assets/51875/8395061/3b004aca-1d97-11e5-8b71-6787c662ea3e.png" alt="Audit Entry View"></a>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <h3>Trail Panel</h3>
-        <div class="thumbnail">
-            <a href="https://cloud.githubusercontent.com/assets/51875/8372048/7f4f86de-1c1e-11e5-91a5-7052b597992f.png" class="fancybox" rel="screenshots"><img src="https://cloud.githubusercontent.com/assets/51875/8372048/7f4f86de-1c1e-11e5-91a5-7052b597992f.png" alt="Trail Panel"></a>
-        </div>
-    </div>
-    <div class="col-md-3">
-        <h3>Database Panel</h3>
-        <div class="thumbnail">
-            <a href="https://cloud.githubusercontent.com/assets/51875/8395068/94b25018-1d97-11e5-9857-a7d3e151cc97.png" class="fancybox" rel="screenshots"><img src="https://cloud.githubusercontent.com/assets/51875/8395068/94b25018-1d97-11e5-9857-a7d3e151cc97.png" alt="Database Panel"></a>
-        </div>
-    </div>
+    {% endfor %}
 </div>
 
 
