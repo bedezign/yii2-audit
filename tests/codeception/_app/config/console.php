@@ -38,7 +38,7 @@ return [
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
-            'compressData' => false,
+            'compressData' => YII_ENV == 'heroku' ? true : false,
         ],
     ],
 ];
