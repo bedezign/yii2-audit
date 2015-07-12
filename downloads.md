@@ -26,12 +26,6 @@ Or add a `require` line to your `composer.json`:
 }
 ```
 
-## Archives
-
-* `yii2-audit/1.0.0` - [zip](https://github.com/bedezign/yii2-audit/archive/1.0.0.tar.gz) | [tar.gz](https://github.com/bedezign/yii2-audit/archive/1.0.0.tar.gz)
-* `yii2-audit/dev-master` - [zip](https://github.com/bedezign/yii2-audit/archive/master.zip) | [tar.gz](https://github.com/bedezign/yii2-audit/archive/master.tar.gz)
-
-
 ## Git Clone
 
 clone url: `git@github.com:bedezign/yii2-audit.git` or `https://github.com/bedezign/yii2-audit.git`
@@ -41,3 +35,7 @@ git clone git@github.com:bedezign/yii2-audit.git
 git clone https://github.com/bedezign/yii2-audit.git
 ```
 
+## Archives
+
+* `yii2-audit/1.0.0` - [zip](https://github.com/bedezign/yii2-audit/archive/1.0.0.tar.gz) | [tar.gz](https://github.com/bedezign/yii2-audit/archive/1.0.0.tar.gz)
+* `yii2-audit/dev-master` - [zip](https://github.com/bedezign/yii2-audit/archive/master.zip) | [tar.gz](https://github.com/bedezign/yii2-audit/archive/master.tar.gz)
