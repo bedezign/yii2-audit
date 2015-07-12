@@ -1,7 +1,11 @@
 # Changelog
 
-## 1.0.1 under development
+## 1.0.1 July 12, 2015
 
+* Moved documentation to github.io
+* PostgreSQL compatibility
+* Added [heroku](https://limitless-inlet-7926.herokuapp.com/index.php?r=audit) demonstration page
+* Enh #100: cURL Panel now detects content types for POST and result. Supported: XML, JSON, query string
 
 ## 1.0.0 July 9, 2015
 
