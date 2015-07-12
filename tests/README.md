@@ -88,9 +88,13 @@ heroku run php /app/tests/codeception/_app/yii migrate/up --migrationPath=/app/s
 ### Helpful Commands
 
 Get config info:
-
 ```
 heroku config
+```
+
+Reset database:
+```
+heroku pg:reset DATABASE
 ```
 
 ### Useful Links

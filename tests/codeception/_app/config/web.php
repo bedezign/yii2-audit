@@ -11,7 +11,7 @@ $config = [
     'extensions' => require(VENDOR_DIR . '/yiisoft/extensions.php'),
     'aliases' => [
         '@vendor' => VENDOR_DIR,
-        '@bower' => VENDOR_DIR . '/bower',
+        '@bower' => VENDOR_DIR . '/bower-asset',
         '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
     ],
     'params' => [

@@ -15,7 +15,7 @@ install:
   - travis_retry composer global require "fxp/composer-asset-plugin:1.0.*"
   - travis_retry composer global require "codeception/codeception:2.0.*"
   - travis_retry composer install --no-interaction --prefer-dist
-  - ln -s `pwd`/vendor/bower-asset `pwd`/vendor/bower
+#  - ln -s `pwd`/vendor/bower-asset `pwd`/vendor/bower
 
 before_script:
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then echo 'xdebug.enable = On' >> /etc/hhvm/php.ini; fi
