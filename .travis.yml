@@ -10,6 +10,11 @@ env:
   - DB=mysql
   - DB=pgsql
 
+matrix:
+  exclude:
+    - php: hhvm
+      env: DB=pgsql
+
 install:
   - travis_retry composer self-update
   - travis_retry composer global require "fxp/composer-asset-plugin:1.0.*"
