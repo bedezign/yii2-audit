@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
+<head>
     <meta charset="utf-8">
-    <title>{% if page.title }%}{{page.title}} - {% endif %}Yii2 Audit</title>
+    <title>{% if page.title }%}{{page.title}} - {% endif %}{{site.name}}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -12,30 +12,30 @@
     <link href="{{site.baseurl}}/assets/css/app.css" rel="stylesheet">
     <link href="{{site.baseurl}}/assets/css/syntax.css" rel="stylesheet">
     <!--[if lt IE 9]>
-      <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="https://html5shim.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
     <style>
     </style>
-  </head>
-  <body>
-  
-  {% include navbar.html %}
+</head>
+<body>
 
-  {% if page.jumbotron }%}{% include jumbotron.html %}{% endif %}
+{% include navbar.html %}
 
-  <div class="container">
-  {{content}}
-  {% include content-footer.html %}
-  </div>
+{% if page.jumbotron }%}{% include jumbotron.html %}{% endif %}
 
-  </body>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
-  <script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
- 
-  <script src="{{site.baseurl}}/assets/js/app.js"></script>
-  
-  {% if page.contributors }%}{% include contributors-js.html %}{% endif %}
-  
+<div class="container">
+    {{content}}
+    {% include content-footer.html %}
+</div>
+
+</body>
+<script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/fancybox/2.1.5/jquery.fancybox.pack.js"></script>
+
+<script src="{{site.baseurl}}/assets/js/app.js"></script>
+
+{% if page.contributors }%}{% include contributors-js.html %}{% endif %}
+
 </html>
 
