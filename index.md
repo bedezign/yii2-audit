@@ -65,7 +65,7 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
 
 ## Screenshots
 
-<div class="row">
+<div class="row thumbnails">
     {% for screenshot in site.data.screenshots limit:4 %}
     <div class="col-md-3">
         <h3>{{screenshot.name}}</h3>

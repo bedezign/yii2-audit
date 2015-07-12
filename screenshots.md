@@ -6,7 +6,7 @@ permalink: /screenshots/
 
 # Screen Shots
 
-<div class="row">
+<div class="row thumbnails">
     {% for screenshot in site.data.screenshots %}
     <div class="col-md-3">
         <h3>{{screenshot.name}}</h3>
