@@ -88,7 +88,10 @@ Add `ErrorHandler` to your configuration array:
 $config = [
     'components' => [
         'errorHandler' => [
-           'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+            // web error handler
+            'class' => '\bedezign\yii2\audit\components\web\ErrorHandler',
+            // console error handler
+            //'class' => '\bedezign\yii2\audit\components\console\ErrorHandler',
         ],
     ],
 ];
