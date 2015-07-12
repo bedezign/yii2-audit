@@ -12,8 +12,6 @@ $config = [
     'aliases' => [
         '@vendor' => VENDOR_DIR,
         '@bower' => VENDOR_DIR . '/bower',
-        '@tests' => realpath(__DIR__ . '../../../../'),
-        '@tests/app' => '@tests/codeception/_app',
         '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
     ],
     'params' => [

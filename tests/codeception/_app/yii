@@ -4,6 +4,9 @@
 require __DIR__ . '/../_init.php';
 require(VENDOR_DIR . '/yiisoft/yii2/Yii.php');
 
+Yii::setAlias('@tests', __DIR__ . '/../../..');
+Yii::setAlias('@tests/app', '@tests/codeception/_app');
+
 defined('STDIN') or define('STDIN', fopen('php://stdin', 'r'));
 defined('STDOUT') or define('STDOUT', fopen('php://stdout', 'w'));
 
