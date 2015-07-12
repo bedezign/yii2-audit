@@ -2,7 +2,9 @@
 
 run all tests from this folder - `yii2-audit/tests/`.
 
-## Install Codeception
+## Codeception
+
+### Install
 
 Install codeception globally
 
@@ -10,17 +12,25 @@ Install codeception globally
 composer global require "codeception/codeception=2.0.*"
 ```
 
-## Run Migrations
+### Build
 
+Build codeception initially, and when the config changes:
+
+```
+~/.composer/vendor/bin/codecept build
+```
+
+### Migrate
 
 ```
 php codeception/_app/yii migrate/up --interactive=0
 php codeception/_app/yii migrate/up --migrationPath=../src/migrations --interactive=0
 ```
+
 Note: The default configuration assumes the presence of an `audit_test` database and a user `travis` (no password).
 
 
-## Helpful Commands
+### Helpful Commands
 
 run tests with verbose output
 
@@ -40,21 +50,43 @@ run single test
 ~/.composer/vendor/bin/codecept run functional EntryViewCept.php
 ```
 
-Build codeception when the config changes
-
-```
-~/.composer/vendor/bin/codecept build
-```
-
 run a php webserver
 
 ```
 php -S 0.0.0.0:88 -t codeception/_app/web/
 ```
 
-## Useful Links
+### Useful Links
 
 - https://github.com/yiisoft/yii2-codeception
 - https://github.com/yiisoft/yii2-app-basic/tree/master/tests
 - https://github.com/dektrium/yii2-user/tree/master/tests
 - https://github.com/bcdennis/laravel-ci-configs/blob/master/codeception-travis-scrutinizer/
+
+
+## Heroku
+
+### Push
+
+```
+git push heroku master
+```
+
+### Migrate
+
+```
+heroku run php /app/tests/codeception/_app/yii migrate/up --interactive=0
+heroku run php /app/tests/codeception/_app/yii migrate/up --migrationPath=../src/migrations --interactive=0
+```
+
+### Helpful Commands
+
+Get config info:
+
+```
+heroku config
+```
+
+### Useful Links
+
+- https://devcenter.heroku.com/articles/getting-started-with-php
