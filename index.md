@@ -76,9 +76,6 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
     {% endfor %}
 </div>
 
-
-### More Screenshots
-
 More images are available from the [Screen Shots](https://bedezign.github.io/yii2-audit/screenshots/) page.
 
 ## Contributing
