@@ -1,4 +1,4 @@
-# Yii2 Audit Documentation
+# Yii2 Audit Project Website
 
 For details on how to manage this site, read the [documentation](http://jekyllrb.com/)
 

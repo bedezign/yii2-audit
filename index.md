@@ -85,7 +85,7 @@ More images are available from the [Screen Shots](https://bedezign.github.io/yii
 
 Contributions are welcome.  Please refer to the [contributing guidelines](https://github.com/bedezign/yii2-audit/blob/master/CONTRIBUTING.md).
 
-Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/blob/master/CREDITS.md).
+Thanks to [everyone who has contributed](https://bedezign.github.io/yii2-audit/credits/).
 
 
 ## Project Resources
