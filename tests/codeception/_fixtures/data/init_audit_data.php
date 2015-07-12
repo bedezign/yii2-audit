@@ -2,7 +2,6 @@
 
 return [
     [
-        'id' => 1,
         'entry_id' => 1,
         'type' => 'audit/request',
         'data' => serialize([
@@ -72,7 +71,6 @@ return [
         ]),
     ],
     [
-        'id' => 2,
         'entry_id' => 1,
         'type' => 'audit/db',
         'data' => serialize([
@@ -123,7 +121,6 @@ return [
         ]),
     ],
     [
-        'id' => 3,
         'entry_id' => 1,
         'type' => 'audit/log',
         'data' => serialize([
@@ -160,7 +157,6 @@ return [
         ]),
     ],
     [
-        'id' => 4,
         'entry_id' => 1,
         'type' => 'audit/profiling',
         'data' => serialize([
@@ -193,7 +189,6 @@ return [
         ]),
     ],
     [
-        'id' => 5,
         'entry_id' => 1,
         'type' => 'audit/extra',
         'data' => serialize([
@@ -205,13 +200,11 @@ return [
 
     ],
     [
-        'id' => 6,
         'entry_id' => 1,
         'type' => 'audit/mail',
         'data' => file_get_contents(__DIR__ . '/mail/data.txt'),
     ],
     [
-        'id' => 7,
         'entry_id' => 1,
         'type' => 'app/views',
         'data' => serialize([
@@ -220,7 +213,6 @@ return [
         ]),
     ],
     [
-        'id' => 8,
         'entry_id' => 1,
         'type' => 'audit/curl',
         'data' => serialize([

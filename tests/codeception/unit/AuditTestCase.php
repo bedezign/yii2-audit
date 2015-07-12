@@ -21,6 +21,7 @@ class AuditTestCase extends \yii\codeception\TestCase
     {
         $this->module()->onAfterRequest();
         \Yii::getLogger()->flush(true);
+        \Yii::$app->db->close();
         $this->destroyApplication();
 
         if ($restartApplication)

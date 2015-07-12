@@ -2,7 +2,6 @@
 
 return [
     [
-        'id' => 1,
         'entry_id' => 1,
         'created' => '2015-06-25 01:02:03',
         'message' => "syntax error, unexpected '123' (T_LNUMBER), expecting identifier (T_STRING) or variable (T_VARIABLE) or '{' or '$'",

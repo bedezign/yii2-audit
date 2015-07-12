@@ -2,7 +2,6 @@
 
 return [
     [
-        'id' => 1,
         'entry_id' => 1,
         'successful' => 1,
         'to' => 'to@example.com',

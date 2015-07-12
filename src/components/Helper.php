@@ -39,6 +39,10 @@ class Helper extends \yii\base\Object
      */
     public static function unserialize($data)
     {
+        if (is_resource($data))
+            // For some databases (like Postgres) binary columns return as a resource, fetch the content first
+            $data = stream_get_contents($data, -1, 0);
+
         $originalData = $data;
         $data = self::uncompress($data);
 

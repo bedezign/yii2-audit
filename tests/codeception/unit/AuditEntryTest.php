@@ -60,4 +60,33 @@ class AuditEntryTest extends AuditTestCase
             'type' => 'audit/request',
         ]);
     }
+
+    public function testBatchSaveOptionIsWorksUncompressed()
+    {
+        $module = $this->module();
+        $module->batchSave = false;
+        $module->compressData = false;
+
+        $entry = $this->entry();
+        $this->finalizeAudit();
+
+        $this->tester->seeRecord(AuditData::className(), [
+            'entry_id' => $entry->id,
+            'type' => 'audit/request',
+        ]);
+    }
+
+    public function testThatAddDataWorksUncompressed()
+    {
+        $module = $this->module();
+        $module->compressData = false;
+
+        $entry = $this->entry();
+        $this->finalizeAudit();
+
+        $this->tester->seeRecord(AuditData::className(), [
+            'entry_id' => $entry->id,
+            'type' => 'audit/request',
+        ]);
+    }
 }

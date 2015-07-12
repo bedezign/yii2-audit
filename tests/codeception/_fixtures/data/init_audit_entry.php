@@ -2,7 +2,6 @@
 
 return [
     [
-        'id' => 1,
         'created' => '2015-06-25 01:02:03',
         'user_id' => 1,
         'duration' => 0.12345,

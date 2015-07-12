@@ -38,6 +38,7 @@ use yii\swiftmailer\Message;
  */
 class AuditMail extends ActiveRecord
 {
+    protected $serializeAttributes = ['text', 'html', 'data'];
 
     /**
      * @inheritdoc
@@ -86,14 +87,14 @@ class AuditMail extends ActiveRecord
                 }
                 $contentType = $part->getContentType();
                 if ($contentType == 'text/plain') {
-                    $mail->text = Helper::compress($part->getBody());
+                    $mail->text = $part->getBody();
                 } elseif ($contentType == 'text/html') {
-                    $mail->html = Helper::compress($part->getBody());
+                    $mail->html = $part->getBody();
                 }
             }
         }
 
-        $mail->data = Helper::compress($message->toString());
+        $mail->data = $message->toString();
 
         return $mail->save(false) ? $mail : null;
     }

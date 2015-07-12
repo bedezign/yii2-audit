@@ -43,7 +43,7 @@ class ActiveRecord extends \yii\db\ActiveRecord
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
                 if ($this->hasAttribute($attribute))
-                    $this->$attribute = Helper::serialize($this->$attribute, false);
+                    $this->$attribute = [Helper::serialize($this->$attribute, false), \PDO::PARAM_LOB];
 
         return parent::beforeSave($insert);
     }
