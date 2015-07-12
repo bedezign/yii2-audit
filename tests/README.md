@@ -87,9 +87,25 @@ heroku run php /app/tests/codeception/_app/yii migrate/up --migrationPath=/app/s
 
 ### Helpful Commands
 
+Interactive shell:
+```
+heroku run bash
+```
+
+Watch logs:
+```
+heroku logs --tail
+```
+
 Get config info:
 ```
 heroku config
+```
+
+Database console:
+```
+apt-get install postgresql-client
+heroku pg:psql
 ```
 
 Reset database:
