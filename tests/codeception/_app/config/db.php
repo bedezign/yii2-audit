@@ -10,15 +10,16 @@ if (YII_ENV == 'heroku') {
         'charset' => 'utf8',
     ];
 }
-/*
-return [
-    'class' => 'yii\db\Connection',
-    'dsn' => 'pgsql:host=localhost;dbname=audit_test',
-    'username' => 'postgres',
-    'password' => 'root',
-    'charset' => 'utf8',
-];
-*/
+
+if (getenv('DB') == 'pgsql') {
+    return [
+        'class' => 'yii\db\Connection',
+        'dsn' => 'pgsql:host=localhost;dbname=audit_test',
+        'username' => 'travis',
+        'password' => '',
+        'charset' => 'utf8',
+    ];
+}
 
 return [
     'class' => 'yii\db\Connection',
