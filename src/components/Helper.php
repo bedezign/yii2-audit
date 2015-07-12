@@ -61,10 +61,6 @@ class Helper extends \yii\base\Object
     {
         if (Audit::getInstance()->compressData)
             $data = gzcompress($data);
-
-        if (Audit::getInstance()->getDb()->driverName == 'pgsql')
-            $data = pg_escape_bytea($data);
-
         return $data;
     }
 
@@ -75,12 +71,8 @@ class Helper extends \yii\base\Object
      */
     public static function uncompress($data)
     {
-        if (Audit::getInstance()->getDb()->driverName == 'pgsql')
-            $data = pg_unescape_bytea($data);
-
         if (Audit::getInstance()->compressData)
             $data = gzuncompress($data);
-
         return $data;
     }
 
