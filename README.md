@@ -70,7 +70,7 @@ For changes since the last version see the [Changelog](https://github.com/bedezi
 
 ### More Screenshots
 
-More images are available from the [Screen Shots](https://bedezign.github.io/yii2-audit/screenshots/) page.
+More images are available from the [Screenshots](https://bedezign.github.io/yii2-audit/screenshots/) page.
 
 ## Contributing
 
