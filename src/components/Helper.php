@@ -71,8 +71,6 @@ class Helper extends \yii\base\Object
      */
     public static function uncompress($data)
     {
-        if (is_resource($data))
-            $data = fgets($data);
         if (Audit::getInstance()->compressData)
             $data = gzuncompress($data);
         return $data;
