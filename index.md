@@ -88,6 +88,7 @@ Thanks to [everyone who has contributed](https://bedezign.github.io/yii2-audit/c
 ## Project Resources
 
 * [Project Homepage](https://bedezign.github.io/yii2-audit/)
+* [Live Demo](https://limitless-inlet-7926.herokuapp.com/)
 * [GitHub Project](https://github.com/bedezign/yii2-audit)
 * [Yii2 Extension](http://www.yiiframework.com/extension/yii2-audit)
 * [Packagist Package](https://packagist.org/packages/bedezign/yii2-audit)
