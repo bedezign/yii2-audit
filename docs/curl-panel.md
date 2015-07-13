@@ -76,6 +76,10 @@ Like this, the returned result is a `bool` (true if the request succeeded).
 
 In order to deliver its awesome functionality, the panel needs to add/configure a couple of options on the handle. This section attempts to provide you with a list so you know exactly what.
 
+### General
+
+If you pass an URL to either the `curlBegin()` or the `curlExec()` function, it will pass on  that URL with the `CURLOPT_URL` option.
+
 ### Log
 
 The log depends on the verbose functionality. It configures the options `CURLOPT_VERBOSE` and `CURL_STDERR`.
