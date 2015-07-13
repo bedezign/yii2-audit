@@ -1,6 +1,5 @@
 ---
 layout: default
-title: Yii2 Audit
 description: Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
 jumbotron: true
 ---
