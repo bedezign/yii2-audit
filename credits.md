@@ -13,6 +13,10 @@ contributors: true
     <ul></ul>
 </div>
 
+## Media and Assets 
+
+* Icon made by [Freepik](http://www.freepik.com/) from [flaticon](http://www.flaticon.com/free-icon/search-analytics_83477) (CC BY 3.0)
+ 
 
 ## Related Projects
 
