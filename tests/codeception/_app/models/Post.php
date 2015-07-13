@@ -34,4 +34,16 @@ class Post extends ActiveRecord
         ];
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function rules()
+    {
+        return [
+            [['title', 'body'], 'required'],
+            [['body'], 'string'],
+            [['title'], 'string', 'max' => 255]
+        ];
+    }
+
 }

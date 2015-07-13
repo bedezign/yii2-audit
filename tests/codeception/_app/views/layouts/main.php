@@ -3,6 +3,7 @@
 /* @var $content string */
 
 use tests\app\assets\AppAsset;
+use tests\app\widgets\Alert;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
 use yii\helpers\Html;
@@ -61,6 +62,7 @@ if (isset($this->params['jumbotron'])) {
             ]) ?>
         </div>
     <?php } ?>
+    <?= Alert::widget() ?>
     <?= $content ?>
 </div>
 
