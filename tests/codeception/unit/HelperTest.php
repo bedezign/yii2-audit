@@ -106,4 +106,16 @@ XML
         , Helper::formatAsXML('<?xml version="1.0" encoding="UTF-8"?><note><to>Tove</to><from>Jani</from><heading>Reminder</heading><body>Don\'t forget me this weekend!</body></note>'));
     }
 
+    public function testFormatAsHTMLWorks()
+        {
+            $this->assertEqualsIgnoreLineBreakType(<<<HTML
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;&lt;title&gt;Test&lt;/title&gt;&lt;/head&gt;
+&lt;body&gt;HTML Test!&lt;/body&gt;
+&lt;/html&gt;
+
+HTML
+            , Helper::formatAsHTML('<!DOCTYPE html><html><head><title>Test</title></head><body>HTML Test!</body></html>'));
+        }
 }

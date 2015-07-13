@@ -6,7 +6,7 @@ $this->params['jumbotron'] = '/site/_index-jumbotron';
 <div class="site-index">
 
     <div class="row">
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -26,7 +26,7 @@ $this->params['jumbotron'] = '/site/_index-jumbotron';
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -44,7 +44,7 @@ $this->params['jumbotron'] = '/site/_index-jumbotron';
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -64,7 +64,9 @@ $this->params['jumbotron'] = '/site/_index-jumbotron';
                 </div>
             </div>
         </div>
-        <div class="col-md-3">
+    </div>
+    <div class="row">
+        <div class="col-md-4">
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <h3 class="panel-title">
@@ -81,6 +83,22 @@ $this->params['jumbotron'] = '/site/_index-jumbotron';
                 </div>
             </div>
         </div>
+        <div class="col-md-4">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">
+                        cURL
+                        <span class="pull-right">
+                            <?= Html::a('create', ['/curl/index'], ['class' => 'btn btn-default btn-xs']) ?>
+                            <?= Html::a('view', ['/audit/curl/index'], ['class' => 'btn btn-default btn-xs']) ?>
+                        </span>
+                    </h3>
+                </div>
+                <div class="panel-body">
+                    <p>If you pass your cURL handles to the module, it will perform logging on the entire request.</p>
+                    <p>Audit recognizes (and can pretty-print) XML, HTML, JSON and regular Query strings.</p>
+                </div>
+            </div>
+        </div>
     </div>
-
 </div>

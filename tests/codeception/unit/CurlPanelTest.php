@@ -21,9 +21,10 @@ class CurlPanelTest extends AuditTestCase
         $panel = Audit::getInstance()->getPanel('audit/curl');
 
         $mock = $this->getMockBuilder('stdClass')->setMethods(['setOpt'])->getMock();
-        $mock->expects($this->exactly(4))
+        $mock->expects($this->exactly(5))
             ->method('setOpt')
             ->withConsecutive(
+                [$curl, CURLOPT_URL, 'http://testing.com'],
                 [$curl, CURLOPT_HEADERFUNCTION, [$panel, 'captureHeader']],
                 [$curl, CURLOPT_VERBOSE, true],
                 [$curl, CURLOPT_STDERR, $this->anything()],

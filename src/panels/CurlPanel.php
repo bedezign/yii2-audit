@@ -91,8 +91,10 @@ class CurlPanel extends DataStoragePanel
 
         $this->data[$id] = [];
 
-        if ($url)
+        if ($url) {
             $this->data[$id]['starting_url'] = $url;
+            curl_setopt($handle, CURLOPT_URL, $url);
+        }
 
         if ($postData)
             $this->data[$id]['post'] = $postData;
@@ -206,6 +208,7 @@ class CurlPanel extends DataStoragePanel
         if (!is_resource($resource))
             return false;
 
-        return array_pop(explode('#', (string)$resource));
+        $parts = explode('#', (string)$resource);
+        return array_pop($parts);
     }
 }
