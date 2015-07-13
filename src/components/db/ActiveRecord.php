@@ -58,8 +58,14 @@ class ActiveRecord extends \yii\db\ActiveRecord
 
         if ($this->autoSerialize)
             foreach ($this->serializeAttributes as $attribute)
-                if ($this->hasAttribute($attribute))
+                if ($this->hasAttribute($attribute)) {
+                    if (is_array($this->$attribute)) {
+                        // Get rid of the extra PDO parameter type if needed
+                        $array = $this->$attribute;
+                        $this->$attribute = $array[0];
+                    }
                     $this->$attribute = Helper::unserialize($this->$attribute);
+                }
     }
 
     /**
