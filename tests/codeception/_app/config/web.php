@@ -66,8 +66,8 @@ $config = [
             'compressData' => YII_ENV == 'heroku' ? true : false,
             'trackActions' => ['*'],
             'ignoreActions' => [
-                '/site/index',
-                '/audit/error/*',
+                'site/index',
+                'audit/*',
             ],
             'panelsMerge' => [
                 'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],
