@@ -59,7 +59,15 @@ NavBar::end();
             ]) ?>
         </div>
     <?php } ?>
+
     <?= $content ?>
+
+    <footer class="text-center">
+        <hr>
+        <?= date('Y-m-d H:i:s'); ?>
+        <br>
+        <?= $this->render('@bedezign/yii2/audit/views/_audit_entry_id', ['style' => '']); ?>
+    </footer>
 </div>
 
 <?php $this->endBody() ?>
