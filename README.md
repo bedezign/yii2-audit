@@ -14,6 +14,12 @@ Yii2 Audit records and displays web/cli requests, database changes, php/js error
 
 ## Features
 
+### Powerful, yet Simple
+
+* Installs as a simple module so it can be added without any hassle.
+* You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
+* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality by IPs, roles or users.
+
 ### Minimal Footprint
 
 Tracks minimal data in the base entry:
@@ -27,7 +33,7 @@ Tracks minimal data in the base entry:
 * `memory_max` - The peak memory usage during the request.
 * `created` - The datetime the entry was created.
 
-### Tracks additional data using configurable Panels.
+### Log Data using Configurable Panels
 
 Each panel is optional, and you can even create your own.
 
@@ -47,12 +53,6 @@ Each panel is optional, and you can even create your own.
 * `ExtraDataPanel` - Extra data that you want to store. [more info](https://bedezign.github.io/yii2-audit/docs/extra-data-panel/)
 * `CurlPanel` - Track your applications cURL requests (including replies, log and headers) [more info](https://bedezign.github.io/yii2-audit/docs/curl-panel/)
 * `YourOwnPanel` - Create your own panel to capture any data you want. [more info](https://bedezign.github.io/yii2-audit/docs/custom-views-panel/)
-
-### Powerful, yet Simple
-
-* Installs as a simple module so it can be added without any hassle.
-* You can either track specific actions and nothing else or exclude specific routes from logging (wildcard supported).
-* View your data. The module contains a nice viewer that is automatically made available when you add it to your configuration. It has configurable permissions to limit access to this functionality by IPs, roles or users.
 
 ## Documentation
 
@@ -78,7 +78,6 @@ Contributions are welcome.  Please refer to the [contributing guidelines](https:
 
 Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/blob/master/CREDITS.md).
 
-
 ## Project Resources
 
 * [Project Homepage](https://bedezign.github.io/yii2-audit/)
@@ -88,7 +87,6 @@ Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/
 * [Packagist Package](https://packagist.org/packages/bedezign/yii2-audit)
 * [Travis CI Testing](https://travis-ci.org/bedezign/yii2-audit)
 * [Scrutinizer CI Code Quality](https://scrutinizer-ci.com/g/bedezign/yii2-audit)
-
 
 ## License
 
