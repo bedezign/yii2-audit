@@ -16,7 +16,7 @@ use yii\helpers\Url;
 
         <hr>
         <p>
-            <a class="btn btn-primary btn-lg" href="<?= Url::to('/audit'); ?>" role="button">View Audit Data</a>
+            <a class="btn btn-primary btn-lg" href="<?= Url::to(['/audit']); ?>" role="button">View Audit Data</a>
             <a class="btn btn-info btn-lg" href="https://bedezign.github.io/yii2-audit/" role="button">Create Audit Data</a>
             <a class="btn btn-success btn-lg" href="https://bedezign.github.io/yii2-audit/" role="button">Project Homepage</a>
         </p>
