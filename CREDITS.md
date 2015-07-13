@@ -10,7 +10,7 @@
 
 * [Tobias Munk (schmunk42)](https://github.com/schmunk42)
 
-## Media and Resources
+## Media and Assets
 
 * Icon made by [Freepik](http://www.freepik.com/) from [flaticon](http://www.flaticon.com/free-icon/search-analytics_83477) (CC BY 3.0)
 
