@@ -21,14 +21,18 @@ class m150626_000003_create_audit_error extends \yii\db\Migration
             'emailed'    => Schema::TYPE_BOOLEAN . " NOT NULL DEFAULT '0'",
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 
-        $this->addForeignKey('fk_audit_error_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id');
+        if ($this->db->driverName != 'sqlite') {
+            $this->addForeignKey('fk_audit_error_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id');
+        }
         $this->createIndex('idx_file', self::TABLE, ['file']);
         $this->createIndex('idx_emailed', self::TABLE, ['emailed']);
     }
 
     public function down()
     {
-        $this->dropForeignKey('fk_audit_error_entry_id', self::TABLE);
+        if ($this->db->driverName != 'sqlite') {
+            $this->dropForeignKey('fk_audit_error_entry_id', self::TABLE);
+        }
         $this->dropTable(self::TABLE);
     }
 }

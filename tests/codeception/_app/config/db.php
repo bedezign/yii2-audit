@@ -21,6 +21,15 @@ if (getenv('DB') == 'pgsql') {
     ];
 }
 
+if (getenv('DB') == 'sqlite') {
+    return [
+        'class' => 'yii\db\Connection',
+        //'dsn' => 'sqlite::memory:', // not persistent ?
+        'dsn' => 'sqlite:' . dirname(__DIR__) . '/runtime/sqlite_test.db',
+        'charset' => 'utf8',
+    ];
+}
+
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=audit_test',

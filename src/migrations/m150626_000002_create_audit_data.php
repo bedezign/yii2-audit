@@ -15,12 +15,16 @@ class m150626_000002_create_audit_data extends \yii\db\Migration
             'data'       => Schema::TYPE_BINARY,
         ], ($this->db->driverName === 'mysql' ? 'CHARACTER SET utf8 COLLATE utf8_general_ci ENGINE=InnoDB' : null));
 
-        $this->addForeignKey('fk_audit_data_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id');
+        if ($this->db->driverName != 'sqlite') {
+            $this->addForeignKey('fk_audit_data_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id');
+        }
     }
 
     public function down()
     {
-        $this->dropForeignKey('fk_audit_data_entry_id', self::TABLE);
+        if ($this->db->driverName != 'sqlite') {
+            $this->dropForeignKey('fk_audit_data_entry_id', self::TABLE);
+        }
         $this->dropTable(self::TABLE);
     }
 }
