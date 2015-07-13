@@ -33,8 +33,10 @@ NavBar::begin([
 ]);
 echo Nav::widget([
     'items' => [
-        ['label' => Yii::t('audit', 'View Audit Data'), 'url' => ['/audit']],
-        ['label' => Yii::t('audit', 'Create Audit Data'), 'url' => ['/data']],
+        ['label' => Yii::t('app', 'Trails'), 'url' => ['/trail/index']],
+        ['label' => Yii::t('app', 'Mails'), 'url' => ['/mail/index']],
+        ['label' => Yii::t('app', 'Javascripts'), 'url' => ['/javascript/index']],
+        ['label' => Yii::t('app', 'Errors'), 'url' => ['/error/index']],
     ],
     'options' => ['class' => 'navbar-nav'],
 ]);
