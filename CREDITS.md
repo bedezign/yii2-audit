@@ -10,6 +10,10 @@
 
 * [Tobias Munk (schmunk42)](https://github.com/schmunk42)
 
+## Media and Assets
+
+* Icon made by [Freepik](http://www.freepik.com/) from [flaticon](http://www.flaticon.com/free-icon/search-analytics_83477) (CC BY 3.0)
+
 ## Related Projects
 
 * [Sammaye Yii2 Audit Trail](https://github.com/Sammaye/yii2-audittrail)
