@@ -72,7 +72,7 @@ $config = [
 ];
 ```
 
-## Panel configuration ##
+## Panel configuration
 
 You have the choice between either using `$panels` to specify a complete list of panels and their configuration, or using `$panelsMerge` for a selective update. 
 
@@ -81,42 +81,61 @@ The `$panels`-variable accepts a number of different formats:
 * A string index with a string value. This adds a new panel with the give class: `"app/views" => "app\panels\ViewPanel"` will result in a new panel of class `app\panels\ViewPanel` being loaded
 * A string index with an array value. If the index is the name of a core panel then the core class will be added, so no need for that. If it is a custom panel you'll need to specify the entire configuration, including `class`.
 
-### Smaller changes via merging ###
+### Smaller changes via merging
 
 The module also provides a `$panelsMerge` configuration option.  
 This allows you to simply specify what you like to change, as compared to the current `$panels` configuration.
 
 The panels updated and/or added via this configuration are considered part of the default panel configuration and will be initialised during the logging phaze of the module.
 
-**A couple examples:**
+**A couple examples**
+
+Specify new panels without having to re-specify the entire (core) panels list:
 
 ```php
 <?php
-'panelsMerge' => [
-   "audit/config" => []
-]
+$config = [
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+			'panelsMerge' => [
+   				'audit/config' => [],
+			],
+		],
+    ],
+];
 ```
 
-This results in the config (core) panel being loaded as well without having to re-specify the entire panels list.
-
+Disable the verbose log for the cURL panel:
 
 ```php
 <?php
-'panelsMerge' => [
-   "audit/curl" => ['log' => false]
-]
+$config = [
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+			'panelsMerge' => [
+				'audit/curl' => ['log' => false],
+			],
+		],
+    ],
+];
 ```
 
-This disables the verbose log for the cURL panel
+Add a completely new panel:
 
 ```php
 <?php
-'panelsMerge' => [
-	'app/views' => [
-		'class' => 'app\panels\ViewsPanel',
-	]
-]
+$config = [
+    'modules' => [
+        'audit' => [
+            'class' => 'bedezign\yii2\audit\Audit',
+			'panelsMerge' => [
+				'app/views' => [
+					'class' => 'app\panels\ViewsPanel',
+				],
+			],
+		],
+    ],
+];
 ```
-
-This adds a completely new panel.
-
