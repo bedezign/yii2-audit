@@ -2,6 +2,7 @@
 
 $config = [
     'id' => 'yii2-audit-web',
+    'name' => 'Yii2 Audit Demo',
     'basePath' => dirname(__DIR__),
     'controllerNamespace' => 'tests\app\controllers',
     'bootstrap' => [
@@ -65,7 +66,7 @@ $config = [
             'compressData' => YII_ENV == 'heroku' ? true : false,
             'trackActions' => ['*'],
             'ignoreActions' => [
-                '/audit/default/index',
+                '/site/index',
                 '/audit/error/*',
             ],
             'panelsMerge' => [
