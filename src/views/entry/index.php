@@ -32,6 +32,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
+            'ip',
             [
                 'filter' => AuditEntrySearch::methodFilter(),
                 'attribute' => 'request_method',

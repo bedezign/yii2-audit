@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use bedezign\yii2\audit\components\Helper;
 
 if (!function_exists('formatDataString')) {
-    function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; }}
+    function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) { $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; break; }}}
 }
 
 $post    = empty($request['post']) ? false : $request['post'];
