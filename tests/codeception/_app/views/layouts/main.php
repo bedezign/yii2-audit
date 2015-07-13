@@ -64,6 +64,12 @@ if (isset($this->params['jumbotron'])) {
     <?php } ?>
     <?= Alert::widget() ?>
     <?= $content ?>
+
+    <footer class="text-center">
+        <hr>
+        <?= date('Y-m-d H:i:s'); ?>
+        <?= $this->render('@bedezign/yii2/audit/views/_audit_entry_id'); ?>
+    </footer>
 </div>
 
 <?php $this->endBody() ?>

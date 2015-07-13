@@ -13,8 +13,20 @@ $this->params['breadcrumbs'][] = Yii::t('app', 'Update');
 ?>
 <div class="post-update">
 
-    <?= $this->render('_form', [
-        'post' => $post,
-    ]); ?>
+    <div class="row">
+        <div class="col-md-4">
+            <h2><?= Yii::t('app', 'Update Post'); ?></h2>
+            <?= $this->render('_form', [
+                'post' => $post,
+            ]); ?>
+        </div>
+        <div class="col-md-8">
+            <h2><?= Yii::t('app', 'Post History'); ?></h2>
+            <?= $this->render('@bedezign/yii2/audit/views/_audit_trails', [
+                'query' => $post->getAuditTrails(),
+                'columns' => ['entry_id', 'action', 'diff', 'created'],
+            ]); ?>
+        </div>
+    </div>
 
 </div>

@@ -3,6 +3,7 @@
 namespace tests\app\models;
 
 use bedezign\yii2\audit\AuditTrailBehavior;
+use bedezign\yii2\audit\models\AuditTrail;
 use yii\db\ActiveRecord;
 
 /**
@@ -44,6 +45,17 @@ class Post extends ActiveRecord
             [['body'], 'string'],
             [['title'], 'string', 'max' => 255]
         ];
+    }
+
+    /**
+     * get trails for this model
+     */
+    public function getAuditTrails()
+    {
+        return AuditTrail::find()->onCondition([
+                'audit_trail.model_id' => $this->id,
+                'audit_trail.model' => get_class($this),
+            ]);
     }
 
 }
