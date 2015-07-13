@@ -8,7 +8,9 @@ use yii\helpers\Html;
 /** @var bedezign\yii2\audit\models\AuditEntry $entry */
 
 if ($auditEntry = Audit::getInstance()->getEntry()) {
-    $style = YII_DEBUG ? '' : 'color:transparent;';
+    if (!isset($style)) {
+        $style = YII_DEBUG ? '' : 'color:transparent;';
+    }
     if (Access::checkAccess()) {
         echo Html::a('audit-' . $auditEntry->id, ['/audit/entry/view', 'id' => $auditEntry->id], ['style' => $style]);
     } else {
