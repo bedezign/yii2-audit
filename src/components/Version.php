@@ -24,7 +24,7 @@ class Version extends Component
         /** @var AuditTrail[] $trails */
         $trails = AuditTrail::find()
             ->andWhere(['model' => $class, 'model_id' => $id])
-            ->orderBy(['id' => SORT_ASC])
+            ->orderBy(['entry_id' => SORT_ASC, 'id' => SORT_ASC])
             ->all();
         $versions = [];
         foreach ($trails as $trail) {
