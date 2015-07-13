@@ -29,7 +29,7 @@ Tracks minimal data in the base entry:
 * `memory_max` - The peak memory usage during the request.
 * `created` - The datetime the entry was created.
 
-### Tracks additional data using configurable Panels.
+### Log Data using Configurable Panels
 
 Each panel is optional, and you can even create your own.
 
