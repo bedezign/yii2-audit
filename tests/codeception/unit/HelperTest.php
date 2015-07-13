@@ -54,7 +54,7 @@ class HelperTest extends AuditTestCase
 
     public function testFormatAsQueryWorks()
     {
-        $this->assertEquals(<<<PHP
+        $this->assertEqualsIgnoreLineBreakType(<<<PHP
 [
     'test' => 'var'
     'test2' => 'value1'
@@ -74,7 +74,7 @@ PHP
 
     public function testFormatAsJsonWorks()
     {
-        $this->assertEquals(<<<JSON
+        $this->assertEqualsIgnoreLineBreakType(<<<JSON
 {
     "test": "data",
     "test2": [
@@ -93,7 +93,7 @@ JSON
 
     public function testFormatAsXMLWorks()
     {
-        $this->assertEquals(<<<XML
+        $this->assertEqualsIgnoreLineBreakType(<<<XML
 &lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
 &lt;note&gt;
   &lt;to&gt;Tove&lt;/to&gt;

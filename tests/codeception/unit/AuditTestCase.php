@@ -42,5 +42,11 @@ class AuditTestCase extends \yii\codeception\TestCase
         parent::tearDown();
     }
 
+    public function assertEqualsIgnoreLineBreakType($actual, $expected)
+    {
+        $expected = preg_replace('~\R~u', "\n", $expected);
+        $actual = preg_replace('~\R~u', "\n", $actual);
+        $this->assertEquals($actual, $expected);
+    }
 
 }
