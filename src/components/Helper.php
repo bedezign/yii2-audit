@@ -75,9 +75,9 @@ class Helper extends \yii\base\Object
      */
     public static function uncompress($data)
     {
-        if (Audit::getInstance()->compressData)
-            $data = gzuncompress($data);
-        return $data;
+        $originalData = $data;
+        $data = @gzuncompress($data);
+        return $data ?: $originalData;
     }
 
     /**
