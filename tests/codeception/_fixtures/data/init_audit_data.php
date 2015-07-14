@@ -69,6 +69,7 @@ return [
                 '__flash' => [],
             ],
         ]),
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
@@ -119,6 +120,7 @@ return [
                 ],
             ]
         ]),
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
@@ -155,6 +157,7 @@ return [
                 ]
             ],
         ]),
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
@@ -187,6 +190,7 @@ return [
 
             ],
         ]),
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
@@ -197,12 +201,13 @@ return [
                 'data' => 'extra data can be an integer, string, array, object or whatever',
             ],
         ]),
-
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
         'type' => 'audit/mail',
         'data' => file_get_contents(__DIR__ . '/mail/data.txt'),
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
@@ -211,52 +216,53 @@ return [
             '/vagrant/git/yii2-audit/src/views/entry/index.php',
             '/vagrant/git/yii2-audit/src/views/layouts/main.php',
         ]),
+        'created' => '2015-06-25 01:02:03',
     ],
     [
         'entry_id' => 1,
         'type' => 'audit/curl',
         'data' => serialize([
-          0 =>
-          [
-            'starting_url' => 'http://testing.com/start',
-            'headers' => [
-              0 => "HTTP/1.1 401 Unauthorized\n",
-              1 => "Content-Type: text/html; charset=us-ascii\n",
-              2 => "Server: Microsoft-HTTPAPI/2.0\n",
-              3 => "Date: Thu, 09 Jul 2015 15:04:45 GMT\n",
-              4 => "Content-Length: 341\n",
-              5 => "\n",
-              6 => "HTTP/1.1 200 OK\n",
-              7 => "Cache-Control: no-cache\n",
-              8 => "Content-Length: 33094\n",
-              9 => "Content-Type: application/json;odata=verbose;charset=utf-8\n",
-              10 => "Server: Microsoft-IIS/7.5\n",
-              11 => "X-Content-Type-Options: nosniff\n",
-              12 => "DataServiceVersion: 1.0;\n",
-              13 => "X-AspNet-Version: 4.0.30319\n",
-              14 => "Persistent-Auth: true\n",
-              15 => "X-Powered-By: ASP.NET\n",
-              16 => "Date: Thu, 09 Jul 2015 15:04:49 GMT\n",
-              17 => "\n",
-            ],
-            'content_type' => 'application/json;odata=verbose;charset=utf-8',
-            'http_code' => 200,
-            'header_size' => 839,
-            'request_size' => 746,
-            'filetime' => -1,
-            'redirect_count' => 1,
-            'total_time' => 4.1798570000000002,
-            'namelookup_time' => 1.2E-5,
-            'connect_time' => 1.2E-5,
-            'pretransfer_time' => 1.2999999999999999E-5,
-            'size_download' => 33094,
-            'speed_download' => 7917,
-            'download_content_length' => 33094,
-            'starttransfer_time' => 4.0445039999999999,
-            'redirect_time' => 0.095444000000000001,
-            'primary_ip' => '192.168.1.1',
-            'effective_url' => 'http://testing.com/redirected',
-            'log' => '* About to connect() to testing.comport 80 (#0)
+            0 =>
+                [
+                    'starting_url' => 'http://testing.com/start',
+                    'headers' => [
+                        0 => "HTTP/1.1 401 Unauthorized\n",
+                        1 => "Content-Type: text/html; charset=us-ascii\n",
+                        2 => "Server: Microsoft-HTTPAPI/2.0\n",
+                        3 => "Date: Thu, 09 Jul 2015 15:04:45 GMT\n",
+                        4 => "Content-Length: 341\n",
+                        5 => "\n",
+                        6 => "HTTP/1.1 200 OK\n",
+                        7 => "Cache-Control: no-cache\n",
+                        8 => "Content-Length: 33094\n",
+                        9 => "Content-Type: application/json;odata=verbose;charset=utf-8\n",
+                        10 => "Server: Microsoft-IIS/7.5\n",
+                        11 => "X-Content-Type-Options: nosniff\n",
+                        12 => "DataServiceVersion: 1.0;\n",
+                        13 => "X-AspNet-Version: 4.0.30319\n",
+                        14 => "Persistent-Auth: true\n",
+                        15 => "X-Powered-By: ASP.NET\n",
+                        16 => "Date: Thu, 09 Jul 2015 15:04:49 GMT\n",
+                        17 => "\n",
+                    ],
+                    'content_type' => 'application/json;odata=verbose;charset=utf-8',
+                    'http_code' => 200,
+                    'header_size' => 839,
+                    'request_size' => 746,
+                    'filetime' => -1,
+                    'redirect_count' => 1,
+                    'total_time' => 4.1798570000000002,
+                    'namelookup_time' => 1.2E-5,
+                    'connect_time' => 1.2E-5,
+                    'pretransfer_time' => 1.2999999999999999E-5,
+                    'size_download' => 33094,
+                    'speed_download' => 7917,
+                    'download_content_length' => 33094,
+                    'starttransfer_time' => 4.0445039999999999,
+                    'redirect_time' => 0.095444000000000001,
+                    'primary_ip' => '192.168.1.1',
+                    'effective_url' => 'http://testing.com/redirected',
+                    'log' => '* About to connect() to testing.comport 80 (#0)
         *   Trying 192.168.1.1 ... * connected
         * Connected to testing.com (192.168.1.1) port 80 (#0)
         > GET /start HTTP/1.1
@@ -288,10 +294,11 @@ return [
         <
         * Connection #0 to host testing.com left intact
         ',
-            'content' => '{"test":"data","test2":["data2","data3"]}',
-          ],
-       ])
-    ]
+                    'content' => '{"test":"data","test2":["data2","data3"]}',
+                ],
+        ]),
+        'created' => '2015-06-25 01:02:03',
+    ],
 ];
 
 
