@@ -9,7 +9,12 @@ class m150714_000001_alter_audit_data extends Migration
 
     public function up()
     {
-        $this->addColumn(self::TABLE, 'created', Schema::TYPE_DATETIME . ' NOT NULL');
+        if ($this->db->driverName != 'sqlite') {
+            $this->addColumn(self::TABLE, 'created', Schema::TYPE_DATETIME . ' NOT NULL');
+            return;
+        }
+        // adding NOT NULL column to sqlite caused it to bork out
+        $this->addColumn(self::TABLE, 'created', Schema::TYPE_DATETIME . ' NOT NULL DEFAULT NOW');
     }
 
 }
