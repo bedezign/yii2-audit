@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.0.2 July 14, 2015
+
+* Enh #89 only show graphs and menu items for active panels
+* Enh #108 show IP address in entry grid
+* Bug #107 fix logging text or html on non-multipart messages
+* helper will always try to uncompress data
+* fixes for jslogging that were caused when pdo binary support was added
+* fix ordering in Version helper
+
 ## 1.0.1 July 12, 2015
 
 * Moved documentation to gh-pages branch
