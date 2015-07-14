@@ -10,6 +10,7 @@
 [![Total Downloads](https://img.shields.io/packagist/dt/bedezign/yii2-audit.svg?style=flat-square)](https://packagist.org/packages/bedezign/yii2-audit)
 [![Yii2 Framework](https://img.shields.io/badge/extension-Yii2_Framework-green.svg?style=flat-square)](http://www.yiiframework.com/extension/yii2-audit)
 
+
 Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
 
 ## Features
@@ -91,3 +92,4 @@ Thanks to [everyone who has contributed](https://github.com/bedezign/yii2-audit/
 ## License
 
 BSD-3 - Please refer to the [license](https://github.com/bedezign/yii2-audit/blob/master/LICENSE.md).
+![Analytics](https://ga-beacon.appspot.com/UA-65104334-3/yii2-audit/README.md?pixel)
