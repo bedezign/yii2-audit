@@ -4,8 +4,8 @@ namespace bedezign\yii2\audit\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-
 use bedezign\yii2\audit\models\AuditError;
+use yii\helpers\ArrayHelper;
 
 /**
  * AuditErrorSearch
@@ -73,12 +73,23 @@ class AuditErrorSearch extends AuditError
      */
     static public function fileFilter()
     {
-        $files = AuditEntry::getDb()->cache(function () {
-            return AuditError::find()->distinct(true)
-                ->select('file')->where(['is not', 'file', null])
-                ->groupBy('file')->orderBy('file ASC')->column();
-        }, 30);
+        $files = ArrayHelper::getColumn(self::filterData(), 'file');
+        sort($files);
         return array_combine($files, $files);
     }
 
+    static public function messageFilter()
+    {
+        $messages = ArrayHelper::getColumn(self::filterData(), 'message');
+        sort($messages);
+        return array_combine($messages, $messages);
+    }
+
+    static protected function filterData()
+    {
+        return AuditEntry::getDb()->cache(function () {
+            return AuditError::find()->distinct(true)
+                ->select(['hash', 'message', 'file'])->asArray()->all();
+        }, 30);
+    }
 }
