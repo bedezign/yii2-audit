@@ -107,7 +107,7 @@ XML
     }
 
     public function testFormatAsHTMLWorks()
-        {
+    {
             $this->assertEqualsIgnoreLineBreakType(<<<HTML
 &lt;!DOCTYPE html&gt;
 &lt;html&gt;
@@ -117,5 +117,11 @@ XML
 
 HTML
             , Helper::formatAsHTML('<!DOCTYPE html><html><head><title>Test</title></head><body>HTML Test!</body></html>'));
-        }
+    }
+
+    public function testFormatAsHTMLDoesntDoJson()
+    {
+        $this->assertNull(Helper::formatAsHTML('{"test":"data","test2":["data2","data3"]}'));
+    }
+
 }
