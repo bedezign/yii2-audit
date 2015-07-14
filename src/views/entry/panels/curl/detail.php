@@ -6,7 +6,7 @@ use yii\helpers\Html;
 use bedezign\yii2\audit\components\Helper;
 
 if (!function_exists('formatDataString')) {
-    function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; }}
+    function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) { $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; break; }}}
 }
 
 $post    = empty($request['post']) ? false : $request['post'];
@@ -26,14 +26,14 @@ $tabs = [
     ]
 ];
 
-$post = http_build_query(['test' => 'var', 'test2' => 'value1', 'test3' => ['value3', 'value2']]);
 if ($post) {
     $tabs[] = [
         'label' => \Yii::t('audit', 'POST'),
         'content' => Html::tag('div', $post, $preformatted)
     ];
     formatDataString(
-        ['formatAsQuery' => \Yii::t('audit', 'POST - Query'), 'formatAsJSON' => \Yii::t('audit', 'POST - JSON'), 'formatAsXML' => \Yii::t('audit', 'POST - XML')],
+        ['formatAsQuery' => \Yii::t('audit', 'POST - Query'), 'formatAsJSON' => \Yii::t('audit', 'POST - JSON'),
+            'formatAsXML' => \Yii::t('audit', 'POST - XML'), 'formatAsHTML' => \Yii::t('audit', 'POST - HTML')],
         $post, $preformatted, $tabs
     );
 }
@@ -50,7 +50,8 @@ if ($content) {
         'content' => Html::tag('div', $formatter->asText($content), $preformatted)
     ];
     formatDataString(
-        ['formatAsQuery' => \Yii::t('audit', 'Content - Query'), 'formatAsJSON' => \Yii::t('audit', 'Content - JSON'), 'formatAsXML' => \Yii::t('audit', 'Content - XML')],
+        ['formatAsQuery' => \Yii::t('audit', 'Content - Query'), 'formatAsJSON' => \Yii::t('audit', 'Content - JSON'),
+            'formatAsXML' => \Yii::t('audit', 'Content - XML'), 'formatAsHTML' => \Yii::t('audit', 'Content - HTML')],
         $content, $preformatted, $tabs
     );
 }
@@ -58,7 +59,7 @@ if ($content) {
 if ($log)
     $tabs[] = [
         'label' => \Yii::t('audit', 'Log'),
-        'content' => Html::tag('div', $formatter->asNtext($log), $preformatted)
+        'content' => Html::tag('div', $formatter->asText($log), $preformatted)
     ];
 
 

@@ -222,4 +222,21 @@ class Helper extends \yii\base\Object
             return htmlentities($doc->saveXML(), ENT_COMPAT, 'UTF-8');
         return null;
     }
+
+    /**
+     * If the data contains HTML it will be returned as a pretty printable string
+     * @param $data
+     * @return null|string
+     */
+    public static function formatAsHTML($data)
+    {
+        if (strtolower(substr(ltrim($data), 0, 5)) == '<?xml')
+            return null;
+        $doc = new \DOMDocument('1.0');
+        $doc->preserveWhiteSpace = false;
+        $doc->formatOutput = true;
+        if (@$doc->loadHTML($data))
+            return htmlentities($doc->saveHTML(), ENT_COMPAT, 'UTF-8');
+        return null;
+    }
 }
