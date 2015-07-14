@@ -4,6 +4,7 @@ return [
     'id' => 'yii2-audit-console',
     'name' => 'Yii2 Audit Demo',
     'basePath' => dirname(__DIR__),
+    'controllerNamespace' => 'tests\app\commands',
     'bootstrap' => [
         'bedezign\yii2\audit\Bootstrap',
         'audit',
