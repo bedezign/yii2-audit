@@ -1,7 +1,0 @@
-{
-    "name": "bedezign/yii2-audit",
-    "description": "Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.",
-    "repository": "https://github.com/bedezign/yii2-audit",
-    "logo": "https://bedezign.github.io/yii2-audit/logo.svg",
-    "keywords": ["yii2", "audit", "trail", "logging"]
-}
