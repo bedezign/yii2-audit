@@ -15,6 +15,7 @@ A `Panel` is a class responsible for capturing and displaying data.  Panel data 
 - [Installation and Configuration](installation/)
 - [Module Configuration](module-configuration/)
 - [Utility Functions](utility-functions/)
+- [Cleanup Data](cleanup-data/)
 
 ## Panels
 
