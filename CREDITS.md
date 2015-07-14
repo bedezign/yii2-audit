@@ -21,3 +21,4 @@
 * [yii2-debug Module](https://github.com/yiisoft/yii2-debug)
 * [2amigos ChartJS Widget](https://github.com/2amigos/yii2-chartjs-widget)
 * [PHPSpec Diff](https://github.com/phpspec/php-diff)
+* [yii2-swiftmailer](https://github.com/yiisoft/yii2-swiftmailer)
