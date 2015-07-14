@@ -17,16 +17,25 @@ php yii audit/cleanup [panels] [maxAge]
 ```
 
 Cleanup all data based on the Module and Panel settings:
+
 ```
 php yii audit/cleanup
 ```
 
+Cleanup all data by specifing `0` as the max age:
+
+```
+php yii audit/cleanup all 0
+```
+
 Cleanup all data older than 30 days:
+
 ```
 php yii audit/cleanup all 30
 ```
 
 Cleanup only data from LogPanel and ProfilingPanel older than a week
+
 ```
 php yii audit/cleanup audit/log,audit/profiling 7
 ```
