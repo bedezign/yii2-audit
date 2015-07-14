@@ -15,6 +15,7 @@ use yii\web\View;
  * @property array|mixed $data
  * @property string $id
  * @property string $tag
+ * @property AuditEntry $model
  * @method string getName()
  */
 trait PanelTrait
