@@ -48,7 +48,7 @@ echo '</div>';
 
 echo Html::tag('h2', Yii::t('audit', 'HTML'));
 echo '<div class="well">';
-echo $model->html;
+echo Yii::$app->formatter->asHtml($model->html);
 echo '</div>';
 
 //echo Html::tag('h2', Yii::t('audit', 'Data'));
