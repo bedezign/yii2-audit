@@ -1,8 +1,9 @@
 <?php
 
+use yii\db\Migration;
 use yii\db\Schema;
 
-class m150626_000005_create_audit_javascript extends \yii\db\Migration
+class m150626_000005_create_audit_javascript extends Migration
 {
     const TABLE = '{{%audit_javascript}}';
 

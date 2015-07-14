@@ -16,6 +16,9 @@ return [
     'params' => [
         'supportEmail' => 'errors@example.com',
     ],
+    'controllerMap' => [
+        'audit' => 'bedezign\yii2\audit\commands\AuditController',
+    ],
     'components' => [
         'cache' => [
             'class' => YII_ENV == 'heroku' ? 'yii\caching\FileCache' : 'yii\caching\DummyCache',

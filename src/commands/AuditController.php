@@ -3,12 +3,12 @@
 namespace bedezign\yii2\audit\commands;
 
 use bedezign\yii2\audit\Audit;
-use bedezign\yii2\audit\models\AuditData;
+use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
-use bedezign\yii2\audit\models\AuditJavascript;
-use bedezign\yii2\audit\models\AuditTrail;
 use Yii;
+use yii\console\Controller;
+use yii\helpers\Console;
 use yii\helpers\Html;
 use yii\helpers\Url;
 
@@ -17,45 +17,146 @@ use yii\helpers\Url;
  *
  * @package bedezign\yii2\audit\commands
  */
-class AuditController extends \yii\console\Controller
+class AuditController extends Controller
 {
 
     /**
-     * Clean up the audit data according to the settings.
+     * Cleanup the Audit data
+     *
+     * @param null|string $panels
+     * @param null|int $maxAge
+     * @return int|void
      */
-    public function actionCleanup()
+    public function actionCleanup($panels = null, $maxAge = null)
     {
-        $audit = Audit::getInstance();
-        if ($audit->maxAge === null)
-            return;
+        /** @var Audit $audit */
+        $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
+        $panels = $panels && $panels != 'all' ? explode(',', $panels) : array_keys($audit->panels);
 
-        $entry = AuditEntry::tableName();
-        $errors = AuditError::tableName();
-        $data = AuditData::tableName();
-        $javascript = AuditJavascript::tableName();
-        $trail = AuditTrail::tableName();
+        // summary
+        $this->preCleanupSummary($panels, $maxAge);
 
-        $threshold = time() - ($audit->maxAge * 86400);
-
-        AuditEntry::getDb()->createCommand(<<<SQL
-DELETE FROM $entry, $errors, $data, $javascript, $trail USING $entry
-  INNER JOIN $errors ON $errors.entry_id = $entry.id
-  INNER JOIN $data ON $data.entry_id = $entry.id
-  INNER JOIN $javascript ON $javascript.entry_id = $entry.id
-  INNER JOIN $trail ON $trail.entry_id = $entry.id
-  WHERE $entry.created < FROM_UNIXTIME($threshold)
-SQL
-        )->execute();
-
+        // confirm
+        if ($this->confirm('Cleanup the above data?')) {
+            // cleanup panels
+            foreach ($panels as $id) {
+                if (!$this->cleanupPanel($id, $maxAge)) {
+                    $this->stdout("\nCleanup failed. The rest of the cleanups are canceled.\n", Console::FG_RED);
+                    return self::EXIT_CODE_ERROR;
+                }
+            }
+            // cleanup audit_entry
+            if (!$this->cleanupEntry($maxAge)) {
+                $this->stdout("\nCleanup failed.\n", Console::FG_RED);
+                return self::EXIT_CODE_ERROR;
+            }
+            // success!
+            $this->stdout("\nCleanup was successful.\n", Console::FG_GREEN);
+        }
+        return self::EXIT_CODE_NORMAL;
     }
 
+    /**
+     * Displays a summary of the data and dates to clean
+     *
+     * @param array $panels
+     * @param int|null $maxAge
+     */
+    protected function preCleanupSummary($panels, $maxAge)
+    {
+        $audit = Audit::getInstance();
+
+        // heading
+        $n = count($panels);
+        $this->stdout("Total $n " . ($n === 1 ? 'cleanup' : 'cleanups') . " to be applied:\n", Console::FG_YELLOW);
+        $this->stdout("\t" . 'DATA                      CLEANUP TO DATETIME' . "\n");
+        $this->stdout("\t" . '---------------------------------------------' . "\n");
+
+        // audit panels
+        foreach ($panels as $id) {
+            /** @var Panel $panel */
+            $panel = $audit->getPanel($id);
+            $age = $maxAge !== null ? $maxAge : $panel->maxAge;
+            $dots = str_repeat('.', 24 - strlen($id));
+            if ($age !== null) {
+                $date = date('Y-m-d 23:59:59', strtotime("-$age days"));
+                $this->stdout("\t" . $id . ' ' . $dots . ' ' . $date . "\n");
+            } else {
+                $this->stdout("\t" . $id . ' ' . $dots . ' no maxAge, skipping' . "\n");
+            }
+        }
+
+        // audit entry
+        $maxAge = $maxAge !== null ? $maxAge : $audit->maxAge;
+        $date = $maxAge ? date('Y-m-d 23:59:59', strtotime("-$maxAge days")) : 'no maxAge, skipping';
+        $this->stdout("\t" . 'AuditEntry .............. ' . $date . "\n");
+
+        $this->stdout("\n");
+    }
+
+    /**
+     * Cleans the AuditEntry data
+     *
+     * @param $maxAge
+     * @return bool
+     */
+    protected function cleanupEntry($maxAge)
+    {
+        $maxAge = $maxAge !== null ? $maxAge : Audit::getInstance()->maxAge;
+        if ($maxAge === null) {
+            $this->stdout("\n*** skipped AuditEntry\n", Console::FG_PURPLE);
+            return true;
+        }
+        $date = date('Y-m-d 23:59:59', strtotime("-$maxAge days"));
+        $this->stdout("\n*** cleaning AuditEntry", Console::FG_YELLOW);
+        $start = microtime(true);
+        if (AuditEntry::deleteAll(['<=', 'created', $date]) !== false) {
+            $time = microtime(true) - $start;
+            $this->stdout("\n*** cleaned AuditEntry (time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_GREEN);
+            return true;
+        }
+        $time = microtime(true) - $start;
+        $this->stdout("\n*** failed to clean AuditEntry (time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_RED);
+        return false;
+    }
+
+    /**
+     * Cleans the Panel data
+     *
+     * @param $id
+     * @param $maxAge
+     * @return bool
+     */
+    protected function cleanupPanel($id, $maxAge)
+    {
+        /** @var Panel $panel */
+        $panel = Audit::getInstance()->getPanel($id);
+        $age = $maxAge !== null ? $maxAge : $panel->maxAge;
+        if ($age === null) {
+            $this->stdout("\n*** skipped $id\n", Console::FG_PURPLE);
+            return true;
+        }
+        $this->stdout("\n*** cleaning $id", Console::FG_YELLOW);
+        $start = microtime(true);
+        if ($panel->cleanup($maxAge) !== false) {
+            $time = microtime(true) - $start;
+            $this->stdout("\n*** cleaned $id (time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_GREEN);
+            return true;
+        }
+        $time = microtime(true) - $start;
+        $this->stdout("\n*** failed to clean $id (time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_RED);
+        return false;
+    }
 
     /**
      * Email errors to support email.
+     *
+     * @param string|null $email
+     * @return int
      */
-    public function actionErrorEmail()
+    public function actionErrorEmail($email = null)
     {
-        $email = Yii::$app->params['supportEmail'];
+        $email = $email ? $email : Yii::$app->params['supportEmail'];
 
         // find all errors to email
         $batch = AuditError::find()->where(['emailed' => 0])->batch();
@@ -94,7 +195,7 @@ SQL
 
             }
         }
-
+        return self::EXIT_CODE_NORMAL;
     }
 
 }

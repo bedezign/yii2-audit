@@ -20,6 +20,11 @@ use yii\web\View;
 trait PanelTrait
 {
     /**
+     * @var int Maximum age (in days) of the data before it is cleaned
+     */
+    public $maxAge = null;
+
+    /**
      * @var AuditEntry
      */
     protected $_model;
@@ -85,5 +90,14 @@ trait PanelTrait
     public function registerAssets($view)
     {
 
+    }
+
+    /**
+     * @param int|null $maxAge
+     * @return bool
+     */
+    public function cleanup($maxAge = null)
+    {
+        return true;
     }
 }

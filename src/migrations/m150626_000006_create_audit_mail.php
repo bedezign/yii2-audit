@@ -1,8 +1,9 @@
 <?php
 
+use yii\db\Migration;
 use yii\db\Schema;
 
-class m150626_000006_create_audit_mail extends \yii\db\Migration
+class m150626_000006_create_audit_mail extends Migration
 {
     const TABLE = '{{%audit_mail}}';
 

@@ -99,4 +99,15 @@ class ErrorPanel extends Panel
         GridViewAsset::register($view);
     }
 
+    /**
+     * @inheritdoc
+     */
+    public function cleanup($maxAge = null)
+    {
+        $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
+        if ($maxAge === null)
+            return false;
+        return AuditError::deleteAll(['<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))]);
+    }
+
 }

@@ -110,16 +110,17 @@ class AuditEntry extends ActiveRecord
      */
     public function addBatchData($batchData, $compact = true)
     {
-        $columns = ['entry_id', 'type', 'data'];
+        $columns = ['entry_id', 'type', 'created', 'data'];
         $rows = [];
         $params = [];
+        $date = date('Y-m-d H:i:s');
         // Some database like postgres depend on the data being escaped correctly.
         // PDO can take care of this if you define the field as a LOB (Large OBject), but unfortunately Yii does threat values
         // for batch inserts the same way. This code adds a number of literals instead of the actual values
         // so that they can be bound right before insert and still get escaped correctly
         foreach ($batchData as $type => $data) {
             $param = ':data_' . str_replace('/', '_', $type);
-            $rows[] = [$this->id, $type, new Expression($param)];
+            $rows[] = [$this->id, $type, $date, new Expression($param)];
             $params[$param] = [Helper::serialize($data, $compact), \PDO::PARAM_LOB];
         }
         static::getDb()->createCommand()->batchInsert(AuditData::tableName(), $columns, $rows)->bindValues($params)->execute();
@@ -134,7 +135,12 @@ class AuditEntry extends ActiveRecord
     public function addData($type, $data, $compact = true)
     {
         // Make sure to mark data as a large object so it gets escaped
-        $record = ['entry_id' => $this->id, 'type' => $type, 'data' => [Helper::serialize($data, $compact), \PDO::PARAM_LOB]];
+        $record = [
+            'entry_id' => $this->id,
+            'type' => $type,
+            'created' => date('Y-m-d H:i:s'),
+            'data' => [Helper::serialize($data, $compact), \PDO::PARAM_LOB],
+        ];
         static::getDb()->createCommand()->insert(AuditData::tableName(), $record)->execute();
     }
 
