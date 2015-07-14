@@ -46,6 +46,7 @@ echo Nav::widget([
         ['label' => Yii::t('app', 'Mails'), 'url' => ['/mail/index']],
         ['label' => Yii::t('app', 'Javascripts'), 'url' => ['/javascript/index']],
         ['label' => Yii::t('app', 'Errors'), 'url' => ['/error/index']],
+        ['label' => Yii::t('app', 'cURL'), 'url' => ['/curl/index']],
     ],
     'options' => ['class' => 'navbar-nav'],
 ]);

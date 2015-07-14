@@ -90,7 +90,6 @@ $this->params['jumbotron'] = '/site/_index-jumbotron';
                         cURL
                         <span class="pull-right">
                             <?= Html::a('create', ['/curl/index'], ['class' => 'btn btn-default btn-xs']) ?>
-                            <?= Html::a('view', ['/audit/curl/index'], ['class' => 'btn btn-default btn-xs']) ?>
                         </span>
                     </h3>
                 </div>
