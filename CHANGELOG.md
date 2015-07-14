@@ -2,6 +2,7 @@
 
 ## 1.0.2 July 14, 2015
 
+* Enh #61 give each panel its own cleanup method
 * Enh #89 only show graphs and menu items for active panels
 * Enh #108 show IP address in entry grid
 * Bug #107 fix logging text or html on non-multipart messages
