@@ -1,7 +1,7 @@
 {
     "name": "bedezign/yii2-audit",
-    "description": "Audit module for Yii2",
-    "keywords": ["yii2", "audit", "trail", "module"],
+    "description": "Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.",
+    "keywords": ["yii2", "audit", "trail", "logging"],
     "type": "yii2-extension",
     "license": "BSD 3-Clause",
     "authors": [
