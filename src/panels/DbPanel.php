@@ -70,7 +70,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/db',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }

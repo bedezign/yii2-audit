@@ -2,10 +2,12 @@
 
 namespace bedezign\yii2\audit\controllers;
 
+use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\components\web\Controller;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditEntrySearch;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\web\NotFoundHttpException;
 
 /**
@@ -76,7 +78,7 @@ class EntryController extends Controller
 
     /**
      * @param $id
-     * @return [AuditEntry, Panel[]]
+     * @return AuditEntry|Panel[]
      * @throws NotFoundHttpException
      */
     public function loadData($id)
@@ -92,9 +94,9 @@ class EntryController extends Controller
         // We might as well be viewing an entry that has data for more panels than those who are currently active.
         // Updating the actual module panels would mean that for all audit viewing that panel would become active again
 
-        $panels = $this->module->loadPanels($this->module->panelIdentifiers);
+        $panels = $this->module->loadPanels($this->module->getPanelIdentifiers());
         $activePanels = [];
-        $data = \yii\helpers\ArrayHelper::getColumn($model->data, 'data');
+        $data = ArrayHelper::getColumn($model->data, 'data');
         foreach ($panels as $panelId => $panel)
             if ($panel->hasEntryData($model)) {
                 $panel->tag = $id;

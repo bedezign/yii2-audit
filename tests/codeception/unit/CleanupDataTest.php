@@ -3,7 +3,6 @@
 namespace tests\codeception\unit;
 
 use bedezign\yii2\audit\Audit;
-use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditData;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditJavascript;

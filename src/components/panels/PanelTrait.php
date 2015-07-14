@@ -38,7 +38,7 @@ trait PanelTrait
     }
 
     /**
-     * @return string|bool
+     * @return array|bool
      */
     public function getIndexUrl()
     {

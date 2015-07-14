@@ -224,7 +224,7 @@ class CurlPanel extends DataStoragePanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/curl',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }

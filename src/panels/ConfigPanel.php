@@ -35,7 +35,7 @@ class ConfigPanel extends \yii\debug\panels\ConfigPanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/config',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }

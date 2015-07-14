@@ -26,7 +26,7 @@ use yii\db\Expression;
  * @property AuditJavascript[] $javascripts
  * @property AuditTrail[]      $trails
  * @property AuditMail[]       $mails
- * @property AuditData[]       $associatedPanels
+ * @property AuditData[]       $data
  */
 class AuditEntry extends ActiveRecord
 {

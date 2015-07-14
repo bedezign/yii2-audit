@@ -10,6 +10,7 @@
 
 namespace bedezign\yii2\audit;
 
+use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
 use Yii;
 use yii\base\ActionEvent;
@@ -17,7 +18,6 @@ use yii\base\Application;
 use yii\base\InvalidConfigException;
 use yii\base\InvalidParamException;
 use yii\base\Module;
-use yii\debug\Panel;
 use yii\helpers\ArrayHelper;
 
 /**

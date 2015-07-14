@@ -93,7 +93,7 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/request',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }

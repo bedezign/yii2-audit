@@ -67,7 +67,7 @@ class LogPanel extends \yii\debug\panels\LogPanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/log',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }

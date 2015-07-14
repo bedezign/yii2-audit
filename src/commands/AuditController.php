@@ -31,7 +31,7 @@ class AuditController extends Controller
     {
         /** @var Audit $audit */
         $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
-        $panels = $panels && $panels != 'all' ? explode(',', $panels) : array_keys($audit->panels);
+        $panels = $panels !== null && $panels != 'all' ? explode(',', $panels) : array_keys($audit->panels);
 
         // summary
         $this->preCleanupSummary($panels, $maxAge);

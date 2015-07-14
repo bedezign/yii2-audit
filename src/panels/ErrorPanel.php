@@ -107,7 +107,9 @@ class ErrorPanel extends Panel
         $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
         if ($maxAge === null)
             return false;
-        return AuditError::deleteAll(['<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))]);
+        return AuditError::deleteAll([
+            '<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))
+        ]) !== false;
     }
 
 }

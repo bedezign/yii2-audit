@@ -89,7 +89,9 @@ class JavascriptPanel extends Panel
         $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
         if ($maxAge === null)
             return false;
-        return AuditJavascript::deleteAll(['<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))]);
+        return AuditJavascript::deleteAll([
+            '<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))
+        ]) !== false;
     }
 
 }

@@ -46,7 +46,7 @@ class AssetPanel extends \yii\debug\panels\AssetPanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/asset',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }

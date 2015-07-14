@@ -89,7 +89,9 @@ class TrailPanel extends Panel
         $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
         if ($maxAge === null)
             return false;
-        return AuditTrail::deleteAll(['<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))]);
+        return AuditTrail::deleteAll([
+            '<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))
+        ]) !== false;
     }
 
 }

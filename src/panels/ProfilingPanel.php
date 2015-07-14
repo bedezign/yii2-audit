@@ -62,7 +62,7 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => 'audit/profiling',
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]);
+        ]) !== false;
     }
 
 }
