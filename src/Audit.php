@@ -128,6 +128,8 @@ class Audit extends Module
         'audit/log',
         'audit/mail',
         'audit/profiling',
+        'audit/trail',
+        'audit/javascript',
         // 'audit/asset',
         // 'audit/config',
 
@@ -143,8 +145,7 @@ class Audit extends Module
      * This only accepts regular definitions ('<key>' => '<array>'), but the core class will be added if needed
      * Take a look at the [module configuration](docs/module-configuration.md) for more information.
      */
-    public $panelsMerge = [
-    ];
+    public $panelsMerge = [];
 
     /**
      * @var LogTarget
@@ -172,6 +173,9 @@ class Audit extends Module
         'audit/curl'       => ['class' => 'bedezign\yii2\audit\panels\CurlPanel'],
     ];
 
+    /**
+     * @var array
+     */
     private $_panelFunctions = [];
 
     /**
@@ -239,6 +243,11 @@ class Audit extends Module
         $this->_panelFunctions[$name] = $callback;
     }
 
+    /**
+     * @param string $name
+     * @param array $params
+     * @return mixed
+     */
     public function __call($name, $params)
     {
         if (!isset($this->_panelFunctions[$name]))

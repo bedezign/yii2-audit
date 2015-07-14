@@ -45,7 +45,7 @@ class ErrorPanel extends Panel
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Error');
+        return \Yii::t('audit', 'Errors');
     }
 
     /**
@@ -70,6 +70,24 @@ class ErrorPanel extends Panel
             'panel'        => $this,
             'dataProvider' => $dataProvider,
             'searchModel'  => $searchModel,
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIndexUrl()
+    {
+        return ['error/index'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChart()
+    {
+        return \Yii::$app->view->render('panels/error/chart', [
+            'panel' => $this,
         ]);
     }
 

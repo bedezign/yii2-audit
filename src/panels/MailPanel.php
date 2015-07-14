@@ -41,7 +41,7 @@ class MailPanel extends Panel
      */
     public function getName()
     {
-        return Yii::t('audit', 'Email Messages');
+        return Yii::t('audit', 'Mails');
     }
 
     /**
@@ -66,6 +66,24 @@ class MailPanel extends Panel
             'panel'        => $this,
             'dataProvider' => $dataProvider,
             'searchModel'  => $searchModel,
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIndexUrl()
+    {
+        return ['mail/index'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChart()
+    {
+        return \Yii::$app->view->render('panels/mail/chart', [
+            'panel' => $this,
         ]);
     }
 

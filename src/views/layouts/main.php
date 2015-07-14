@@ -2,6 +2,8 @@
 /* @var $this \yii\web\View */
 /* @var $content string */
 
+use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\web\JSLoggingAsset;
 use yii\bootstrap\Nav;
 use yii\bootstrap\NavBar;
@@ -32,14 +34,21 @@ NavBar::begin([
     'options' => ['class' => 'navbar-default navbar-fixed-top navbar-fluid'],
     'innerContainerOptions' => ['class' => 'container-fluid'],
 ]);
+
+$items = [
+    ['label' => Yii::t('audit', 'Entries'), 'url' => ['entry/index']],
+];
+foreach (Audit::getInstance()->panels as $panel) {
+    /** @var Panel $panel */
+    $indexUrl = $panel->getIndexUrl();
+    if (!$indexUrl) {
+        continue;
+    }
+    $items[] = ['label' => $panel->getName(), 'url' => $indexUrl];
+}
+
 echo Nav::widget([
-    'items' => [
-        ['label' => Yii::t('audit', 'Entries'), 'url' => ['entry/index']],
-        ['label' => Yii::t('audit', 'Trails'), 'url' => ['trail/index']],
-        ['label' => Yii::t('audit', 'Mails'), 'url' => ['mail/index']],
-        ['label' => Yii::t('audit', 'Javascripts'), 'url' => ['javascript/index']],
-        ['label' => Yii::t('audit', 'Errors'), 'url' => ['error/index']],
-    ],
+    'items' => $items,
     'options' => ['class' => 'navbar-nav'],
 ]);
 echo Nav::widget([

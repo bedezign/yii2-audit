@@ -8,7 +8,7 @@ use bedezign\yii2\audit\models\AuditTrailSearch;
 use yii\helpers\Html;
 use yii\grid\GridView;
 
-echo '<h1>' . Yii::t('audit', 'Database Trails') . '</h1>';
+echo Html::tag('h1', $panel->name);
 
 echo GridView::widget([
     'dataProvider' => $dataProvider,

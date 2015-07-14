@@ -25,11 +25,27 @@ trait PanelTrait
     protected $_model;
 
     /**
-     * @inheritdoc
+     * @return string
      */
     public function getLabel()
     {
         return $this->getName() . ' <small>(' . count($this->data) . ')</small>';
+    }
+
+    /**
+     * @return string|bool
+     */
+    public function getIndexUrl()
+    {
+        return false;
+    }
+
+    /**
+     * @return string|bool
+     */
+    public function getChart()
+    {
+        return false;
     }
 
     /**

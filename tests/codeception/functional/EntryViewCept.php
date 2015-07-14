@@ -14,29 +14,29 @@ $I->wantTo('ensure that entry view and panels works');
 $I->amOnPage(Url::to(['/audit/entry/view', 'id' => 1]));
 $I->see('Entry #1', 'h1');
 
-$I->click('Request');
-$I->see('Routing');
+$I->click('Request', '.list-group-item');
+$I->see('Request', 'h1');
 
-$I->click('Database');
-$I->see('Database Queries');
+$I->click('Database', '.list-group-item');
+$I->see('Database Queries', 'h1');
 
-$I->click('Logs');
-$I->see('Log Messages');
+$I->click('Logs', '.list-group-item');
+$I->see('Log Messages', 'h1');
 
-$I->click('Profiling');
-$I->see('Performance Profiling');
+$I->click('Profiling', '.list-group-item');
+$I->see('Performance Profiling', 'h1');
 
-$I->click('Error');
-$I->see('Error Code');
+$I->click('Errors', '.list-group-item');
+$I->see('Errors', 'h1');
 
-$I->click('Javascript');
-$I->see('Origin');
+$I->click('Javascripts', '.list-group-item');
+$I->see('Javascripts', 'h1');
 
-$I->click('Database Trails');
-$I->see('Database Trails');
+$I->click('Trails', '.list-group-item');
+$I->see('Trails', 'h1');
 
-$I->click('Extra Data');
-$I->see('Extra Data');
+$I->click('Extra Data', '.list-group-item');
+$I->see('Extra Data', 'h1');
 
 //$I->click('Asset Bundles');
 //$I->see('asset bundles were loaded');
@@ -44,10 +44,11 @@ $I->see('Extra Data');
 //$I->click('Configuration');
 //$I->seeLink('Application Configuration');
 
-$I->click('Email Messages');
-$I->see('Email Messages');
+$I->click('Mails', '.list-group-item');
+$I->see('Mails', 'h1');
 
-$I->click('cURL');
+$I->click('cURL', '.list-group-item');
+$I->see('cURL', 'h1');
 $I->see('Starting url');
 $I->see('Effective url');
 $I->see('Content - JSON');

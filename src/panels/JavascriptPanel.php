@@ -18,11 +18,11 @@ class JavascriptPanel extends Panel
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Javascript');
+        return \Yii::t('audit', 'Javascripts');
     }
 
     /**
-     * @return string
+     * @inheritdoc
      */
     public function getLabel()
     {
@@ -51,6 +51,24 @@ class JavascriptPanel extends Panel
             'panel'        => $this,
             'dataProvider' => $dataProvider,
             'searchModel'  => $searchModel,
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIndexUrl()
+    {
+        return ['javascript/index'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChart()
+    {
+        return \Yii::$app->view->render('panels/javascript/chart', [
+            'panel' => $this,
         ]);
     }
 

@@ -18,7 +18,7 @@ class TrailPanel extends Panel
      */
     public function getName()
     {
-        return \Yii::t('audit', 'Database Trails');
+        return \Yii::t('audit', 'Trails');
     }
 
     /**
@@ -51,6 +51,24 @@ class TrailPanel extends Panel
             'panel' => $this,
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
+        ]);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIndexUrl()
+    {
+        return ['trail/index'];
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getChart()
+    {
+        return \Yii::$app->view->render('panels/trail/chart', [
+            'panel' => $this,
         ]);
     }
 

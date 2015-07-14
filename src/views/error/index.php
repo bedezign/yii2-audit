@@ -7,6 +7,7 @@ use bedezign\yii2\audit\models\AuditErrorSearch;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
+/* @var $searchModel AuditErrorSearch */
 
 $this->title = Yii::t('audit', 'Errors');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];
