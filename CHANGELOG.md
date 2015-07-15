@@ -2,6 +2,7 @@
 
 ## 1.0.2 Under Development
 
+* Enh [#112](https://github.com/bedezign/yii2-audit/issues/112): generic cleanup() method in PanelTrait
 * Enh [#103](https://github.com/bedezign/yii2-audit/issues/103): Use error hash to determine different messages and files for error filter
 * Bug [#99](https://github.com/bedezign/yii2-audit/issues/99): IE8 support for the javascript logger
 

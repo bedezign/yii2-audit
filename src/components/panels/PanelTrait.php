@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\components\panels;
 
 use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\models\AuditData;
 use bedezign\yii2\audit\models\AuditEntry;
 use yii\helpers\Url;
 use yii\web\View;
@@ -99,6 +100,13 @@ trait PanelTrait
      */
     public function cleanup($maxAge = null)
     {
-        return true;
+        $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
+        if ($maxAge === null)
+            return false;
+        return AuditData::deleteAll('type = :type AND created <= :created', [
+            ':type' => $this->id,
+            ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
+        ]) !== false;
     }
+
 }

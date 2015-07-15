@@ -2,7 +2,6 @@
 
 namespace bedezign\yii2\audit\panels;
 
-use bedezign\yii2\audit\models\AuditData;
 use Yii;
 use bedezign\yii2\audit\components\panels\DataStoragePanel;
 use yii\data\ArrayDataProvider;
@@ -81,20 +80,6 @@ class ExtraDataPanel extends DataStoragePanel
     public function registerAssets($view)
     {
         GridViewAsset::register($view);
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function cleanup($maxAge = null)
-    {
-        $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
-        if ($maxAge === null)
-            return false;
-        return AuditData::deleteAll('type = :type AND created <= :created', [
-            ':type' => 'audit/extra',
-            ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]) !== false;
     }
 
 }

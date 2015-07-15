@@ -3,7 +3,6 @@
 namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\panels\DataStoragePanelTrait;
-use bedezign\yii2\audit\models\AuditData;
 use Yii;
 use yii\base\InlineAction;
 
@@ -80,20 +79,6 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
             return \yii\helpers\Inflector::camel2id(Yii::$app->requestedAction->getUniqueId());
         }
         return Yii::$app->requestedRoute;
-    }
-
-    /**
-     * @inheritdoc
-     */
-    public function cleanup($maxAge = null)
-    {
-        $maxAge = $maxAge !== null ? $maxAge : $this->maxAge;
-        if ($maxAge === null)
-            return false;
-        return AuditData::deleteAll('type = :type AND created <= :created', [
-            ':type' => 'audit/request',
-            ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]) !== false;
     }
 
 }
