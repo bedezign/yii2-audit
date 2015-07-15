@@ -88,7 +88,7 @@ class AuditController extends Controller
 
         // audit entry
         $maxAge = $maxAge !== null ? $maxAge : $audit->maxAge;
-        $date = $maxAge ? date('Y-m-d 23:59:59', strtotime("-$maxAge days")) : 'no maxAge, skipping';
+        $date = $maxAge !== null ? date('Y-m-d 23:59:59', strtotime("-$maxAge days")) : 'no maxAge, skipping';
         $this->stdout("\t" . 'AuditEntry .............. ' . $date . "\n");
 
         $this->stdout("\n");
