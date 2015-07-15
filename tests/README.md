@@ -70,7 +70,7 @@ php -S 0.0.0.0:88 -t codeception/_app/web/
 
 Add remote:
 ```
-git remote add heroku https://git.heroku.com/limitless-inlet-7926.git
+git remote add heroku https://git.heroku.com/yii2-audit.git
 ```
 
 Push changes:
