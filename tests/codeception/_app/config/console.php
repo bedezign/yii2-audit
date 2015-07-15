@@ -50,6 +50,9 @@ return [
             'panelsMerge' => [
                 'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],
             ],
+            'ignoreActions' => [
+                'migrate/*',
+            ],
         ],
     ],
 ];
