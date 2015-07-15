@@ -9,6 +9,7 @@ return [
         'bedezign\yii2\audit\Bootstrap',
         'audit',
     ],
+    'extensions' => require(VENDOR_DIR . '/yiisoft/extensions.php'),
     'aliases' => [
         '@vendor' => VENDOR_DIR,
         '@bedezign/yii2/audit' => realpath(__DIR__ . '../../../../src'),
@@ -46,6 +47,9 @@ return [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
             'compressData' => YII_ENV == 'heroku' ? true : false,
+            'panelsMerge' => [
+                'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],
+            ],
         ],
     ],
 ];
