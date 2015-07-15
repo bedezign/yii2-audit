@@ -22,6 +22,9 @@ $config = [
         'assetManager' => [
             'basePath' => __DIR__ . '/../web/assets',
         ],
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'cache' => [
             'class' => YII_ENV == 'heroku' ? 'yii\caching\FileCache' : 'yii\caching\DummyCache',
         ],
@@ -50,8 +53,9 @@ $config = [
             'enableCsrfValidation' => false,
             'enableCookieValidation' => false
         ],
-        'authManager' => [
-            'class' => 'yii\rbac\PhpManager',
+        'urlManager' => [
+            'enablePrettyUrl' => getenv('YII_ENV') == 'heroku' ? true : false,
+            'showScriptName' => getenv('YII_ENV') == 'heroku' ? false : true,
         ],
         'user' => [
             'identityClass' => 'tests\app\models\User',
