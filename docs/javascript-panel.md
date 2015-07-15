@@ -58,3 +58,7 @@ window.jsLogger.consoleOutput = false;
 * All logging you perform that originates from that page load will be linked to the same entry in the database. If you should need the current entry id for other things, it is added to the `window`-object as `window.auditEntry`.
 * If you use ajax or related technologies to load data from the backend, these requests might generate their own audit entries. Any errors that these cause will be linked to that newly created entry. Might be confusing, given that the actual client side logging for these requests will still be linked to the original one.
 
+Imagine the following flow:
+* You load your web page the regular way. This would create audit entry #1 and pass it into the page.
+* You perform an ajax request to the backend. This would initiate entry #2. Unfortunately something goes wrong and an error occurs. That error is logged as part of entry #2, since that is the one being used.
+* Because of that error, a javascript error occurs at the frontend and is caught by the modules' logging functionality. That javascript error (which is the result of the failing backend call) would be linked to entry #1, since you are still active on that page.
