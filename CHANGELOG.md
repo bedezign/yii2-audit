@@ -1,11 +1,16 @@
 # Changelog
 
+## 1.0.2 Under Development
+
+* Enh [#103](https://github.com/bedezign/yii2-audit/issues/103): Use error hash to determine different messages and files for error filter
+* Bug [#99](https://github.com/bedezign/yii2-audit/issues/99): IE8 support for the javascript logger
+
 ## 1.0.2 July 14, 2015
 
-* Enh #61 give each panel its own cleanup method
-* Enh #89 only show graphs and menu items for active panels
-* Enh #108 show IP address in entry grid
-* Bug #107 fix logging text or html on non-multipart messages
+* Enh [#61](https://github.com/bedezign/yii2-audit/issues/61): give each panel its own cleanup method
+* Enh [#89](https://github.com/bedezign/yii2-audit/issues/89): only show graphs and menu items for active panels
+* Enh [#108](https://github.com/bedezign/yii2-audit/issues/108): show IP address in entry grid
+* Bug [#107](https://github.com/bedezign/yii2-audit/issues/107): fix logging text or html on non-multipart messages
 * helper will always try to uncompress data
 * fixes for jslogging that were caused when pdo binary support was added
 * fix ordering in Version helper
@@ -15,7 +20,7 @@
 * Moved documentation to gh-pages branch
 * PostgreSQL compatibility
 * Added [heroku](https://limitless-inlet-7926.herokuapp.com/index.php?r=audit) demonstration page
-* Enh #100: cURL Panel now detects content types for POST and result. Supported: XML, JSON, query string
+* Enh [#100](https://github.com/bedezign/yii2-audit/issues/100): cURL Panel now detects content types for POST and result. Supported: XML, JSON, query string
 
 ## 1.0.0 July 9, 2015
 
