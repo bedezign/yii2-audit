@@ -23,7 +23,7 @@ $this->params['breadcrumbs'][] = $this->title;
         <div class="col-md-6">
             <h2><?= Yii::t('app', 'View cURL requests') ?></h2>
 
-            <p>All captured curl requests are available in their matching entry.</p>
+            <p>All captured curl requests are available under their matching entry.</p>
             <?= Html::a('view entries', ['/audit/entry'], ['class' => 'btn btn-default']); ?>
         </div>
     </div>

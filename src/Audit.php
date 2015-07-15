@@ -171,6 +171,7 @@ class Audit extends Module
         'audit/mail'       => ['class' => 'bedezign\yii2\audit\panels\MailPanel'],
         'audit/extra'      => ['class' => 'bedezign\yii2\audit\panels\ExtraDataPanel'],
         'audit/curl'       => ['class' => 'bedezign\yii2\audit\panels\CurlPanel'],
+        'audit/soap'       => ['class' => 'bedezign\yii2\audit\panels\SoapPanel'],
     ];
 
     /**
@@ -241,6 +242,11 @@ class Audit extends Module
             throw new InvalidParamException("The '$name'-function has already been defined.");
 
         $this->_panelFunctions[$name] = $callback;
+    }
+
+    public function registerPanel(\yii\debug\Panel $panel)
+    {
+        $this->panels[$panel->id] = $panel;
     }
 
     /**
