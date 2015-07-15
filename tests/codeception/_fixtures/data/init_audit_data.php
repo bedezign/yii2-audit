@@ -205,12 +205,6 @@ return [
     ],
     [
         'entry_id' => 1,
-        'type' => 'audit/mail',
-        'data' => file_get_contents(__DIR__ . '/mail/data.txt'),
-        'created' => '2015-06-25 01:02:03',
-    ],
-    [
-        'entry_id' => 1,
         'type' => 'app/views',
         'data' => serialize([
             '/vagrant/git/yii2-audit/src/views/entry/index.php',
