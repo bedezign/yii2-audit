@@ -62,3 +62,7 @@ $config = [
     ],
 ];
 ```
+
+## Screenshot
+
+![Cleanup Command](https://cloud.githubusercontent.com/assets/51875/8689333/83f1e17a-2ae5-11e5-8a8a-10ef30f23fdb.png)
