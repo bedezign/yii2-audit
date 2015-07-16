@@ -7,9 +7,12 @@ php:
   - 5.4
 
 env:
-  - DB=mysql
-  - DB=pgsql
-  - DB=sqlite
+  global:
+    - COMPOSER=composer-ci.json
+  matrix:
+    - DB=mysql
+    - DB=pgsql
+    - DB=sqlite
 
 matrix:
   exclude:

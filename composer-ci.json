@@ -1,6 +1,6 @@
 {
     "name": "bedezign/yii2-audit",
-    "description": "Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.",
+    "description": "Continuous integration version for Yii2 Audit that includes all dependencies",
     "keywords": ["yii2", "audit", "trail", "logging"],
     "type": "yii2-extension",
     "license": "BSD 3-Clause",
@@ -26,8 +26,18 @@
         "ext-bcmath": "*",
         "yiisoft/yii2": "2.*",
         "yiisoft/yii2-debug": "2.*",
+        "yiisoft/yii2-swiftmailer": "2.*",
         "2amigos/yii2-chartjs-widget": "2.*",
         "phpspec/php-diff": "1.*"
+    },
+    "require-dev": {
+        "yiisoft/yii2-swiftmailer": "2.*",
+        "yiisoft/yii2-codeception": "2.*",
+        "codeception/specify": "*",
+        "codeception/verify": "*",
+        "codeception/c3": "*",
+        "scrutinizer/ocular": "~1.1",
+        "heroku/heroku-buildpack-php": "*"
     },
     "autoload": {
         "psr-4": {"bedezign\\yii2\\audit\\": "src"}
