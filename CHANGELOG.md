@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.2 Under Development
+## 1.0.3 Under Development
 
 * Bug [#113](https://github.com/bedezign/yii2-audit/issues/113) getting 404 on audit/js-log
 * Enh [#112](https://github.com/bedezign/yii2-audit/issues/112): generic cleanup() method in PanelTrait
