@@ -53,13 +53,13 @@ If you do not want the `console`-functions to be called, set the `consoleOutput`
 window.jsLogger.consoleOutput = false;
 ```
 
-Important: By default calls to the `info()`-function are **not sent to the backend** but just echoed in the console. If you wish to enable this, you can do so by simply adding `'info'` to the `captureTypes`-array:
+Important: By default calls to the `info()`-function are **not sent to the backend** but just echoed in the console. If you wish to send info as well, you can do so by simply adding `'info'` to the `captureTypes`-array:
 
 ```javascript
 window.jsLogger.captureTypes.push('info');
 ```
 
-This needs to happen after the logger was actually loaded (probably via `document.onready` or in `(document).ready()`)
+This needs to happen after the logger was actually loaded (probably via `document.onready` or in `$(document).ready()`)
 
 ## Custom Capture
 
