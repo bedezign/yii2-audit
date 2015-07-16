@@ -38,7 +38,7 @@ $config = [
             'targets' => [
                 [
                     'class' => 'yii\log\FileTarget',
-                    'levels' => ['error', 'warning', 'info'],
+                    'levels' => ['error', 'warning', 'info', 'trace'],
                     'logVars' => ['_GET', '_POST', '_FILES', '_COOKIE', '_SESSION'],
                     'logFile' => YII_ENV == 'heroku' ? 'php://stderr' : '@app/runtime/logs/web.log',
                     'dirMode' => 0777
@@ -56,14 +56,6 @@ $config = [
         'urlManager' => [
             'enablePrettyUrl' => getenv('YII_ENV') == 'heroku' ? true : false,
             'showScriptName' => getenv('YII_ENV') == 'heroku' ? false : true,
-            'rules' => [
-                '<module:[\w\-]+>/<controller:[\w\-]+>/<id:\d+>' => '<module>/<controller>/view',
-                '<module:[\w\-]+>/<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>' => '<module>/<controller>/<action>',
-                '<module:[\w\-]+>/<controller:[\w\-]+>/<action:[\w\-]+>' => '<module>/<controller>/<action>',
-                '<controller:[\w\-]+>/<id:\d+>' => '<controller>/view',
-                '<controller:[\w\-]+>/<action:[\w\-]+>/<id:\d+>' => '<controller>/<action>',
-                '<controller:[\w\-]+>/<action:[\w\-]+>' => '<controller>/<action>',
-            ],
         ],
         'user' => [
             'identityClass' => 'tests\app\models\User',
