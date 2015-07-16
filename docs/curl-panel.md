@@ -1,10 +1,10 @@
 ---
 layout: default
-title: Curl Panel
+title: cURL Panel
 permalink: /docs/curl-panel/
 ---
 
-# Curl Panel
+# cURL Panel
 
 This is a speciality panel, designed to help you track data of the cURL requests you make.
 

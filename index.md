@@ -53,7 +53,8 @@ Each panel is optional, and you can even create your own.
 * `ProfilingPanel` - Application profiling information.
 * `TrailPanel` - Database changes that were made during the request using the `AuditTrailBehavior`. [more info](https://bedezign.github.io/yii2-audit/docs/trail-panel/)
 * `ExtraDataPanel` - Extra data that you want to store. [more info](https://bedezign.github.io/yii2-audit/docs/extra-data-panel/)
-* `CurlPanel` - Track your applications cURL requests (including replies, log and headers) [more info](https://bedezign.github.io/yii2-audit/docs/curl-panel/)
+* `CurlPanel` - Track your applications' cURL requests (including replies, log and headers) [more info](https://bedezign.github.io/yii2-audit/docs/curl-panel/)
+* `SOAPPanel` - Track your applications' SOAP requests [more info](https://bedezign.github.io/yii2-audit/docs/soap-panel/)
 * `YourOwnPanel` - Create your own panel to capture any data you want. [more info](https://bedezign.github.io/yii2-audit/docs/custom-views-panel/)
 
 ## Documentation
