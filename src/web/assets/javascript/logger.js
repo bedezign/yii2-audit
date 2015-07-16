@@ -9,7 +9,7 @@
 
             // True if you also want any error to be forwarded to the appropriate console function
             this.consoleOutput = typeof window.console !== 'undefined' &&
-                typeof window.console.log !== 'undefined' && typeof window.console.apply !== 'undefined';
+                typeof window.console.log !== 'undefined' && typeof window.console.log.apply !== 'undefined';
 
             // True to pass on the error to the previously active handler
             this.chainErrors = true;
