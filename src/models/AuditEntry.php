@@ -9,7 +9,7 @@ use yii\db\ActiveQuery;
 use yii\db\Expression;
 
 /**
- * Class AuditEntry
+ * AuditEntry
  * @package bedezign\yii2\audit\models
  *
  * @property int               $id

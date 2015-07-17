@@ -113,7 +113,7 @@ class Audit extends Module
     public $batchSave = true;
 
     /**
-     * @var array list of panels that should be active/tracking/available during the auditing phase.
+     * @var array|Panel[] list of panels that should be active/tracking/available during the auditing phase.
      * If the value is a simple string, it is the identifier of an internal panel to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is either a new panel or a panel override (if you specify a core id).
      * It is important that the key is unique, as this is the identifier used to store any data associated with the panel.
@@ -244,6 +244,9 @@ class Audit extends Module
         $this->_panelFunctions[$name] = $callback;
     }
 
+    /**
+     * @param \yii\debug\Panel $panel
+     */
     public function registerPanel(\yii\debug\Panel $panel)
     {
         $this->panels[$panel->id] = $panel;
@@ -399,6 +402,21 @@ class Audit extends Module
                 return $name;
         }
         return null;
+    }
+
+    /**
+     * @param string $className
+     * @return bool|string
+     */
+    public static function findPanelIdentifier($className)
+    {
+        $audit = Audit::getInstance();
+        foreach ($audit->panels as $panel) {
+            if ($panel->className() == $className) {
+                return $panel->id;
+            }
+        }
+        return false;
     }
 
     /**

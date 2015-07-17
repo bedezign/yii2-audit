@@ -4,7 +4,6 @@ namespace bedezign\yii2\audit\models;
 
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-use bedezign\yii2\audit\models\AuditError;
 use yii\helpers\ArrayHelper;
 
 /**
@@ -78,6 +77,9 @@ class AuditErrorSearch extends AuditError
         return array_combine($files, $files);
     }
 
+    /**
+     * @return array
+     */
     static public function messageFilter()
     {
         $messages = ArrayHelper::getColumn(self::filterData(), 'message');
@@ -85,6 +87,10 @@ class AuditErrorSearch extends AuditError
         return array_combine($messages, $messages);
     }
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     static protected function filterData()
     {
         return AuditEntry::getDb()->cache(function () {

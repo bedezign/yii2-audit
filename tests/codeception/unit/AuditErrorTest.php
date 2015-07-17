@@ -5,6 +5,7 @@ namespace tests\codeception\unit;
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
+use bedezign\yii2\audit\panels\ErrorPanel;
 use bedezign\yii2\audit\tests\UnitTester;
 use Codeception\Specify;
 use Yii;
@@ -32,8 +33,10 @@ class AuditErrorTest extends AuditTestCase
     {
         $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
 
+        $audit = $this->module();
         $entry = $this->entry();
-        AuditError::logMessage($entry, 'This is an unexpected error!', 1234, 'test.php', 50);
+        $errorPanel = $audit->getPanel($audit->findPanelIdentifier(ErrorPanel::className()));
+        $errorPanel->logMessage($entry->id, 'This is an unexpected error!', 1234, 'test.php', 50);
 
         $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
         $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');

@@ -5,15 +5,8 @@
 
 namespace bedezign\yii2\audit\models;
 
-use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\db\ActiveRecord;
-use Swift_Message;
-use Swift_Mime_Attachment;
-use Swift_Mime_MimePart;
 use Yii;
-use yii\base\Event;
-use yii\mail\MessageInterface;
-use yii\swiftmailer\Message;
 
 /**
  * AuditMail
@@ -56,54 +49,6 @@ class AuditMail extends ActiveRecord
     }
 
     /**
-     * @param Event $event
-     * @return null|static
-     */
-    public static function record($event)
-    {
-        /* @var $message MessageInterface */
-        $message = $event->message;
-        $entry = Audit::getInstance()->getEntry(true);
-
-        $mail = new static();
-        $mail->entry_id = $entry->id;
-        $mail->successful = $event->isSuccessful;
-        $mail->from = self::convertParams($message->getFrom());
-        $mail->to = self::convertParams($message->getTo());
-        $mail->reply = self::convertParams($message->getReplyTo());
-        $mail->cc = self::convertParams($message->getCc());
-        $mail->bcc = self::convertParams($message->getBcc());
-        $mail->subject = $message->getSubject();
-
-        // add more information when message is a SwiftMailer message
-        if ($message instanceof Message) {
-            /* @var $swiftMessage Swift_Message */
-            $swiftMessage = $message->getSwiftMessage();
-            if ($swiftMessage->getContentType() == 'text/html') {
-                $mail->html = $swiftMessage->getBody();
-            } else {
-                $mail->text = $swiftMessage->getBody();
-            }
-            foreach ($swiftMessage->getChildren() as $part) {
-                /* @var $part Swift_Mime_MimePart */
-                if ($part instanceof Swift_Mime_Attachment) {
-                    continue;
-                }
-                $contentType = $part->getContentType();
-                if ($contentType == 'text/plain') {
-                    $mail->text = $part->getBody();
-                } elseif ($contentType == 'text/html') {
-                    $mail->html = $part->getBody();
-                }
-            }
-        }
-
-        $mail->data = $message->toString();
-
-        return $mail->save(false) ? $mail : null;
-    }
-
-    /**
      * @inheritdoc
      */
     public function attributeLabels()
@@ -125,15 +70,4 @@ class AuditMail extends ActiveRecord
         ];
     }
 
-    /**
-     * @param $attr
-     * @return string
-     */
-    private static function convertParams($attr)
-    {
-        if (is_array($attr)) {
-            $attr = implode(', ', array_keys($attr));
-        }
-        return $attr;
-    }
 }

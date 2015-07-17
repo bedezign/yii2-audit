@@ -6,12 +6,10 @@ use bedezign\yii2\audit\Audit;
 use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
-
-use bedezign\yii2\audit\models\AuditEntry;
 use yii\db\ActiveQuery;
 
 /**
- * Class AuditEntrySearch
+ * AuditEntrySearch
  * @package bedezign\yii2\audit\models
  */
 class AuditEntrySearch extends AuditEntry

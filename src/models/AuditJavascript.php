@@ -6,7 +6,6 @@
 namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\components\db\ActiveRecord;
-use bedezign\yii2\audit\components\Helper;
 use Yii;
 
 /**

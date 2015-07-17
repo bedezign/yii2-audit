@@ -2,9 +2,12 @@
 
 namespace bedezign\yii2\audit\panels;
 
+use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\components\panels\Panel;
+use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
+use Exception;
 use Yii;
 use yii\grid\GridViewAsset;
 
@@ -23,13 +26,54 @@ class ErrorPanel extends Panel
         parent::init();
         $this->module->registerFunction('exception', function(\Exception $e) {
             $entry = $this->module->getEntry(true);
-            return $entry ? AuditError::log($entry, $e) : false;
+            return $entry ? $this->log($entry->id, $e) : false;
         });
 
         $this->module->registerFunction('errorMessage', function ($message, $code = 0, $file = '', $line = 0, $trace = []) {
             $entry = $this->module->getEntry(true);
-            return $entry ? AuditError::logMessage($entry, $message, $code, $file, $line, $trace) : false;
+            return $entry ? $this->logMessage($entry->id, $message, $code, $file, $line, $trace) : false;
         });
+    }
+
+
+    /**
+     * @param int $entry_id
+     * @param Exception  $exception
+     * @return null|static
+     */
+    public function log($entry_id, Exception $exception)
+    {
+        $error = new AuditError();
+        $error->entry_id    = $entry_id;
+        $error->message     = $exception->getMessage();
+        $error->code        = $exception->getCode();
+        $error->file        = $exception->getFile();
+        $error->line        = $exception->getLine();
+        $error->trace       = Helper::cleanupTrace($exception->getTrace());
+        $error->hash        = Helper::hash($error->message . $error->file . $error->line);
+        return $error->save(false) ? $error : null;
+    }
+
+    /**
+     * @param int        $entry_id
+     * @param string     $message
+     * @param int        $code
+     * @param string     $file
+     * @param int        $line
+     * @param array      $trace
+     * @return null|static
+     */
+    public function logMessage($entry_id, $message, $code = 0, $file = '', $line = 0, $trace = [])
+    {
+        $error = new AuditError();
+        $error->entry_id    = $entry_id;
+        $error->message     = $message;
+        $error->code        = $code;
+        $error->file        = $file;
+        $error->line        = $line;
+        $error->trace       = Helper::cleanupTrace($trace);
+        $error->hash        = Helper::hash($error->message . $error->file . $error->line);
+        return $error->save(false) ? $error : null;
     }
 
     /**

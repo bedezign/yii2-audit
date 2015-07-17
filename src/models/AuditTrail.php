@@ -4,10 +4,9 @@ namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\components\db\ActiveRecord;
 use Yii;
-use yii\db\ActiveQuery;
 
 /**
- * The followings are the available columns in table 'tbl_audit_trail':
+ * AuditTrail
  *
  * @property integer $id
  * @property integer $entry_id

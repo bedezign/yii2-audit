@@ -7,6 +7,7 @@ namespace bedezign\yii2\audit\components\base;
 
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\models\AuditError;
+use bedezign\yii2\audit\panels\ErrorPanel;
 use Exception;
 use Yii;
 
@@ -24,20 +25,21 @@ trait ErrorHandlerTrait
         try {
 
             $isMemoryError = strncmp($exception->getMessage(), 'Allowed memory size of', 22) === 0;
-
-            $module = Audit::getInstance();
-            if (!$module && !$isMemoryError) {
+            /** @var Audit $audit */
+            $audit = Audit::getInstance();
+            if (!$audit && !$isMemoryError) {
                 // Only attempt to load the module if this isn't an out of memory error, not enough room otherwise
-                $module = \Yii::$app->getModule(Audit::findModuleIdentifier());
+                $audit = \Yii::$app->getModule(Audit::findModuleIdentifier());
             }
-
-            if (!$module) {
+            if (!$audit) {
                 throw new \Exception('Audit module cannot be loaded');
             }
 
-            $entry = $module->getEntry(!$isMemoryError);
+            $entry = $audit->getEntry(!$isMemoryError);
             if ($entry) {
-                AuditError::log($entry, $exception);
+                /** @var ErrorPanel $errorPanel */
+                $errorPanel = $audit->getPanel($audit->findPanelIdentifier(ErrorPanel::className()));
+                $errorPanel->log($entry->id, $exception);
                 $entry->finalize();
             }
 
