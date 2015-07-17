@@ -110,9 +110,10 @@ class AuditController extends Controller
         $date = date('Y-m-d 23:59:59', strtotime("-$maxAge days"));
         $this->stdout("\n*** cleaning AuditEntry", Console::FG_YELLOW);
         $start = microtime(true);
-        if (AuditEntry::deleteAll(['<=', 'created', $date]) !== false) {
+        $count = AuditEntry::deleteAll(['<=', 'created', $date]);
+        if ($count !== false) {
             $time = microtime(true) - $start;
-            $this->stdout("\n*** cleaned AuditEntry (time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_GREEN);
+            $this->stdout("\n*** cleaned AuditEntry (records: " . $count . ",time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_GREEN);
             return true;
         }
         $time = microtime(true) - $start;
@@ -138,9 +139,10 @@ class AuditController extends Controller
         }
         $this->stdout("\n*** cleaning $id", Console::FG_YELLOW);
         $start = microtime(true);
-        if ($panel->cleanup($maxAge) !== false) {
+        $count = $panel->cleanup($maxAge);
+        if ($count !== false) {
             $time = microtime(true) - $start;
-            $this->stdout("\n*** cleaned $id (time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_GREEN);
+            $this->stdout("\n*** cleaned $id (records: " . $count . ", time: " . sprintf("%.3f", $time) . "s)\n", Console::FG_GREEN);
             return true;
         }
         $time = microtime(true) - $start;

@@ -91,7 +91,7 @@ class JavascriptPanel extends Panel
             return false;
         return AuditJavascript::deleteAll([
             '<=', 'created', date('Y-m-d 23:59:59', strtotime("-$maxAge days"))
-        ]) !== false;
+        ]);
     }
 
 }

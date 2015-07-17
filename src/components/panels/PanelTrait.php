@@ -96,7 +96,7 @@ trait PanelTrait
 
     /**
      * @param int|null $maxAge
-     * @return bool
+     * @return int
      */
     public function cleanup($maxAge = null)
     {
@@ -106,7 +106,7 @@ trait PanelTrait
         return AuditData::deleteAll('type = :type AND created <= :created', [
             ':type' => $this->id,
             ':created' => date('Y-m-d 23:59:59', strtotime("-$maxAge days")),
-        ]) !== false;
+        ]);
     }
 
 }
