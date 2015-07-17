@@ -21,34 +21,60 @@ class AuditController extends Controller
 {
 
     /**
+     * @var bool True to cleanup the AuditEntry.
+     */
+    public $entry;
+
+    /**
+     * @var string|null Comma separated list of panels to cleanup.
+     */
+    public $panels;
+
+    /**
+     * @var int|null Max age in days to cleanup, if null then the panel settings are used.
+     */
+    public $maxAge;
+
+    /**
+     * @inheritdoc
+     */
+    public function options($actionID)
+    {
+        return array_merge(
+            parent::options($actionID),
+            ($actionID == 'cleanup') ? ['entry', 'panels', 'maxAge'] : []
+        );
+    }
+
+    /**
      * Cleanup the Audit data
      *
-     * @param null|string $panels
-     * @param null|int $maxAge
      * @return int|void
      */
-    public function actionCleanup($panels = null, $maxAge = null)
+    public function actionCleanup()
     {
         /** @var Audit $audit */
         $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
-        $panels = $panels !== null && $panels != 'all' ? explode(',', $panels) : array_keys($audit->panels);
+        $panels = $this->panels !== null ? explode(',', $this->panels) : array_keys($audit->panels);
 
         // summary
-        $this->preCleanupSummary($panels, $maxAge);
+        $this->preCleanupSummary($this->entry, $panels, $this->maxAge);
 
         // confirm
         if ($this->confirm('Cleanup the above data?')) {
             // cleanup panels
             foreach ($panels as $id) {
-                if (!$this->cleanupPanel($id, $maxAge)) {
+                if (!$this->cleanupPanel($id, $this->maxAge)) {
                     $this->stdout("\nCleanup failed. The rest of the cleanups are canceled.\n", Console::FG_RED);
                     return self::EXIT_CODE_ERROR;
                 }
             }
             // cleanup audit_entry
-            if (!$this->cleanupEntry($maxAge)) {
-                $this->stdout("\nCleanup failed.\n", Console::FG_RED);
-                return self::EXIT_CODE_ERROR;
+            if ($this->entry) {
+                if (!$this->cleanupEntry($this->maxAge)) {
+                    $this->stdout("\nCleanup failed.\n", Console::FG_RED);
+                    return self::EXIT_CODE_ERROR;
+                }
             }
             // success!
             $this->stdout("\nCleanup was successful.\n", Console::FG_GREEN);
@@ -59,10 +85,11 @@ class AuditController extends Controller
     /**
      * Displays a summary of the data and dates to clean
      *
+     * @param bool $entry
      * @param array $panels
      * @param int|null $maxAge
      */
-    protected function preCleanupSummary($panels, $maxAge)
+    protected function preCleanupSummary($entry, $panels, $maxAge)
     {
         $audit = Audit::getInstance();
 
@@ -87,9 +114,11 @@ class AuditController extends Controller
         }
 
         // audit entry
-        $maxAge = $maxAge !== null ? $maxAge : $audit->maxAge;
-        $date = $maxAge !== null ? date('Y-m-d 23:59:59', strtotime("-$maxAge days")) : 'no maxAge, skipping';
-        $this->stdout("\t" . 'AuditEntry .............. ' . $date . "\n");
+        if ($entry) {
+            $maxAge = $maxAge !== null ? $maxAge : $audit->maxAge;
+            $date = $maxAge !== null ? date('Y-m-d 23:59:59', strtotime("-$maxAge days")) : 'no maxAge, skipping';
+            $this->stdout("\t" . 'AuditEntry .............. ' . $date . "\n");
+        }
 
         $this->stdout("\n");
     }
