@@ -33,7 +33,7 @@ class AuditController extends Controller
     /**
      * @var int|null Max age in days to cleanup, if null then the panel settings are used.
      */
-    public $maxAge;
+    public $age;
 
     /**
      * @inheritdoc
@@ -42,7 +42,7 @@ class AuditController extends Controller
     {
         return array_merge(
             parent::options($actionID),
-            ($actionID == 'cleanup') ? ['entry', 'panels', 'maxAge'] : []
+            ($actionID == 'cleanup') ? ['entry', 'panels', 'age'] : []
         );
     }
 
@@ -58,20 +58,20 @@ class AuditController extends Controller
         $panels = $this->panels !== null ? explode(',', $this->panels) : array_keys($audit->panels);
 
         // summary
-        $this->preCleanupSummary($this->entry, $panels, $this->maxAge);
+        $this->preCleanupSummary($this->entry, $panels, $this->age);
 
         // confirm
         if ($this->confirm('Cleanup the above data?')) {
             // cleanup panels
             foreach ($panels as $id) {
-                if (!$this->cleanupPanel($id, $this->maxAge)) {
+                if (!$this->cleanupPanel($id, $this->age)) {
                     $this->stdout("\nCleanup failed. The rest of the cleanups are canceled.\n", Console::FG_RED);
                     return self::EXIT_CODE_ERROR;
                 }
             }
             // cleanup audit_entry
             if ($this->entry) {
-                if (!$this->cleanupEntry($this->maxAge)) {
+                if (!$this->cleanupEntry($this->age)) {
                     $this->stdout("\nCleanup failed.\n", Console::FG_RED);
                     return self::EXIT_CODE_ERROR;
                 }
