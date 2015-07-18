@@ -74,6 +74,8 @@ $config = [
                 'audit/*',
             ],
             'panelsMerge' => [
+                'audit/asset' => ['class' => 'bedezign\yii2\audit\panels\AssetPanel'],
+                'audit/config' => ['class' => 'bedezign\yii2\audit\panels\ConfigPanel'],
                 'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],
             ],
         ],
