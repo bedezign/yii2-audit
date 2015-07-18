@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "224a20dd58506145e5f1fe0d59e0d8d1",
+    "hash": "dabdc0acae4ed1e752eb3b077d42f34a",
     "packages": [
         {
             "name": "2amigos/yii2-chartjs-widget",
