@@ -74,6 +74,8 @@ $config = [
                 'audit/*',
             ],
             'panelsMerge' => [
+                'audit/asset',
+                'audit/config',
                 'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],
             ],
         ],
