@@ -26,12 +26,12 @@ class ErrorPanel extends Panel
         parent::init();
         $this->module->registerFunction('exception', function(\Exception $e) {
             $entry = $this->module->getEntry(true);
-            return $entry ? $this->log($entry->id, $e) : false;
+            return $entry ? $this->log($entry->id, $e) : null;
         });
 
         $this->module->registerFunction('errorMessage', function ($message, $code = 0, $file = '', $line = 0, $trace = []) {
             $entry = $this->module->getEntry(true);
-            return $entry ? $this->logMessage($entry->id, $message, $code, $file, $line, $trace) : false;
+            return $entry ? $this->logMessage($entry->id, $message, $code, $file, $line, $trace) : null;
         });
     }
 

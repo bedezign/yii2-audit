@@ -42,8 +42,8 @@ use yii\helpers\ArrayHelper;
  * @property AuditEntry $entry
  *
  * @method void data($type, $data)                                      @see ExtraDataPanel::trackData()
- * @method void exception(\Exception $exception)                        @see AuditError::log()
- * @method void errorMessage($message, $code, $file, $line, $trace)     @see AuditError::logMessage()
+ * @method AuditError exception(\Exception $exception)                        @see ErrorPanel::log()
+ * @method AuditError errorMessage($message, $code, $file, $line, $trace)     @see ErrorPanel::logMessage()
  */
 class Audit extends Module
 {

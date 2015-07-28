@@ -39,8 +39,8 @@ class SoapPanel extends DataStoragePanel
             $this->data = [];
 
         if (isset($data['error'])) {
-            $error = AuditError::log($this->module->getEntry(true), $data['error']);
-            $data['error'] = [$data['error']->faultcode, $error->id];
+            $error = $this->module->exception($data['error']);
+            $data['error'] = [$data['error']->faultcode, $error ? $error->id : null];
         }
         $this->data[] = array_filter($data);
     }
