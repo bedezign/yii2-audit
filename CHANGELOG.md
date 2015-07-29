@@ -1,11 +1,17 @@
 # Changelog
 
-## 1.0.3 Under Development
+## 1.0.3 July 29, 2015
 
 * Bug [#113](https://github.com/bedezign/yii2-audit/issues/113) getting 404 on audit/js-log
 * Enh [#112](https://github.com/bedezign/yii2-audit/issues/112): generic cleanup() method in PanelTrait
 * Enh [#103](https://github.com/bedezign/yii2-audit/issues/103): Use error hash to determine different messages and files for error filter
 * Bug [#99](https://github.com/bedezign/yii2-audit/issues/99): IE8 support for the javascript logger
+* Enh [#64](https://github.com/bedezign/yii2-audit/issues/64): Support for SOAP
+* Bug [#116](https://github.com/bedezign/yii2-audit/issues/116): js log/info not working
+* Enh [#114](https://github.com/bedezign/yii2-audit/issues/114): Cleanup should show counts 
+* Enh [#110](https://github.com/bedezign/yii2-audit/issues/110): All model saving data methods should be in the panels 
+* Enh [#118](https://github.com/bedezign/yii2-audit/issues/118): Cleanup should use options instead of parameters
+* Enh [#119](https://github.com/bedezign/yii2-audit/issues/119): Heroku should showcase all panels
 
 ## 1.0.2 July 14, 2015
 
