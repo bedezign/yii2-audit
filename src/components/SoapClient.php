@@ -58,7 +58,7 @@ class SoapClient extends \SoapClient
 
             return $result;
         }
-        catch (\SoapFault $error) {
+        catch (\Exception $error) {
             $this->_data['duration'] = microtime(true) - $started;
             if ($output_headers)
                 $this->_data['output_headers'] = (array) $output_headers;
