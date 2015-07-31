@@ -97,6 +97,8 @@ $config = [
 ];
 ```
 
+**Important:** Be sure to use the correct error handler! Don't simply add it to the `common` configuration, but instead add it in the frontend/web and `console` configuration separately.  
+
 See [Error Panel](../error-panel/) for the all configuration options and advanced usage information.
 
 ## Viewing the Audit Data

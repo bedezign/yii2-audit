@@ -24,6 +24,12 @@ $config = [
 ];
 ```
 
+If your project is based upon `yii2-app-basic` you'll want to add the web error handler to your `web.php` file and the console error handler to `console.php`. 
+
+Similarly for the `yii2-app-advanced` you would use `frontend/config/main.php` for the web error handler and `console/config/main.php` for the console error handler.
+
+Don't just simply add it to the generic configuration (eg `common/config/main.php` for advanced). You will trigger extra errors if you do and you might lose vital logging information.
+
 ## Emailing Errors
 
 A command is available to email errors which can be added to your cron. 
