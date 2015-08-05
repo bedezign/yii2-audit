@@ -189,7 +189,7 @@ class Helper extends \yii\base\Object
     public static function formatAsQuery($data)
     {
         $data = rawurldecode($data);
-        if (!preg_match('/^([\w\d\-\[\]]+(=[\w-]*)?(&[\w\d\-\[\]]+(=[\w-]*)?)*)?$/', $data))
+        if (!preg_match('/^([\w\d\-\[\]]+(=[^&]*)?(&[\w\d\-\[\]]+(=[^&]*)?)*)?$/', $data))
             return null;
 
         $result = [];
