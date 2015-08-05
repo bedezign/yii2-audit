@@ -236,7 +236,7 @@ class Helper extends \yii\base\Object
         $doc = new \DOMDocument('1.0');
         $doc->preserveWhiteSpace = false;
         $doc->formatOutput = true;
-        if ($doc->loadHTML($data))
+        if (@$doc->loadHTML($data))
             return htmlentities($doc->saveHTML(), ENT_COMPAT, 'UTF-8');
         return null;
     }

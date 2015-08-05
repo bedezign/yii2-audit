@@ -26,7 +26,7 @@ class m150626_000003_create_audit_error extends Migration
         if ($driver != 'sqlite') {
             $this->addForeignKey('fk_audit_error_entry_id', self::TABLE, ['entry_id'], '{{%audit_entry}}', 'id');
         }
-        
+
         // Issue #122: Specified key was too long; max key length is 767 bytes - http://stackoverflow.com/q/1814532/50158
         $this->createIndex('idx_file', self::TABLE, ['file' . ($driver === 'mysql' ? '(180)' : '')]);
         $this->createIndex('idx_emailed', self::TABLE, ['emailed']);
