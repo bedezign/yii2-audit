@@ -37,7 +37,7 @@ class AuditMail extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{audit_mail}}';
+        return '{{%audit_mail}}';
     }
 
     /**
