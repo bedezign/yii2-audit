@@ -29,7 +29,7 @@ class AuditJavascript extends ActiveRecord
      */
     public static function tableName()
     {
-        return '{{audit_javascript}}';
+        return '{{%audit_javascript}}';
     }
 
     /**
