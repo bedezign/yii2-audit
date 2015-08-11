@@ -224,7 +224,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
         // Record the field changes with a batch insert
         if (!empty($rows)) {
             $columns = ['entry_id', 'user_id', 'old_value', 'new_value', 'action', 'model', 'model_id', 'field', 'created'];
-            Yii::$app->db->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
+            $audit = Audit::getInstance();
+            $audit->getDb()->createCommand()->batchInsert(AuditTrail::tableName(), $columns, $rows)->execute();
         }
     }
 
@@ -233,7 +234,8 @@ class AuditTrailBehavior extends \yii\base\Behavior
      */
     protected function saveAuditTrailDelete()
     {
-        Yii::$app->db->createCommand()->insert(AuditTrail::tableName(), [
+        $audit = Audit::getInstance();
+        $audit->getDb()->createCommand()->insert(AuditTrail::tableName(), [
             'action' => 'DELETE',
             'entry_id' => $this->getAuditEntryId(),
             'user_id' => $this->getUserId(),
