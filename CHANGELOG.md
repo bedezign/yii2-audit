@@ -1,8 +1,18 @@
 # Changelog
 
+## 1.0.4 August 11, 2015
+
+* Enh [#114](https://github.com/bedezign/yii2-audit/issues/114): Cleanup command should show counts
+* Bug [#115](https://github.com/bedezign/yii2-audit/issues/115): heroku trail page not working
+* Bug [#116](https://github.com/bedezign/yii2-audit/issues/116): js log/info not working
+* Enh [#118](https://github.com/bedezign/yii2-audit/issues/118): cleanup should use options instead of params
+* Bug [#122](https://github.com/bedezign/yii2-audit/issues/122): Migration tool throws SQL error in MySQL database with UTF8
+* POST data recognition improved
+* SOAP Panel now logs all exceptions during Soap Calls, not just `SoapFault`s
+
 ## 1.0.3 July 29, 2015
 
-* Bug [#113](https://github.com/bedezign/yii2-audit/issues/113) getting 404 on audit/js-log
+* Bug [#113](https://github.com/bedezign/yii2-audit/issues/113): getting 404 on audit/js-log
 * Enh [#112](https://github.com/bedezign/yii2-audit/issues/112): generic cleanup() method in PanelTrait
 * Enh [#103](https://github.com/bedezign/yii2-audit/issues/103): Use error hash to determine different messages and files for error filter
 * Bug [#99](https://github.com/bedezign/yii2-audit/issues/99): IE8 support for the javascript logger
