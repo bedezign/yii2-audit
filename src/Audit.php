@@ -41,9 +41,9 @@ use yii\helpers\ArrayHelper;
  * @package bedezign\yii2\audit
  * @property AuditEntry $entry
  *
- * @method void data($type, $data)                                      @see ExtraDataPanel::trackData()
- * @method AuditError exception(\Exception $exception)                        @see ErrorPanel::log()
- * @method AuditError errorMessage($message, $code, $file, $line, $trace)     @see ErrorPanel::logMessage()
+ * @method void data($type, $data)                                                                      @see ExtraDataPanel::trackData()
+ * @method \bedezign\yii2\audit\models\AuditError exception(\Exception $exception)                      @see ErrorPanel::log()
+ * @method \bedezign\yii2\audit\models\AuditError errorMessage($message, $code, $file, $line, $trace)   @see ErrorPanel::logMessage()
  */
 class Audit extends Module
 {
