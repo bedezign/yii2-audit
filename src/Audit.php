@@ -12,6 +12,7 @@ namespace bedezign\yii2\audit;
 
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
+use bedezign\yii2\audit\models\AuditError;
 use Yii;
 use yii\base\ActionEvent;
 use yii\base\Application;
@@ -364,7 +365,7 @@ class Audit extends Module
                 $panels[$value] = $this->_corePanels[$value];
             }
             else {
-                // The key contains the identifer and the value is either a class name or a full array
+                // The key contains the identifier and the value is either a class name or a full array
                 $panels[$key] = is_string($value) ? ['class' => $value] : $value;
             }
         }
