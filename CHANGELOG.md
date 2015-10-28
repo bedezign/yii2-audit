@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.5 October 28, 2015
+* Enh: Added `generateTrace()`-function to the `Helper` for external usage
+* Enh: ErrorPanel now avoids duplicate exception logging
+* Enh: Javascript logging sets the type to 'unknown' if none was specified
+* Couple minor things fixed (tablenames and comments, thanks Evgeniy and Tobias)
+
 ## 1.0.4 August 11, 2015
 
 * Enh [#114](https://github.com/bedezign/yii2-audit/issues/114): Cleanup command should show counts
