@@ -65,10 +65,12 @@ class Post extends \yii\db\ActiveRecord
 
 ```php
 <?php
+use bedezign\yii2\audit\components\Version;
+
 $post_id = 1;
 Post::findOne($post_id)->delete();
 // ... time passes ...
-$post = \bedezign\yii2\audit\components\Version::find(Post::className(), $post_id);
+$post = Version::find(Post::className(), $post_id);
 $post->save();
 ```
 
@@ -76,11 +78,30 @@ $post->save();
 
 ```php
 <?php
+use bedezign\yii2\audit\components\Version;
+
 $post = Post::findOne(1);
 $post->title = 'updated post title';
 $post->save();
 // ... time passes ...
-$post = \bedezign\yii2\audit\components\Version::find($post->className(), $post->id);
+$post = Version::find($post->className(), $post->id);
+$post->save();
+```
+
+### Rolling Back a Single Field to Last Version
+
+```php
+<?php
+use bedezign\yii2\audit\components\Version;
+
+// load a post
+$post = Post::findOne(1);
+
+// load the last revision
+$oldPost = Version::find($post->className(), $post->id);
+
+// save the model
+$post->title = $oldPost->title;
 $post->save();
 ```
 
@@ -99,4 +120,3 @@ $post = Version::find($post->className(), $post->id, $version);
 // save the model
 $post->save();
 ```
-
