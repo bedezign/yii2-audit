@@ -20,7 +20,8 @@ class LogPanel extends \yii\debug\panels\LogPanel
      */
     public function getLabel()
     {
-        return $this->getName() . ' <small>(' . count($this->data['messages']) . ')</small>';
+        $messageCount = isset($this->data['messages']) ? count($this->data['messages']) : 0;
+        return $this->getName() . ($messageCount ? ' <small>(' . $messageCount . ')</small>' : '');
     }
 
     /**

@@ -18,6 +18,11 @@ class DbPanel extends \yii\debug\panels\DbPanel
     use DataStoragePanelTrait;
 
     /**
+     * @var array current database request timings
+     */
+    private $_timings;
+
+    /**
      * @inheritdoc
      */
     public function getLabel()
@@ -58,4 +63,19 @@ class DbPanel extends \yii\debug\panels\DbPanel
         GridViewAsset::register($view);
     }
 
+    /**
+     * Calculates given request profile timings.
+     *
+     * @return array timings [token, category, timestamp, traces, nesting level, elapsed time]
+     */
+    public function calculateTimings()
+    {
+        if ($this->_timings === null) {
+            $this->_timings = [];
+            if (isset($this->data['messages'])) {
+                $this->_timings = Yii::getLogger()->calculateTimings($this->data['messages']);
+            }
+        }
+        return $this->_timings;
+    }
 }
