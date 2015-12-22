@@ -61,12 +61,12 @@ class Audit extends Module
     public $db = 'db';
 
     /**
-     * @var string[] Action or list of actions to track. '*' is allowed as the last character to use as wildcard.
+     * @var string[] Action or list of actions to track. '*' is allowed as the first or last character to use as wildcard.
      */
     public $trackActions = ['*'];
 
     /**
-     * @var string[] Action or list of actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*').
+     * @var string[] Action or list of actions to ignore. '*' is allowed as the first or last character to use as wildcard (eg 'debug/*').
      */
     public $ignoreActions = [];
 
@@ -437,6 +437,12 @@ class Audit extends Module
             if ($compare[$len - 1] == '*') {
                 $compare = rtrim($compare, '*');
                 if (substr($route, 0, $len - 1) === $compare)
+                    return true;
+            }
+
+            if ($compare[0] == '*') {
+                $compare = ltrim($compare, '*');
+                if (substr($route, - ($len - 1)) === $compare)
                     return true;
             }
 

@@ -3,6 +3,7 @@
 .settings
 .project
 .buildpath
+yii2-audit.iml
 
 # ignore test data files and dirs
 coverage.clover
