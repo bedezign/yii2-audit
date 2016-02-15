@@ -3,7 +3,6 @@ project: bedezign/yii2-audit
 description: Records and displays web/cli requests, database changes, php/js errors and associated data.
 screenshot: https://cloud.githubusercontent.com/assets/51875/8369827/b70355ee-1bfe-11e5-9748-dd864f0500de.png
 
-markdown: redcarpet
 highlighter: pygments
 permalink: /:title/
 exclude: ["README.md"]
