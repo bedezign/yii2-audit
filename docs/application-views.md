@@ -84,6 +84,7 @@ echo $this->render('@bedezign/yii2/audit/views/_audit_trails', [
     // params for the AuditTrailSearch::search() (optional)
     'params' => [
         'AuditTrailSearch' => [
+            // can either be a field or an array of fields
             // in this case we only want to show trails for the "status" field
             'field' => 'status',
         ]
