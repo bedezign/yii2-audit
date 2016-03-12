@@ -6,7 +6,6 @@ use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
-use Exception;
 use Yii;
 use yii\grid\GridViewAsset;
 
@@ -24,7 +23,7 @@ class ErrorPanel extends Panel
     public function init()
     {
         parent::init();
-        $this->module->registerFunction('exception', function(Exception $e) {
+        $this->module->registerFunction('exception', function($e) {
             $entry = $this->module->getEntry(true);
             return $entry ? $this->log($entry->id, $e) : null;
         });
@@ -40,10 +39,10 @@ class ErrorPanel extends Panel
      * Log an exception
      *
      * @param int        $entry_id      Entry to associate the error with
-     * @param Exception  $exception
+     * @param \Exception|\Throwable  $exception
      * @return null|static
      */
-    public function log($entry_id, Exception $exception)
+    public function log($entry_id, $exception)
     {
         // Only log each exception once
         $exceptionId = spl_object_hash($exception);
