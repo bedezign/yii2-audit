@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.0.6 March 21, 2016
+* Bug [#141](https://github.com/bedezign/yii2-audit/issues/141): PHP7: ErrorPanel should support Throwable
+* Enh [#140](https://github.com/bedezign/yii2-audit/issues/140): `AuditTrailSearch.field` should allow `array`
+* Enh [#138](https://github.com/bedezign/yii2-audit/issues/138): Allow `*` as prefix in route matching
+* Bug: LogPanels without messages should still work
+
 ## 1.0.5 October 28, 2015
 * Enh: Added `generateTrace()`-function to the `Helper` for external usage
 * Enh: ErrorPanel now avoids duplicate exception logging
@@ -24,8 +30,8 @@
 * Bug [#99](https://github.com/bedezign/yii2-audit/issues/99): IE8 support for the javascript logger
 * Enh [#64](https://github.com/bedezign/yii2-audit/issues/64): Support for SOAP
 * Bug [#116](https://github.com/bedezign/yii2-audit/issues/116): js log/info not working
-* Enh [#114](https://github.com/bedezign/yii2-audit/issues/114): Cleanup should show counts 
-* Enh [#110](https://github.com/bedezign/yii2-audit/issues/110): All model saving data methods should be in the panels 
+* Enh [#114](https://github.com/bedezign/yii2-audit/issues/114): Cleanup should show counts
+* Enh [#110](https://github.com/bedezign/yii2-audit/issues/110): All model saving data methods should be in the panels
 * Enh [#118](https://github.com/bedezign/yii2-audit/issues/118): Cleanup should use options instead of parameters
 * Enh [#119](https://github.com/bedezign/yii2-audit/issues/119): Heroku should showcase all panels
 
