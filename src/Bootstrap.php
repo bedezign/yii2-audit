@@ -28,7 +28,7 @@ class Bootstrap implements BootstrapInterface
         if ($moduleName) {
             // The module was added in the configuration, make sure to add it to the application bootstrap so it gets loaded
             $app->bootstrap[] = $moduleName;
-            $app->bootstrap = array_unique($app->bootstrap);
+            $app->bootstrap = array_unique($app->bootstrap, SORT_REGULAR);
         }
 
         if ($app->has('i18n')) {
