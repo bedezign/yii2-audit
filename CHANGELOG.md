@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.7 UNRELEASED
+* Bug [#145] Bootstrap Array to String conversion fix
+
 ## 1.0.6 March 21, 2016
 * Bug [#141](https://github.com/bedezign/yii2-audit/issues/141): PHP7: ErrorPanel should support Throwable
 * Enh [#140](https://github.com/bedezign/yii2-audit/issues/140): `AuditTrailSearch.field` should allow `array`
