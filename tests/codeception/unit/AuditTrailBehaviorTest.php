@@ -33,7 +33,6 @@ class AuditTrailBehaviorTest extends AuditTestCase
 
         $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
         $this->assertNotEquals($oldEntryId, $newEntryId, 'I expected that a new entry was added');
-
         $this->tester->seeRecord(Post::className(), [
             'id' => $post->id,
             'title' => 'New post title',
@@ -41,7 +40,7 @@ class AuditTrailBehaviorTest extends AuditTestCase
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
             'id' => $newEntryId,
-            'request_method' => 'CLI',
+            'request_method' => 'GET',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
             'entry_id' => $newEntryId,
@@ -94,7 +93,7 @@ class AuditTrailBehaviorTest extends AuditTestCase
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
             'id' => $newEntryId,
-            'request_method' => 'CLI',
+            'request_method' => 'GET',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
             'entry_id' => $newEntryId,
@@ -133,7 +132,7 @@ class AuditTrailBehaviorTest extends AuditTestCase
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
             'id' => $newEntryId,
-            'request_method' => 'CLI',
+            'request_method' => 'GET',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
             'entry_id' => $newEntryId,

@@ -103,6 +103,7 @@ class Access extends Component
         if (empty($roles)) {
             return false;
         }
+        /** @var User $user */
         $user = Instance::ensure('user', User::className());
         $roles = ArrayHelper::toArray($roles);
         foreach ($roles as $role) {

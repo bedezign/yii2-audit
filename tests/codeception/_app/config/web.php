@@ -1,6 +1,6 @@
 <?php
 
-$config = [
+return [
     'id' => 'yii2-audit-web',
     'name' => 'Yii2 Audit Demo',
     'basePath' => dirname(__DIR__),
@@ -81,12 +81,3 @@ $config = [
         ],
     ],
 ];
-
-if (defined('YII_APP_BASE_PATH')) {
-    $config = Codeception\Configuration::mergeConfigs(
-        $config,
-        require YII_APP_BASE_PATH . '/tests/codeception/config/config.php'
-    );
-}
-
-return $config;
