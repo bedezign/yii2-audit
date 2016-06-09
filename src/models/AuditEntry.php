@@ -175,7 +175,7 @@ class AuditEntry extends ActiveRecord
         $request = $app->request;
         $user = $app->user;
 
-        if ($request instanceof \yii\web\Request) {
+        if (!$this->user_id && $request instanceof \yii\web\Request) {
             $this->user_id = $user->isGuest ? 0 : $user->id;
         }
 	
