@@ -281,8 +281,12 @@ class Audit extends Module
      */
     public function getEntry($create = false, $new = false)
     {
-        if ((!$this->_entry && $create) || $new) {
-            $this->_entry = AuditEntry::create(true);
+        $entry = new AuditEntry();
+        $tableSchema = $entry->getDb()->schema->getTableSchema($entry->tableName());
+        if ($tableSchema) {
+            if ((!$this->_entry && $create) || $new) {
+                $this->_entry = AuditEntry::create(true);
+            }
         }
         return $this->_entry;
     }
