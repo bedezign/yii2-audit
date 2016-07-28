@@ -14,7 +14,7 @@ foreach (range(-6, 0) as $day) {
 }
 
 echo ChartJs::widget([
-    'type' => 'Bar',
+    'type' => 'bar',
     'data' => [
         'labels' => $days,
         'datasets' => [
