@@ -1,6 +1,7 @@
 # Changelog
 
 ## 1.0.7 UNRELEASED
+* Bug [#162](https://github.com/bedezign/yii2-audit/issues/162): fix charts 
 * Bug [#150](https://github.com/bedezign/yii2-audit/issues/150): error when config is setup but tables are not present
 * Bug [#145](https://github.com/bedezign/yii2-audit/issues/145): Bootstrap Array to String conversion fix
 * Bug [#153](https://github.com/bedezign/yii2-audit/issues/153): save user_id on finalize function
