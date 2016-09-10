@@ -79,7 +79,7 @@ class AuditTrail extends ActiveRecord
     }
 
     /**
-     * @return mixed
+     * @return ActiveRecord|bool
      */
     public function getParent()
     {
