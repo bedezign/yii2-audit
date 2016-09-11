@@ -6,12 +6,24 @@ permalink: /docs/javascript-panel/
 
 # Javascript Panel
 
-The module also supports logging of javascript errors, warnings and even regular log entries.
-To activate, register the `\bedezign\yii2\audit\web\JSLoggingAsset` in any of your views:
+The module supports logging of javascript errors, warnings and even regular log entries.
+To activate, register the asset `JSLoggingAsset` in any of your views:
 
 ```php
 <?php
 \bedezign\yii2\audit\web\JSLoggingAsset::register($this);
+```
+
+Or add the asset to your bundle:
+
+```php
+<?php
+class AppAsset extends yii\web\AssetBundle\AssetBundle
+{
+    public $depends = [
+        'bedezign\yii2\audit\web\JSLoggingAsset',
+    ];
+}
 ```
 
 This will activate the logger automatically. By default all warnings and errors are transmitted to the backend.
