@@ -47,6 +47,9 @@ class TrailPanel extends Panel
         $params = \Yii::$app->request->getQueryParams();
         $params['AuditTrailSearch']['entry_id'] = $params['id'];
         $dataProvider = $searchModel->search($params);
+        $dataProvider->pagination = [
+            'pageSize' => 1000,
+        ];
 
         return \Yii::$app->view->render('panels/trail/detail', [
             'panel' => $this,
