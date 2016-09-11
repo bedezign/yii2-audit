@@ -2,6 +2,9 @@
 
 ## 1.0.8 UNRELEASED
 
+* Bug [#168](https://github.com/bedezign/yii2-audit/issues/168): On certain errors the ProfilePanel data is not saved 
+* Enh [#167](https://github.com/bedezign/yii2-audit/issues/167): Get parent model for audit trail
+
 ## 1.0.7 July 27, 2016
 * Bug [#162](https://github.com/bedezign/yii2-audit/issues/162): fix charts 
 * Bug [#160](https://github.com/bedezign/yii2-audit/issues/160): error when config is setup but tables are not present
