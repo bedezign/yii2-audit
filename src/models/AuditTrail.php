@@ -78,4 +78,14 @@ class AuditTrail extends ActiveRecord
         return $diff->render(new \Diff_Renderer_Html_Inline);
     }
 
+    /**
+     * @return ActiveRecord|bool
+     */
+    public function getParent()
+    {
+        $parentModel = new $this->model;
+        $parent = $parentModel::findOne($this->model_id);
+        return $parent ? $parent : $parentModel;
+    }
+    
 }
