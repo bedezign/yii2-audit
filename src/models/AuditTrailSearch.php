@@ -43,6 +43,9 @@ class AuditTrailSearch extends AuditTrail
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
+            'pagination' => [
+                'pageSize' => 1000,
+            ],
             'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
