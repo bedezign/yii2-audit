@@ -109,6 +109,20 @@ class Helper extends \yii\base\Object
     }
 
     /**
+     * Generate a stacktrace and clean it (usually for regular errors)
+     * @param int $skip     Amount of entries to skip (usually 1 or 2). 2 is assuming this helper function and your logging function
+     * @return array
+     */
+    public static function generateTrace($skip = 2)
+    {
+        $trace = debug_backtrace();
+        array_pop($trace); // remove the last trace since it would be the entry script, not very useful
+        if ($skip > 0)
+            $trace = array_slice($trace, $skip);
+        return self::cleanupTrace($trace);
+    }
+
+    /**
      * Normalize a stack trace so that all entries have the same keys and cleanup the arguments (removes anything that
      * cannot be serialized).
      * @param array $trace
@@ -116,17 +130,26 @@ class Helper extends \yii\base\Object
      */
     public static function cleanupTrace($trace)
     {
+        if (!is_array($trace))
+            return [];
+
         foreach ($trace as $n => $call) {
-            $trace[$n]['file'] = isset($call['file']) ? $call['file'] : 'unknown';
-            $trace[$n]['line'] = isset($call['line']) ? $call['line'] : 0;
-            $trace[$n]['function'] = isset($call['function']) ? $call['function'] : 'unknown';
-            $trace[$n]['file'] = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $trace[$n]['file']);
+            $call['file'] = isset($call['file']) ? $call['file'] : 'unknown';
+            $call['line'] = isset($call['line']) ? $call['line'] : 0;
+            $call['function'] = isset($call['function']) ? $call['function'] : 'unknown';
+            $call['file'] = str_replace(['\\', '/'], DIRECTORY_SEPARATOR, $call['file']);
 
             // XDebug
-            if (isset($trace[$n]['params'])) unset($trace[$n]['params']);
+            if (isset($call['params'])) unset($call['params']);
 
-            if (isset($trace[$n]['args']))
-                $trace[$n]['args'] = self::cleanupTraceArguments($trace[$n]['args']);
+            // Trace entry contains the class instance, also compact and include this
+            if (isset($call['object']))
+                $call['object'] = current(self::cleanupTraceArguments([$call['object']]));
+
+            if (isset($call['args']))
+                $call['args'] = self::cleanupTraceArguments($call['args']);
+
+            $trace[$n] = $call;
         }
 
         return $trace;

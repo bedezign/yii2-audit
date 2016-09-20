@@ -48,6 +48,24 @@ class MailController extends Controller
     }
 
     /**
+     * Displays a single AuditMail model's HTML.
+     * @param integer $id
+     * @return mixed
+     * @throws NotFoundHttpException
+     */
+    public function actionViewHtml($id)
+    {
+        $model = AuditMail::findOne($id);
+        if (!$model) {
+            throw new NotFoundHttpException('The requested mail does not exist.');
+        }
+        $this->layout = false;
+        return $this->render('view-html', [
+            'model' => $model,
+        ]);
+    }
+
+    /**
      * Download an AuditMail file as eml.
      * @param $id
      * @throws NotFoundHttpException

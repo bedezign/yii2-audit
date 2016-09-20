@@ -4,10 +4,8 @@ namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\components\panels\Panel;
-use bedezign\yii2\audit\models\AuditEntry;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
-use Exception;
 use Yii;
 use yii\grid\GridViewAsset;
 
@@ -17,6 +15,7 @@ use yii\grid\GridViewAsset;
  */
 class ErrorPanel extends Panel
 {
+    private $_exceptions = [];
 
     /**
      * @inheritdoc
@@ -24,7 +23,7 @@ class ErrorPanel extends Panel
     public function init()
     {
         parent::init();
-        $this->module->registerFunction('exception', function(\Exception $e) {
+        $this->module->registerFunction('exception', function($e) {
             $entry = $this->module->getEntry(true);
             return $entry ? $this->log($entry->id, $e) : null;
         });
@@ -37,12 +36,23 @@ class ErrorPanel extends Panel
 
 
     /**
-     * @param int $entry_id
-     * @param Exception  $exception
+     * Log an exception
+     *
+     * @param int        $entry_id      Entry to associate the error with
+     * @param \Exception|\Throwable  $exception
      * @return null|static
      */
-    public function log($entry_id, Exception $exception)
+    public function log($entry_id, $exception)
     {
+        // Only log each exception once
+        $exceptionId = spl_object_hash($exception);
+        if (in_array($exceptionId, $this->_exceptions))
+            return true;
+
+        // If this is a follow up exception, make sure to log the base exception first
+        if ($exception->getPrevious())
+            $this->log($entry_id, $exception->getPrevious());
+
         $error = new AuditError();
         $error->entry_id    = $entry_id;
         $error->message     = $exception->getMessage();
@@ -51,16 +61,21 @@ class ErrorPanel extends Panel
         $error->line        = $exception->getLine();
         $error->trace       = Helper::cleanupTrace($exception->getTrace());
         $error->hash        = Helper::hash($error->message . $error->file . $error->line);
+
+        $this->_exceptions[] = $exceptionId;
+
         return $error->save(false) ? $error : null;
     }
 
     /**
-     * @param int        $entry_id
+     * Log a regular error message
+     *
+     * @param int        $entry_id      Entry to associate the error with
      * @param string     $message
      * @param int        $code
      * @param string     $file
      * @param int        $line
-     * @param array      $trace
+     * @param array      $trace         Stack trace to include. Use `Helper::generateTrace()` to create it.
      * @return null|static
      */
     public function logMessage($entry_id, $message, $code = 0, $file = '', $line = 0, $trace = [])

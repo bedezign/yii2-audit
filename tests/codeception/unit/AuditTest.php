@@ -70,78 +70,67 @@ class AuditTest extends AuditTestCase
 
     public function testOnBeforeAction()
     {
-        $audit = Audit::getInstance();
-        $trackActions = $audit->trackActions;
-        $ignoreActions = $audit->ignoreActions;
-        $audit->trackActions = null;
-        $audit->ignoreActions = null;
-
-        $controller = Yii::$app->createController('help/index');
-        $action = $controller[0]->createAction('index');
-        $event = new ActionEvent($action);
-        $audit->onBeforeAction($event);
-
-        // just for coverage, not sure what to assert here...
-        $this->assertTrue(true);
-
-        $audit->trackActions = $trackActions;
-        $audit->ignoreActions = $ignoreActions;
-        $audit->onBeforeAction($event);
+        // removed, can't create a controller since the unit is running as yii/web/Application see #147
+        
+        //$audit = Audit::getInstance();
+        //$trackActions = $audit->trackActions;
+        //$ignoreActions = $audit->ignoreActions;
+        //$audit->trackActions = null;
+        //$audit->ignoreActions = null;
+        //
+        //$controller = Yii::$app->createController('help/index');
+        //$action = $controller[0]->createAction('index');
+        //$event = new ActionEvent($action);
+        //$audit->onBeforeAction($event);
+        //
+        //// just for coverage, not sure what to assert here...
+        //$this->assertTrue(true);
+        //
+        //$audit->trackActions = $trackActions;
+        //$audit->ignoreActions = $ignoreActions;
+        //$audit->onBeforeAction($event);
     }
 
-    public function testThatTrackActionsWorksWithAddedAction()
+    /**
+     * @dataProvider routeMatchingDataProvider
+     */
+    public function testThatRouteMatchingWorks($configuration, $action, $expectEntry)
     {
-        // Make sure no entry has been started
         $this->useEntry(null);
         $audit = $this->module();
-        $audit->trackActions = ['site/track-actions'];
+        $audit->trackActions = $audit->ignoreActions = [];
+        foreach ($configuration as $property => $value)
+            $audit->$property = $value;
 
-        $action = new Action('track-actions', new SiteController('site', \Yii::$app));
+        $action = new Action($action[1], new SiteController($action[0], \Yii::$app));
         $event = new ActionEvent($action);
         $audit->onBeforeAction($event);
 
-        $this->assertNotNull($audit->getEntry(false));
+        if ($expectEntry)
+            $this->assertNotNull($audit->getEntry(false));
+        else
+            $this->assertNull($audit->getEntry(false));
     }
 
-    public function testThatTrackActionsWorksWithNoMatch()
+    public function routeMatchingDataProvider()
     {
-        // Make sure no entry has been started
-        $this->useEntry(null);
-        $audit = $this->module();
-        $audit->trackActions = ['site/track-actions'];
+        return [
+            [['trackActions' => ['site/track-action']], ['site', 'track-action'], true],
+            [['trackActions' => ['site/track-action']], ['site', 'notrack-action'], false],
+            [['ignoreActions' => ['site/notrack-action']], ['site', 'notrack-action'], false],
+            [['ignoreActions' => ['site/notrack-action']], ['site', 'track-action'], true],
 
-        $action = new Action('notrack-action', new SiteController('site', \Yii::$app));
-        $event = new ActionEvent($action);
-        $audit->onBeforeAction($event);
+            [['trackActions' => ['site/*']], ['site', 'track-action'], true],
+            [['trackActions' => ['site/*']], ['not-site', 'track-action'], false],
+            [['ignoreActions' => ['site/*']], ['site', 'notrack-action'], false],
+            [['ignoreActions' => ['site/*']], ['not-site', 'track-action'], true],
 
-        $this->assertNull($audit->getEntry(false));
-    }
-
-    public function testThatIgnoredActionsWorksWithAddedAction()
-    {
-        // Make sure no entry has been started
-        $this->useEntry(null);
-        $audit = $this->module();
-        $audit->ignoreActions = ['site/track-actions'];
-
-        $action = new Action('track-actions', new SiteController('site', \Yii::$app));
-        $event = new ActionEvent($action);
-        $audit->onBeforeAction($event);
-
-        $this->assertNull($audit->getEntry(false));
-    }
-
-    public function testThatIgnoredActionsWorksWithNoMatch()
-    {
-        // Make sure no entry has been started
-        $this->useEntry(null);
-        $audit = $this->module();
-        $audit->ignoreActions = ['site/track-actions'];
-
-        $action = new Action('notrack-action', new SiteController('site', \Yii::$app));
-        $event = new ActionEvent($action);
-        $audit->onBeforeAction($event);
-
-        $this->assertNotNull($audit->getEntry(false));
+            [['trackActions' => ['*/track-action']], ['site', 'track-action'], true],
+            [['trackActions' => ['*/track-action']], ['not-site', 'track-action'], true],
+            [['trackActions' => ['*/track-action']], ['site', 'notrack-action'], false],
+            [['ignoreActions' => ['*/notrack-action']], ['site', 'notrack-action'], false],
+            [['ignoreActions' => ['*/notrack-action']], ['not-site', 'notrack-action'], false],
+            [['ignoreActions' => ['*/notrack-action']], ['site', 'track-action'], true],
+        ];
     }
 }

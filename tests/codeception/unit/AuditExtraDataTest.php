@@ -46,7 +46,13 @@ class AuditExtraDataTest extends AuditTestCase
         $this->finalizeAudit();
 
         $types = AuditData::findEntryTypes(2);
-        $subset = ['audit/request', 'audit/log', 'audit/db', 'audit/profiling'];
+        $subset = [
+            'audit/config',
+            'audit/db',
+            'audit/log',
+            'audit/profiling',
+            'audit/request',
+        ];
         sort($types);
         sort($subset);
         $this->assertArraySubset($subset, $types);

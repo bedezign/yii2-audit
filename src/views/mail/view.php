@@ -6,6 +6,7 @@
 use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\models\AuditMail;
 use yii\helpers\Html;
+use yii\helpers\Url;
 use yii\web\View;
 use yii\widgets\DetailView;
 
@@ -48,7 +49,8 @@ echo '</div>';
 
 echo Html::tag('h2', Yii::t('audit', 'HTML'));
 echo '<div class="well">';
-echo Yii::$app->formatter->asHtml($model->html);
+echo '<iframe src="' . Url::to(['mail/view-html', 'id' => $model->id]) . '" style="width:100%;" onload="this.style.height = this.contentWindow.document.body.scrollHeight + \'px\';" frameborder="0"></iframe>';
+//echo Yii::$app->formatter->asHtml($model->html);
 echo '</div>';
 
 //echo Html::tag('h2', Yii::t('audit', 'Data'));

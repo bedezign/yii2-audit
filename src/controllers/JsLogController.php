@@ -61,6 +61,9 @@ class JsLogController extends \yii\web\Controller
                 else $javascript->$target = $data[$key];
             }
 
+        if (!$javascript->type)
+            $javascript->type = 'unknown';
+
         if ($javascript->save())
             return ['result' => 'ok', 'entry' => $data['auditEntry']];
 

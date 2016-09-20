@@ -12,6 +12,7 @@ namespace bedezign\yii2\audit;
 
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
+use bedezign\yii2\audit\models\AuditError;
 use Yii;
 use yii\base\ActionEvent;
 use yii\base\Application;
@@ -41,9 +42,9 @@ use yii\helpers\ArrayHelper;
  * @package bedezign\yii2\audit
  * @property AuditEntry $entry
  *
- * @method void data($type, $data)                                      @see ExtraDataPanel::trackData()
- * @method AuditError exception(\Exception $exception)                        @see ErrorPanel::log()
- * @method AuditError errorMessage($message, $code, $file, $line, $trace)     @see ErrorPanel::logMessage()
+ * @method void data($type, $data)                                                                      @see ExtraDataPanel::trackData()
+ * @method \bedezign\yii2\audit\models\AuditError exception(\Exception $exception)                      @see ErrorPanel::log()
+ * @method \bedezign\yii2\audit\models\AuditError errorMessage($message, $code, $file, $line, $trace)   @see ErrorPanel::logMessage()
  */
 class Audit extends Module
 {
@@ -60,12 +61,12 @@ class Audit extends Module
     public $db = 'db';
 
     /**
-     * @var string[] Action or list of actions to track. '*' is allowed as the last character to use as wildcard.
+     * @var string[] Action or list of actions to track. '*' is allowed as the first or last character to use as wildcard.
      */
     public $trackActions = ['*'];
 
     /**
-     * @var string[] Action or list of actions to ignore. '*' is allowed as the last character to use as wildcard (eg 'debug/*').
+     * @var string[] Action or list of actions to ignore. '*' is allowed as the first or last character to use as wildcard (eg 'debug/*').
      */
     public $ignoreActions = [];
 
@@ -280,8 +281,12 @@ class Audit extends Module
      */
     public function getEntry($create = false, $new = false)
     {
-        if ((!$this->_entry && $create) || $new) {
-            $this->_entry = AuditEntry::create(true);
+        $entry = new AuditEntry();
+        $tableSchema = $entry->getDb()->schema->getTableSchema($entry->tableName());
+        if ($tableSchema) {
+            if ((!$this->_entry && $create) || $new) {
+                $this->_entry = AuditEntry::create(true);
+            }
         }
         return $this->_entry;
     }
@@ -364,7 +369,7 @@ class Audit extends Module
                 $panels[$value] = $this->_corePanels[$value];
             }
             else {
-                // The key contains the identifer and the value is either a class name or a full array
+                // The key contains the identifier and the value is either a class name or a full array
                 $panels[$key] = is_string($value) ? ['class' => $value] : $value;
             }
         }
@@ -436,6 +441,12 @@ class Audit extends Module
             if ($compare[$len - 1] == '*') {
                 $compare = rtrim($compare, '*');
                 if (substr($route, 0, $len - 1) === $compare)
+                    return true;
+            }
+
+            if ($compare[0] == '*') {
+                $compare = ltrim($compare, '*');
+                if (substr($route, - ($len - 1)) === $compare)
                     return true;
             }
 

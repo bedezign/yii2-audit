@@ -21,6 +21,9 @@ return [
         'audit' => 'bedezign\yii2\audit\commands\AuditController',
     ],
     'components' => [
+        'authManager' => [
+            'class' => 'yii\rbac\PhpManager',
+        ],
         'cache' => [
             'class' => YII_ENV == 'heroku' ? 'yii\caching\FileCache' : 'yii\caching\DummyCache',
         ],
@@ -42,10 +45,20 @@ return [
         'urlManager' => [
             'scriptUrl' => 'http://example.com/',
         ],
+        'user' => [
+            'class' => 'yii\web\User',
+            'identityClass' => 'tests\app\models\User',
+        ],
+        'session' => [
+            'class' => 'yii\web\Session',
+        ],
     ],
     'modules' => [
         'audit' => [
             'class' => 'bedezign\yii2\audit\Audit',
+            'accessIps' => null,
+            'accessUsers' => null,
+            'accessRoles' => null,
             'compressData' => YII_ENV == 'heroku' ? true : false,
             'panelsMerge' => [
                 'app/views' => ['class' => 'tests\app\panels\ViewsPanel'],

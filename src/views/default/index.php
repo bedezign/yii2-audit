@@ -32,7 +32,7 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                     $count[] = AuditEntry::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
                 }
                 echo ChartJs::widget([
-                    'type' => 'Bar',
+                    'type' => 'bar',
                     'data' => [
                         'labels' => $days,
                         'datasets' => [

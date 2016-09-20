@@ -2,6 +2,8 @@ build:
     environment:
         variables:
              COMPOSER: composer-ci.json
+        php:                    # https://scrutinizer-ci.com/docs/guides/php/continuous-integration-deployment
+            version: 5.6        # Common versions: 5.4, 5.5, 5.6, 7.0 or hhvm
 filter:
     excluded_paths: [tests/*]
 checks:

@@ -20,8 +20,8 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
      */
     public function getLabel()
     {
-        $memory = sprintf('%.1f MB', $this->data['memory'] / 1048576);
-        $time = number_format($this->data['time'] * 1000) . ' ms';
+        $memory = isset($this->data['memory']) ? sprintf('%.1f MB', $this->data['memory'] / 1048576) : '';
+        $time = isset($this->data['time']) ? number_format($this->data['time'] * 1000) . ' ms' : '';
         return $this->getName() . ' <small>(' . $memory . ' / ' . $time . ')</small>';
     }
 
@@ -37,8 +37,8 @@ class ProfilingPanel extends \yii\debug\panels\ProfilingPanel
             'panel' => $this,
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
-            'memory' => sprintf('%.1f MB', $this->data['memory'] / 1048576),
-            'time' => number_format($this->data['time'] * 1000) . ' ms',
+            'memory' => isset($this->data['memory']) ? sprintf('%.1f MB', $this->data['memory'] / 1048576) : '',
+            'time' => isset($this->data['time']) ? number_format($this->data['time'] * 1000) . ' ms' : '',
         ]);
     }
 
