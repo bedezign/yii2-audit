@@ -8,6 +8,8 @@ use yii\db\ActiveRecord;
 use bedezign\yii2\audit\models\AuditTrail;
 use yii\web\Application;
 
+use yii\db\Query;
+
 /**
  * Class AuditTrailBehavior
  * @package bedezign\yii2\audit
@@ -53,6 +55,13 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * @var array
      */
     private $_oldAttributes = [];
+
+    /**
+     * Array with fields you want to override before saving the row into audit_trail table
+     * @var array
+     */
+    public $overRide = [];
+
 
     /**
      * @inheritdoc
@@ -135,6 +144,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     {
         $attributes = $this->cleanAttributesAllowed($attributes);
         $attributes = $this->cleanAttributesIgnored($attributes);
+        $attributes = $this->cleanAttributesOverRide($attributes);
         return $attributes;
     }
 
@@ -172,6 +182,63 @@ class AuditTrailBehavior extends \yii\base\Behavior
             }
         }
         return $attributes;
+    }
+
+    /**
+     * attributes which need to get override with a new value
+     *
+     * @param $attributes
+     * @return mixed
+     */
+    protected function cleanAttributesOverRide($attributes)
+    {
+        if (sizeof($this->overRide) > 0 && sizeof($attributes) >0) {
+            foreach ($this->overRide as $field => $queryParams) {
+                $newOverRideValues = $this->getNewOverRideValues($attributes[$field], $queryParams);
+
+                if (count($newOverRideValues) >1) {
+                    $attributes[$field] = $this->getCommaString($newOverRideValues, $queryParams['return_field']);
+                } elseif (count($newOverRideValues) == 1) {
+                    $attributes[$field] = $newOverRideValues[0][$queryParams['return_field']];
+                }
+            }
+        }
+        return $attributes;
+    }
+
+    /**
+     * @param string $searchFieldValue
+     * @param string $queryParams
+     * @return mixed
+     */
+    private function getNewOverRideValues($searchFieldValue, $queryParams)
+    {
+        $query = new Query;
+
+        $query->select($queryParams['return_field'])
+              ->from($queryParams['table_name'])
+              ->where([$queryParams['search_field'] => $searchFieldValue]);
+
+        $rows = $query->all();
+
+        return $rows;
+    }
+
+    /**
+     * @param array $array
+     * @param string $return_field
+     * @return mixed
+     */
+
+    private function getCommaString($array, $return_field)
+    {
+        $tempArray = [];
+
+        foreach ($array as $key => $value) {
+            $tempArray[] = $value[$return_field];
+        }
+
+        return implode(',', $tempArray);
     }
 
     /**
