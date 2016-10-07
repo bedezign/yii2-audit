@@ -60,7 +60,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * Array with fields you want to override before saving the row into audit_trail table
      * @var array
      */
-    public $overRide = [];
+    public $override = [];
 
 
     /**
@@ -144,7 +144,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     {
         $attributes = $this->cleanAttributesAllowed($attributes);
         $attributes = $this->cleanAttributesIgnored($attributes);
-        $attributes = $this->cleanAttributesOverRide($attributes);
+        $attributes = $this->cleanAttributesOverride($attributes);
         return $attributes;
     }
 
@@ -190,16 +190,18 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * @param $attributes
      * @return mixed
      */
-    protected function cleanAttributesOverRide($attributes)
+    protected function cleanAttributesOverride($attributes)
     {
-        if (sizeof($this->overRide) > 0 && sizeof($attributes) >0) {
-            foreach ($this->overRide as $field => $queryParams) {
-                $newOverRideValues = $this->getNewOverRideValues($attributes[$field], $queryParams);
+        if (sizeof($this->override) > 0 && sizeof($attributes) >0) {
+            foreach ($this->override as $field => $queryParams) {
+                $newOverrideValues = $this->getNewOverrideValues($attributes[$field], $queryParams);
 
-                if (count($newOverRideValues) >1) {
-                    $attributes[$field] = $this->getCommaString($newOverRideValues, $queryParams['return_field']);
-                } elseif (count($newOverRideValues) == 1) {
-                    $attributes[$field] = $newOverRideValues[0][$queryParams['return_field']];
+                if (count($newOverrideValues) >1) {
+                    $attributes[$field] = implode(', ',
+                                        \yii\helpers\ArrayHelper::map($newOverrideValues, $queryParams['returnField'], $queryParams['returnField'])
+                    );
+                } elseif (count($newOverrideValues) == 1) {
+                    $attributes[$field] = $newOverrideValues[0][$queryParams['returnField']];
                 }
             }
         }
@@ -211,35 +213,19 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * @param string $queryParams
      * @return mixed
      */
-    private function getNewOverRideValues($searchFieldValue, $queryParams)
+    private function getNewOverrideValues($searchFieldValue, $queryParams)
     {
         $query = new Query;
 
-        $query->select($queryParams['return_field'])
-              ->from($queryParams['table_name'])
-              ->where([$queryParams['search_field'] => $searchFieldValue]);
+        $query->select($queryParams['returnField'])
+              ->from($queryParams['tableName'])
+              ->where([$queryParams['searchField'] => $searchFieldValue]);
 
         $rows = $query->all();
 
         return $rows;
     }
 
-    /**
-     * @param array $array
-     * @param string $return_field
-     * @return mixed
-     */
-
-    private function getCommaString($array, $return_field)
-    {
-        $tempArray = [];
-
-        foreach ($array as $key => $value) {
-            $tempArray[] = $value[$return_field];
-        }
-
-        return implode(',', $tempArray);
-    }
 
     /**
      * @param string $action
