@@ -2,7 +2,7 @@
 
 ## 1.0.8 UNRELEASED
 
-* Enh [#171] Override to save related record label instead of id in AuditTrail
+* Enh [#171](https://github.com/bedezign/yii2-audit/issues/171) Override to save related record label instead of id in AuditTrail
 * Bug [#168](https://github.com/bedezign/yii2-audit/issues/168): On certain errors the ProfilePanel data is not saved 
 * Enh [#167](https://github.com/bedezign/yii2-audit/issues/167): Get parent model for audit trail
 
