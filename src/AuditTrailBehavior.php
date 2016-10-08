@@ -8,6 +8,8 @@ use yii\db\ActiveRecord;
 use bedezign\yii2\audit\models\AuditTrail;
 use yii\web\Application;
 
+use yii\db\Query;
+
 /**
  * Class AuditTrailBehavior
  * @package bedezign\yii2\audit
@@ -53,6 +55,13 @@ class AuditTrailBehavior extends \yii\base\Behavior
      * @var array
      */
     private $_oldAttributes = [];
+
+    /**
+     * Array with fields you want to override before saving the row into audit_trail table
+     * @var array
+     */
+    public $override = [];
+
 
     /**
      * @inheritdoc
@@ -135,6 +144,7 @@ class AuditTrailBehavior extends \yii\base\Behavior
     {
         $attributes = $this->cleanAttributesAllowed($attributes);
         $attributes = $this->cleanAttributesIgnored($attributes);
+        $attributes = $this->cleanAttributesOverride($attributes);
         return $attributes;
     }
 
@@ -173,6 +183,49 @@ class AuditTrailBehavior extends \yii\base\Behavior
         }
         return $attributes;
     }
+
+    /**
+     * attributes which need to get override with a new value
+     *
+     * @param $attributes
+     * @return mixed
+     */
+    protected function cleanAttributesOverride($attributes)
+    {
+        if (sizeof($this->override) > 0 && sizeof($attributes) >0) {
+            foreach ($this->override as $field => $queryParams) {
+                $newOverrideValues = $this->getNewOverrideValues($attributes[$field], $queryParams);
+
+                if (count($newOverrideValues) >1) {
+                    $attributes[$field] = implode(', ',
+                                        \yii\helpers\ArrayHelper::map($newOverrideValues, $queryParams['returnField'], $queryParams['returnField'])
+                    );
+                } elseif (count($newOverrideValues) == 1) {
+                    $attributes[$field] = $newOverrideValues[0][$queryParams['returnField']];
+                }
+            }
+        }
+        return $attributes;
+    }
+
+    /**
+     * @param string $searchFieldValue
+     * @param string $queryParams
+     * @return mixed
+     */
+    private function getNewOverrideValues($searchFieldValue, $queryParams)
+    {
+        $query = new Query;
+
+        $query->select($queryParams['returnField'])
+              ->from($queryParams['tableName'])
+              ->where([$queryParams['searchField'] => $searchFieldValue]);
+
+        $rows = $query->all();
+
+        return $rows;
+    }
+
 
     /**
      * @param string $action
