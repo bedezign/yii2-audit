@@ -63,4 +63,12 @@ class User extends ActiveRecord implements IdentityInterface
         $user = self::findOne($id);
         return $user ? $user->username : $id;
     }
+
+    /**
+     * @return int|string
+     */
+    public static function userIdCallback()
+    {
+        return 1;
+    }
 }

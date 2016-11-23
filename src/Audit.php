@@ -12,7 +12,6 @@ namespace bedezign\yii2\audit;
 
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\models\AuditEntry;
-use bedezign\yii2\audit\models\AuditError;
 use Yii;
 use yii\base\ActionEvent;
 use yii\base\Application;
@@ -101,6 +100,11 @@ class Audit extends Module
      * @var string The callback to use to convert a user id into an identifier (username, email, ...). Can also be html.
      */
     public $userIdentifierCallback = false;
+
+    /**
+     * @var string The callback to get a user id.
+     */
+    public $userIdCallback = false;
 
     /**
      * @var string Will be called to translate text in the user filter into a (or more) user id's
@@ -304,6 +308,17 @@ class Audit extends Module
             return call_user_func($this->userIdentifierCallback, $user_id);
         }
         return $user_id;
+    }
+
+    /**
+     * @return int|mixed|null|string
+     */
+    public function getUserId()
+    {
+        if ($this->userIdCallback && is_callable($this->userIdCallback)) {
+            return call_user_func($this->userIdCallback);
+        }
+        return (Yii::$app instanceof Application && Yii::$app->user) ? Yii::$app->user->id : null;
     }
 
     /**
