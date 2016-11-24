@@ -1,24 +1,27 @@
 # Changelog
 
-## 1.0.8 UNRELEASED
+## 1.0.8 November 11, 2016
 
 * Enh [#171](https://github.com/bedezign/yii2-audit/issues/171): Override to save related record label instead of id in AuditTrail
 * Bug [#168](https://github.com/bedezign/yii2-audit/issues/168): On certain errors the ProfilePanel data is not saved 
 * Enh [#167](https://github.com/bedezign/yii2-audit/issues/167): Get parent model for audit trail
 
 ## 1.0.7 July 27, 2016
+
 * Bug [#162](https://github.com/bedezign/yii2-audit/issues/162): fix charts 
 * Bug [#160](https://github.com/bedezign/yii2-audit/issues/160): error when config is setup but tables are not present
 * Bug [#145](https://github.com/bedezign/yii2-audit/issues/145): Bootstrap Array to String conversion fix
 * Bug [#153](https://github.com/bedezign/yii2-audit/issues/153): save user_id on finalize function
 
 ## 1.0.6 March 21, 2016
+
 * Bug [#141](https://github.com/bedezign/yii2-audit/issues/141): PHP7: ErrorPanel should support Throwable
 * Enh [#140](https://github.com/bedezign/yii2-audit/issues/140): `AuditTrailSearch.field` should allow `array`
 * Enh [#138](https://github.com/bedezign/yii2-audit/issues/138): Allow `*` as prefix in route matching
 * Bug: LogPanels without messages should still work
 
 ## 1.0.5 October 28, 2015
+
 * Enh: Added `generateTrace()`-function to the `Helper` for external usage
 * Enh: ErrorPanel now avoids duplicate exception logging
 * Enh: Javascript logging sets the type to 'unknown' if none was specified
