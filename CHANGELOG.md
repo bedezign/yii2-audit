@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.9 Unreleased
+
+* Bug [#180](https://github.com/bedezign/yii2-audit/issues/180): Fix dbPanel errors
+
 ## 1.0.8 November 11, 2016
 
 * Bug [#172](https://github.com/bedezign/yii2-audit/issues/172): Declaration of getUrl() compatible with yii\debug\Panel::getUrl()
