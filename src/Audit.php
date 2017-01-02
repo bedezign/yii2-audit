@@ -102,6 +102,11 @@ class Audit extends Module
     public $userIdentifierCallback = false;
 
     /**
+     * @var string The callback to get a user id.
+     */
+    public $userIdCallback = false;
+
+    /**
      * @var string Will be called to translate text in the user filter into a (or more) user id's
      */
     public $userFilterCallback = false;
@@ -308,6 +313,17 @@ class Audit extends Module
             return call_user_func($this->userIdentifierCallback, $user_id);
         }
         return $user_id;
+    }
+
+    /**
+     * @return int|mixed|null|string
+     */
+    public function getUserId()
+    {
+        if ($this->userIdCallback && is_callable($this->userIdCallback)) {
+            return call_user_func($this->userIdCallback);
+        }
+        return (Yii::$app instanceof Application && Yii::$app->user) ? Yii::$app->user->id : null;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\db\ActiveRecord;
 use bedezign\yii2\audit\components\Helper;
 use Yii;
@@ -154,8 +155,7 @@ class AuditEntry extends ActiveRecord
 
         $this->route = $app->requestedAction ? $app->requestedAction->uniqueId : null;
         if ($request instanceof \yii\web\Request) {
-            $user = $app->user;
-            $this->user_id        = $user->isGuest ? 0 : $user->id;
+            $this->user_id        = Audit::getInstance()->getUserId();
             $this->ip             = $request->userIP;
             $this->ajax           = $request->isAjax;
             $this->request_method = $request->method;
@@ -175,8 +175,7 @@ class AuditEntry extends ActiveRecord
         $request = $app->request;
 
         if (!$this->user_id && $request instanceof \yii\web\Request) {
-            $user = $app->user;
-            $this->user_id = $user->isGuest ? 0 : $user->id;
+            $this->user_id = Audit::getInstance()->getUserId();
         }
 	
         $this->duration = microtime(true) - YII_BEGIN_TIME;
