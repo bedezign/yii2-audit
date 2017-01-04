@@ -2,12 +2,9 @@
 namespace bedezign\yii2\audit;
 
 use Yii;
-use yii\base\Exception;
+use yii\base\Behavior;
 use yii\db\ActiveRecord;
-
 use bedezign\yii2\audit\models\AuditTrail;
-use yii\web\Application;
-
 use yii\db\Query;
 
 /**
@@ -16,7 +13,7 @@ use yii\db\Query;
  *
  * @property \yii\db\ActiveRecord $owner
  */
-class AuditTrailBehavior extends \yii\base\Behavior
+class AuditTrailBehavior extends Behavior
 {
 
     /**

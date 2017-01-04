@@ -323,7 +323,7 @@ class Audit extends Module
         if ($this->userIdCallback && is_callable($this->userIdCallback)) {
             return call_user_func($this->userIdCallback);
         }
-        return (Yii::$app instanceof Application && Yii::$app->user) ? Yii::$app->user->id : null;
+        return (Yii::$app instanceof \yii\web\Application && Yii::$app->user) ? Yii::$app->user->id : null;
     }
 
     /**
