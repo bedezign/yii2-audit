@@ -47,7 +47,7 @@ class JSLoggingAsset extends AssetBundle
         $module = Audit::getInstance();
         // We can't be sure that the actual logger was loaded already, so we fallback on the window object
         // to store the associated audit url and entry id
-        $url = Url::to(["/{$module->id}/js-log"]);
+        $url = Url::to(["/{$module->id}/js-log/index"]);
         $script = "window.auditUrl = '$url';";
         if ($module->entry) {
             $id = $module->getEntry()->id;
