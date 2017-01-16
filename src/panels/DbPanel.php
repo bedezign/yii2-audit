@@ -39,7 +39,13 @@ class DbPanel extends \yii\debug\panels\DbPanel
     public function getDetail()
     {
         $searchModel = new Db();
-        $dataProvider = $searchModel->search(Yii::$app->request->getQueryParams(), $this->getModels());
+
+        if (!$searchModel->load(Yii::$app->request->getQueryParams())) {
+            $searchModel->load($this->defaultFilter, '');
+        }
+
+        $dataProvider = $searchModel->search($this->getModels());
+        $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/db/detail', [
             'panel' => $this,
