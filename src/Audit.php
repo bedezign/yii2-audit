@@ -129,12 +129,12 @@ class Audit extends Module
      */
     public $panels = [
         'audit/request',
-        'audit/db',
-        'audit/log',
+        //'audit/db',
+        //'audit/log',
         'audit/mail',
-        'audit/profiling',
+        //'audit/profiling',
         'audit/trail',
-        'audit/javascript',
+        //'audit/javascript', # also enable JSLoggingAsset
         // 'audit/asset',
         // 'audit/config',
 
