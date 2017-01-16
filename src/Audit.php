@@ -114,6 +114,12 @@ class Audit extends Module
     public $batchSave = true;
 
     /**
+     * @var array Default log levels to filter and process
+     */
+    public $logConfig = ['levels' => ['error', 'warning', 'info', 'profile']];
+
+
+    /**
      * @var array|Panel[] list of panels that should be active/tracking/available during the auditing phase.
      * If the value is a simple string, it is the identifier of an internal panel to activate (with default settings)
      * If the entry is a '<key>' => '<string>|<array>' it is either a new panel or a panel override (if you specify a core id).
@@ -199,7 +205,11 @@ class Audit extends Module
         $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
 
         // Activate the logging target
-        $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this);
+        if (empty($app->getLog()->targets['audit'])) {
+            $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this, $this->logConfig);
+        } else {
+            $this->logTarget = $app->getLog()->targets['audit'];
+        }
 
         // Boot all active panels
         $this->normalizePanelConfiguration();
