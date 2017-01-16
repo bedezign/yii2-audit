@@ -2,6 +2,7 @@
 
 ## 1.0.9 Unreleased
 
+* Bug [#184](https://github.com/bedezign/yii2-audit/issues/184): Use full url for js log action
 * Bug [#180](https://github.com/bedezign/yii2-audit/issues/180): Fix dbPanel errors
 * Enh [#174](https://github.com/bedezign/yii2-audit/issues/174): Ability to use custom user id instead Yii::$app->user->id
 
