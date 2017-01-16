@@ -28,7 +28,7 @@ branches:
 install:
   - travis_retry composer self-update
   - travis_retry composer global require "fxp/composer-asset-plugin:~1.1.1"
-  - travis_retry composer global require "codeception/codeception:2.0.*"
+  - travis_retry composer global require "codeception/codeception:2.2.*"
   - travis_retry composer install --no-interaction --prefer-dist
 #  - ln -s `pwd`/vendor/bower-asset `pwd`/vendor/bower
 
