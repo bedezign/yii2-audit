@@ -235,7 +235,7 @@ class AuditTrailBehavior extends Behavior
         $newAttributes = $this->cleanAttributes($this->owner->getAttributes());
         $oldAttributes = $this->cleanAttributes($this->getOldAttributes());
         // If no difference then get out of here
-        if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
+        if (is_array($newAttributes) || is_array($oldAttributes) || count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
             return;
         }
         // Get the trail data
