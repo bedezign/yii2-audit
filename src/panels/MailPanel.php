@@ -22,6 +22,12 @@ use yii\swiftmailer\Message;
  */
 class MailPanel extends Panel
 {
+    /**
+     * Store full email daata
+     *
+     * /!\ Set this to true will increase database size /!\
+     */
+    public $storeData = false;
 
     /**
      * @inheritdoc
@@ -77,7 +83,10 @@ class MailPanel extends Panel
             }
         }
 
-        $mail->data = $message->toString();
+        // makes full email available for download
+        if ($this->storeData) {
+            $mail->data = $message->toString();
+        }
 
         return $mail->save(false) ? $mail : null;
     }
