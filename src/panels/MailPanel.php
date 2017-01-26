@@ -27,7 +27,7 @@ class MailPanel extends Panel
      *
      * /!\ Set this to true will increase database size /!\
      */
-    public $storeData = false;
+    public $storeData = true;
 
     /**
      * @inheritdoc
