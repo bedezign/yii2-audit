@@ -36,13 +36,18 @@ class AuditController extends Controller
     public $age;
 
     /**
+     * @var bool True to assume Yes to all queries and do not prompt
+     */
+    public $assumeYesAllQuery;
+
+    /**
      * @inheritdoc
      */
     public function options($actionID)
     {
         return array_merge(
             parent::options($actionID),
-            ($actionID == 'cleanup') ? ['entry', 'panels', 'age'] : []
+            ($actionID == 'cleanup') ? ['entry', 'panels', 'age', 'assumeYesAllQuery'] : []
         );
     }
 
@@ -58,10 +63,11 @@ class AuditController extends Controller
         $panels = $this->panels !== null ? explode(',', $this->panels) : array_keys($audit->panels);
 
         // summary
-        $this->preCleanupSummary($this->entry, $panels, $this->age);
+        $this->preCleanupSummary($this->entry, $panels, $this->age, $this->assumeYesAllQuery);
+        $assumeYesAllQuery = strtolower($this->assumeYesAllQuery) == "true";
 
         // confirm
-        if ($this->confirm('Cleanup the above data?')) {
+        if ($assumeYesAllQuery || $this->confirm('Cleanup the above data?')) {
             // cleanup panels
             foreach ($panels as $id) {
                 if (!$this->cleanupPanel($id, $this->age)) {
