@@ -234,8 +234,18 @@ class AuditTrailBehavior extends Behavior
         // Get the new and old attributes
         $newAttributes = $this->cleanAttributes($this->owner->getAttributes());
         $oldAttributes = $this->cleanAttributes($this->getOldAttributes());
+
+        // ensure to handle serialized attributes properly
+        foreach($newAttributes as $key => $value)
+            if(is_array($newAttributes[$key]))
+                $newAttributes[$key] = implode(',', $newAttributes[$key]);
+
+        foreach($oldAttributes as $key => $value)
+            if(is_array($oldAttributes[$key]))
+                $oldAttributes[$key] = implode(',', $oldAttributes[$key]);
+
         // If no difference then get out of here
-        if (is_array($newAttributes) || is_array($oldAttributes) || count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
+        if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
             return;
         }
         // Get the trail data
