@@ -37,6 +37,13 @@ class AuditTrailBehavior extends Behavior
     public $ignoredClasses = [];
 
     /**
+     * Timestamp attributes should, in most cases, be ignored.
+     * In case you want to log them, you can set this option to false.
+     * @var array
+     */
+    public $ignore_timestamps = true;
+
+    /**
      * Is the behavior is active or not
      * @var boolean
      */
@@ -58,7 +65,6 @@ class AuditTrailBehavior extends Behavior
      * @var array
      */
     public $override = [];
-
 
     /**
      * @inheritdoc
@@ -171,6 +177,10 @@ class AuditTrailBehavior extends Behavior
      */
     protected function cleanAttributesIgnored($attributes)
     {
+        if($this->ignore_timestamps)
+            $this->ignored = array_merge($this->ignored, [
+                'created', 'updated', 'created_at', 'updated_at', 'timestamp']);
+
         if (sizeof($this->ignored) > 0) {
             foreach ($attributes as $f => $v) {
                 if (array_search($f, $this->ignored) !== false) {
