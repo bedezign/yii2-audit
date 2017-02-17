@@ -2,6 +2,7 @@
 
 ## 1.0.9 Unreleased
 
+* Enh [#194](https://github.com/bedezign/yii2-audit/issues/194): add ignoreKeys to RequestPanel to lower data usage
 * Enh [#193](https://github.com/bedezign/yii2-audit/issues/193): charts in panels shows "undefined"
 * Enh [#189](https://github.com/bedezign/yii2-audit/issues/189): enhance MailPanel
 * Bug [#187](https://github.com/bedezign/yii2-audit/issues/187): audit_mail table data too long
