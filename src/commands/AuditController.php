@@ -191,7 +191,7 @@ class AuditController extends Controller
             if ($auditEntryCurrent && $auditEntryCurrent->id == $auditEntry->id) {
                 continue;
             }
-            if (!$auditEntry->errors && !$auditEntry->javascripts && !$auditEntry->mails && !$auditEntry->trails) {
+            if (!$auditEntry->hasRelatedData()) {
                 foreach ($auditEntry->data as $data) {
                     $data->delete();
                 }

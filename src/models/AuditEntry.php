@@ -177,7 +177,7 @@ class AuditEntry extends ActiveRecord
         if (!$this->user_id && $request instanceof \yii\web\Request) {
             $this->user_id = Audit::getInstance()->getUserId();
         }
-	
+
         $this->duration = microtime(true) - YII_BEGIN_TIME;
         $this->memory_max = memory_get_peak_usage();
         return $this->save(false, ['duration', 'memory_max', 'user_id']);
@@ -197,6 +197,26 @@ class AuditEntry extends ActiveRecord
             'memory_max'     => Yii::t('audit', 'Memory'),
             'request_method' => Yii::t('audit', 'Request Method'),
         ];
+    }
+
+    /**
+     * @return bool
+     */
+    public function hasRelatedData()
+    {
+        if ($this->getLinkedErrors()->count()) {
+            return true;
+        }
+        if ($this->getJavascripts()->count()) {
+            return true;
+        }
+        if ($this->getMails()->count()) {
+            return true;
+        }
+        if ($this->getTrails()->count()) {
+            return true;
+        }
+        return false;
     }
 
 }
