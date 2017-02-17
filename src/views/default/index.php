@@ -33,6 +33,13 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                 }
                 echo ChartJs::widget([
                     'type' => 'bar',
+                    'options' => [
+                        'height' => '45',
+                    ],
+                    'clientOptions' => [
+                        'legend' => ['display' => false],
+                        'tooltips' => ['enabled' => false],
+                    ],
                     'data' => [
                         'labels' => $days,
                         'datasets' => [
