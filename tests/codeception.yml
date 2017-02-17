@@ -14,9 +14,3 @@ coverage:
     white_list:
         include:
             - ../src/*
-    blacklist:
-        include:
-            - ../src/migrations/*
-            - ../src/web/assets/*
-            - ../vendor/*
-            - ../tests/*

@@ -35,7 +35,7 @@ echo DetailView::widget([
         'subject',
         [
             'label' => Yii::t('audit', 'Download'),
-            'value' => Html::a(Yii::t('audit', 'Download eml file'), ['mail/download', 'id' => $model->id]),
+            'value' => ($model->data !== null) ? Html::a(Yii::t('audit', 'Download eml file'), ['mail/download', 'id' => $model->id]) : null,
             'format' => 'raw',
         ],
         'created',

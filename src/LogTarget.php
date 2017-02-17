@@ -69,7 +69,7 @@ class LogTarget extends Target
      */
     public function collect($messages, $final)
     {
-        $this->messages = array_merge($this->messages, $messages);
+        $this->messages = array_merge($this->messages, static::filterMessages($messages, $this->getLevels(), $this->categories, $this->except));
         if ($final) {
             $this->export();
         }

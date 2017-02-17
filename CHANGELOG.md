@@ -2,6 +2,11 @@
 
 ## 1.0.9 Unreleased
 
+* Enh [#189](https://github.com/bedezign/yii2-audit/issues/189): enhance MailPanel
+* Bug [#187](https://github.com/bedezign/yii2-audit/issues/187): audit_mail table data too long
+* Enh [#185](https://github.com/bedezign/yii2-audit/issues/185): log config
+* Enh [#182](https://github.com/bedezign/yii2-audit/issues/182): Added ability to save overrided field with another name
+* Bug [#184](https://github.com/bedezign/yii2-audit/issues/184): Use full url for js log action
 * Bug [#180](https://github.com/bedezign/yii2-audit/issues/180): Fix dbPanel errors
 * Enh [#174](https://github.com/bedezign/yii2-audit/issues/174): Ability to use custom user id instead Yii::$app->user->id
 
