@@ -4,6 +4,7 @@ namespace bedezign\yii2\audit;
 use Yii;
 use yii\base\Behavior;
 use yii\db\ActiveRecord;
+use yii\helpers\Json;
 use bedezign\yii2\audit\models\AuditTrail;
 use yii\db\Query;
 
@@ -238,11 +239,11 @@ class AuditTrailBehavior extends Behavior
         // ensure to handle serialized attributes properly
         foreach($newAttributes as $key => $value)
             if(is_array($newAttributes[$key]))
-                $newAttributes[$key] = implode(',', $newAttributes[$key]);
+                $newAttributes[$key] = Json::encode($newAttributes[$key]);
 
         foreach($oldAttributes as $key => $value)
             if(is_array($oldAttributes[$key]))
-                $oldAttributes[$key] = implode(',', $oldAttributes[$key]);
+                $oldAttributes[$key] = Json::encode($oldAttributes[$key]);
 
         // If no difference then get out of here
         if (count(array_diff_assoc($newAttributes, $oldAttributes)) <= 0) {
