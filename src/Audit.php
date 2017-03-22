@@ -296,7 +296,7 @@ class Audit extends Module
     /**
      * @param bool $create
      * @param bool $new
-     * @return AuditEntry|static
+     * @return AuditEntry
      */
     public function getEntry($create = false, $new = false)
     {
