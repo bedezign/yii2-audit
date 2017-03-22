@@ -64,6 +64,7 @@ return [
     'Mails' => 'Postalar',
     'Memory' => 'Bellek',
     'Message' => 'Mesaj',
+    'Model ID' => 'Model ID',
     'New Value' => 'Yeni Değer',
     'No' => 'Hayır',
     'Old Value' => 'Eski Değer',

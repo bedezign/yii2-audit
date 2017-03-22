@@ -43,7 +43,7 @@ class AuditTrail extends ActiveRecord
             'user_id'   => Yii::t('audit', 'User ID'),
             'action'    => Yii::t('audit', 'Action'),
             'model'     => Yii::t('audit', 'Type'),
-            'model_id'  => Yii::t('audit', 'ID'),
+            'model_id'  => Yii::t('audit', 'Model ID'),
             'field'     => Yii::t('audit', 'Field'),
             'old_value' => Yii::t('audit', 'Old Value'),
             'new_value' => Yii::t('audit', 'New Value'),
