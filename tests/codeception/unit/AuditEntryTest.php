@@ -53,7 +53,7 @@ class AuditEntryTest extends AuditTestCase
         $this->finalizeAudit();
         $this->module()->batchSave = false;
 
-        $oldId = $this->tester->fetchTheLastModelPk(AuditData::className());
+        $oldId = $this->tester->fetchTheLastModelPk($_ = AuditData::className());
 
         $entry = $this->entry();
         $this->finalizeAudit();
@@ -71,7 +71,7 @@ class AuditEntryTest extends AuditTestCase
             'type' => 'audit/request',
         ]);
 
-        $newId = $this->tester->fetchTheLastModelPk(AuditData::className());
+        $newId = $this->tester->fetchTheLastModelPk($_ = AuditData::className());
         $this->assertGreaterThan($oldId, $newId);
     }
 
