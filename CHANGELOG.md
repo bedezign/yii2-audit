@@ -1,6 +1,6 @@
 # Changelog
 
-## 1.0.9 Unreleased
+## 1.0.9 March 25, 2017
 
 * Enh [#200](https://github.com/bedezign/yii2-audit/issues/200): fix ID column name duplicating
 * Bug [#199](https://github.com/bedezign/yii2-audit/issues/199): Fix user id filtering
