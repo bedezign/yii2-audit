@@ -22,11 +22,15 @@ class AuditExtraDataTest extends AuditTestCase
      */
     public function testAddData()
     {
-        Audit::getInstance()->data('some type', 'some data');
+        $this->entry();
+        $this->finalizeAudit();
+
+        $this->entry();
+        $this->module()->data('some type', 'some data');
         $this->finalizeAudit();
 
         $this->tester->seeRecord(AuditData::className(), [
-            'entry_id' => 2,
+            'entry_id' => 3,
             'type' => 'audit/extra',
         ]);
     }
@@ -36,8 +40,11 @@ class AuditExtraDataTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $this->assertNotNull(AuditData::findForEntry(2, 'audit/request'));
-        $this->assertNotNull(AuditData::findForEntry(2, 'audit/log'));
+        $this->entry();
+        $this->finalizeAudit();
+
+        $this->assertNotNull(AuditData::findForEntry(3, 'audit/request'));
+        $this->assertNotNull(AuditData::findForEntry(3, 'audit/profiling'));
     }
 
     public function testThatFindEntryTypesWorks()
@@ -45,11 +52,14 @@ class AuditExtraDataTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $types = AuditData::findEntryTypes(2);
+        $this->entry();
+        $this->finalizeAudit();
+
+        $types = AuditData::findEntryTypes(3);
         $subset = [
             'audit/config',
-            'audit/db',
-            'audit/log',
+            //'audit/db',
+            //'audit/log',
             'audit/profiling',
             'audit/request',
         ];

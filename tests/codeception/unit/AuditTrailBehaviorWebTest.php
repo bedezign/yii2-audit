@@ -30,12 +30,16 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
      */
     public function testCreatePost()
     {
+        $this->entry();
+        $this->finalizeAudit();
+
         $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
         $post = new Post();
         $post->title = 'New post title';
         $post->body = 'New post body';
         $this->assertTrue($post->save());
 
+        $this->entry();
         $this->finalizeAudit();
 
         $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
@@ -84,6 +88,9 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
      */
     public function testUpdatePost()
     {
+        $this->entry();
+        $this->finalizeAudit();
+
         $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
 
         $post = Post::findOne(1);
@@ -91,6 +98,7 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
         $post->body = 'Updated post body';
         $this->assertTrue($post->save());
 
+        $this->entry();
         $this->finalizeAudit();
 
         $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
@@ -130,10 +138,14 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
      */
     public function testDeletePost()
     {
+        $this->entry();
+        $this->finalizeAudit();
+
         $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
         $post = Post::findOne(1);
         $this->assertSame($post->delete(), 1);
 
+        $this->entry();
         $this->finalizeAudit();
 
         $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
