@@ -29,8 +29,9 @@ class AuditExtraDataTest extends AuditTestCase
         $this->module()->data('some type', 'some data');
         $this->finalizeAudit();
 
+        $entry_id = getenv('DB') == 'sqlite' ? 2 : 3;
         $this->tester->seeRecord(AuditData::className(), [
-            'entry_id' => 3,
+            'entry_id' => $entry_id,
             'type' => 'audit/extra',
         ]);
     }
@@ -43,8 +44,9 @@ class AuditExtraDataTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $this->assertNotNull(AuditData::findForEntry(3, 'audit/request'));
-        $this->assertNotNull(AuditData::findForEntry(3, 'audit/profiling'));
+        $entry_id = getenv('DB') == 'sqlite' ? 2 : 3;
+        $this->assertNotNull(AuditData::findForEntry($entry_id, 'audit/request'));
+        $this->assertNotNull(AuditData::findForEntry($entry_id, 'audit/profiling'));
     }
 
     public function testThatFindEntryTypesWorks()
@@ -55,7 +57,8 @@ class AuditExtraDataTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $types = AuditData::findEntryTypes(3);
+        $entry_id = getenv('DB') == 'sqlite' ? 2 : 3;
+        $types = AuditData::findEntryTypes($entry_id);
         $subset = [
             'audit/config',
             //'audit/db',
