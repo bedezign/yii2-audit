@@ -33,17 +33,13 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
         $post = new Post();
         $post->title = 'New post title';
         $post->body = 'New post body';
         $this->assertTrue($post->save());
 
-        $this->entry();
+        $entry = $this->entry();
         $this->finalizeAudit();
-
-        $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
-        $this->assertNotEquals($oldEntryId, $newEntryId, 'I expected that a new entry was added');
 
         $this->tester->seeRecord(Post::className(), [
             'id' => $post->id,
@@ -51,11 +47,11 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
             'body' => 'New post body',
         ]);
         $this->tester->seeRecord(AuditEntry::className(), [
-            'id' => $newEntryId,
+            'id' => $entry->id,
             'request_method' => 'GET',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => $newEntryId,
+            'entry_id' => $entry->id,
             'action' => 'CREATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -64,7 +60,7 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
             'new_value' => $post->id,
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => $newEntryId,
+            'entry_id' => $entry->id,
             'action' => 'CREATE',
             'model' => Post::className(),
             'model_id' => $post->id,
@@ -73,7 +69,7 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
             'new_value' => 'New post title',
         ]);
         $this->tester->seeRecord(AuditTrail::className(), [
-            'entry_id' => $newEntryId,
+            'entry_id' => $entry->id,
             'action' => 'CREATE',
             'model' => Post::className(),
             'model_id' => $post->id,

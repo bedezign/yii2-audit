@@ -53,26 +53,23 @@ class AuditEntryTest extends AuditTestCase
         $this->finalizeAudit();
         $this->module()->batchSave = false;
 
-        $oldId = $this->tester->fetchTheLastModelPk($_ = AuditData::className());
-
-        $entry = $this->entry();
+        $oldEntry = $this->entry();
         $this->finalizeAudit();
         $this->module()->batchSave = false;
         $this->tester->seeRecord(AuditData::className(), [
-            'entry_id' => $entry->id,
+            'entry_id' => $oldEntry->id,
             'type' => 'audit/request',
         ]);
 
-        $entry = $this->entry();
+        $newEntry = $this->entry();
         $this->finalizeAudit();
         $this->module()->batchSave = false;
         $this->tester->seeRecord(AuditData::className(), [
-            'entry_id' => $entry->id,
+            'entry_id' => $newEntry->id,
             'type' => 'audit/request',
         ]);
 
-        $newId = $this->tester->fetchTheLastModelPk($_ = AuditData::className());
-        $this->assertGreaterThan($oldId, $newId);
+        $this->assertGreaterThan($oldEntry->id, $newEntry->id);
     }
 
     public function testBatchSaveOptionIsWorksUncompressed()
