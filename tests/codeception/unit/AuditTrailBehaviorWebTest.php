@@ -87,7 +87,7 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $oldEntryId = $this->getLastPk(AuditEntry::className());
 
         $post = Post::findOne(1);
         $post->title = 'Updated post title';
@@ -97,7 +97,7 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $newEntryId = $this->getLastPk(AuditEntry::className());
         $this->assertNotEquals($oldEntryId, $newEntryId, 'I expected that a new entry was added');
 
         $this->tester->seeRecord(Post::className(), [
@@ -137,14 +137,14 @@ class AuditTrailBehaviorWebTest extends AuditTestCase
         $this->entry();
         $this->finalizeAudit();
 
-        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $oldEntryId = $this->getLastPk(AuditEntry::className());
         $post = Post::findOne(1);
         $this->assertSame($post->delete(), 1);
 
         $this->entry();
         $this->finalizeAudit();
 
-        $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $newEntryId = $this->getLastPk(AuditEntry::className());
         $this->assertNotEquals($oldEntryId, $newEntryId, 'I expected that a new entry was added');
 
         $this->tester->dontSeeRecord(Post::className(), [
