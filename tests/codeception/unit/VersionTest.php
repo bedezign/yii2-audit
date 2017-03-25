@@ -51,17 +51,16 @@ class VersionTest extends AuditTestCase
 
         $versions = Version::versions($post->className(), $post->id);
 
-        $offset = in_array(getenv('DB'), ['sqlite', 'pgsql']) ? 0 : 1;
-        $this->assertEquals($versions, [
-            3 + $offset => [
+        $this->assertEquals(array_values($versions), [
+            [
                 'id' => '2',
                 'title' => 'updated post title',
                 'body' => 'updated post body',
             ],
-            5 + $offset => [
+            [
                 'title' => 'only change the post title',
             ],
-            7 + $offset => [
+            [
                 'body' => 'only change the post body',
             ],
         ]);
