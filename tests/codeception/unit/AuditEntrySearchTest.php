@@ -27,7 +27,7 @@ class AuditEntrySearchTest extends AuditTestCase
 
     public function testUserCallbackIsCalledForString()
     {
-        $mock = $this->getMock('stdClass', ['testCallback']);
+        $mock = $this->getMockBuilder('stdClass')->setMethods(['testCallback'])->getMock();
         $mock->expects($this->once())
             ->method('testCallback')
             ->will($this->returnValue([1, 2]));
@@ -40,7 +40,7 @@ class AuditEntrySearchTest extends AuditTestCase
 
     public function testUserCallbackIsNotCalledForInteger()
     {
-        $mock = $this->getMock('stdClass', ['testCallback']);
+        $mock = $this->getMockBuilder('stdClass')->setMethods(['testCallback'])->getMock();
         $mock->expects($this->never())
             ->method('testCallback');
 
