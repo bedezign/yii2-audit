@@ -4,6 +4,7 @@ namespace tests\codeception\unit;
 
 use bedezign\yii2\audit\models\AuditData;
 use bedezign\yii2\audit\models\AuditEntry;
+use bedezign\yii2\audit\tests\UnitTester;
 use Codeception\Specify;
 
 /**
