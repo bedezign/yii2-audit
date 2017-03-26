@@ -16,3 +16,4 @@ vendor/
 # ignore test files
 TestController.php
 /c3.php
+codecept.phar
