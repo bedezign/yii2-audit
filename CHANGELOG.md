@@ -1,8 +1,12 @@
 # Changelog
 
-## 1.0.10 Unreleased
+## 1.0.11 Unreleased
 
 *
+
+## 1.0.10 March 26, 2017
+
+* Bug [#201](https://github.com/bedezign/yii2-audit/issues/201): FIx migration on pgsql
 
 ## 1.0.9 March 25, 2017
 
