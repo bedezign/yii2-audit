@@ -2,7 +2,7 @@
 
 Audit features 2 different `composer.json` files. The one named `composer.json` is the regular one, for when you include the module in your project. The one named `composer-ci.json` is for continuous integration. It contains a lot more dependencies needed to be able to test everything.
 
-To make sure that the correct one is used, lett composer know about it:
+To make sure that the correct one is used, let composer know about it:
 
 ```bash
 export COMPOSER=composer-ci.json
