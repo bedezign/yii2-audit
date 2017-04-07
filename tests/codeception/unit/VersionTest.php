@@ -21,7 +21,9 @@ class VersionTest extends AuditTestCase
 
     public function testVersions()
     {
-        $this->entry(true, true);
+        $this->entry();
+        $this->finalizeAudit();
+
         $post = new Post;
         $post->title = 'updated post title';
         $post->body = 'updated post body';
@@ -29,29 +31,36 @@ class VersionTest extends AuditTestCase
         $post_id = $post->id;
         $this->finalizeAudit();
 
-        $this->entry(true, true);
+        $this->entry();
+        $this->finalizeAudit();
+
         $post = Post::findOne($post_id);
         $post->title = 'only change the post title';
         $post->save();
         $this->finalizeAudit();
 
-        $this->entry(true, true);
+        $this->entry();
+        $this->finalizeAudit();
+
         $post = Post::findOne($post_id);
         $post->body = 'only change the post body';
         $post->save();
+
+        $this->entry();
         $this->finalizeAudit();
 
         $versions = Version::versions($post->className(), $post->id);
-        $this->assertEquals($versions, [
-            2 => [
+
+        $this->assertEquals(array_values($versions), [
+            [
                 'id' => '2',
                 'title' => 'updated post title',
                 'body' => 'updated post body',
             ],
-            3 => [
+            [
                 'title' => 'only change the post title',
             ],
-            4 => [
+            [
                 'body' => 'only change the post body',
             ],
         ]);
@@ -59,21 +68,25 @@ class VersionTest extends AuditTestCase
 
     public function testFind()
     {
-        $this->entry(true, true);
+        $this->entry();
+        $this->finalizeAudit();
+
         $post = new Post;
         $post->title = 'updated post title';
         $post->body = 'updated post body';
         $post->save();
         $post_id = $post->id;
+
+        $this->entry();
         $this->finalizeAudit();
 
-        $this->entry(true, true);
         $post = Post::findOne($post_id);
         $post->title = 'only change the post title';
         $post->save();
         $this->finalizeAudit();
 
-        $this->entry(true, true);
+        $this->entry();
+        $this->finalizeAudit();
         $post = Post::findOne($post_id);
         $post->body = 'only change the post body';
         $post->save();

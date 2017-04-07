@@ -31,14 +31,14 @@ class AuditErrorTest extends AuditTestCase
 
     public function testAddManualError()
     {
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
 
         $audit = $this->module();
         $entry = $this->entry();
         $errorPanel = $audit->getPanel($audit->findPanelIdentifier(ErrorPanel::className()));
         $errorPanel->logMessage($entry->id, 'This is an unexpected error!', 1234, 'test.php', 50);
 
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
 
         $this->assertInstanceOf(AuditError::className(), $error = AuditError::findOne($newId));
@@ -50,23 +50,23 @@ class AuditErrorTest extends AuditTestCase
 
     public function testException()
     {
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
 
         $exception = new Exception('This is a test error!');
         Yii::$app->errorHandler->logException($exception);
 
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertNotEquals($oldId, $newId, 'Expected error entry to be created');
     }
 
     public function testExceptionOutOfMemory()
     {
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
 
         $exception = new Exception('Allowed memory size of ...');
         Yii::$app->errorHandler->logException($exception);
 
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId, $newId, 'Expected error entry to not be created');
     }
 
@@ -74,7 +74,7 @@ class AuditErrorTest extends AuditTestCase
     {
         $module = Audit::getInstance();
 
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
 
         Audit::setInstance(null);
         Yii::$app->setModule('audit', null);
@@ -84,13 +84,13 @@ class AuditErrorTest extends AuditTestCase
 
         // Restore module so the getDb() calls work again
         Audit::setInstance($module);
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId, $newId, 'Expected error entry to not be created');
     }
 
     public function testModuleIsAutoloadedDuringException()
     {
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
 
         Audit::setInstance(null);
         // Back to configuaration array (default settings)
@@ -100,14 +100,14 @@ class AuditErrorTest extends AuditTestCase
         Yii::$app->errorHandler->logException($exception);
 
         $this->assertInstanceOf(Audit::className(), Audit::getInstance());
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
     }
 
     public function testModuleIsNotAutoloadedDuringAMemoryExecption()
     {
         $module = Audit::getInstance();
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
 
         Audit::setInstance(null);
         // Back to configuaration array (default settings)
@@ -120,7 +120,7 @@ class AuditErrorTest extends AuditTestCase
 
         // Restore module for database
         Audit::setInstance($module);
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId, $newId, 'Expected error entry not to be created');
     }
 
@@ -128,9 +128,9 @@ class AuditErrorTest extends AuditTestCase
     {
         $module = $this->module();
 
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
         $module->exception(new \Exception('Testing utility functions'));
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
     }
 
@@ -138,9 +138,9 @@ class AuditErrorTest extends AuditTestCase
     {
         $module = $this->module();
 
-        $oldId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $oldId = $this->getLastPk(AuditError::className());
         $module->errorMessage("testing the message function");
-        $newId = $this->tester->fetchTheLastModelPk(AuditError::className());
+        $newId = $this->getLastPk(AuditError::className());
         $this->assertEquals($oldId + 1, $newId, 'Expected error entry to be created');
     }
 

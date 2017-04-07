@@ -1,7 +1,17 @@
 # Changelog
 
-## 1.0.9 Unreleased
+## 1.0.11 Unreleased
 
+*
+
+## 1.0.10 March 26, 2017
+
+* Bug [#201](https://github.com/bedezign/yii2-audit/issues/201): FIx migration on pgsql
+
+## 1.0.9 March 25, 2017
+
+* Enh [#200](https://github.com/bedezign/yii2-audit/issues/200): fix ID column name duplicating
+* Bug [#199](https://github.com/bedezign/yii2-audit/issues/199): Fix user id filtering
 * Enh [#195](https://github.com/bedezign/yii2-audit/issues/195): cleanup solo AuditEntry records
 * Enh [#194](https://github.com/bedezign/yii2-audit/issues/194): add ignoreKeys to RequestPanel to lower data usage
 * Enh [#193](https://github.com/bedezign/yii2-audit/issues/193): charts in panels shows "undefined"

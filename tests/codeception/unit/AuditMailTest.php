@@ -31,7 +31,7 @@ class AuditMailTest extends AuditTestCase
 
     public function testAddManualMail()
     {
-        $oldId = $this->tester->fetchTheLastModelPk(AuditMail::className());
+        $oldId = $this->getLastPk(AuditMail::className());
 
         $message = [
             'subject' => 'test email subject',
@@ -49,7 +49,7 @@ class AuditMailTest extends AuditTestCase
             ->setHtmlBody($message['html'])
             ->send();
 
-        $newId = $this->tester->fetchTheLastModelPk(AuditMail::className());
+        $newId = $this->getLastPk(AuditMail::className());
         $this->assertNotEquals($oldId, $newId, 'Expected mail entry to be created');
 
         $this->assertInstanceOf(AuditMail::className(), $mail = AuditMail::findOne($newId));

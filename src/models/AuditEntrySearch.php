@@ -3,7 +3,6 @@
 namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\Audit;
-use Yii;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -103,13 +102,13 @@ class AuditEntrySearch extends AuditEntry
      */
     protected function filterUserId($userId, $query)
     {
-        if (strlen($this->user_id)) {
+        if (strlen($userId)) {
             if (!is_numeric($userId) && $callback = Audit::getInstance()->userFilterCallback) {
                 $userId = call_user_func($callback, $userId);
+            } else {
+                $userId = intval($userId) ?: 0;
             }
-            else
-                $userId = intval($this->user_id) ?: 0;
+            $query->andWhere(['user_id' => $userId]);
         }
-        $query->andFilterWhere(['user_id' => $userId]);
     }
 }

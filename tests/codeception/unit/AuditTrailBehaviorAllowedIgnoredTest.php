@@ -21,7 +21,8 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
 
     public function testThatAllowedConfigurationWorksForCreate()
     {
-        $entry = $this->entry(true);
+        $this->entry();
+        $this->finalizeAudit();
 
         $post = new Post();
         $audit = $post->getBehavior('audit');
@@ -31,6 +32,7 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
         $post->body = 'New post body';
         $this->assertTrue($post->save());
 
+        $entry = $this->entry();
         $this->finalizeAudit();
 
         $this->tester->dontSeeRecord(AuditTrail::className(), [
@@ -51,7 +53,9 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
 
     public function testThatAllowedConfigurationWorksForUpdate()
     {
-        $entry = $this->entry(true);
+        $this->entry();
+        $this->finalizeAudit();
+
         $post = Post::findOne(1);
         $audit = $post->getBehavior('audit');
         $audit->allowed = ['title'];
@@ -60,6 +64,7 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
         $post->body = 'Updated post body';
         $this->assertTrue($post->save());
 
+        $entry = $this->entry();
         $this->finalizeAudit();
 
         $this->tester->dontSeeRecord(AuditTrail::className(), [
@@ -80,7 +85,8 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
 
     public function testThatIgnoredConfigurationWorksForCreate()
     {
-        $entry = $this->entry(true);
+        $this->entry();
+        $this->finalizeAudit();
 
         $post = new Post();
         $audit = $post->getBehavior('audit');
@@ -90,6 +96,7 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
         $post->body = 'New post body';
         $this->assertTrue($post->save());
 
+        $entry = $this->entry();
         $this->finalizeAudit();
 
         $this->tester->dontSeeRecord(AuditTrail::className(), [
@@ -110,7 +117,9 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
 
     public function testThatIgnoredConfigurationWorksForUpdate()
     {
-        $entry = $this->entry(true);
+        $this->entry();
+        $this->finalizeAudit();
+
         $post = Post::findOne(1);
         $audit = $post->getBehavior('audit');
         $audit->ignored = ['body'];
@@ -119,6 +128,7 @@ class AuditTrailBehaviorAllowedIgnoredTest extends AuditTestCase
         $post->body = 'Updated post body';
         $this->assertTrue($post->save());
 
+        $entry = $this->entry();
         $this->finalizeAudit();
 
         $this->tester->dontSeeRecord(AuditTrail::className(), [

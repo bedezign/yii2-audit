@@ -2,6 +2,8 @@
 
 namespace tests\codeception\unit;
 
+use yii\db\ActiveRecord;
+
 class AuditTestCase extends \yii\codeception\TestCase
 {
     /**
@@ -47,6 +49,15 @@ class AuditTestCase extends \yii\codeception\TestCase
         $expected = preg_replace('~\R~u', "\n", $expected);
         $actual = preg_replace('~\R~u', "\n", $actual);
         $this->assertEquals($actual, $expected);
+    }
+
+
+    public function getLastPk($modelName)
+    {
+        /** @var ActiveRecord $model */
+        $model = new $modelName;
+        $model = $model->find()->orderBy([$model->primaryKey()[0] => SORT_DESC])->one();
+        return $model ? $model->primaryKey : 0;
     }
 
 }

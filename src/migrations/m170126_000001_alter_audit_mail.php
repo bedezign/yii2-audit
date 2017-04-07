@@ -9,7 +9,10 @@ class m170126_000001_alter_audit_mail extends Migration
 
     public function up()
     {
-        $this->alterColumn(self::TABLE, 'data', 'LONGBLOB');
+        if ($this->db->driverName === 'mysql') {
+            $this->alterColumn(self::TABLE, 'data', 'LONGBLOB');
+        } else {
+            $this->alterColumn(self::TABLE, 'data', 'BYTEA');
+        }
     }
-
 }

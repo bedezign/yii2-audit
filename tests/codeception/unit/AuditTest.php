@@ -26,24 +26,36 @@ class AuditTest extends AuditTestCase
 
     public function testThatEntryIsCreated()
     {
-        $oldEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
-        $this->module()->getEntry(true);
-        $newEntryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $this->entry();
+        $this->finalizeAudit(true);
+
+        $oldEntryId = $this->getLastPk(AuditEntry::className());
+        $this->entry();
+        $this->finalizeAudit(true);
+
+        $newEntryId = $this->getLastPk(AuditEntry::className());
+        $this->entry();
+        $this->finalizeAudit(true);
+
         $this->assertNotEquals($oldEntryId, $newEntryId, 'I expected that a new entry was added');
     }
 
     public function testThatCustomDataCanBeAttachedToAnEntry()
     {
-        $this->module()->getEntry(true);
-        $entryId = $this->tester->fetchTheLastModelPk(AuditEntry::className());
+        $this->entry();
+        $this->finalizeAudit(true);
+
+        $entryId = $this->getLastPk(AuditEntry::className());
 
         $originalData = ['some', 'array', 'with', 'test', 'data'];
 
-        $oldDataId = $this->tester->fetchTheLastModelPk(AuditData::className());
+        $oldDataId = $this->getLastPk(AuditData::className());
         $this->module()->data('extra-test', $originalData);
-        $this->finalizeAudit();
 
-        $newDataId = $this->tester->fetchTheLastModelPk(AuditData::className());
+        $this->entry();
+        $this->finalizeAudit(true);
+
+        $newDataId = $this->getLastPk(AuditData::className());
         $this->assertNotEquals($oldDataId, $newDataId, 'I expected that a new data entry was added');
 
         $this->tester->seeRecord(AuditData::className(), [

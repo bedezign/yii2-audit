@@ -48,6 +48,7 @@
         'Mails' => 'Correos',
         'Memory' => 'Memoria',
         'Message' => 'Mensaje',
+        'Model ID' => 'Model ID',
         'New Value' => 'Valor Nuevo',
         'No' => '',
         'Old Value' => 'Valor Anterior',

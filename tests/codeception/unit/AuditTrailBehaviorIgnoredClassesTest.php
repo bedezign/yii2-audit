@@ -24,7 +24,7 @@ class AuditTrailBehaviorIgnoredClassesTest extends AuditTestCase
      */
     public function testCreatePost()
     {
-        $oldTrailId = $this->tester->fetchTheLastModelPk(AuditTrail::className());
+        $oldTrailId = $this->getLastPk(AuditTrail::className());
         $post = new Post();
 
         $post->getBehavior('audit')->ignoredClasses = [Post::className()];
@@ -33,7 +33,7 @@ class AuditTrailBehaviorIgnoredClassesTest extends AuditTestCase
         $post->body = 'New post body';
         $this->assertTrue($post->save());
 
-        $newTrailId = $this->tester->fetchTheLastModelPk(AuditTrail::className());
+        $newTrailId = $this->getLastPk(AuditTrail::className());
         $this->assertEquals($oldTrailId, $newTrailId, 'I expected that a new trail was not added');
     }
 
@@ -42,7 +42,7 @@ class AuditTrailBehaviorIgnoredClassesTest extends AuditTestCase
      */
     public function testUpdatePost()
     {
-        $oldTrailId = $this->tester->fetchTheLastModelPk(AuditTrail::className());
+        $oldTrailId = $this->getLastPk(AuditTrail::className());
 
         $post = Post::findOne(1);
 
@@ -52,7 +52,7 @@ class AuditTrailBehaviorIgnoredClassesTest extends AuditTestCase
         $post->body = 'Updated post body';
         $this->assertTrue($post->save());
 
-        $newTrailId = $this->tester->fetchTheLastModelPk(AuditTrail::className());
+        $newTrailId = $this->getLastPk(AuditTrail::className());
         $this->assertEquals($oldTrailId, $newTrailId, 'I expected that a new trail was not added');
     }
 
@@ -61,7 +61,7 @@ class AuditTrailBehaviorIgnoredClassesTest extends AuditTestCase
      */
     public function testDeletePost()
     {
-        $oldTrailId = $this->tester->fetchTheLastModelPk(AuditTrail::className());
+        $oldTrailId = $this->getLastPk(AuditTrail::className());
 
         $post = Post::findOne(1);
 
@@ -69,7 +69,7 @@ class AuditTrailBehaviorIgnoredClassesTest extends AuditTestCase
 
         $this->assertSame($post->delete(), 1);
 
-        $newTrailId = $this->tester->fetchTheLastModelPk(AuditTrail::className());
+        $newTrailId = $this->getLastPk(AuditTrail::className());
         $this->assertEquals($oldTrailId, $newTrailId, 'I expected that a new trail was not added');
     }
 
