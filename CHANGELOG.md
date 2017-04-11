@@ -2,7 +2,8 @@
 
 ## 1.0.11 Unreleased
 
-* Enh: check if the module has been installed (prevents errors prior to migration while installing)
+* Bug: use correct database when running migrations if the database component is not "db"
+* Bug: check if the module has been installed (prevents errors prior to migration while installing)
 
 ## 1.0.10 March 26, 2017
 

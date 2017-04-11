@@ -1,7 +1,7 @@
 <?php
 
+use bedezign\yii2\audit\components\Migration;
 use yii\db\Schema;
-use yii\db\Migration;
 
 class m150626_000004_create_audit_trail extends Migration
 {

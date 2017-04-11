@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use bedezign\yii2\audit\components\Migration;
 use yii\db\Schema;
 
 class m150714_000001_alter_audit_data extends Migration

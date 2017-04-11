@@ -1,6 +1,6 @@
 <?php
 
-use yii\db\Migration;
+use bedezign\yii2\audit\components\Migration;
 use yii\db\Schema;
 
 class m150626_000005_create_audit_javascript extends Migration
