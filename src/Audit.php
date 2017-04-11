@@ -209,7 +209,9 @@ class Audit extends Module
         $app = Yii::$app;
 
         // check if the module has been installed (prevents errors while installing)
-        if (!$this->getDb()->getTableSchema(AuditEntry::tableName())) {
+        try {
+            $this->getDb()->getTableSchema(AuditEntry::tableName());
+        } catch (\Exception $e) {
             return;
         }
 
