@@ -23,7 +23,7 @@ use yii\swiftmailer\Message;
 class MailPanel extends Panel
 {
     /**
-     * Store full email daata
+     * Store full email data
      *
      * /!\ Set this to true will increase database size /!\
      */
