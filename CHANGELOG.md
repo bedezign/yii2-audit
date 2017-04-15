@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.0.12 Unreleased
+
+*
+
 ## 1.0.11 April 15, 2017
 
 * Bug: use correct database when running migrations if the database component is not "db"
