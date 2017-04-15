@@ -37,6 +37,15 @@ class AuditTrailBehavior extends Behavior
     public $ignoredClasses = [];
 
     /**
+     * Timestamp attributes should, in most cases, be ignored. If both AudittrailBehavior and
+     * TimestampBehavior logs the created_at and updated_at fields, the data is saved twice.
+     * In case you want to log them, you can unset the column from this timestamp column name suggestions.
+     * Set to null to disable this filter and log all columns.
+     * @var null|array
+     */
+    public $timestamp_fields = ['created', 'updated', 'created_at', 'updated_at', 'timestamp'];
+
+    /**
      * Is the behavior is active or not
      * @var boolean
      */
@@ -58,7 +67,6 @@ class AuditTrailBehavior extends Behavior
      * @var array
      */
     public $override = [];
-
 
     /**
      * @inheritdoc
@@ -171,7 +179,11 @@ class AuditTrailBehavior extends Behavior
      */
     protected function cleanAttributesIgnored($attributes)
     {
-        if (sizeof($this->ignored) > 0) {
+        if(is_array($this->timestamp_fields) && count($this->timestamp_fields) > 0) {
+            $this->ignored = array_merge($this->ignored, $this->timestamp_fields);
+        }
+
+        if (count($this->ignored) > 0) {
             foreach ($attributes as $f => $v) {
                 if (array_search($f, $this->ignored) !== false) {
                     unset($attributes[$f]);
