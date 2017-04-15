@@ -2,7 +2,7 @@
 
 ## 1.0.12 Unreleased
 
-*
+* Enh [#191](https://github.com/bedezign/yii2-audit/issues/191): add an option to disable most common timestamp fields
 
 ## 1.0.11 April 15, 2017
 
