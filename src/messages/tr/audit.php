@@ -72,7 +72,7 @@ return [
     'Profiling' => 'Ayrımlama',
     'Reply' => 'Yanıt',
     'Request' => 'İstek',
-    'Request Method' => 'İStek Metodu',
+    'Request Method' => 'İstek Metodu',
     'Stack Trace' => 'Yığın İzleme',
     'Subject' => 'Konu',
     'Successful' => 'Başarılı',
