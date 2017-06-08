@@ -1,5 +1,5 @@
 language: php
-dist: trusty
+dist: precise
 
 php:
   - hhvm
@@ -17,10 +17,13 @@ env:
     - DB=sqlite
 
 matrix:
+  include:
+    - php: hhvm
+      dist: trusty
   exclude:
     - php: hhvm
       env: DB=pgsql
-
+      
 branches:
   only:
     - master
