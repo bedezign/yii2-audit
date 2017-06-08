@@ -18,6 +18,10 @@ env:
 matrix:
   include:
     - php: hhvm
+      env: DB=mysql
+      dist: trusty
+    - php: hhvm
+      env: DB=sqlite
       dist: trusty
   exclude:
     - php: hhvm
