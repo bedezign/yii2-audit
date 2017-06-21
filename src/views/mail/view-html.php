@@ -4,6 +4,7 @@
 /** @var AuditMail $model */
 
 use bedezign\yii2\audit\models\AuditMail;
+use PhpMimeMailParser\Parser;
 use yii\web\View;
 
 $this->title = Yii::t('audit', 'Mail #{id}', ['id' => $model->id]);
@@ -12,4 +13,8 @@ $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Mails'), 'url' => 
 $this->params['breadcrumbs'][] = '#' . $model->id;
 
 
-echo Yii::$app->formatter->asHtml($model->html);
+//echo Yii::$app->formatter->asHtml($model->html);
+
+$parser = new Parser();
+$parser->setText($auditMail->data);
+echo $parser->getMessageBody('htmlEmbedded');
