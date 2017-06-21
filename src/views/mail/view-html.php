@@ -16,5 +16,5 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
 //echo Yii::$app->formatter->asHtml($model->html);
 
 $parser = new Parser();
-$parser->setText($auditMail->data);
+$parser->setText($model->data);
 echo $parser->getMessageBody('htmlEmbedded');
