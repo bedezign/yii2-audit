@@ -156,7 +156,7 @@ class AuditEntry extends ActiveRecord
         $this->route = $app->requestedAction ? $app->requestedAction->uniqueId : null;
         if ($request instanceof \yii\web\Request) {
             $this->user_id        = Audit::getInstance()->getUserId();
-            $this->ip             = $request->userIP;
+            $this->ip             = $this->getUserIP();
             $this->ajax           = $request->isAjax;
             $this->request_method = $request->method;
         } else if ($request instanceof \yii\console\Request) {
@@ -217,6 +217,17 @@ class AuditEntry extends ActiveRecord
             return true;
         }
         return false;
+    }
+
+    /**
+     * @return string
+     */
+    public function getUserIP()
+    {
+        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+            return array_values(array_filter(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR'])));
+        }
+        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
     }
 
 }
