@@ -11,11 +11,14 @@ foreach (range(-6, 0) as $day) {
     $defaults[date('D: Y-m-d', strtotime($day . 'days'))] = 0;
 }
 $results = AuditMail::find()
-    ->select(["COUNT(DISTINCT id) as count", "DATE_FORMAT(created, '%a: %Y-%m-%d') AS day"])
+    ->select(["COUNT(DISTINCT id) as count", "created AS day"])
     ->where(['between', 'created',
         date('Y-m-d 00:00:00', $startDate),
         date('Y-m-d 23:59:59')])
     ->groupBy("day")->indexBy('day')->column();
+array_walk($results, function ($count, &$key) {
+    $key = date('D: Y-m-d', date_create($key));
+});
 $results = array_merge($defaults, $results);
 
 echo ChartJs::widget([
