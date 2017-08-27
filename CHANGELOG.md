@@ -1,9 +1,13 @@
 # Changelog
 
-## 1.0.12 Unreleased
+## 1.0.12 August 27, 2017
 
 * Enh [#188](https://github.com/bedezign/yii2-audit/issues/188): Ignore attributes when they contain arrays
 * Enh [#191](https://github.com/bedezign/yii2-audit/issues/191): add an option to disable most common timestamp fields
+* Bug [#204](https://github.com/bedezign/yii2-audit/pull/204): Fixed typo in Turkisch translations
+* Enh: Now using PhpMimeMailParser to display the email HTML
+* Enh: Improved IP detection for users behind a proxy
+* Enh [#214](https://github.com/bedezign/yii2-audit/issues/191): Reduced amount of queries to display the main screen
 
 ## 1.0.11 April 15, 2017
 
