@@ -5,13 +5,18 @@ use bedezign\yii2\audit\models\AuditMail;
 use bedezign\yii2\audit\panels\MailPanel;
 use dosamigos\chartjs\ChartJs;
 
-$days = [];
-$count = [];
+$defaults = [];
+$startDate = strtotime('-6 days');
 foreach (range(-6, 0) as $day) {
-    $date = strtotime($day . 'days');
-    $days[] = date('D: Y-m-d', $date);
-    $count[] = AuditMail::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
+    $defaults[date('D: Y-m-d', strtotime($day . 'days'))] = 0;
 }
+$results = AuditMail::find()
+    ->select(["COUNT(DISTINCT id) as count", "DATE_FORMAT(created, '%a: %Y-%m-%d') AS day"])
+    ->where(['between', 'created',
+        date('Y-m-d 00:00:00', $startDate),
+        date('Y-m-d 23:59:59')])
+    ->groupBy("day")->indexBy('day')->column();
+$results = array_merge($defaults, $results);
 
 echo ChartJs::widget([
     'type' => 'bar',
@@ -20,14 +25,14 @@ echo ChartJs::widget([
         'tooltips' => ['enabled' => false],
     ],
     'data' => [
-        'labels' => $days,
+        'labels' => array_keys($results),
         'datasets' => [
             [
                 'fillColor' => 'rgba(151,187,205,0.5)',
                 'strokeColor' => 'rgba(151,187,205,1)',
                 'pointColor' => 'rgba(151,187,205,1)',
                 'pointStrokeColor' => '#fff',
-                'data' => $count,
+                'data' => array_values($results),
             ],
         ],
     ]
