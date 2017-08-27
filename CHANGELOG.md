@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.13 Unreleased
+* Bug [#216](https://github.com/bedezign/yii2-audit/issues/216): Migration failed for MSSQL on alter_audit_mail
+
 ## 1.0.12 August 27, 2017
 
 * Enh [#188](https://github.com/bedezign/yii2-audit/issues/188): Ignore attributes when they contain arrays
