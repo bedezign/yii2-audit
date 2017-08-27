@@ -24,13 +24,22 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
 
             <div class="well">
                 <?php
-                $days = [];
-                $count = [];
+                $defaults = [];
+                $startDate = strtotime('-6 days');
                 foreach (range(-6, 0) as $day) {
-                    $date = strtotime($day . 'days');
-                    $days[] = date('D: Y-m-d', $date);
-                    $count[] = AuditEntry::find()->where(['between', 'created', date('Y-m-d 00:00:00', $date), date('Y-m-d 23:59:59', $date)])->count();
+                    $defaults[date('D: Y-m-d', strtotime($day . 'days'))] = 0;
                 }
+                $results = AuditEntry::find()
+                    ->select(["COUNT(DISTINCT id) as count", "created AS day"])
+                    ->where(['between', 'created',
+                        date('Y-m-d 00:00:00', $startDate),
+                        date('Y-m-d 23:59:59')])
+                    ->groupBy("day")->indexBy('day')->column();
+                array_walk($results, function ($count, &$key) {
+                    $key = date('D: Y-m-d', date_create($key));
+                });
+                $results = array_merge($defaults, $results);
+
                 echo ChartJs::widget([
                     'type' => 'bar',
                     'options' => [
@@ -41,14 +50,14 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                         'tooltips' => ['enabled' => false],
                     ],
                     'data' => [
-                        'labels' => $days,
+                        'labels' => array_keys($results),
                         'datasets' => [
                             [
                                 'fillColor' => 'rgba(151,187,205,0.5)',
                                 'strokeColor' => 'rgba(151,187,205,1)',
                                 'pointColor' => 'rgba(151,187,205,1)',
                                 'pointStrokeColor' => '#fff',
-                                'data' => $count,
+                                'data' => array_values($results),
                             ],
                         ],
                     ]
