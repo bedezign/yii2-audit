@@ -24,20 +24,29 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
 
             <div class="well">
                 <?php
+                //initialise defaults (0 entries) for each day
                 $defaults = [];
                 $startDate = strtotime('-6 days');
                 foreach (range(-6, 0) as $day) {
                     $defaults[date('D: Y-m-d', strtotime($day . 'days'))] = 0;
                 }
+
                 $results = AuditEntry::find()
                     ->select(["COUNT(DISTINCT id) as count", "created AS day"])
                     ->where(['between', 'created',
                         date('Y-m-d 00:00:00', $startDate),
                         date('Y-m-d 23:59:59')])
                     ->groupBy("day")->indexBy('day')->column();
-                array_walk($results, function ($count, &$key) {
-                    $key = date('D: Y-m-d', date_create($key));
-                });
+
+                // format dates properly
+                $formattedData = [];
+                foreach ($results as $date => $count) {
+                    $date = date('D: Y-m-d', strtotime($date));
+                    $formattedData[$date] = $count;
+                }
+                $results = $formattedData;
+
+                // replace defaults with data from db where available
                 $results = array_merge($defaults, $results);
 
                 echo ChartJs::widget([
