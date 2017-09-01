@@ -2,7 +2,6 @@
 
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\panels\Panel;
-use bedezign\yii2\audit\models\AuditEntry;
 use dosamigos\chartjs\ChartJs;
 use yii\helpers\Html;
 
@@ -24,30 +23,6 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
 
             <div class="well">
                 <?php
-                //initialise defaults (0 entries) for each day
-                $defaults = [];
-                $startDate = strtotime('-6 days');
-                foreach (range(-6, 0) as $day) {
-                    $defaults[date('D: Y-m-d', strtotime($day . 'days'))] = 0;
-                }
-
-                $results = AuditEntry::find()
-                    ->select(["COUNT(DISTINCT id) as count", "created AS day"])
-                    ->where(['between', 'created',
-                        date('Y-m-d 00:00:00', $startDate),
-                        date('Y-m-d 23:59:59')])
-                    ->groupBy("day")->indexBy('day')->column();
-
-                // format dates properly
-                $formattedData = [];
-                foreach ($results as $date => $count) {
-                    $date = date('D: Y-m-d', strtotime($date));
-                    $formattedData[$date] = $count;
-                }
-                $results = $formattedData;
-
-                // replace defaults with data from db where available
-                $results = array_merge($defaults, $results);
 
                 echo ChartJs::widget([
                     'type' => 'bar',
@@ -59,14 +34,14 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                         'tooltips' => ['enabled' => false],
                     ],
                     'data' => [
-                        'labels' => array_keys($results),
+                        'labels' => array_keys($chartData),
                         'datasets' => [
                             [
                                 'fillColor' => 'rgba(151,187,205,0.5)',
                                 'strokeColor' => 'rgba(151,187,205,1)',
                                 'pointColor' => 'rgba(151,187,205,1)',
                                 'pointStrokeColor' => '#fff',
-                                'data' => array_values($results),
+                                'data' => array_values($chartData),
                             ],
                         ],
                     ]
