@@ -29,5 +29,4 @@ class DefaultController extends Controller
     {
         return AuditEntry::className();
     }
-
 }

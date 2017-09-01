@@ -4,7 +4,6 @@
 use bedezign\yii2\audit\panels\JavascriptPanel;
 use dosamigos\chartjs\ChartJs;
 
-
 echo ChartJs::widget([
     'type' => 'bar',
     'clientOptions' => [
