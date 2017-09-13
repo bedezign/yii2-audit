@@ -17,7 +17,7 @@ $results = AuditError::find()
         date('Y-m-d 23:59:59')])
     ->groupBy("day")->indexBy('day')->column();
 array_walk($results, function ($count, &$key) {
-    $key = date('D: Y-m-d', date_create($key));
+    $key = date_create($key)->format('D: Y-m-d');
 });
 $results = array_merge($defaults, $results);
 
