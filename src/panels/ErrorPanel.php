@@ -4,6 +4,7 @@ namespace bedezign\yii2\audit\panels;
 
 use bedezign\yii2\audit\components\Helper;
 use bedezign\yii2\audit\components\panels\Panel;
+use bedezign\yii2\audit\components\panels\RendersSummaryChartTrait;
 use bedezign\yii2\audit\models\AuditError;
 use bedezign\yii2\audit\models\AuditErrorSearch;
 use Yii;
@@ -15,6 +16,8 @@ use yii\grid\GridViewAsset;
  */
 class ErrorPanel extends Panel
 {
+    use RendersSummaryChartTrait;
+
     private $_exceptions = [];
 
     /**
@@ -143,10 +146,19 @@ class ErrorPanel extends Panel
     /**
      * @inheritdoc
      */
+    protected function getChartModel()
+    {
+        return AuditError::className();
+    }
+
+    /**
+     * @inheritdoc
+     */
     public function getChart()
     {
         return \Yii::$app->view->render('panels/error/chart', [
             'panel' => $this,
+            'chartData' => $this->getChartData()
         ]);
     }
 

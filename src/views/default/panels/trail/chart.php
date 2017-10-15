@@ -37,14 +37,14 @@ echo ChartJs::widget([
         'tooltips' => ['enabled' => false],
     ],
     'data' => [
-        'labels' => array_keys($results),
+        'labels' => array_keys($chartData),
         'datasets' => [
             [
                 'fillColor' => 'rgba(151,187,205,0.5)',
                 'strokeColor' => 'rgba(151,187,205,1)',
                 'pointColor' => 'rgba(151,187,205,1)',
                 'pointStrokeColor' => '#fff',
-                'data' => array_values($results),
+                'data' => array_values($chartData),
             ],
         ],
     ]
