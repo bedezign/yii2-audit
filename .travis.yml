@@ -2,6 +2,7 @@ language: php
 dist: trusty
 
 php:
+  - 7.2
   - 7.1
   - 7.0
   - 5.6
@@ -18,10 +19,8 @@ matrix:
   include:
     - php: hhvm
       env: DB=mysql
-      dist: trusty
     - php: hhvm
       env: DB=sqlite
-      dist: trusty
   exclude:
     - php: hhvm
       env: DB=pgsql

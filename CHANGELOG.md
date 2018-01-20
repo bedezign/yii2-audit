@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.0 Januari 20, 2018
+* Enh [#231](https://github.com/bedezign/yii2-audit/issues/231): This release is identical to 1.0.13 except that **it requires Yii 2.0.13** to make it compatible with PHP 7.2. It will still work on older PHP versions.
+
 ## 1.0.13 Januari 20, 2018
 * Bug [#216](https://github.com/bedezign/yii2-audit/issues/216): Migration failed for MSSQL on alter_audit_mail
 * Enh [#219](https://github.com/bedezign/yii2-audit/pull/219): Refactored chart panels
