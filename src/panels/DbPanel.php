@@ -12,6 +12,7 @@ use yii\grid\GridViewAsset;
  * @package bedezign\yii2\audit\panels
  *
  * @method bool hasExplain()
+ * @method int sumDuplicateQueries()
  */
 class DbPanel extends \yii\debug\panels\DbPanel
 {
@@ -44,7 +45,8 @@ class DbPanel extends \yii\debug\panels\DbPanel
             $searchModel->load($this->defaultFilter, '');
         }
 
-        $dataProvider = $searchModel->search($this->getModels());
+        $models = $this->getModels();
+        $dataProvider = $searchModel->search($models);
         $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/db/detail', [
@@ -52,6 +54,7 @@ class DbPanel extends \yii\debug\panels\DbPanel
             'dataProvider' => $dataProvider,
             'searchModel' => $searchModel,
             'hasExplain' => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
+            'sumDuplicates' => method_exists($this, 'sumDuplicateQueries') ? $this->sumDuplicateQueries($models) : null,
         ]);
     }
 

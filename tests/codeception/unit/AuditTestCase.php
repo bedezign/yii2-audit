@@ -4,14 +4,14 @@ namespace tests\codeception\unit;
 
 use yii\db\ActiveRecord;
 
-class AuditTestCase extends \yii\codeception\TestCase
+class AuditTestCase extends \Codeception\Test\Unit
 {
     /**
      * @return \bedezign\yii2\audit\Audit
      */
     public function module()
     {
-        return \Yii::$app->getModule('audit');
+        return $this->getModule('Yii2')->client->getApplication()->getModule('audit');
     }
 
     public function entry($create = true, $new = false)
@@ -21,13 +21,25 @@ class AuditTestCase extends \yii\codeception\TestCase
 
     public function finalizeAudit($restartApplication = true)
     {
-        $this->module()->onAfterRequest();
-        \Yii::getLogger()->flush(true);
-        \Yii::$app->db->close();
-        $this->destroyApplication();
+        /** @var \Codeception\Lib\Connector\Yii2 $connector */
+        $connector = $this->getModule('Yii2')->client;
+        $app = $connector->getApplication();
 
-        if ($restartApplication)
-            $this->mockApplication();
+        // Trigger event handler
+        $this->module()->onAfterRequest();
+
+        // The globally used logger is not the same as the one for the application because the connectors' startApplication()
+        // function replaces the global instance with its last line of code. So make sure we flush the application one
+        $app->getLog()->getLogger()->flush(true);
+
+        // Terminate application
+        $app->db->close();
+        $connector->resetApplication();
+        $connector->resetPersistentVars();
+
+        if ($restartApplication) {
+            $connector->getApplication();
+        }
     }
 
     public function useEntry($entry)

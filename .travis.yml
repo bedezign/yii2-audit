@@ -2,10 +2,10 @@ language: php
 dist: precise
 
 php:
+  - 7.2
   - 7.1
   - 7.0
   - 5.6
-  - 5.5
 
 env:
   global:
@@ -26,7 +26,7 @@ matrix:
   exclude:
     - php: hhvm
       env: DB=pgsql
-      
+
 branches:
   only:
     - master
@@ -35,10 +35,7 @@ branches:
 
 install:
   - travis_retry composer self-update
-  - travis_retry composer global require "fxp/composer-asset-plugin:~1.1.1"
-  - travis_retry composer global require "codeception/codeception:2.2.*"
   - travis_retry composer install --no-interaction --prefer-dist
-#  - ln -s `pwd`/vendor/bower-asset `pwd`/vendor/bower
 
 before_script:
   - if [[ $TRAVIS_PHP_VERSION =~ ^hhvm ]]; then echo 'xdebug.enable = On' >> /etc/hhvm/php.ini; fi
