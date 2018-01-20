@@ -43,7 +43,6 @@
     "phpspec/php-diff": "1.*"
   },
   "require-dev": {
-    "yiisoft/yii2-swiftmailer": "2.*",
     "codeception/codeception": "^2.3",
     "codeception/specify": "*",
     "codeception/verify": "*",

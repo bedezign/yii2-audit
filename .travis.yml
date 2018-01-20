@@ -1,5 +1,5 @@
 language: php
-dist: precise
+dist: trusty
 
 php:
   - 7.2
@@ -45,10 +45,10 @@ before_script:
   - cd tests
   - php codeception/_app/yii migrate/up --interactive=0
   - php codeception/_app/yii migrate/up --migrationPath=../src/migrations --interactive=0
-  - ~/.composer/vendor/bin/codecept build
+  - php ../vendor/bin/codecept build
 
 script:
-  - ~/.composer/vendor/bin/codecept run --coverage-html --coverage-xml
+  - php ../vendor/bin/codecept run --coverage-html --coverage-xml
 
 after_script:
   - php ../vendor/bin/ocular code-coverage:upload --format=php-clover codeception/_output/coverage.xml
