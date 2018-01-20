@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.1.1 Unreleased
+* Enh [#225](https://github.com/bedezign/yii2-audit/issues/225): German translation
+
 ## 1.1.0 January 20, 2018
 * Enh [#231](https://github.com/bedezign/yii2-audit/issues/231): This release is identical to 1.0.13 except that **it requires Yii 2.0.13** to make it compatible with PHP 7.2. It will still work on older PHP versions.
 
@@ -9,7 +12,7 @@
 * Enh: Use `HTTP_X_FORWARDED_FOR` as IP when it is set
 * Enh [#217](https://github.com/bedezign/yii2-audit/pull/217), [#218](https://github.com/bedezign/yii2-audit/pull/218): Optimized database queries for panels
 * Enh: Made `php-mime-mail-parser` optional (mail panel will now work without, with less functionality). This means you don't need the `mailparse` extension anymore to install Audit.
-* Bug: Made DbPanel work with versions that have the [duplicate queries count](https://github.com/yiisoft/yii2-debug/pull/293)
+* Bug [#233](https://github.com/bedezign/yii2-audit/issues/233): Made DbPanel work with versions that have the [duplicate queries count](https://github.com/yiisoft/yii2-debug/pull/293)
 * A new version will be released shortly (1.1.0) that will be PHP >= 7.2 and  Yii >= 2.0.13. As of PHP 7.2 `object` is reserved as a type hint keyword and thus the Yii `Object` class was renamed to `BaseObject`. For PHP < 7.2 a workaround was added that still provides an `Object` class. This means that Audit v1.0 will work for Yii >= 2.0.13, as long as you do not use PHP >= 7.2
 
 
