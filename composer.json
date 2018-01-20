@@ -8,7 +8,7 @@
     "logging"
   ],
   "type": "yii2-extension",
-  "license": "BSD 3-Clause",
+  "license": "MIT",
   "authors": [
     {
       "name": "Steve Guns",
