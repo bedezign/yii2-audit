@@ -220,12 +220,7 @@ class Audit extends Module
         // After request finalizes the audit entry.
         $app->on(Application::EVENT_AFTER_REQUEST, [$this, 'onAfterRequest']);
 
-        // Activate the logging target
-        if (empty($app->getLog()->targets['audit'])) {
-            $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this, $this->logConfig);
-        } else {
-            $this->logTarget = $app->getLog()->targets['audit'];
-        }
+        $this->activateLogTarget();
 
         // Boot all active panels
         $this->normalizePanelConfiguration();
@@ -290,6 +285,18 @@ class Audit extends Module
             throw new \yii\base\InvalidCallException("Unknown panel function '$name'");
 
         return call_user_func_array($this->_panelFunctions[$name], $params);
+    }
+
+    public function activateLogTarget()
+    {
+        $app = Yii::$app;
+
+        // Activate the logging target
+        if (empty($app->getLog()->targets['audit'])) {
+            $this->logTarget = $app->getLog()->targets['audit'] = new LogTarget($this, $this->logConfig);
+        } else {
+            $this->logTarget = $app->getLog()->targets['audit'];
+        }
     }
 
     /**
