@@ -1,11 +1,13 @@
 # Changelog
 
 ## 1.0.14 February 4, 2018
+
 * Enh [#225](https://github.com/bedezign/yii2-audit/issues/225): German translation
 * Enh [#236](https://github.com/bedezign/yii2-audit/pull/236): Chinese translation
 * Bug [#221](https://github.com/bedezign/yii2-audit/issues/221): Verify component existence in the console, terminate execution with more flair if not.
 
 ## 1.0.13 January 20, 2018
+
 * Bug [#216](https://github.com/bedezign/yii2-audit/issues/216): Migration failed for MSSQL on alter_audit_mail
 * Enh [#219](https://github.com/bedezign/yii2-audit/pull/219): Refactored chart panels
 * Enh: Use `HTTP_X_FORWARDED_FOR` as IP when it is set
