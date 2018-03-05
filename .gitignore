@@ -17,3 +17,4 @@ vendor/
 TestController.php
 /c3.php
 codecept.phar
+_generated/*

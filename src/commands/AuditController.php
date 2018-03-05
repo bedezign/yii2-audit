@@ -9,6 +9,7 @@ use bedezign\yii2\audit\models\AuditError;
 use Yii;
 use yii\base\Exception;
 use yii\console\Controller;
+use yii\console\ExitCode;
 use yii\helpers\Console;
 use yii\helpers\Html;
 use yii\helpers\Url;
@@ -55,12 +56,17 @@ class AuditController extends Controller
     /**
      * Cleanup the Audit data
      *
-     * @return int|void
+     * @return int
      */
     public function actionCleanup()
     {
         /** @var Audit $audit */
         $audit = Yii::$app->getModule(Audit::findModuleIdentifier());
+        if (!$audit) {
+            $this->stderr('Unable to load the Audit Component. Please make sure it was added to your console configuration?');
+            return ExitCode::CONFIG;
+        }
+
         if ($this->panels === '') {
             $panels = [];
         } else {
@@ -96,7 +102,7 @@ class AuditController extends Controller
             // success!
             $this->stdout("\nCleanup was successful.\n", Console::FG_GREEN);
         }
-        return self::EXIT_CODE_NORMAL;
+        return ExitCode::OK;
     }
 
     /**

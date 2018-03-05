@@ -13,6 +13,16 @@
 
 Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
 
+## PHP7.2 & Yii 2.0.13 or later
+
+From `PHP 7.2` on `Object` became a reserved keyword. The people from Yii changed their `Object`-implementation, calling it `BaseObject`, with a fallback `Object` class for PHP < 7.2.
+
+We opted - to not force everyone to `Yii 2.0.13` right away - to split our releases in 2 branches.
+
+Version `1.0.*` is currently a maintenance version. We'll keep adding bugfixes and things like translations for a while, probably until `2.0.13` is a bit more common. You can use it as long as you aren't on `PHP 7.2`.
+
+For all other cases, please use version `1.1.*`.
+
 ## Features
 
 ### Powerful, yet Simple
