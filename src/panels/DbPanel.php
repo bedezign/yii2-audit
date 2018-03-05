@@ -18,6 +18,14 @@ class DbPanel extends \yii\debug\panels\DbPanel
 {
     use DataStoragePanelTrait;
 
+	/**
+     * Be able to use Module Configuration for DbPanel
+     */
+    public function init()
+    {
+        $this->db = $this->module->db;
+    }
+	
     /**
      * @var array current database request timings
      */
