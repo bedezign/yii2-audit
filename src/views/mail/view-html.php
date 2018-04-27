@@ -16,7 +16,7 @@ $this->params['breadcrumbs'][] = '#' . $model->id;
 //echo Yii::$app->formatter->asHtml($model->html);
 
 if (class_exists('\PhpMimeMailParser\Parser')) {
-    $parser = new \PhpMimeMailParser\Parser\Parser();
+    $parser = new \PhpMimeMailParser\Parser();
     $parser->setText($model->data);
     echo $parser->getMessageBody('htmlEmbedded');
 } else {
