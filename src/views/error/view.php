@@ -56,7 +56,7 @@ echo GridView::widget([
             'value' => function ($data) {
                 $out = '<a class="args-toggle glyphicon glyphicon-plus" href="javascript:void(0);"></a>';
                 $out .= '<pre style="display:none;">';
-                $out .= VarDumper::dumpAsString($data['args']);
+                $out .= !empty($data['args']) ? VarDumper::dumpAsString($data['args']) : '';
                 $out .= '</pre>';
                 return $out;
             },
