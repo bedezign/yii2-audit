@@ -325,6 +325,14 @@ class Audit extends Module
     }
 
     /**
+     * @param AuditEntry $entry
+     */
+    public function setEntry($entry)
+    {
+        $this->_entry = $entry;
+    }
+    
+    /**
      * @param $user_id
      * @return string
      */
