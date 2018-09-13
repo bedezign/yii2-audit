@@ -27,7 +27,7 @@ $this->registerCss('canvas {width: 100% !important;height: 400px;}');
                 echo ChartJs::widget([
                     'type' => 'bar',
                     'options' => [
-                        'height' => '45',
+                        'height' => '450',
                     ],
                     'clientOptions' => [
                         'legend' => ['display' => false],
