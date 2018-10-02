@@ -68,6 +68,26 @@ class Post extends \yii\db\ActiveRecord
 
 See [Trail Panel](../trail-panel/) for the all configuration options and advanced usage information.
 
+You can also attach `AuditTrailBehavior` to models eg. from `vendor`
+
+```
+// attach audit trails to 3rd-party models
+$trailedModels = [
+    \pheme\settings\models\Setting::class,
+    \Da\User\Model\User::class,
+    \Da\User\Model\Profile::class
+];
+foreach ($trailedModels as $model) {
+    \yii\base\Event::on(
+        $model,
+        \yii\db\ActiveRecord::EVENT_INIT,
+        function ($event) {
+            $event->sender->attachBehavior('audit', \bedezign\yii2\audit\AuditTrailBehavior::class);
+        }
+    );
+}
+```
+
 ## Logging Javascript
 
 Register `JSLoggingAsset` in any of your views:
