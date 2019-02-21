@@ -3,6 +3,7 @@
 ## 1.1.2 Pending Release
 
 * Bug [#246](https://github.com/bedezign/yii2-audit/issues/246): fix when args missing from error trace
+* Enh [#259](https://github.com/bedezign/yii2-audit/issues/259): French translation
 
 ## 1.1.1 February 4, 2018
 
