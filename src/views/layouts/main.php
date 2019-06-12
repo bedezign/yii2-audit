@@ -11,7 +11,7 @@ use yii\debug\DebugAsset;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
 
-DebugAsset::register($this);
+//DebugAsset::register($this);
 JSLoggingAsset::register($this)
 ?>
 <?php $this->beginPage() ?>
