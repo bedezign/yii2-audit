@@ -46,7 +46,7 @@ trait RendersSummaryChartTrait
             ->where(['between', 'created',
                 date('Y-m-d 00:00:00', $startDate),
                 date('Y-m-d 23:59:59')])
-            ->groupBy("day")->indexBy('day')->column();
+            ->groupBy("created")->indexBy('day')->column();
 
         // replace defaults with data from db where available
         foreach ($results as $date => $count) {
