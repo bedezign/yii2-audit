@@ -4,6 +4,7 @@
 
 * Bug [#263](https://github.com/bedezign/yii2-audit/issues/263): fix bs4 issues from yii2-debug 
 * Bug [#246](https://github.com/bedezign/yii2-audit/issues/246): fix when args missing from error trace
+* Enh [#264](https://github.com/bedezign/yii2-audit/issues/264): show the whole request url in entry view
 * Enh [#259](https://github.com/bedezign/yii2-audit/issues/259): French translation
 
 ## 1.1.1 February 4, 2018

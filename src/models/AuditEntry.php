@@ -230,4 +230,19 @@ class AuditEntry extends ActiveRecord
         return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
     }
 
+    /**
+     * @param AuditEntry $auditEntry
+     * @return bool|string
+     */
+    public static function getRequestUrl()
+    {
+        $data = ArrayHelper::getColumn($this->data, 'data');
+        if (!isset($data['audit/request']) || !is_array($data['audit/request'])) {
+            return Url::to([$this->route ?: '/'], 'https');
+        }
+        $request = $data['audit/request'];
+        $route = $this->route ?: (!empty($request['route']) ? $request['route'] : '/');
+        return Url::to(ArrayHelper::merge([$route], $request['GET']), 'https');
+    }
+
 }
