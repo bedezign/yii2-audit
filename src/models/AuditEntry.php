@@ -8,6 +8,8 @@ use bedezign\yii2\audit\components\Helper;
 use Yii;
 use yii\db\ActiveQuery;
 use yii\db\Expression;
+use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 
 /**
  * AuditEntry
@@ -231,10 +233,9 @@ class AuditEntry extends ActiveRecord
     }
 
     /**
-     * @param AuditEntry $auditEntry
-     * @return bool|string
+     * @return string
      */
-    public static function getRequestUrl()
+    public function getRequestUrl()
     {
         $data = ArrayHelper::getColumn($this->data, 'data');
         if (!isset($data['audit/request']) || !is_array($data['audit/request'])) {
