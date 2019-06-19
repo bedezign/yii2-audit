@@ -2,6 +2,7 @@
 
 ## 1.1.2 Pending Release
 
+* Bug [#263](https://github.com/bedezign/yii2-audit/issues/263): fix bs4 issues from yii2-debug 
 * Bug [#246](https://github.com/bedezign/yii2-audit/issues/246): fix when args missing from error trace
 * Enh [#259](https://github.com/bedezign/yii2-audit/issues/259): French translation
 
