@@ -21,11 +21,19 @@ class RequestPanel extends \yii\debug\panels\RequestPanel
     public $ignoreKeys = [];
 
     /**
-     * @inheritdoc
+     * {@inheritdoc}
+     */
+    public function getSummary()
+    {
+        return Yii::$app->view->render('panels/request/summary', ['panel' => $this]);
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getDetail()
     {
-        return \Yii::$app->view->render('@yii/debug/views/default/panels/request/detail', ['panel' => $this]);
+        return Yii::$app->view->render('panels/request/detail', ['panel' => $this]);
     }
 
     /**
