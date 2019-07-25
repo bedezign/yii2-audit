@@ -1,5 +1,7 @@
 <?php
 
+namespace bedezign\yii2\audit\migrations;
+
 use bedezign\yii2\audit\components\Migration;
 use yii\db\Schema;
 
