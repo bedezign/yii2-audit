@@ -26,6 +26,6 @@ class AuditAsset extends AssetBundle
      * @inheritdoc
      */
     public $depends = [
-        'yii\bootstrap\BootstrapAsset',
+        'yii\bootstrap4\BootstrapAsset',
     ];
 }

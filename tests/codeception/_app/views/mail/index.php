@@ -4,7 +4,7 @@
  * @var $contactForm ContactForm
  */
 use tests\app\models\ContactForm;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use yii\helpers\Html;
 
 $this->title = Yii::t('app', 'Mails');

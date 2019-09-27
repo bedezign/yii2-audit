@@ -5,8 +5,8 @@
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\web\JSLoggingAsset;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use yii\bootstrap4\Nav;
+use yii\bootstrap4\NavBar;
 use yii\debug\DebugAsset;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;

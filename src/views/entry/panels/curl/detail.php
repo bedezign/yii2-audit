@@ -1,7 +1,7 @@
 <?php
 /* @var $panel yii\debug\panels\LogPanel */
 
-use yii\bootstrap\Tabs;
+use yii\bootstrap4\Tabs;
 use yii\helpers\Html;
 use bedezign\yii2\audit\components\Helper;
 

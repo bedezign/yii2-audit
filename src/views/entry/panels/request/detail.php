@@ -65,6 +65,6 @@ if (isset($panel->data['SERVER'])) {
         'content' => $this->render('table', ['caption' => '$_SERVER', 'values' => $panel->data['SERVER']]),
     ];
 }
-echo \yii\bootstrap\Tabs::widget([
+echo \yii\bootstrap4\Tabs::widget([
     'items' => $items,
 ]);

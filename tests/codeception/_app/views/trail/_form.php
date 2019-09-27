@@ -1,14 +1,14 @@
 <?php
 
 use yii\helpers\Html;
-use yii\bootstrap\ActiveForm;
+use yii\bootstrap4\ActiveForm;
 use \dmstr\bootstrap\Tabs;
 use cornernote\returnurl\ReturnUrl;
 
 /**
  * @var yii\web\View $this
  * @var tests\app\models\Post $post
- * @var yii\bootstrap\ActiveForm $form
+ * @var yii\bootstrap4\ActiveForm $form
  */
 
 ?>
