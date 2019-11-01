@@ -16,7 +16,7 @@ Yii2 Audit records and displays web/cli requests, database changes, php/js error
 ## PHP7.2 & Yii 2.0.13 or later
 
 From `PHP 7.2` on `Object` became a reserved keyword. 
-Since enough time went by, we decided to assume everyone is on 7.2 and Yii 2.0.13 by now we won't bee keeping 
+Since enough time went by, we decided to assume everyone is on 7.2 and Yii 2.0.13 by now we won't be keeping 
 `1.0.*`-branch (pre PHP 7.2) up to date anymore. 
 
 Please use version `1.1.*` or later.

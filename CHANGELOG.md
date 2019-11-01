@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.1.3 Pending Release
+
+* Enh [#232](https://github.com/bedezign/yii2-audit/issues/232): Added `exportAtIntervals` log-target configuration to allow export during the request.
+
 ## 1.1.2 November 1, 2019
 
 So finally a release. 
