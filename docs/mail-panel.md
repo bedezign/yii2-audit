@@ -51,3 +51,10 @@ Now check in the audit module to see your mail:
 ```
 http://localhost/path/to/index.php?r=audit/mail
 ```
+
+## Rendering
+
+By default it is assumed that `PhpMimeMailParser` is installed, but we also allow you to use your own function to do the mail rendering.
+Simply register a `renderEmail` panel function on the module (`Audit::getInstance()->registerFunction('renderEmail', function)`) and it will be called
+during the detailed email rendering. You'll get the `View` and the `AuditMail` instances as parameters.
+The function assumes you'll do your own echo'ing and will ignore any return value.
