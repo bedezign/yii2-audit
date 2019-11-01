@@ -6,6 +6,7 @@
 use tests\app\models\ContactForm;
 use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
+use bedezign\yii2\audit\components\web\Helper;
 
 $this->title = Yii::t('app', 'Mails');
 $this->params['breadcrumbs'][] = $this->title;
@@ -19,7 +20,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <h2><?= Yii::t('app', 'Send Mail') ?></h2>
 
             <p>Please note that mail is sent via the FileTransport. No actual mail will be sent.</p>
-            <?php $form = ActiveForm::begin(); ?>
+            <?php $form = Helper::bootstrap('ActiveForm', 'begin'); ?>
             <?= $form->field($contactForm, 'name') ?>
             <?= $form->field($contactForm, 'email') ?>
             <?= $form->field($contactForm, 'subject') ?>
@@ -27,7 +28,7 @@ $this->params['breadcrumbs'][] = $this->title;
             <div class="form-group">
                 <?= Html::submitButton('Submit', ['class' => 'btn btn-primary', 'name' => 'contact-button']) ?>
             </div>
-            <?php ActiveForm::end(); ?>
+            <?php Helper::bootstrap('ActiveForm', 'end'); ?>
         </div>
         <div class="col-md-6">
             <h2><?= Yii::t('app', 'View Mails') ?></h2>

@@ -5,8 +5,7 @@
 use bedezign\yii2\audit\Audit;
 use bedezign\yii2\audit\components\panels\Panel;
 use bedezign\yii2\audit\web\JSLoggingAsset;
-use yii\bootstrap\Nav;
-use yii\bootstrap\NavBar;
+use bedezign\yii2\audit\components\web\Helper as WebHelper;
 use yii\debug\DebugAsset;
 use yii\helpers\Html;
 use yii\widgets\Breadcrumbs;
@@ -29,7 +28,7 @@ JSLoggingAsset::register($this)
 <?php $this->beginBody() ?>
 
 <?php
-NavBar::begin([
+WebHelper::bootstrap('NavBar', 'begin', [
     'brandLabel' => Yii::t('audit', 'Audit'),
     'brandUrl' => ['default/index'],
     'options' => ['class' => 'navbar-default navbar-fixed-top navbar-fluid'],
@@ -48,17 +47,17 @@ foreach (Audit::getInstance()->panels as $panel) {
     $items[] = ['label' => $panel->getName(), 'url' => $indexUrl];
 }
 
-echo Nav::widget([
+echo WebHelper::bootstrap('Nav', 'widget', [
     'items' => $items,
     'options' => ['class' => 'navbar-nav'],
 ]);
-echo Nav::widget([
+echo WebHelper::bootstrap('Nav', 'widget', [
     'items' => [
         ['label' => Yii::$app->name, 'url' => Yii::$app->getHomeUrl()],
     ],
     'options' => ['class' => 'navbar-nav navbar-right'],
 ]);
-NavBar::end();
+WebHelper::bootstrap('NavBar', 'end');
 ?>
 
 <div class="container-fluid">

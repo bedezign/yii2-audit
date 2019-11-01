@@ -23,7 +23,6 @@ trait ErrorHandlerTrait
     public function logException($exception)
     {
         try {
-
             $isMemoryError = strncmp($exception->getMessage(), 'Allowed memory size of', 22) === 0;
             /** @var Audit $audit */
             $audit = Audit::getInstance();
@@ -35,12 +34,16 @@ trait ErrorHandlerTrait
                 throw new \Exception('Audit module cannot be loaded');
             }
 
-            $entry = $audit->getEntry(!$isMemoryError);
-            if ($entry) {
-                /** @var ErrorPanel $errorPanel */
-                $errorPanel = $audit->getPanel($audit->findPanelIdentifier(ErrorPanel::className()));
-                $errorPanel->log($entry->id, $exception);
-                $entry->finalize();
+            // Fake an actionEvent so we can use the track/ignore functionality using the originally requested route:
+            $event = (object) ['action' => ['uniqueId' => Yii::$app->requestedRoute]];
+            if ($audit->shouldTrack($event, true)) {
+                $entry = $audit->getEntry(!$isMemoryError);
+                if ($entry) {
+                    /** @var ErrorPanel $errorPanel */
+                    $errorPanel = $audit->getPanel($audit->findPanelIdentifier(ErrorPanel::className()));
+                    $errorPanel->log($entry->id, $exception);
+                    $entry->finalize();
+                }
             }
 
         } catch (\Exception $e) {

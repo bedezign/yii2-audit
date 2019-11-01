@@ -18,7 +18,7 @@ class Helper extends \yii\base\BaseObject
     /**
      * Convert the given value into a gzip compressed blob so it can be stored in the database
      * @param mixed $data
-     * @param bool  $compact true to call the {@link compact()} function first
+     * @param bool $compact true to call the {@link compact()} function first
      * @return string               binary blob of data
      */
     public static function serialize($data, $compact = true)
@@ -82,9 +82,9 @@ class Helper extends \yii\base\BaseObject
 
     /**
      * Enumerate an array and get rid of the values that would exceed the $threshold size when serialized
-     * @param array $data      Non-array data will be converted to an array
-     * @param bool  $simplify  If true, replace single valued arrays by just its value.
-     * @param int   $threshold serialized size to use as maximum
+     * @param array $data Non-array data will be converted to an array
+     * @param bool $simplify If true, replace single valued arrays by just its value.
+     * @param int $threshold serialized size to use as maximum
      * @return array
      */
     public static function compact($data, $simplify = false, $threshold = 512)
@@ -110,7 +110,7 @@ class Helper extends \yii\base\BaseObject
 
     /**
      * Generate a stacktrace and clean it (usually for regular errors)
-     * @param int $skip     Amount of entries to skip (usually 1 or 2). 2 is assuming this helper function and your logging function
+     * @param int $skip Amount of entries to skip (usually 1 or 2). 2 is assuming this helper function and your logging function
      * @return array
      */
     public static function generateTrace($skip = 2)

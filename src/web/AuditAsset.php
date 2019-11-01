@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\web;
 
+use bedezign\yii2\audit\components\web\Helper;
 use yii\web\AssetBundle;
 
 /**
@@ -22,10 +23,11 @@ class AuditAsset extends AssetBundle
         'css/audit.css',
     ];
 
-    /**
-     * @inheritdoc
-     */
-    public $depends = [
-        'yii\bootstrap\BootstrapAsset',
-    ];
+    public function init()
+    {
+        $this->depends = [
+            Helper::bootstrapAsset()
+        ];
+        parent::init();
+    }
 }

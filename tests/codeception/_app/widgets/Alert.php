@@ -2,7 +2,12 @@
 
 namespace tests\app\widgets;
 
-use yii\bootstrap\Widget;
+if (class_exists('yii\bootstrap\Widget')) {
+    class BaseAlert extends yii\bootstrap\Widget { }
+}
+elseif (class_exists('yii\bootstrap4\Widget')) {
+    class BaseAlert extends yii\bootstrap4\Widget { }
+}
 
 /**
  * Alert widget renders a message from session flash. All flash messages are displayed
@@ -23,7 +28,7 @@ use yii\bootstrap\Widget;
  * @author Kartik Visweswaran <kartikv2@gmail.com>
  * @author Alexander Makarov <sam@rmcreative.ru>
  */
-class Alert extends Widget
+class Alert extends BaseAlert
 {
     /**
      * @var array the alert types configuration for the flash messages.

@@ -1,9 +1,9 @@
 <?php
 /* @var $panel yii\debug\panels\LogPanel */
 
-use yii\bootstrap\Tabs;
 use yii\helpers\Html;
 use bedezign\yii2\audit\components\Helper;
+use bedezign\yii2\audit\components\web\Helper as WebHelper;
 
 if (!function_exists('formatDataString')) {
     function formatDataString($types, $data, $preformatted, &$tabs) { foreach ($types as $function => $title) { $result = Helper::$function($data); if ($result) { $tabs[] = ['label' => $title, 'content' => Html::tag('div', $result, $preformatted)]; break; }}}
@@ -64,4 +64,4 @@ if ($log)
 
 
 echo Html::tag('h2', \Yii::t('audit', 'Request #{id}', ['id' => $index])),
-        Tabs::widget(['items' => $tabs]);
+        WebHelper::bootstrap('Tabs', 'widget', ['items' => $tabs]);

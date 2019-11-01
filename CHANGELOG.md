@@ -1,11 +1,23 @@
 # Changelog
 
-## 1.1.2 Pending Release
+## 1.1.2 November 1, 2019
 
-* Bug [#263](https://github.com/bedezign/yii2-audit/issues/263): fix bs4 issues from yii2-debug 
+So finally a release. 
+It's long overdue, I know. Trust me, there are reasons for my absence, but I'll skip the excuses part and promise to try to do better from now on, even though it's impossible to give any guarantee.
+There's tons more to do (like getting tests to work again etc), I wanted to get a new release out there first so everyone can go back to a stable version.
+
+This module is now PHP 7.2 and Yii 2 2.0.13+ only. 
+
+* Bug [#270](https://github.com/bedezign/yii2-audit/issues/270): Make panels compatible with yii2-debug 2.1.6 and later
+* Enh [#267](https://github.com/bedezign/yii2-audit/issues/267): Use Yii2's namespaced migrations functionality
+* Bug [#263](https://github.com/bedezign/yii2-audit/issues/263): fix bs4 issues from yii2-debug
+* Bug [#261](https://github.com/bedezign/yii2-audit/issues/262): Fix "group by" exception on SQL Server  
 * Bug [#246](https://github.com/bedezign/yii2-audit/issues/246): fix when args missing from error trace
 * Enh [#264](https://github.com/bedezign/yii2-audit/issues/264): show the whole request url in entry view
 * Enh [#259](https://github.com/bedezign/yii2-audit/issues/259): French translation
+* Enh [#252](https://github.com/bedezign/yii2-audit/issues/252): Allow manual entry definition via `setEntry` function
+* Enh [#251](https://github.com/bedezign/yii2-audit/issues/251): Override Module::getInstance() to allow for derived Audit module classes
+* Enh [#250](https://github.com/bedezign/yii2-audit/issues/250): Added 'renderEmail' panel function detection to allow for custom email renderers (should still be tested, sorry, no data atm)
 
 ## 1.1.1 February 4, 2018
 
