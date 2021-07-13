@@ -35,7 +35,7 @@ trait ErrorHandlerTrait
             }
 
             // Fake an actionEvent so we can use the track/ignore functionality using the originally requested route:
-            $event = (object) ['action' => ['uniqueId' => Yii::$app->requestedRoute]];
+            $event = (object) ['action' => (object)['uniqueId' => Yii::$app->requestedRoute]];
             if ($audit->shouldTrack($event, true)) {
                 $entry = $audit->getEntry(!$isMemoryError);
                 if ($entry) {
