@@ -1,7 +1,5 @@
 <?php
 
-namespace bedezign\yii2\audit\migrations;
-
 use bedezign\yii2\audit\components\Migration;
 use yii\db\Schema;
 
@@ -19,7 +17,7 @@ class m150626_000003_create_audit_error extends Migration
             'message'    => Schema::TYPE_TEXT . ' NOT NULL',
             'code'       => Schema::TYPE_INTEGER . " DEFAULT '0'",
             'file'       => Schema::TYPE_STRING . '(512)',
-            'line'       => Schema::TYPE_INTEGER ,
+            'line'       => Schema::TYPE_INTEGER,
             'trace'      => Schema::TYPE_BINARY,
             'hash'       => Schema::TYPE_STRING . '(32)',
             'emailed'    => Schema::TYPE_BOOLEAN . " NOT NULL DEFAULT '0'",
