@@ -57,7 +57,7 @@ class AuditTrailSearch extends AuditTrail
 
         // adjust the query by adding the filters
         $userId = $this->user_id;
-        if (strlen($this->user_id))
+        if (strlen((string) $this->user_id))
             $userId = intval($this->user_id) ?: 0;
 
         $query->andFilterWhere(['id' => $this->id]);
