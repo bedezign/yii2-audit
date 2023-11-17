@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\models;
 
 
+use bedezign\yii2\audit\helpers\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -64,7 +65,7 @@ class AuditTrailSearch extends AuditTrail
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
         $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['action' => $this->action]);
-        $query->andFilterWhere(['like', 'model', $this->model]);
+        $query->andFilterWhere([DbHelper::likeOperator(self::class), 'model', $this->model]);
         $query->andFilterWhere(['model_id' => $this->model_id]);
         if (is_array($this->field)) {
             $query->andFilterWhere(['in', 'field', $this->field]);

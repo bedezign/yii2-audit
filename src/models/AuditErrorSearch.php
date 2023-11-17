@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\helpers\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
@@ -54,12 +55,14 @@ class AuditErrorSearch extends AuditError
             return $dataProvider;
         }
 
+        $likeOperator = DbHelper::likeOperator(AuditError::class);
+
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
-        $query->andFilterWhere(['like', 'file', $this->file]);
+        $query->andFilterWhere([$likeOperator, 'file', $this->file]);
         $query->andFilterWhere(['line' => $this->line]);
-        $query->andFilterWhere(['like', 'message', $this->message]);
+        $query->andFilterWhere([$likeOperator, 'message', $this->message]);
         $query->andFilterWhere(['code' => $this->code]);
         $query->andFilterWhere(['hash' => $this->hash]);
         $query->andFilterWhere(['like', 'created', $this->created]);

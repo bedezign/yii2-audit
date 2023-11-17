@@ -36,9 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            [
-                'attribute' => 'message',
-            ],
+            'message',
             [
                 'attribute' => 'code',
                 'options' => [
