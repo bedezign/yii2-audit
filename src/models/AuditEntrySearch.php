@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\models;
 
 use bedezign\yii2\audit\Audit;
+use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\db\ActiveQuery;
@@ -64,7 +65,7 @@ class AuditEntrySearch extends AuditEntry
         $query->andFilterWhere(['ajax' => $this->ajax]);
         $query->andFilterWhere(['duration' => $this->duration]);
         $query->andFilterWhere(['memory_max' => $this->memory_max]);
-        $query->andFilterWhere(['like', 'created', $this->created]);
+        $query->andFilterWhere(['like', DbHelper::convertIfNeeded(AuditEntry::class, 'created', 'text'), $this->created]);
         $query->with(['linkedErrors', 'javascripts']);
 
         return $dataProvider;

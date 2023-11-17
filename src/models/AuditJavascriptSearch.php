@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
-use bedezign\yii2\audit\helpers\DbHelper;
+use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -60,7 +60,7 @@ class AuditJavascriptSearch extends AuditJavascript
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
         $query->andFilterWhere([$likeOperator, 'message', $this->message]);
         $query->andFilterWhere([$likeOperator, 'origin', $this->origin]);
-        $query->andFilterWhere(['like', 'created', $this->created]);
+        $query->andFilterWhere(['like', DbHelper::convertIfNeeded(AuditJavascript::class, 'created', 'text'), $this->created]);
 
         return $dataProvider;
     }
