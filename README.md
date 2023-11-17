@@ -13,10 +13,16 @@
 
 Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
 
+## Abandoned
+
+It was probably already clear, but I'm not able to support this project anymore.
+I gave up Yii(2) for Laravel almost 6 years ago. Haven't even been using PHP for the last 3 years.
+So, if anyone supporting one of the forks wants to take lead on this project, let me know and we can probably work something out.
+
 ## PHP7.2 & Yii 2.0.13 or later
 
 From `PHP 7.2` on `Object` became a reserved keyword. 
-Since enough time went by, we decided to assume everyone is on 7.2 and Yii 2.0.13 by now we won't bee keeping 
+Since enough time went by, we decided to assume everyone is on 7.2 and Yii 2.0.13 by now we won't be keeping 
 `1.0.*`-branch (pre PHP 7.2) up to date anymore. 
 
 Please use version `1.1.*` or later.

@@ -22,6 +22,13 @@ class LogTarget extends Target
     public $module;
 
     /**
+     * @var bool Set to true to allow Audit to export the logs during the handling of the request according to $exportInterval.
+     * By default this is disabled, as it will cause extra DB load and possibly slow down the response time.
+     * If you however expect to do an obscene amount of logging you can enable this.
+     */
+    public $exportAtIntervals = false;
+
+    /**
      * @param Audit $module
      * @param array $config
      */
@@ -60,7 +67,6 @@ class LogTarget extends Target
                     $entry->addData($type, $record, false);
             }
         }
-        $this->messages = [];
     }
 
     /**
@@ -69,10 +75,15 @@ class LogTarget extends Target
      */
     public function collect($messages, $final)
     {
-        $this->messages = array_merge($this->messages, static::filterMessages($messages, $this->getLevels(), $this->categories, $this->except));
-        if ($final) {
-            $this->export();
+        if ($this->exportAtIntervals) {
+            parent::collect($messages, $final);
+        }
+        else {
+            $this->messages = array_merge($this->messages, static::filterMessages($messages, $this->getLevels(), $this->categories, $this->except));
+            if ($final) {
+                $this->export();
+                $this->messages = [];
+            }
         }
     }
-
 }

@@ -140,7 +140,7 @@ class Audit extends Module
      * It is important that the key is unique, as this is the identifier used to store any data associated with the panel.
      *
      * Please note:
-     * - If you just want to change the configuration for a core panel, use the `$panelConfiguration`, it will be merged into this one
+     * - If you just want to change the configuration for a core panel, use `$panelsMerge`, it will be merged into this one
      * - If you add custom panels, please namespace them ("mynamespace/panelname").
      */
     public $panels = [
@@ -162,7 +162,7 @@ class Audit extends Module
 
     /**
      * Everything you add in here will be merged with the basic panel configuration.
-     * This gives you an easy way to just add or modify panels/configurations without having to re-specify every panel.
+     * This gives you an easy way to just add or modify panels/configurations without having to re-specify all active panels.
      * This only accepts regular definitions ('<key>' => '<array>'), but the core class will be added if needed
      * Take a look at the [module configuration](docs/module-configuration.md) for more information.
      */
