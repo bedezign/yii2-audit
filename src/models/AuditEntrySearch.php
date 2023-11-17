@@ -105,6 +105,8 @@ class AuditEntrySearch extends AuditEntry
         if (strlen($userId)) {
             if (!is_numeric($userId) && $callback = Audit::getInstance()->userFilterCallback) {
                 $userId = call_user_func($callback, $userId);
+            } else {
+                $userId = intval($userId) ?: 0;
             }
             $query->andWhere(['user_id' => $userId]);
         }

@@ -3,11 +3,11 @@
 use bedezign\yii2\audit\Audit;
 use yii\helpers\Html;
 use yii\grid\GridView;
+
 use bedezign\yii2\audit\models\AuditEntrySearch;
 
 /* @var $this yii\web\View */
 /* @var $dataProvider yii\data\ActiveDataProvider */
-/* @var $searchModel AuditEntrySearch */
 
 $this->title = Yii::t('audit', 'Entries');
 $this->params['breadcrumbs'][] = ['label' => Yii::t('audit', 'Audit'), 'url' => ['default/index']];

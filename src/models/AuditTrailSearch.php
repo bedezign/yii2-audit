@@ -56,10 +56,13 @@ class AuditTrailSearch extends AuditTrail
         }
 
         // adjust the query by adding the filters
+        $userId = $this->user_id;
+        if (strlen($this->user_id))
+            $userId = intval($this->user_id) ?: 0;
 
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
-        $query->andFilterWhere(['user_id' => $this->user_id]);
+        $query->andFilterWhere(['user_id' => $userId]);
         $query->andFilterWhere(['action' => $this->action]);
         $query->andFilterWhere(['like', 'model', $this->model]);
         $query->andFilterWhere(['model_id' => $this->model_id]);
