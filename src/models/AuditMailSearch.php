@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -53,16 +54,18 @@ class AuditMailSearch extends AuditMail
             return $dataProvider;
         }
 
+        $likeOperator = DbHelper::likeOperator(AuditMail::class);
+
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
         $query->andFilterWhere(['successful' => $this->successful]);
-        $query->andFilterWhere(['like', 'to', $this->to]);
-        $query->andFilterWhere(['like', 'from', $this->from]);
-        $query->andFilterWhere(['like', 'reply', $this->reply]);
-        $query->andFilterWhere(['like', 'cc', $this->cc]);
-        $query->andFilterWhere(['like', 'bcc', $this->bcc]);
-        $query->andFilterWhere(['like', 'subject', $this->subject]);
+        $query->andFilterWhere([$likeOperator, 'to', $this->to]);
+        $query->andFilterWhere([$likeOperator, 'from', $this->from]);
+        $query->andFilterWhere([$likeOperator, 'reply', $this->reply]);
+        $query->andFilterWhere([$likeOperator, 'cc', $this->cc]);
+        $query->andFilterWhere([$likeOperator, 'bcc', $this->bcc]);
+        $query->andFilterWhere([$likeOperator, 'subject', $this->subject]);
         $query->andFilterWhere(['like', 'created', $this->created]);
 
         return $dataProvider;
