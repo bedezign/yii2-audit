@@ -41,6 +41,7 @@ class AuditEntrySearch extends AuditEntry
     public function search($params)
     {
         $query = AuditEntry::find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

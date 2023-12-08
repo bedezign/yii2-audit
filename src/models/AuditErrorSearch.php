@@ -42,6 +42,7 @@ class AuditErrorSearch extends AuditError
     public function search($params)
     {
         $query = AuditError::find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

@@ -39,6 +39,7 @@ class AuditJavascriptSearch extends AuditJavascript
     public function search($params)
     {
         $query = AuditJavascript::find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
