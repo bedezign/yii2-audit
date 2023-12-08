@@ -39,6 +39,7 @@ class AuditMailSearch extends AuditMail
     public function search($params)
     {
         $query = AuditMail::find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,

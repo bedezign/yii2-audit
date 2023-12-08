@@ -41,6 +41,7 @@ class AuditTrailSearch extends AuditTrail
     public function search($params, $query = null)
     {
         $query = $query ? $query : $this->find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
