@@ -69,28 +69,28 @@ $this->params['breadcrumbs'][] = $this->title;
             [
                 'attribute' => 'trails',
                 'value' => function ($data) {
-                    return $data->trails ? count($data->trails) : '';
+                    return $data->getTrails()->count();
                 },
                 'contentOptions' => ['class' => 'text-right'],
             ],
             [
                 'attribute' => 'mails',
                 'value' => function ($data) {
-                    return $data->mails ? count($data->mails) : '';
+                    return $data->getMails()->count();
                 },
                 'contentOptions' => ['class' => 'text-right'],
             ],
             [
                 'attribute' => 'javascripts',
                 'value' => function ($data) {
-                    return $data->javascripts ? count($data->javascripts) : '';
+                    return $data->getJavascripts()->count();
                 },
                 'contentOptions' => ['class' => 'text-right'],
             ],
             [
                 'attribute' => 'errors',
                 'value' => function ($data) {
-                    return $data->linkedErrors ? count($data->linkedErrors) : '';
+                    return $data->getLinkedErrors()->count();
                 },
                 'contentOptions' => ['class' => 'text-right'],
             ],
