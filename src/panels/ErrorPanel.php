@@ -99,7 +99,7 @@ class ErrorPanel extends Panel
      */
     public function hasEntryData($entry)
     {
-        return count($entry->linkedErrors) > 0;
+        return $entry->getLinkedErrors()->count() > 0;
     }
 
     /**
@@ -115,7 +115,7 @@ class ErrorPanel extends Panel
      */
     public function getLabel()
     {
-        return $this->getName() . ' <small>(' . count($this->_model->linkedErrors) . ')</small>';
+        return $this->getName() . ' <small>(' . $this->_model->getLinkedErrors()->count() . ')</small>';
     }
 
     /**

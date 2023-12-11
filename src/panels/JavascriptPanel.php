@@ -30,7 +30,7 @@ class JavascriptPanel extends Panel
      */
     public function getLabel()
     {
-        return $this->getName() . ' <small>(' . count($this->_model->javascripts) . ')</small>';
+        return $this->getName() . ' <small>(' . $this->_model->getJavascripts()->count() . ')</small>';
     }
 
     /**
@@ -38,7 +38,7 @@ class JavascriptPanel extends Panel
      */
     public function hasEntryData($entry)
     {
-        return count($entry->javascripts) > 0;
+        return $entry->getJavascripts()->count() > 0;
     }
 
     /**

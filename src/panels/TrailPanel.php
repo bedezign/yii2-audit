@@ -30,7 +30,7 @@ class TrailPanel extends Panel
      */
     public function hasEntryData($entry)
     {
-        return count($entry->trails) > 0;
+        return $entry->getTrails()->count() > 0;
     }
 
     /**
@@ -38,7 +38,7 @@ class TrailPanel extends Panel
      */
     public function getLabel()
     {
-        return $this->getName() . ' <small>(' . count($this->_model->trails) . ')</small>';
+        return $this->getName() . ' <small>(' . $this->_model->getTrails()->count() . ')</small>';
     }
 
     /**
