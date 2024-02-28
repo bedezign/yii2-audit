@@ -1,6 +1,6 @@
 # Changelog
 
-## dev
+## 1.2.4
 - re-added namespaced migrations to maintain BC
 
 ## 1.2.3
