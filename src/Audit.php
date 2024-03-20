@@ -425,10 +425,7 @@ class Audit extends Module
             return call_user_func($this->userIpCallback);
         }
 
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return current(array_values(array_filter(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']))));
-        }
-        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
+        return Yii::$app->getRequest()->getUserIP();
     }
 
     /**
