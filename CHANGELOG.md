@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.2.5
+- Add user ip callback
+
 ## 1.2.4
 - re-added namespaced migrations to maintain BC
 
