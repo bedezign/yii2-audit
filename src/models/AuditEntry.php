@@ -228,7 +228,13 @@ class AuditEntry extends ActiveRecord
     {
         $data = ArrayHelper::getColumn($this->data, 'data');
         if (!isset($data['audit/request']) || !is_array($data['audit/request'])) {
-            return Url::to([$this->route ?: '/'], 'https');
+
+            if ($this->getRequestMethodIsCli()) {
+                $route = $this->route;
+            } else {
+                $route = '/' . $this->route;
+            }
+            return Url::to([$route ?: '/'], 'https');
         }
         $request = $data['audit/request'];
         $route = $this->route ?: (!empty($request['route']) ? $request['route'] : '/');

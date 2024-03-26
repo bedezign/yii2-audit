@@ -3,6 +3,7 @@
 ## dev
 - Show diff in trails
 - Simplify structure for attributes in audit entry view
+- Fixed wrong request url in entry view
 
 ## 1.2.5
 - Add user ip callback
