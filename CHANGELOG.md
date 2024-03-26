@@ -1,6 +1,6 @@
 # Changelog
 
-## dev
+## 1.2.6
 - Show diff in trails
 - Simplify structure for attributes in audit entry view
 - Fixed wrong request url in entry view
