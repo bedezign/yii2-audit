@@ -20,7 +20,7 @@ class AuditTrailSearch extends AuditTrail
     {
         // Note: The model is used by both the entry and the trail index pages, hence the separate use of `id` and `entry_id`
         return [
-            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'created'], 'safe'],
+            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'old_value', 'new_value', 'created'], 'safe'],
         ];
     }
 

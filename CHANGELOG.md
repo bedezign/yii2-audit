@@ -1,5 +1,8 @@
 # Changelog
 
+## dev
+- Show diff in trails
+
 ## 1.2.5
 - Add user ip callback
 

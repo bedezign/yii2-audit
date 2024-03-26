@@ -75,8 +75,8 @@ echo GridView::widget([
         ],
         [
             'label'  => Yii::t('audit', 'Diff'),
-            'value'  => function ($data) {
-                return $data->getDiffHtml();
+            'value'  => function (AuditTrailSearch $model) {
+                return $model->getDiffHtml();
             },
             'format' => 'raw',
         ],
