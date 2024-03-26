@@ -235,4 +235,9 @@ class AuditEntry extends ActiveRecord
         return Url::to(ArrayHelper::merge([$route], $request['GET']), 'https');
     }
 
+    public function getRequestMethodIsCli(): bool
+    {
+        return $this->request_method === 'CLI';
+    }
+
 }
