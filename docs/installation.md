@@ -34,6 +34,7 @@ As described on Yii's configuration page, you need to add our namespace to the `
 ```
   'controllerMap' => [
     'migrate' => [
+      'class' => 'yii\console\controllers\MigrateController',
       'migrationNamespaces' => [
         # Other migration namespaces
           'bedezign\yii2\audit\migrations',
