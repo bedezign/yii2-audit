@@ -3,6 +3,7 @@
 namespace bedezign\yii2\audit\models;
 
 
+use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -19,7 +20,7 @@ class AuditTrailSearch extends AuditTrail
     {
         // Note: The model is used by both the entry and the trail index pages, hence the separate use of `id` and `entry_id`
         return [
-            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'created'], 'safe'],
+            [['id', 'user_id', 'entry_id', 'action', 'model', 'model_id', 'field', 'old_value', 'new_value', 'created'], 'safe'],
         ];
     }
 
@@ -40,6 +41,7 @@ class AuditTrailSearch extends AuditTrail
     public function search($params, $query = null)
     {
         $query = $query ? $query : $this->find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -56,22 +58,19 @@ class AuditTrailSearch extends AuditTrail
         }
 
         // adjust the query by adding the filters
-        $userId = $this->user_id;
-        if (strlen($this->user_id))
-            $userId = intval($this->user_id) ?: 0;
 
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
-        $query->andFilterWhere(['user_id' => $userId]);
+        $query->andFilterWhere(['user_id' => $this->user_id]);
         $query->andFilterWhere(['action' => $this->action]);
-        $query->andFilterWhere(['like', 'model', $this->model]);
+        $query->andFilterWhere([DbHelper::likeOperator(AuditTrail::class), 'model', $this->model]);
         $query->andFilterWhere(['model_id' => $this->model_id]);
         if (is_array($this->field)) {
             $query->andFilterWhere(['in', 'field', $this->field]);
         } else {
             $query->andFilterWhere(['field' => $this->field]);
         }
-        $query->andFilterWhere(['like', 'created', $this->created]);
+        $query->andFilterWhere(['like', DbHelper::convertIfNeeded(AuditTrail::class, 'created', 'text'), $this->created]);
 
         return $dataProvider;
     }

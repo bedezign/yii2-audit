@@ -2,6 +2,7 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 
@@ -38,6 +39,7 @@ class AuditJavascriptSearch extends AuditJavascript
     public function search($params)
     {
         $query = AuditJavascript::find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
@@ -53,12 +55,13 @@ class AuditJavascriptSearch extends AuditJavascript
             return $dataProvider;
         }
 
+        $likeOperator = DbHelper::likeOperator(AuditJavascript::class);
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
-        $query->andFilterWhere(['like', 'message', $this->message]);
-        $query->andFilterWhere(['like', 'origin', $this->origin]);
-        $query->andFilterWhere(['like', 'created', $this->created]);
+        $query->andFilterWhere([$likeOperator, 'message', $this->message]);
+        $query->andFilterWhere([$likeOperator, 'origin', $this->origin]);
+        $query->andFilterWhere(['like', DbHelper::convertIfNeeded(AuditJavascript::class, 'created', 'text'), $this->created]);
 
         return $dataProvider;
     }

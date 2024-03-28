@@ -1,7 +1,34 @@
 # Changelog
 
-## 1.1.3 Pending Release
+## 1.2.6
+- Show diff in trails
+- Simplify structure for attributes in audit entry view
+- Fixed wrong request url in entry view
 
+## 1.2.5
+- Add user ip callback
+
+## 1.2.4
+- re-added namespaced migrations to maintain BC
+
+## 1.2.3
+* improved memory usage
+
+## 1.2.2
+* using db count because count reads objects into memory and result in an memory overflow
+* Fixed deprecated explode() null passing for parameter
+
+## 1.2.1
+* Select only columns used in model in search models
+
+## 1.2.0
+* Filter created date in db
+* Allow case insensitive filtering
+* remove message dropdown filter
+* Remove namespaces from migrations to support path migrations again
+* empty instread of strlen to support integer and string
+* Updated for mail-renderer and migrations with namespaces
+* Allow non integer user ids
 * Enh [#232](https://github.com/bedezign/yii2-audit/issues/232): Added `exportAtIntervals` log-target configuration to allow export during the request.
 
 ## 1.1.2 November 1, 2019

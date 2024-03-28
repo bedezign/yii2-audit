@@ -111,7 +111,7 @@ class MailPanel extends Panel
      */
     public function hasEntryData($entry)
     {
-        return count($entry->mails) > 0;
+        return $entry->getMails()->count() > 0;
     }
 
     /**
@@ -127,7 +127,7 @@ class MailPanel extends Panel
      */
     public function getLabel()
     {
-        return $this->getName() . ' <small>(' . count($this->_model->mails) . ')</small>';
+        return $this->getName() . ' <small>(' . $this->_model->getMails()->count() . ')</small>';
     }
 
     /**

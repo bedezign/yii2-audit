@@ -64,14 +64,14 @@ class AuditTrail extends ActiveRecord
      */
     public function getDiffHtml()
     {
-        $old = explode("\n", $this->old_value);
-        $new = explode("\n", $this->new_value);
+        $old = explode("\n", (string)$this->old_value);
+        $new = explode("\n", (string)$this->new_value);
 
         foreach ($old as $i => $line) {
-            $old[$i] = rtrim($line, "\r\n");
+            $old[$i] = rtrim((string)$line, "\r\n");
         }
         foreach ($new as $i => $line) {
-            $new[$i] = rtrim($line, "\r\n");
+            $new[$i] = rtrim((string)$line, "\r\n");
         }
 
         $diff = new \Diff($old, $new);
@@ -87,5 +87,5 @@ class AuditTrail extends ActiveRecord
         $parent = $parentModel::findOne($this->model_id);
         return $parent ? $parent : $parentModel;
     }
-    
+
 }

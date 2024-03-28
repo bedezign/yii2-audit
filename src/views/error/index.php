@@ -36,10 +36,7 @@ $this->params['breadcrumbs'][] = $this->title;
                 },
                 'format' => 'raw',
             ],
-            [
-                'filter' => AuditErrorSearch::messageFilter(),
-                'attribute' => 'message',
-            ],
+            'message',
             [
                 'attribute' => 'code',
                 'options' => [

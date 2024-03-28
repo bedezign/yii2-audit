@@ -158,7 +158,7 @@ class AuditEntry extends ActiveRecord
         $this->route = $app->requestedAction ? $app->requestedAction->uniqueId : null;
         if ($request instanceof \yii\web\Request) {
             $this->user_id        = Audit::getInstance()->getUserId();
-            $this->ip             = $this->getUserIP();
+            $this->ip             = Audit::getInstance()->getUserIp();
             $this->ajax           = $request->isAjax;
             $this->request_method = $request->method;
         } else if ($request instanceof \yii\console\Request) {
@@ -224,26 +224,26 @@ class AuditEntry extends ActiveRecord
     /**
      * @return string
      */
-    public function getUserIP()
-    {
-        if (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
-            return current(array_values(array_filter(explode(',', $_SERVER['HTTP_X_FORWARDED_FOR']))));
-        }
-        return isset($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : null;
-    }
-
-    /**
-     * @return string
-     */
     public function getRequestUrl()
     {
         $data = ArrayHelper::getColumn($this->data, 'data');
         if (!isset($data['audit/request']) || !is_array($data['audit/request'])) {
-            return Url::to([$this->route ?: '/'], 'https');
+
+            if ($this->getRequestMethodIsCli()) {
+                $route = $this->route;
+            } else {
+                $route = '/' . $this->route;
+            }
+            return Url::to([$route ?: '/'], 'https');
         }
         $request = $data['audit/request'];
         $route = $this->route ?: (!empty($request['route']) ? $request['route'] : '/');
         return Url::to(ArrayHelper::merge([$route], $request['GET']), 'https');
+    }
+
+    public function getRequestMethodIsCli(): bool
+    {
+        return $this->request_method === 'CLI';
     }
 
 }

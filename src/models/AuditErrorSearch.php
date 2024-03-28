@@ -2,12 +2,14 @@
 
 namespace bedezign\yii2\audit\models;
 
+use bedezign\yii2\audit\components\DbHelper;
 use yii\base\Model;
 use yii\data\ActiveDataProvider;
 use yii\helpers\ArrayHelper;
 
 /**
  * AuditErrorSearch
+ *
  * @package bedezign\yii2\audit\models
  */
 class AuditErrorSearch extends AuditError
@@ -34,15 +36,17 @@ class AuditErrorSearch extends AuditError
 
     /**
      * @param $params
+     *
      * @return ActiveDataProvider
      */
     public function search($params)
     {
         $query = AuditError::find();
+        $query->select($this->safeAttributes());
 
         $dataProvider = new ActiveDataProvider([
             'query' => $query,
-            'sort'  => [
+            'sort' => [
                 'defaultOrder' => [
                     'id' => SORT_DESC
                 ]
@@ -54,15 +58,17 @@ class AuditErrorSearch extends AuditError
             return $dataProvider;
         }
 
+        $likeOperator = DbHelper::likeOperator(AuditError::class);
+
         // adjust the query by adding the filters
         $query->andFilterWhere(['id' => $this->id]);
         $query->andFilterWhere(['entry_id' => $this->entry_id]);
-        $query->andFilterWhere(['like', 'file', $this->file]);
+        $query->andFilterWhere([$likeOperator, 'file', $this->file]);
         $query->andFilterWhere(['line' => $this->line]);
-        $query->andFilterWhere(['like', 'message', $this->message]);
+        $query->andFilterWhere([$likeOperator, 'message', $this->message]);
         $query->andFilterWhere(['code' => $this->code]);
         $query->andFilterWhere(['hash' => $this->hash]);
-        $query->andFilterWhere(['like', 'created', $this->created]);
+        $query->andFilterWhere(['like', DbHelper::convertIfNeeded(AuditError::class, 'created', 'text'), $this->created]);
 
         return $dataProvider;
     }
@@ -88,8 +94,8 @@ class AuditErrorSearch extends AuditError
     }
 
     /**
-     * @return mixed
      * @throws \Exception
+     * @return mixed
      */
     static protected function filterData()
     {
