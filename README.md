@@ -13,13 +13,18 @@
 
 Yii2 Audit records and displays web/cli requests, database changes, php/js errors and associated data.
 
-## Abandoned
+## New stewardship from March 2024 on
 
-It was probably already clear, but I'm not able to support this project anymore.
-I gave up Yii(2) for Laravel almost 6 years ago. Haven't even been using PHP for the last 3 years.
-So, if anyone supporting one of the forks wants to take lead on this project, let me know and we can probably work something out.
+We (@schmunk42, @eluhr) have taken stewardship of this project. Thank you @Blizzke for adding us to the GitHub maintainer list.
+Since we are still using this extension extensively, we are focussing on backward-compatibility and improvements.
 
-## PHP7.2 & Yii 2.0.13 or later
+## Upgrading
+
+### yii2-audit `1.2.x`
+
+Existing projects with non-namespace migrations need to include `@bedezign/yii2/audit/migrations/1.1.x` in `migrationPath and skip namespaced migrations. (Issue #271)
+
+### PHP7.2 & Yii 2.0.13 or later
 
 From `PHP 7.2` on `Object` became a reserved keyword. 
 Since enough time went by, we decided to assume everyone is on 7.2 and Yii 2.0.13 by now we won't be keeping 
