@@ -105,8 +105,7 @@ class AuditTrail extends ActiveRecord
     /**
      * @return ActiveRecord|bool
      */
-    public
-    function getParent()
+    public function getParent()
     {
         $parentModel = new $this->model;
         $parent = $parentModel::findOne($this->model_id);
