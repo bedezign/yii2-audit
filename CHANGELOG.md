@@ -1,5 +1,8 @@
 # Changelog
 
+## dev
+- Move differences in audit trail view in DetailWidget
+
 ## 1.2.6
 - Show diff in trails
 - Simplify structure for attributes in audit entry view
