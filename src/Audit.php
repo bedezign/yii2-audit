@@ -185,6 +185,11 @@ class Audit extends Module
     public $tracePathMappings = [];
 
     /**
+     * Controls whether the diff output for trails will be pretty printed if the value is json or not
+    */
+    public $enablePrettyDiffForTrails = false;
+
+    /**
      * @var array
      */
     private $_corePanels = [
