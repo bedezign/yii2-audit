@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.7
+- Move differences in audit trail view in DetailWidget
+- New module option `$enablePrettyDiffForTrails` to prettyfied json output
+
 ## 1.2.6
 - Show diff in trails
 - Simplify structure for attributes in audit entry view

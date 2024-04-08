@@ -33,8 +33,12 @@ echo DetailView::widget([
         'model_id',
         'field',
         'created',
+        [
+            'label' => Yii::t('audit', 'Difference'),
+            'value' => function ($model) {
+                return $model->getDiffHtml();
+            },
+            'format' => 'raw',
+        ]
     ],
 ]);
-
-echo Html::tag('h2', Yii::t('audit', 'Difference'));
-echo $model->getDiffHtml();
