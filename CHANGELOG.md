@@ -1,5 +1,8 @@
 # Changelog
 
+## dev
+- Allow much bigger values in trails by changing `new_value` & `old_value` to a longblob
+
 ## 1.2.7
 - Move differences in audit trail view in DetailWidget
 - New module option `$enablePrettyDiffForTrails` to prettyfied json output
