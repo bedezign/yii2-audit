@@ -46,15 +46,18 @@ class DbPanel extends \yii\debug\panels\DbPanel
         }
 
         $models = $this->getModels();
-        $dataProvider = $searchModel->search($models);
-        $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
+        $queryDataProvider = $searchModel->search($models);
+        $queryDataProvider->getSort()->defaultOrder = $this->defaultOrder;
+        $sumDuplicates = $this->sumDuplicateQueries($models);
+        $callerDataProvider = $this->generateQueryCallersDataProvider($models);
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/db/detail', [
             'panel' => $this,
-            'dataProvider' => $dataProvider,
+            'queryDataProvider' => $queryDataProvider,
+            'callerDataProvider' => $callerDataProvider,
             'searchModel' => $searchModel,
-            'hasExplain' => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
-            'sumDuplicates' => method_exists($this, 'sumDuplicateQueries') ? $this->sumDuplicateQueries($models) : null,
+            'hasExplain' => $this->hasExplain(),
+            'sumDuplicates' => $sumDuplicates,
         ]);
     }
 
@@ -70,21 +73,5 @@ class DbPanel extends \yii\debug\panels\DbPanel
     public function registerAssets($view)
     {
         GridViewAsset::register($view);
-    }
-
-    /**
-     * Calculates given request profile timings.
-     *
-     * @return array timings [token, category, timestamp, traces, nesting level, elapsed time]
-     */
-    public function calculateTimings()
-    {
-        if ($this->_timings === null) {
-            $this->_timings = [];
-            if (isset($this->data['messages'])) {
-                $this->_timings = Yii::getLogger()->calculateTimings($this->data['messages']);
-            }
-        }
-        return $this->_timings;
     }
 }
