@@ -1,5 +1,9 @@
 # Changelog
 
+## 1.2.8
+
+- Fixes #294 - DB Panel error (trashHash undefined)
+
 ## 1.2.7
 - Move differences in audit trail view in DetailWidget
 - New module option `$enablePrettyDiffForTrails` to prettyfied json output
