@@ -23,7 +23,7 @@ class Helper extends \yii\base\BaseObject
     protected static function getBootstrapNamespace()
     {
         if (self::$_bootstrapNamespace === null) {
-            $checkNamespaces = ['\yii\bootstrap', '\yii\bootstrap4'];
+            $checkNamespaces = ['\yii\bootstrap', '\yii\bootstrap4', 'yii\bootstrap5'];
             foreach ($checkNamespaces as $namespace) {
                 if (class_exists("$namespace\\BootstrapAsset")) {
                     self::$_bootstrapNamespace = $namespace;
