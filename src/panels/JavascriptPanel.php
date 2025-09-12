@@ -79,7 +79,7 @@ class JavascriptPanel extends Panel
      */
     public function getChart()
     {
-        return \Yii::$app->view->render('panels/mail/chart', [
+        return \Yii::$app->view->render('panels/javascript/chart', [
             'panel' => $this,
             'chartData' => $this->getChartData()
         ]);
