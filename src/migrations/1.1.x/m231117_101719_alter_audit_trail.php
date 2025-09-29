@@ -1,16 +1,9 @@
 <?php
 
-use yii\db\Migration;
-
 /**
  * Class m231117_101719_alter_audit_trail
  */
-class m231117_101719_alter_audit_trail extends Migration
+class m231117_101719_alter_audit_trail extends \bedezign\yii2\audit\migrations\m231117_101719_alter_audit_trail
 {
-    const TABLE = '{{%audit_trail}}';
-
-    public function up()
-    {
-        $this->alterColumn(self::TABLE, 'user_id', $this->string(255)->null());
-    }
+   
 }

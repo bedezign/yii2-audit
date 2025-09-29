@@ -2,7 +2,7 @@
 
 namespace bedezign\yii2\audit\migrations;
 
-use yii\db\Migration;
+use bedezign\yii2\audit\components\Migration;
 
 /**
  * Class m231117_102354_alter_audit_entry
