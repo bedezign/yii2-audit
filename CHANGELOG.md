@@ -1,5 +1,11 @@
 # Changelog
 
+## 1.2.8
+- Added migration for table `audit_trail`, changed `old_value` & `new_value` to `LONGTEXT` (#304)
+- Fixed base class (#296, #297)
+- Fixed wrong render view and data at Javascript chart (#303)
+
+
 ## 1.2.7
 - Move differences in audit trail view in DetailWidget
 - New module option `$enablePrettyDiffForTrails` to prettyfied json output
