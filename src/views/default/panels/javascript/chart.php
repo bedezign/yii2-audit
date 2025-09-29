@@ -18,7 +18,7 @@ echo ChartJs::widget([
                 'strokeColor' => 'rgba(151,187,205,1)',
                 'pointColor' => 'rgba(151,187,205,1)',
                 'pointStrokeColor' => '#fff',
-                'data' => array_keys($chartData),
+                'data' => array_values($chartData),
             ],
         ],
     ]
