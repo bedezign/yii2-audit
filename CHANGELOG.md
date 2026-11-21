@@ -1,4 +1,8 @@
+<!-- file generated with AI assistance: Claude Code - 2026-11-21 22:02:00 UTC -->
 # Changelog
+
+## dev
+- Fixed `Undefined array key "traceHash"` in the database panel with yii2-debug 2.1.23+, which is now the minimum version (#294)
 
 ## 1.2.8
 - Added migration for table `audit_trail`, changed `old_value` & `new_value` to `LONGTEXT` (#304)

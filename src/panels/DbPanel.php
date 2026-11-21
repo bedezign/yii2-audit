@@ -1,4 +1,5 @@
 <?php
+// file generated with AI assistance: Claude Code - 2026-11-21 22:02:00 UTC
 
 namespace bedezign\yii2\audit\panels;
 
@@ -10,18 +11,10 @@ use yii\grid\GridViewAsset;
 /**
  * DbPanel
  * @package bedezign\yii2\audit\panels
- *
- * @method bool hasExplain()
- * @method int sumDuplicateQueries()
  */
 class DbPanel extends \yii\debug\panels\DbPanel
 {
     use DataStoragePanelTrait;
-
-    /**
-     * @var array current database request timings
-     */
-    private $_timings;
 
     /**
      * @inheritdoc
@@ -46,15 +39,16 @@ class DbPanel extends \yii\debug\panels\DbPanel
         }
 
         $models = $this->getModels();
-        $dataProvider = $searchModel->search($models);
-        $dataProvider->getSort()->defaultOrder = $this->defaultOrder;
+        $queryDataProvider = $searchModel->search($models);
+        $queryDataProvider->getSort()->defaultOrder = $this->defaultOrder;
 
         return Yii::$app->view->render('@yii/debug/views/default/panels/db/detail', [
             'panel' => $this,
-            'dataProvider' => $dataProvider,
+            'queryDataProvider' => $queryDataProvider,
+            'callerDataProvider' => $this->generateQueryCallersDataProvider($models),
             'searchModel' => $searchModel,
-            'hasExplain' => method_exists($this, 'hasExplain') ? $this->hasExplain() : null,
-            'sumDuplicates' => method_exists($this, 'sumDuplicateQueries') ? $this->sumDuplicateQueries($models) : null,
+            'hasExplain' => $this->hasExplain(),
+            'sumDuplicates' => $this->sumDuplicateQueries($models),
         ]);
     }
 
@@ -73,18 +67,16 @@ class DbPanel extends \yii\debug\panels\DbPanel
     }
 
     /**
-     * Calculates given request profile timings.
+     * Calculates the profile timings of the stored request.
+     * Without stored messages there are no timings: the parent would fall back to the logs of the current request.
      *
-     * @return array timings [token, category, timestamp, traces, nesting level, elapsed time]
+     * @return array timings as calculated by the parent panel, including `traceHash`
      */
     public function calculateTimings()
     {
-        if ($this->_timings === null) {
-            $this->_timings = [];
-            if (isset($this->data['messages'])) {
-                $this->_timings = Yii::getLogger()->calculateTimings($this->data['messages']);
-            }
+        if (!isset($this->data['messages'])) {
+            return [];
         }
-        return $this->_timings;
+        return parent::calculateTimings();
     }
 }

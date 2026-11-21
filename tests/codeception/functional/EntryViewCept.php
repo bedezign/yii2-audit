@@ -1,4 +1,5 @@
 <?php
+// file generated with AI assistance: Claude Code - 2026-11-21 22:20:00 UTC
 
 use bedezign\yii2\audit\tests\FunctionalTester;
 use Codeception\Scenario;
@@ -18,7 +19,9 @@ $I->click('Request', '.list-group-item');
 $I->see('Request', 'h1');
 
 $I->click('Database', '.list-group-item');
-$I->see('Database Queries', 'h1');
+$I->see('Database', 'h1');
+$I->see('Database Queries', 'h3');
+$I->see('Database Callers', 'h3');
 
 $I->click('Logs', '.list-group-item');
 $I->see('Log Messages', 'h1');
